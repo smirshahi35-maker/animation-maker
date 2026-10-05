@@ -285,29 +285,29 @@
           // Phase 1 — logo blooms (spring-pop-entrance), presents line, free pill slams on "رایگان"
           tl.fromTo("#s4-logo", { scale: 0.3, opacity: 0, rotation: -12 }, { scale: 1, opacity: 1, rotation: 0, duration: 0.7, ease: "back.out(1.8)" }, 0.02);
           tl.fromTo("#s4-presents", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.5);
-          tl.fromTo("#s4-pill", { opacity: 0, scale: 1.5, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.45, ease: "power4.out" }, 1.4);
-          tl.fromTo("#s4-shine", { x: -160 }, { x: 640, duration: 0.8, ease: "power2.inOut" }, 1.95);
+          tl.fromTo("#s4-pill", { opacity: 0, scale: 1.5, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.45, ease: "power4.out" }, 1.59);
+          tl.fromTo("#s4-shine", { x: -160 }, { x: 640, duration: 0.8, ease: "power2.inOut" }, 2.14);
 
           // Phase 2 — brand clears, title lands on "مدیریت نوین کلینیک"
-          tl.to("#s4-brand", { opacity: 0, scale: 0.6, y: -260, duration: 0.5, ease: "power3.in" }, 2.85);
-          tl.to(["#s4-ring1", "#s4-ring2"], { opacity: 0.45, duration: 0.6, ease: "power2.out" }, 3.0);
-          tl.fromTo("#s4-title", { y: 430 }, { y: 0, duration: 0.8, ease: "power3.inOut" }, 4.6);
-          tl.fromTo("#s4-title-label", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 3.1);
+          tl.to("#s4-brand", { opacity: 0, scale: 0.6, y: -260, duration: 0.5, ease: "power3.in" }, 3.1);
+          tl.to(["#s4-ring1", "#s4-ring2"], { opacity: 0.45, duration: 0.6, ease: "power2.out" }, 3.25);
+          tl.fromTo("#s4-title", { y: 430 }, { y: 0, duration: 0.8, ease: "power3.inOut" }, 4.89);
+          tl.fromTo("#s4-title-label", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 3.35);
           tl.fromTo(
             "#s4-title-text .w",
             { opacity: 0, y: 80, filter: "blur(10px)" },
             { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.55, ease: "expo.out", stagger: 0.38 },
-            3.12,
+            3.37,
           );
 
           // Host card rises on "با مهندس حسام هاشمی" (camera push inside the card)
-          tl.fromTo("#s4-card", { opacity: 0, y: 220, rotationX: 18, transformPerspective: 1200 }, { opacity: 1, y: 0, rotationX: 0, duration: 0.8, ease: "expo.out" }, 5.0);
-          tl.fromTo("#s4-host", { scale: 1.0 }, { scale: 1.1, duration: 5.5, ease: "sine.inOut" }, 5.0);
-          tl.fromTo("#s4-name", { opacity: 0, y: 60, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(1.7)" }, 5.45);
+          tl.fromTo("#s4-card", { opacity: 0, y: 220, rotationX: 18, transformPerspective: 1200 }, { opacity: 1, y: 0, rotationX: 0, duration: 0.8, ease: "expo.out" }, 5.29);
+          tl.fromTo("#s4-host", { scale: 1.0 }, { scale: 1.1, duration: 5.2, ease: "sine.inOut" }, 5.29);
+          tl.fromTo("#s4-name", { opacity: 0, y: 60, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(1.7)" }, 5.74);
 
           // Learning line, word by word (waterfall-entry)
-          tl.fromTo("#s4-learn .w", { opacity: 0, y: 46 }, { opacity: 1, y: 0, duration: 0.42, ease: "power3.out", stagger: 0.24 }, 7.0);
-          tl.fromTo("#s4-learn .hl", { textShadow: "0 0 0px rgba(61,111,224,0)" }, { textShadow: "0 0 34px rgba(61,111,224,1)", duration: 0.5, ease: "power2.out", immediateRender: false }, 8.3);
+          tl.fromTo("#s4-learn .w", { opacity: 0, y: 46 }, { opacity: 1, y: 0, duration: 0.42, ease: "power3.out", stagger: 0.24 }, 7.13);
+          tl.fromTo("#s4-learn .hl", { textShadow: "0 0 0px rgba(61,111,224,0)" }, { textShadow: "0 0 34px rgba(61,111,224,1)", duration: 0.5, ease: "power2.out", immediateRender: false }, 8.39);
 
           window.__timelines["s4-reveal"] = tl;
         })();

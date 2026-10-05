@@ -52,7 +52,7 @@ Hook at frame 1. Clock ticks under it. The counter is the reference's "purchasin
 - duration: 10.5s
 - transition_in: cut (impact + flash)
 - scene: Argon logo blooms with rings; "وبینار رایگان" pill; title «مدیریت نوین کلینیک»; host photo card with name plate; "یاد بگیر چطور مراجعه‌کننده جذب کنی"
-- voiceover: "آرگون مدیکال یه وبینار رایگان برگزار می‌کنه: مدیریت نوین کلینیک، با مهندس حسام هاشمی؛ تا یاد بگیری چطور مراجعه‌کننده جذب کنی."
+- voiceover: "آرگون مدی‌کال یه وبینار رایگان برگزار می‌کنه: مدیریت نوین کلینیک، با مهندس حسام هاشمی؛ تا یاد بگیری چطور مراجعه‌کننده جذب کنی."
 - poster: 9.5
 - rules: spring-pop-entrance, ambient-glow-bloom, waterfall-entry, multi-phase-camera (card push)
 - status: animated
@@ -63,12 +63,12 @@ Hook at frame 1. Clock ticks under it. The counter is the reference's "purchasin
 - duration: 10.0s
 - transition_in: cut
 - scene: Phone with the real Porsline form; each step on its VO word: type name, type phone, tap role, tap challenge, type city; progress bar fills; success check
-- voiceover: "ثبت‌نامش فقط پنج قدمه: اسمت... شماره‌ت... نقشت توی کلینیک... بزرگ‌ترین چالشت... و شهرت. تمام!"
+- voiceover: "ثبت‌نامش فقط پنج قدمه: اسمت... شماره‌ت... نقشت توی کلینیک... بزرگ‌ترین چالشت... و شهرِ خودت. تمام!"
 - poster: 9.5
 - rules: cursor-click-ripple, discrete-text-sequence (typing), stat-bars-and-fills (progress), vertical-spring-ticker (step label)
 - status: animated
 
-Step marks: s1 28.08 · s2 29.19 · s3 30.37 · s4 31.92 · s5 33.84 · done 34.93.
+Step marks: s1 28.08 · s2 29.19 · s3 30.37 · s4 31.92 · s5 33.95 · done 35.25 (narration v2; the success beat starts 35.06, just before «تمام»).
 
 ## Frame 6 — Full chairs
 
