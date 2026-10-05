@@ -1,5 +1,5 @@
 {
-  "source": "narration.wav (ElevenLabs v3, Roya). Seconds from file start; the file plays at 0.4s in the video. v2 replaces two phrases with verified takes; see 'fixes'.",
+  "source": "narration.wav (ElevenLabs v3, Roya). Seconds from file start; the file plays at 0.4s in the video. v2 replaces two phrases with verified takes; see 'fixes'. v2/v3 marks for the replaced phrases are energy onsets (-45 dB); older marks came from Scribe alignment and can read ~0.1-0.2s early.",
   "duration": 42.72,
   "lines": [
     {
@@ -54,8 +54,8 @@
         "s2": 28.79,
         "s3": 29.97,
         "s4": 31.52,
-        "s5": 33.55,
-        "done": 34.85
+        "s5": 33.56,
+        "done": 34.89
       }
     },
     {
@@ -77,11 +77,11 @@
   "fixes": [
     {
       "what": "«آرگون مدیکال» was spoken as «مدینال» (real ASR heard «مدیناد»)",
-      "fix": "spelled «مدی‌کال» with a ZWNJ; take A-zwnj-2 spliced at 14.92–25.15; real ASR heard «آرگون مدیکال»"
+      "fix": "spelled «مدی‌کال» with a ZWNJ; take A-zwnj-2 spliced at 14.92–25.15; real ASR heard «آرگون مدیکال»; 90 ms release on «کنی» because the take's last vowel is cut off in the source file"
     },
     {
       "what": "«شهرت» (shahret) was spoken as «شُهرَت» (shohrat)",
-      "fix": "reworded to «شهرِ خودت»; take B-khodet-1 spliced at 33.51–35.17; real ASR heard «شهر خودت»"
+      "fix": "reworded to «شهرِ خودت»; take B-khodet-1 spliced at 33.51-35.23 with per-word gains (-2.07 dB on «و شهر خودت», +6.79 dB on «تمام») to match the approved levels; real ASR heard «شهر خودت»"
     }
   ]
 }

@@ -68,7 +68,7 @@ Hook at frame 1. Clock ticks under it. The counter is the reference's "purchasin
 - rules: cursor-click-ripple, discrete-text-sequence (typing), stat-bars-and-fills (progress), vertical-spring-ticker (step label)
 - status: animated
 
-Step marks: s1 28.08 · s2 29.19 · s3 30.37 · s4 31.92 · s5 33.95 · done 35.25 (narration v2; the success beat starts 35.06, just before «تمام»).
+Step marks: s1 28.08 · s2 29.19 · s3 30.37 · s4 31.92 · s5 33.96 · done 35.29 (narration v3; the success beat starts 35.11, just before «تمام»).
 
 ## Frame 6 — Full chairs
 
