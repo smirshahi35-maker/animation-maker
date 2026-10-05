@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="fa">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "AbarHigh";
+          src: url("assets/fonts/AbarHigh-Regular.otf") format("opentype");
+          font-weight: 400;
+          font-style: normal;
+          font-display: block;
+        }
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "AbarHigh", sans-serif;
+          font-synthesis: none;
+          color: #f2f5fb;
+        }
+        #s7-bg {
+          position: absolute;
+          inset: 0;
+          background: #060a14;
+        }
+        #s7-glow {
+          position: absolute;
+          left: -300px;
+          right: -300px;
+          top: 420px;
+          height: 1200px;
+          background: radial-gradient(ellipse 40% 40% at 50% 50%, rgba(61, 111, 224, 0.45) 0%, rgba(61, 111, 224, 0.12) 50%, rgba(6, 10, 20, 0) 75%);
+        }
+        .ring {
+          position: absolute;
+          left: 50%;
+          top: 1020px;
+          border-radius: 50%;
+          border: 3px solid rgba(169, 195, 255, 0.22);
+        }
+        .fa {
+          direction: rtl;
+          unicode-bidi: isolate;
+        }
+        .w {
+          display: inline-block;
+        }
+        .rule-label {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 22px;
+          font-size: 40px;
+          line-height: 1.3;
+          color: #9aa6c2;
+        }
+        .rule-label i {
+          display: block;
+          width: 84px;
+          height: 3px;
+          background: #9aa6c2;
+          opacity: 0.7;
+        }
+        #s7-head {
+          position: absolute;
+          top: 210px;
+          left: 90px;
+          right: 90px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+        #s7-l1 {
+          margin-top: 18px;
+          font-size: 104px;
+          line-height: 1.3;
+          color: #f2f5fb;
+          text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+        }
+        #s7-l2 {
+          font-size: 112px;
+          line-height: 1.3;
+          white-space: nowrap;
+          filter: drop-shadow(0 0 30px rgba(61, 111, 224, 0.75));
+        }
+        #s7-l2 .w {
+          background: linear-gradient(180deg, #e4ecff 15%, #8fb0ff 55%, #3d6fe0 100%);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          padding: 0 6px;
+        }
+        #s7-hl {
+          position: absolute;
+          left: 390px;
+          top: 870px;
+          width: 300px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 18px;
+        }
+        #s7-bubble {
+          width: 300px;
+          height: 300px;
+          border-radius: 50%;
+          padding: 12px;
+          background: #060a14;
+          box-shadow: 0 0 0 5px #c7cede, 0 0 90px rgba(61, 111, 224, 0.7);
+        }
+        #s7-bubble img {
+          display: block;
+          width: 276px;
+          height: 276px;
+          border-radius: 50%;
+          object-fit: cover;
+          object-position: 50% 18%;
+        }
+        #s7-hl-label {
+          font-size: 50px;
+          line-height: 1.3;
+          color: #ffffff;
+        }
+        #s7-tap {
+          position: absolute;
+          left: 540px;
+          top: 1020px;
+          width: 96px;
+          height: 96px;
+          margin-left: -48px;
+          margin-top: -48px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.85);
+          box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.25), 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        #s7-ripple {
+          position: absolute;
+          left: 540px;
+          top: 1020px;
+          width: 96px;
+          height: 96px;
+          margin-left: -48px;
+          margin-top: -48px;
+          border-radius: 50%;
+          border: 6px solid #ffffff;
+        }
+        #s7-profile {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 1300px;
+          display: flex;
+          justify-content: center;
+        }
+        #s7-chip {
+          display: flex;
+          align-items: center;
+          gap: 26px;
+          padding: 18px 40px 18px 22px;
+          border-radius: 80px;
+          background: rgba(10, 16, 34, 0.9);
+          border: 3px solid rgba(169, 195, 255, 0.45);
+        }
+        #s7-chip img {
+          width: 112px;
+          height: 112px;
+          border-radius: 50%;
+          display: block;
+        }
+        #s7-chip-text {
+          display: flex;
+          flex-direction: column;
+        }
+        #s7-handle {
+          direction: ltr;
+          font-size: 58px;
+          line-height: 1.25;
+          color: #ffffff;
+        }
+        #s7-brand {
+          font-size: 40px;
+          line-height: 1.3;
+          color: #9aa6c2;
+        }
+      </style>
+
+      <div id="root" data-composition-id="s7-cta" data-width="1080" data-height="1920">
+        <div id="s7-bg" class="clip" data-start="0" data-duration="5.8" data-track-index="0"></div>
+        <div id="s7-glow" data-layout-ignore></div>
+        <div id="s7-rings"></div>
+
+        <div id="s7-head" class="fa">
+          <div class="rule-label" id="s7-label"><i></i><span>ثبت‌نام رایگان</span><i></i></div>
+          <div id="s7-l1"><span class="w">لینک</span> <span class="w">ثبت‌نام</span></div>
+          <div id="s7-l2" data-layout-allow-overflow><span class="w">در</span> <span class="w">هایلایت</span> <span class="w">«وبینار»</span></div>
+        </div>
+
+        <div id="s7-hl" class="fa">
+          <div id="s7-bubble"><img src="assets/brand/host-crop.png" alt="" /></div>
+          <div id="s7-hl-label">وبینار</div>
+        </div>
+        <div id="s7-ripple"></div>
+        <div id="s7-tap"></div>
+
+        <div id="s7-profile">
+          <div id="s7-chip">
+            <img src="assets/brand/logo-circle.png" alt="Argon Medical" />
+            <div id="s7-chip-text">
+              <div id="s7-handle">@argonmed</div>
+              <div id="s7-brand" class="fa">آرگون مدیکال</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+
+          // Concentric rings around the highlight bubble (sine-wave-loop breathing)
+          const rings = document.getElementById("s7-rings");
+          [420, 560, 720, 900, 1100].forEach((d, i) => {
+            const r = document.createElement("div");
+            r.className = "ring";
+            r.setAttribute("data-layout-ignore", "");
+            r.id = "s7-ring-" + i;
+            r.style.width = d + "px";
+            r.style.height = d + "px";
+            r.style.marginLeft = -d / 2 + "px";
+            r.style.marginTop = -d / 2 + "px";
+            r.style.borderStyle = i % 2 ? "dashed" : "solid";
+            r.style.opacity = String(0.9 - i * 0.15);
+            rings.appendChild(r);
+            tl.fromTo(r, { scale: 0.7, rotation: 0, opacity: 0 }, { scale: 1, rotation: i % 2 ? 30 : -20, opacity: 0.9 - i * 0.15, duration: 5.8, ease: "power2.out" }, 0.1 + i * 0.08);
+          });
+          tl.fromTo("#s7-glow", { opacity: 0.5, scale: 0.85 }, { opacity: 1, scale: 1.05, duration: 5.8, ease: "sine.inOut" }, 0);
+
+          // "لینک ثبت‌نام" / "توی هایلایت وبینار"
+          tl.fromTo("#s7-label", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.05);
+          tl.fromTo("#s7-l1 .w", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.45, ease: "expo.out", stagger: 0.2 }, 0.08);
+          tl.fromTo(
+            "#s7-l2 .w",
+            { opacity: 0, scale: 1.4, filter: "blur(14px)" },
+            { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.45, ease: "power4.out", stagger: 0.32 },
+            1.1,
+          );
+
+          // Highlight bubble pops in, then gets tapped (cursor-click-ripple + press-release-spring)
+          tl.fromTo("#s7-hl", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.8)" }, 0.9);
+          tl.fromTo("#s7-tap", { opacity: 0, x: 170, y: 230 }, { opacity: 1, x: 0, y: 0, duration: 0.45, ease: "power2.out" }, 1.75);
+          tl.fromTo("#s7-tap", { scale: 1 }, { scale: 0.78, duration: 0.09, ease: "power1.in", immediateRender: false }, 2.2);
+          tl.to("#s7-tap", { scale: 1, duration: 0.25, ease: "back.out(3)" }, 2.29);
+          tl.fromTo("#s7-bubble", { scale: 1 }, { scale: 0.92, duration: 0.09, ease: "power1.in" }, 2.2);
+          tl.to("#s7-bubble", { scale: 1, duration: 0.35, ease: "back.out(3)" }, 2.29);
+          tl.fromTo("#s7-ripple", { opacity: 0, scale: 1 }, { opacity: 0.9, scale: 1, duration: 0.01, ease: "none" }, 2.2);
+          tl.to("#s7-ripple", { opacity: 0, scale: 3.4, duration: 0.6, ease: "power2.out" }, 2.21);
+          tl.to("#s7-tap", { opacity: 0, x: 120, y: 200, duration: 0.5, ease: "power2.in" }, 3.0);
+
+          // Profile chip on "پیج آرگون مدیکال"
+          tl.fromTo("#s7-chip", { opacity: 0, y: 50, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(1.7)" }, 2.9);
+
+          // Hold: gentle breath on the bubble ring glow
+          tl.fromTo("#s7-bubble", { boxShadow: "0 0 0 5px #c7cede, 0 0 90px rgba(61,111,224,0.7)" }, { boxShadow: "0 0 0 5px #c7cede, 0 0 140px rgba(61,111,224,1)", duration: 0.9, ease: "sine.inOut", yoyo: true, repeat: 2, immediateRender: false }, 3.3);
+
+          window.__timelines["s7-cta"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

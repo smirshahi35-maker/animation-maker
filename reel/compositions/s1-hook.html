@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="fa">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "AbarHigh";
+          src: url("assets/fonts/AbarHigh-Regular.otf") format("opentype");
+          font-weight: 400;
+          font-style: normal;
+          font-display: block;
+        }
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "AbarHigh", sans-serif;
+          font-synthesis: none;
+          color: #f2f5fb;
+        }
+        #s1-bg {
+          position: absolute;
+          inset: 0;
+          background: #060a14;
+        }
+        #s1-cam {
+          position: absolute;
+          inset: 0;
+          transform-origin: 50% 62%;
+        }
+        #s1-cam img {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        #s1-grade {
+          position: absolute;
+          inset: 0;
+          background:
+            radial-gradient(ellipse 80% 55% at 50% 62%, rgba(6, 10, 20, 0) 0%, rgba(6, 10, 20, 0.55) 100%),
+            linear-gradient(180deg, rgba(6, 10, 20, 0.94) 0%, rgba(6, 10, 20, 0.7) 26%, rgba(6, 10, 20, 0) 50%, rgba(6, 10, 20, 0.35) 78%, rgba(6, 10, 20, 0.85) 100%);
+        }
+        .fa {
+          direction: rtl;
+          unicode-bidi: isolate;
+        }
+        .w {
+          display: inline-block;
+        }
+        #s1-top {
+          position: absolute;
+          top: 230px;
+          left: 108px;
+          right: 108px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 18px;
+          text-align: center;
+        }
+        .rule-label {
+          display: flex;
+          align-items: center;
+          gap: 22px;
+          font-size: 38px;
+          line-height: 1.3;
+          color: #9aa6c2;
+        }
+        .rule-label i {
+          display: block;
+          width: 84px;
+          height: 3px;
+          background: #9aa6c2;
+          opacity: 0.7;
+        }
+        /* Gradient lives on each word: animated (transformed) children break a parent's background-clip:text. */
+        #s1-h1 {
+          font-size: 122px;
+          line-height: 1.3;
+          filter: drop-shadow(0 0 26px rgba(120, 160, 255, 0.35));
+        }
+        #s1-h1 .w {
+          background: linear-gradient(180deg, #ffffff 25%, #c9d7f5 60%, #8fa6d6 100%);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          padding: 0 6px;
+        }
+        #s1-h2 {
+          font-size: 126px;
+          white-space: nowrap;
+          line-height: 1.25;
+          filter: drop-shadow(0 0 34px rgba(255, 74, 61, 0.55));
+        }
+        #s1-h2 .w {
+          background: linear-gradient(180deg, #ffb27a 20%, #ff4a3d 60%, #d0202c 100%);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          padding: 0 6px;
+        }
+        #s1-counter {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 1215px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 8px;
+        }
+        #s1-chip {
+          display: flex;
+          align-items: center;
+          gap: 34px;
+          padding: 22px 48px;
+          border-radius: 36px;
+          background: rgba(6, 10, 20, 0.72);
+          border: 3px solid rgba(255, 74, 61, 0.55);
+          box-shadow: 0 0 60px rgba(255, 74, 61, 0.25);
+        }
+        #s1-chip-label {
+          font-size: 46px;
+          line-height: 1.3;
+          color: #f2f5fb;
+        }
+        .odo {
+          height: 170px;
+          width: 130px;
+          overflow: hidden;
+          direction: ltr;
+        }
+        .odo-stack {
+          display: flex;
+          flex-direction: column;
+        }
+        /* Persian digits rise 0.73em above the baseline; shift down 0.155em to center them (zero is already centered). */
+        .odo-stack div {
+          height: 170px;
+          text-align: center;
+          font-size: 150px;
+          line-height: 170px;
+          color: #ff4a3d;
+          text-shadow: 0 0 30px rgba(255, 74, 61, 0.7);
+          position: relative;
+          top: 23px;
+        }
+        .odo-stack div.z {
+          top: 3px;
+          font-size: 190px;
+        }
+      </style>
+
+      <div id="root" data-composition-id="s1-hook" data-width="1080" data-height="1920">
+        <div id="s1-bg" class="clip" data-start="0" data-duration="5.2" data-track-index="0"></div>
+        <div id="s1-cam">
+          <img src="assets/ai/waiting-empty.png" alt="" />
+        </div>
+        <div id="s1-grade"></div>
+
+        <div id="s1-top" class="fa">
+          <div class="rule-label" id="s1-label"><i></i><span>کلینیک شما</span><i></i></div>
+          <div id="s1-h1"><span class="w">بهترین</span> <span class="w">دستگاه‌ها</span></div>
+          <div id="s1-h2"><span class="w">صندلی‌های</span> <span class="w">خالی</span></div>
+        </div>
+
+        <div id="s1-counter">
+          <div id="s1-chip" class="fa">
+            <div id="s1-chip-label">نوبت‌های امروز</div>
+            <div class="odo"><div class="odo-stack" id="s1-odo"><div>۳</div><div>۲</div><div>۱</div><div class="z">۰</div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          // Camera: slow push-in on the empty chairs (multi-phase-camera, single push phase)
+          tl.fromTo("#s1-cam", { scale: 1.0, y: 0 }, { scale: 1.09, y: -24, duration: 5.2, ease: "sine.inOut" }, 0);
+
+          // Label + first headline arrive with the first words of the VO
+          tl.fromTo("#s1-label", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.25);
+          tl.fromTo(
+            "#s1-h1 .w",
+            { opacity: 0, y: 70, filter: "blur(10px)" },
+            { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "expo.out", stagger: 0.32 },
+            0.45,
+          );
+
+          // "پس چرا..." — the first line steps back, the red line slams in on "صندلی‌های"
+          tl.to("#s1-h1", { opacity: 0.38, scale: 0.9, duration: 0.5, ease: "power2.inOut" }, 2.75);
+          tl.fromTo(
+            "#s1-h2 .w",
+            { opacity: 0, scale: 1.45, filter: "blur(18px)" },
+            { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.5, ease: "power4.out", stagger: 0.42 },
+            3.15,
+          );
+
+          // Bookings counter appears, then ticks down to zero (vertical-spring-ticker)
+          tl.fromTo("#s1-chip", { opacity: 0, y: 40, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(1.6)" }, 1.0);
+          const odo = document.getElementById("s1-odo");
+          const springs = [0, 1, 2].map(() => ({ p: 0 }));
+          const apply = () => {
+            const sum = springs.reduce((a, s) => a + s.p, 0);
+            odo.style.transform = "translateY(" + -sum * 170 + "px)";
+          };
+          apply();
+          [2.2, 2.85, 3.5].forEach((t, i) => {
+            tl.to(springs[i], { p: 1, duration: 0.5, ease: "back.out(2)", onUpdate: apply }, t);
+          });
+          // Zero lands: chip border flares
+          tl.fromTo("#s1-chip", { boxShadow: "0 0 60px rgba(255,74,61,0.25)" }, { boxShadow: "0 0 120px rgba(255,74,61,0.6)", duration: 0.35, ease: "power2.out", immediateRender: false }, 3.85);
+          tl.to("#s1-chip", { boxShadow: "0 0 70px rgba(255,74,61,0.35)", duration: 1.0, ease: "sine.inOut" }, 4.2);
+
+          window.__timelines["s1-hook"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

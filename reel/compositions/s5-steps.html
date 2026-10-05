@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="fa">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "AbarHigh";
+          src: url("assets/fonts/AbarHigh-Regular.otf") format("opentype");
+          font-weight: 400;
+          font-style: normal;
+          font-display: block;
+        }
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "AbarHigh", sans-serif;
+          font-synthesis: none;
+          color: #f2f5fb;
+        }
+        #s5-bg {
+          position: absolute;
+          inset: 0;
+          background: #060a14;
+        }
+        #s5-glow {
+          position: absolute;
+          left: -300px;
+          right: -300px;
+          top: 420px;
+          height: 1300px;
+          background: radial-gradient(ellipse 42% 42% at 50% 50%, rgba(61, 111, 224, 0.4) 0%, rgba(61, 111, 224, 0.1) 50%, rgba(6, 10, 20, 0) 75%);
+        }
+        .fa {
+          direction: rtl;
+          unicode-bidi: isolate;
+        }
+        .w {
+          display: inline-block;
+        }
+        .rule-label {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 22px;
+          font-size: 38px;
+          line-height: 1.3;
+          color: #9aa6c2;
+        }
+        .rule-label i {
+          display: block;
+          width: 84px;
+          height: 3px;
+          background: #9aa6c2;
+          opacity: 0.7;
+        }
+        #s5-head {
+          position: absolute;
+          top: 190px;
+          left: 108px;
+          right: 108px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+        #s5-title {
+          margin-top: 14px;
+          font-size: 104px;
+          line-height: 1.3;
+          color: #f2f5fb;
+          text-shadow: 0 0 30px rgba(120, 160, 255, 0.35);
+        }
+        #s5-five {
+          line-height: 1;
+          color: #8fb0ff;
+          text-shadow: 0 0 36px rgba(61, 111, 224, 0.95);
+          font-size: 128px;
+        }
+        #s5-ticker {
+          position: absolute;
+          top: 382px;
+          left: 140px;
+          right: 140px;
+          height: 72px;
+          overflow: hidden;
+        }
+        #s5-ticker-stack {
+          display: flex;
+          flex-direction: column;
+        }
+        #s5-ticker-stack div {
+          height: 72px;
+          line-height: 72px;
+          text-align: center;
+          font-size: 46px;
+          color: #f2f5fb;
+          white-space: nowrap;
+        }
+        #s5-ticker-stack div b {
+          font-weight: 400;
+          color: #8fb0ff;
+        }
+        #s5-ticker-stack .sep {
+          display: inline-block;
+          width: 3px;
+          height: 36px;
+          margin: 0 22px;
+          vertical-align: -4px;
+          background: rgba(154, 166, 194, 0.6);
+        }
+        #s5-progress {
+          position: absolute;
+          top: 466px;
+          left: 240px;
+          right: 240px;
+          height: 10px;
+          border-radius: 5px;
+          background: rgba(154, 166, 194, 0.25);
+          overflow: hidden;
+        }
+        #s5-progress-fill {
+          width: 100%;
+          height: 100%;
+          border-radius: 5px;
+          background: #3d6fe0;
+          box-shadow: 0 0 18px rgba(61, 111, 224, 0.9);
+          transform-origin: 100% 50%;
+        }
+        #s5-phone {
+          position: absolute;
+          left: 288px;
+          top: 500px;
+          width: 504px;
+          height: 1064px;
+          border-radius: 64px;
+          background: #0b0e16;
+          border: 3px solid rgba(169, 195, 255, 0.35);
+          box-shadow: 0 0 0 2px #1b2233, 0 0 120px rgba(61, 111, 224, 0.45), 0 50px 90px rgba(0, 0, 0, 0.6);
+        }
+        #s5-screen {
+          position: absolute;
+          left: 9px;
+          top: 9px;
+          width: 480px;
+          height: 1040px;
+          border-radius: 54px;
+          overflow: hidden;
+          background: #004b84;
+        }
+        .scr {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 480px;
+          height: 1040px;
+        }
+        /* Native screenshot pixels (923x2000) scaled to the 480px screen: 480/923 = 0.52004 */
+        .scr-inner {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 923px;
+          height: 2000px;
+          transform: scale(0.52004);
+          transform-origin: 0 0;
+        }
+        .scr-inner img {
+          position: absolute;
+          inset: 0;
+          width: 923px;
+          height: 2000px;
+        }
+        .cover {
+          position: absolute;
+          border-radius: 12px;
+          background: rgb(27, 93, 144);
+          color: #ffffff;
+          font-size: 44px;
+          line-height: 78px;
+          height: 78px;
+          white-space: nowrap;
+          overflow: hidden;
+        }
+        .cover.rtl {
+          direction: rtl;
+          text-align: right;
+          padding-right: 30px;
+        }
+        .cover.ltr {
+          direction: ltr;
+          text-align: left;
+          padding-left: 8px;
+        }
+        .pick {
+          position: absolute;
+          border-radius: 14px;
+          border: 5px solid #ffffff;
+          background: rgba(61, 111, 224, 0.42);
+          box-shadow: 0 0 40px rgba(169, 195, 255, 0.8);
+        }
+        .press {
+          position: absolute;
+          border-radius: 16px;
+          background: rgba(255, 255, 255, 0.55);
+        }
+        #s5-tap {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 56px;
+          height: 56px;
+          margin-left: -28px;
+          margin-top: -28px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.85);
+          box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.25), 0 8px 24px rgba(0, 0, 0, 0.45);
+        }
+        #s5-ripple {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 56px;
+          height: 56px;
+          margin-left: -28px;
+          margin-top: -28px;
+          border-radius: 50%;
+          border: 5px solid #ffffff;
+        }
+        #s5-done {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 30px;
+          background: rgba(4, 22, 52, 0.84);
+        }
+        #s5-check {
+          width: 230px;
+          height: 230px;
+          display: block;
+        }
+        #s5-done-text {
+          font-size: 66px;
+          line-height: 1.3;
+          color: #ffffff;
+        }
+      </style>
+
+      <div id="root" data-composition-id="s5-steps" data-width="1080" data-height="1920">
+        <div id="s5-bg" class="clip" data-start="0" data-duration="10" data-track-index="0"></div>
+        <div id="s5-glow" data-layout-ignore></div>
+
+        <div id="s5-head" class="fa">
+          <div class="rule-label" id="s5-label"><i></i><span>ثبت‌نام رایگان</span><i></i></div>
+          <div id="s5-title"><span class="w">فقط</span> <span class="w" id="s5-five" data-layout-allow-overlap>۵</span> <span class="w">قدم</span></div>
+        </div>
+
+        <div id="s5-ticker" class="fa">
+          <div id="s5-ticker-stack" data-layout-allow-overflow>
+            <div data-layout-allow-overlap data-layout-allow-occlusion><b data-layout-allow-overlap data-layout-allow-occlusion>قدم ۱</b><i class="sep"></i>نام و نام خانوادگی</div>
+            <div data-layout-allow-overlap data-layout-allow-occlusion><b data-layout-allow-overlap data-layout-allow-occlusion>قدم ۲</b><i class="sep"></i>شماره موبایل</div>
+            <div data-layout-allow-overlap data-layout-allow-occlusion><b data-layout-allow-overlap data-layout-allow-occlusion>قدم ۳</b><i class="sep"></i>نقش شما در کلینیک</div>
+            <div data-layout-allow-overlap data-layout-allow-occlusion><b data-layout-allow-overlap data-layout-allow-occlusion>قدم ۴</b><i class="sep"></i>بزرگ‌ترین چالش کلینیک</div>
+            <div data-layout-allow-overlap data-layout-allow-occlusion><b data-layout-allow-overlap data-layout-allow-occlusion>قدم ۵</b><i class="sep"></i>شهر محل فعالیت</div>
+            <div data-layout-allow-overlap data-layout-allow-occlusion><b data-layout-allow-overlap data-layout-allow-occlusion>تمام!</b><i class="sep"></i>ثبت‌نام کامل شد</div>
+          </div>
+        </div>
+        <div id="s5-progress"><div id="s5-progress-fill"></div></div>
+
+        <div id="s5-phone">
+          <div id="s5-screen">
+            <div class="scr" id="s5-scr1" data-layout-allow-overflow>
+              <div class="scr-inner">
+                <img src="assets/screens/01-name.webp" alt="" />
+                <div class="cover rtl" id="s5-type1" style="left: 192px; top: 986px; width: 624px"></div>
+                <div class="press" id="s5-press1" style="left: 528px; top: 1120px; width: 292px; height: 85px"></div>
+              </div>
+            </div>
+            <div class="scr" id="s5-scr2" data-layout-allow-overflow>
+              <div class="scr-inner">
+                <img src="assets/screens/02-phone.webp" alt="" />
+                <div class="cover ltr" id="s5-type2" style="left: 224px; top: 994px; width: 592px"></div>
+              </div>
+            </div>
+            <div class="scr" id="s5-scr3" data-layout-allow-overflow>
+              <div class="scr-inner">
+                <img src="assets/screens/03-job.webp" alt="" />
+                <div class="pick" id="s5-pick3" style="left: 216px; top: 858px; width: 606px; height: 88px"></div>
+              </div>
+            </div>
+            <div class="scr" id="s5-scr4" data-layout-allow-overflow>
+              <div class="scr-inner">
+                <img src="assets/screens/04-challenge.webp" alt="" />
+                <div class="pick" id="s5-pick4" style="left: 168px; top: 768px; width: 654px; height: 88px"></div>
+              </div>
+            </div>
+            <div class="scr" id="s5-scr5" data-layout-allow-overflow>
+              <div class="scr-inner">
+                <img src="assets/screens/05-city.webp" alt="" />
+                <div class="cover rtl" id="s5-type5" style="left: 192px; top: 994px; width: 624px"></div>
+              </div>
+            </div>
+            <div id="s5-ripple"></div>
+            <div id="s5-tap"></div>
+            <div id="s5-done" class="fa">
+              <svg id="s5-check" viewBox="0 0 120 120">
+                <circle id="s5-check-ring" cx="60" cy="60" r="52" fill="#3d6fe0" stroke="#a9c3ff" stroke-width="5" />
+                <path id="s5-check-mark" d="M36 62 L53 78 L86 44" fill="none" stroke="#ffffff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <div id="s5-done-text">ثبت‌نام شد!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          const H = 1040;
+
+          // Ambient glow
+          tl.fromTo("#s5-glow", { opacity: 0.7, scale: 0.92 }, { opacity: 1, scale: 1.06, duration: 10, ease: "sine.inOut" }, 0);
+
+          // Header — "ثبت‌نامش فقط پنج قدمه"
+          tl.fromTo("#s5-label", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.05);
+          tl.fromTo("#s5-title .w", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.45, ease: "expo.out", stagger: 0.18 }, 0.15);
+          tl.fromTo("#s5-five", { scale: 1.9, filter: "blur(10px)" }, { scale: 1, filter: "blur(0px)", duration: 0.5, ease: "power4.out", immediateRender: false }, 0.72);
+
+          // Phone rises and settles
+          tl.fromTo("#s5-phone", { opacity: 0, y: 260, rotationX: 22, transformPerspective: 1400 }, { opacity: 1, y: 0, rotationX: 0, duration: 0.9, ease: "expo.out" }, 0.3);
+          tl.fromTo(["#s5-ticker", "#s5-progress"], { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 1.0);
+
+          // Screens 2-5 start below the viewport and slide up on their step word
+          ["#s5-scr2", "#s5-scr3", "#s5-scr4", "#s5-scr5"].forEach((sel) => tl.set(sel, { y: H }, 0));
+          const swap = (from, to, t) => {
+            tl.fromTo(to, { y: H }, { y: 0, duration: 0.45, ease: "power3.out", immediateRender: false }, t);
+            tl.to(from, { y: -260, opacity: 0, duration: 0.45, ease: "power3.out" }, t);
+          };
+          swap("#s5-scr1", "#s5-scr2", 3.35);
+          swap("#s5-scr2", "#s5-scr3", 4.5);
+          swap("#s5-scr3", "#s5-scr4", 6.05);
+          swap("#s5-scr4", "#s5-scr5", 7.95);
+
+          // Step ticker (vertical-spring-ticker) + progress fill (stat-bars-and-fills)
+          const stack = document.getElementById("s5-ticker-stack");
+          const springs = [0, 1, 2, 3, 4].map(() => ({ p: 0 }));
+          const applyTicker = () => {
+            const sum = springs.reduce((a, s) => a + s.p, 0);
+            stack.style.transform = "translateY(" + -sum * 72 + "px)";
+          };
+          applyTicker();
+          [3.39, 4.57, 6.12, 8.04, 9.13].forEach((t, i) => tl.to(springs[i], { p: 1, duration: 0.45, ease: "back.out(2)", onUpdate: applyTicker }, t));
+          tl.fromTo("#s5-progress-fill", { scaleX: 0 }, { scaleX: 0.2, duration: 0.4, ease: "power2.out" }, 2.28);
+          [3.39, 4.57, 6.12, 8.04].forEach((t, i) =>
+            tl.to("#s5-progress-fill", { scaleX: 0.2 * (i + 2), duration: 0.4, ease: "power2.out" }, t),
+          );
+
+          // Typing (discrete-text-sequence): substring of the whole string keeps Persian shaping correct
+          const typeInto = (sel, text, t0, dur) => {
+            const el = document.querySelector(sel);
+            const chars = Array.from(text);
+            const st = { n: 0 };
+            el.textContent = "";
+            // The placeholder stays visible until typing starts
+            tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "none" }, t0 - 0.06);
+            tl.to(st, { n: chars.length, duration: dur, ease: "none", onUpdate: () => (el.textContent = chars.slice(0, Math.round(st.n)).join("")) }, t0);
+          };
+          typeInto("#s5-type1", "سارا محمدی", 2.45, 0.6);
+          typeInto("#s5-type2", "۰۹۱۲۳۴۵۶۷۸۹", 3.65, 0.65);
+          typeInto("#s5-type5", "تهران", 8.45, 0.4);
+
+          // Finger + ripple (cursor-click-ripple). Coordinates are in the 480x1040 screen.
+          tl.set("#s5-tap", { x: 262, y: 533, opacity: 0, scale: 1 }, 0);
+          tl.set("#s5-ripple", { x: 262, y: 533, opacity: 0, scale: 1 }, 0);
+          const tap = (x, y, t, move) => {
+            tl.to("#s5-tap", { x: x, y: y, opacity: 1, duration: move, ease: "power2.inOut" }, t - move);
+            tl.to("#s5-tap", { scale: 0.8, duration: 0.08, ease: "power1.in" }, t);
+            tl.to("#s5-tap", { scale: 1, duration: 0.22, ease: "back.out(3)" }, t + 0.08);
+            // Lift off the field so the typed text and the picked option stay readable
+            tl.to("#s5-tap", { x: x + 70, y: y + 95, duration: 0.3, ease: "power2.out" }, t + 0.22);
+            tl.set("#s5-ripple", { x: x, y: y, scale: 1, opacity: 0.9 }, t);
+            tl.to("#s5-ripple", { scale: 2.6, opacity: 0, duration: 0.5, ease: "power2.out" }, t);
+          };
+          tap(262, 533, 2.38, 0.25);
+          tap(350, 604, 3.15, 0.25);
+          tl.fromTo("#s5-press1", { opacity: 0 }, { opacity: 1, duration: 0.08, ease: "none" }, 3.15);
+          tl.to("#s5-press1", { opacity: 0, duration: 0.25, ease: "power2.out" }, 3.25);
+          tap(239, 537, 3.58, 0.3);
+          tap(270, 469, 5.2, 0.35);
+          tl.fromTo("#s5-pick3", { opacity: 0, scale: 0.97 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2)" }, 5.2);
+          tap(257, 422, 6.8, 0.35);
+          tl.fromTo("#s5-pick4", { opacity: 0, scale: 0.97 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2)" }, 6.8);
+          tap(262, 537, 8.38, 0.3);
+          tl.to("#s5-tap", { opacity: 0, duration: 0.25, ease: "power2.out" }, 8.95);
+
+          // Done — "تمام!"
+          tl.fromTo("#s5-done", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 9.1);
+          tl.fromTo("#s5-check", { scale: 0.3, rotation: -20 }, { scale: 1, rotation: 0, duration: 0.55, ease: "back.out(2.2)" }, 9.13);
+          tl.fromTo("#s5-check-mark", { attr: { "stroke-dasharray": "80 80", "stroke-dashoffset": 80 } }, { attr: { "stroke-dashoffset": 0 }, duration: 0.4, ease: "power2.out" }, 9.3);
+          tl.fromTo("#s5-done-text", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 9.35);
+          tl.fromTo("#s5-phone", { boxShadow: "0 0 0 2px #1b2233, 0 0 120px rgba(61,111,224,0.45), 0 50px 90px rgba(0,0,0,0.6)" }, { boxShadow: "0 0 0 2px #1b2233, 0 0 200px rgba(61,111,224,0.9), 0 50px 90px rgba(0,0,0,0.6)", duration: 0.4, ease: "power2.out", immediateRender: false }, 9.13);
+
+          window.__timelines["s5-steps"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

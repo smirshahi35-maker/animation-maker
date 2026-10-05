@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="fa">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "AbarHigh";
+          src: url("assets/fonts/AbarHigh-Regular.otf") format("opentype");
+          font-weight: 400;
+          font-style: normal;
+          font-display: block;
+        }
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "AbarHigh", sans-serif;
+          font-synthesis: none;
+          color: #f2f5fb;
+        }
+        #s3-bg {
+          position: absolute;
+          inset: 0;
+          background: #060a14;
+        }
+        #s3-glow {
+          position: absolute;
+          left: -200px;
+          right: -200px;
+          top: 300px;
+          height: 1000px;
+          background: radial-gradient(ellipse 50% 45% at 50% 50%, rgba(255, 74, 61, 0.22) 0%, rgba(255, 74, 61, 0.06) 45%, rgba(6, 10, 20, 0) 75%);
+        }
+        #s3-ghost {
+          position: absolute;
+          top: 700px;
+          left: 0;
+          right: 0;
+          text-align: center;
+          font-size: 420px;
+          line-height: 1;
+          color: rgba(154, 166, 194, 0.07);
+          white-space: nowrap;
+          direction: rtl;
+        }
+        .fa {
+          direction: rtl;
+          unicode-bidi: isolate;
+        }
+        .w {
+          display: inline-block;
+        }
+        #s3-a {
+          position: absolute;
+          top: 300px;
+          left: 108px;
+          right: 108px;
+          text-align: center;
+        }
+        #s3-a-text {
+          position: relative;
+          display: inline-block;
+          font-size: 86px;
+          line-height: 1.35;
+        }
+        #s3-strike {
+          position: absolute;
+          left: -10px;
+          right: -10px;
+          top: 54%;
+          height: 9px;
+          border-radius: 5px;
+          background: #ff4a3d;
+          box-shadow: 0 0 24px rgba(255, 74, 61, 0.8);
+          transform-origin: 100% 50%;
+        }
+        #s3-b {
+          position: absolute;
+          top: 560px;
+          left: 80px;
+          right: 80px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+        .s3-small {
+          font-size: 70px;
+          line-height: 1.35;
+          color: #f2f5fb;
+        }
+        #s3-big {
+          font-size: 200px;
+          line-height: 1.2;
+          white-space: nowrap;
+          filter: drop-shadow(0 0 40px rgba(255, 74, 61, 0.6));
+        }
+        #s3-big .w {
+          background: linear-gradient(180deg, #ffb27a 18%, #ff4a3d 58%, #d0202c 100%);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          padding: 0 8px;
+        }
+        #s3-path {
+          position: absolute;
+          top: 1180px;
+          left: 90px;
+          right: 90px;
+          height: 300px;
+        }
+        #s3-path svg.lines {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          overflow: visible;
+        }
+        .node {
+          position: absolute;
+          top: 30px;
+          width: 220px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 16px;
+        }
+        .node .disc {
+          width: 140px;
+          height: 140px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(14, 22, 44, 0.9);
+          border: 4px solid #3d6fe0;
+          box-shadow: 0 0 40px rgba(61, 111, 224, 0.4);
+        }
+        .node .disc svg {
+          width: 64px;
+          height: 64px;
+          display: block;
+        }
+        .node .cap {
+          font-size: 46px;
+          line-height: 1.3;
+        }
+        #s3-n1 {
+          right: 0;
+        }
+        #s3-n2 {
+          left: 340px;
+        }
+        #s3-n3 {
+          left: 0;
+        }
+        #s3-n3 .disc {
+          border-color: #ff4a3d;
+          box-shadow: 0 0 40px rgba(255, 74, 61, 0.35);
+        }
+        #s3-x {
+          position: absolute;
+          left: 205px;
+          top: 30px;
+          width: 140px;
+          height: 140px;
+          filter: drop-shadow(0 0 18px rgba(255, 74, 61, 0.8));
+        }
+        #s3-flash {
+          position: absolute;
+          inset: 0;
+          background: #ffffff;
+          opacity: 0;
+        }
+      </style>
+
+      <div id="root" data-composition-id="s3-path" data-width="1080" data-height="1920">
+        <div id="s3-bg" class="clip" data-start="0" data-duration="4.9" data-track-index="0"></div>
+        <div id="s3-glow" data-layout-ignore></div>
+        <div id="s3-ghost" aria-hidden="true" data-layout-ignore>مسیر</div>
+
+        <div id="s3-a" class="fa">
+          <div id="s3-a-text"><span class="w">مشکل</span> <span class="w">از</span> <span class="w">تخصص</span> <span class="w">تو</span> <span class="w">نیست</span><div id="s3-strike"></div></div>
+        </div>
+
+        <div id="s3-b" class="fa">
+          <div class="s3-small" id="s3-b1">مشکل از</div>
+          <div id="s3-big"><span class="w">مسیر</span> <span class="w">جذب</span></div>
+          <div class="s3-small" id="s3-b2">مراجعه‌کننده‌ست</div>
+        </div>
+
+        <div id="s3-path" class="fa">
+          <svg class="lines" viewBox="0 0 900 300" preserveAspectRatio="none">
+            <!-- right node center x=790, middle x=450, left x=110; y=100 -->
+            <line id="s3-link1" x1="712" y1="100" x2="528" y2="100" stroke="#3d6fe0" stroke-width="8" stroke-linecap="round" />
+            <line id="s3-link2a" x1="372" y1="100" x2="300" y2="100" stroke="#ff4a3d" stroke-width="8" stroke-linecap="round" stroke-dasharray="14 14" />
+            <line id="s3-link2b" x1="250" y1="100" x2="188" y2="100" stroke="#ff4a3d" stroke-width="8" stroke-linecap="round" stroke-dasharray="14 14" opacity="0.45" />
+          </svg>
+          <div class="node" id="s3-n1">
+            <div class="disc"><svg viewBox="0 0 24 24" fill="none" stroke="#a9c3ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z" /><circle cx="12" cy="12" r="3.2" /></svg></div>
+            <div class="cap">دیده‌شدن</div>
+          </div>
+          <div class="node" id="s3-n2">
+            <div class="disc"><svg viewBox="0 0 24 24" fill="none" stroke="#a9c3ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16a1.5 1.5 0 0 1 1.5 1.5v9A1.5 1.5 0 0 1 20 17H9l-5 4v-4H4a1.5 1.5 0 0 1-1.5-1.5v-9A1.5 1.5 0 0 1 4 5z" /></svg></div>
+            <div class="cap">پیام</div>
+          </div>
+          <div class="node" id="s3-n3">
+            <div class="disc"><svg viewBox="0 0 24 24" fill="none" stroke="#ff8a80" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2" /><path d="M3 10h18M8 3v4M16 3v4" /></svg></div>
+            <div class="cap">نوبت</div>
+          </div>
+          <svg id="s3-x" viewBox="0 0 100 100"><path d="M24 24 L76 76 M76 24 L24 76" stroke="#ff4a3d" stroke-width="12" stroke-linecap="round" fill="none" /></svg>
+        </div>
+
+        <div id="s3-flash"></div>
+      </div>
+
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+
+          // Ambient: glow breathes, ghost word drifts
+          tl.fromTo("#s3-glow", { scale: 0.9, opacity: 0.7 }, { scale: 1.08, opacity: 1, duration: 4.2, ease: "sine.inOut" }, 0);
+          tl.fromTo("#s3-ghost", { x: -60 }, { x: 60, duration: 4.9, ease: "none" }, 0);
+
+          // Line A — "مشکل از تخصص تو نیست" then struck through
+          tl.fromTo("#s3-a .w", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.45, ease: "expo.out", stagger: 0.16 }, 0.05);
+          tl.fromTo("#s3-strike", { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power3.inOut" }, 1.55);
+          tl.to("#s3-a-text", { opacity: 0.4, duration: 0.4, ease: "power2.out" }, 1.9);
+
+          // Line B — "مشکل از" / "مسیر جذب" slam / "مراجعه‌کننده‌ست"
+          tl.fromTo("#s3-b1", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 2.03);
+          tl.fromTo(
+            "#s3-big .w",
+            { opacity: 0, scale: 1.6, filter: "blur(22px)" },
+            { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.5, ease: "power4.out", stagger: 0.5 },
+            2.55,
+          );
+          tl.fromTo("#s3-b2", { opacity: 0, y: -30 }, { opacity: 1, y: 0, duration: 0.45, ease: "back.out(1.6)" }, 3.45);
+
+          // The path: seen → message works, message → booking breaks (svg-path-draw)
+          tl.fromTo(["#s3-n1", "#s3-n2", "#s3-n3"], { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2)", stagger: 0.18 }, 2.7);
+          tl.fromTo("#s3-link1", { attr: { "stroke-dasharray": "184 184", "stroke-dashoffset": 184 } }, { attr: { "stroke-dashoffset": 0 }, duration: 0.45, ease: "power2.inOut" }, 3.05);
+          tl.fromTo("#s3-link2a", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 3.5);
+          tl.fromTo("#s3-link2b", { opacity: 0 }, { opacity: 0.45, duration: 0.3, ease: "power2.out" }, 3.6);
+          tl.fromTo("#s3-x", { opacity: 0, scale: 0.2, rotation: -90 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.45, ease: "back.out(2.4)" }, 3.75);
+          tl.to("#s3-n3", { opacity: 0.55, duration: 0.4, ease: "power2.out" }, 4.0);
+
+          // Build toward the reveal: glow swells, white flash at the cut
+          tl.to("#s3-glow", { opacity: 1.0, scale: 1.25, duration: 0.6, ease: "power2.in", immediateRender: false }, 4.2);
+          tl.fromTo("#s3-flash", { opacity: 0 }, { opacity: 0.85, duration: 0.18, ease: "power2.in" }, 4.72);
+
+          window.__timelines["s3-path"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
