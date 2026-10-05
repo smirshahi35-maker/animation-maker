@@ -1,0 +1,79 @@
+<!doctype html>
+<!-- Never put dir="rtl" on <html>: HyperFrames renders a black video. Set direction on text elements instead. -->
+<html lang="fa" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "AbarHigh";
+        src: url("assets/fonts/AbarHigh-Regular.otf") format("opentype");
+        font-weight: 400;
+        font-style: normal;
+        font-display: block;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #0a0a0a;
+      }
+      #root {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "AbarHigh", sans-serif;
+        /* The font ships one weight; block faux bold/italic. */
+        font-synthesis: none;
+      }
+      .fa {
+        direction: rtl;
+        unicode-bidi: isolate;
+        line-height: 1.35;
+      }
+      /* Latin digits -> Persian digits (font's ss01 "Farsi Numbers"). */
+      .fa-num {
+        font-feature-settings: "ss01";
+      }
+      /* Animate per word (inline-block). Per-letter inline-block spans break Persian joining. */
+      .w {
+        display: inline-block;
+      }
+      #title {
+        color: #f4f4f5;
+        font-size: 120px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="4"
+      data-width="1080"
+      data-height="1920"
+    >
+      <h1 id="title" class="clip fa" data-start="0" data-duration="4" data-track-index="0">
+        <span class="w">موشن‌گرافیک</span> <span class="w">فارسی</span>
+      </h1>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.from("#title .w", { y: 80, opacity: 0, duration: 0.6, stagger: 0.15, ease: "back.out(2)" }, 0.2);
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

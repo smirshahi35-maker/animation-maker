@@ -1,0 +1,10 @@
+node_modules/
+.DS_Store
+
+# Renders
+renders/
+reel/renders/
+
+# Licensed font (FontIran): this repo is public, so the font file must not be committed.
+reel/assets/fonts/*
+!reel/assets/fonts/README.md
