@@ -96,21 +96,21 @@
   {
    "id": "s13",
    "slug": "eye",
-   "status": "todo",
+   "status": "done",
    "file": "assets/ai/src/s13-eye.png",
    "prompt": "Vertical 9:16 illustration for a documentary-style Instagram Reel about Steve Jobs.\n\nMatch the drawing technique of the attached reference image exactly (but NOT its person, frame, numbers or text): hand-drawn graphite pencil drawing on plain warm cream drawing paper, fine directional hatching and cross-hatching, soft blended shading, crisp confident contour lines, realistic proportions, monochrome graphite only.\n\nSubject: an extreme close-up of a single human eye with its eyebrow, looking straight at the viewer — finely detailed iris with radiating texture, a small catch-light, long eyelashes, skin creases — the graphite shading fades softly into the paper at the edges.\n\nFraming: the eye forms a horizontal band, centered horizontally, spanning about 85% of the image width, with the center of the eye at about 47% of the image height. The top 30% and the bottom 35% of the image are empty plain paper.\n\nThe background paper is plain and evenly lit, with no vignette, no frame and no border. No text, no letters, no numbers, no signature, no watermark."
   },
   {
    "id": "s14",
    "slug": "editor",
-   "status": "todo",
+   "status": "done",
    "file": "assets/ai/src/s14-editor.png",
    "prompt": "Vertical 9:16 illustration for a documentary-style Instagram Reel about Steve Jobs.\n\nMatch the drawing technique of the attached reference image exactly (but NOT its person, frame, numbers or text): hand-drawn graphite pencil drawing on plain warm cream drawing paper, fine directional hatching and cross-hatching, soft blended shading, crisp confident contour lines, realistic proportions, monochrome graphite only.\n\nSubject: rear view of a video editor (short dark hair, hooded sweatshirt) sitting at a desk in a dark room in front of a large widescreen computer monitor, lit by its glow. The monitor faces the viewer straight-on and shows video-editing software: a large preview window in the upper half of the screen and a multi-track timeline with clip thumbnails and audio waveforms across the lower half. A keyboard on the desk. The room around is dark hatching.\n\nFraming: the monitor is centered; its screen spans roughly from 36% to 70% of the image height and from 8% to 92% of the image width; the editor's head and shoulders overlap the bottom center of the monitor; the desk runs off the bottom edge; the top 30% of the image is empty plain paper.\n\nThe background paper is plain and evenly lit, with no vignette, no frame and no border. No text, no letters, no numbers, no signature, no watermark."
   },
   {
    "id": "s15",
    "slug": "bulb",
-   "status": "todo",
+   "status": "done",
    "file": "assets/ai/src/s15-bulb.png",
    "prompt": "Vertical 9:16 illustration for a documentary-style Instagram Reel about Steve Jobs.\n\nMatch the drawing technique of the attached reference image exactly (but NOT its person, frame, numbers or text): hand-drawn graphite pencil drawing on plain warm cream drawing paper, fine directional hatching and cross-hatching, soft blended shading, crisp confident contour lines, realistic proportions, monochrome graphite only.\n\nSubject: a single classic incandescent light bulb floating upright on its screw base, glowing — a visible coiled filament inside, fine pencil-drawn radiating light rays and a soft halo around it. Metaphor for an idea.\n\nFraming: the bulb is centered with its middle at about 50% of the image height and is about 30% of the image width; the rays fade out before reaching the top 30% and the bottom 35% of the image, which are empty plain paper.\n\nThe background paper is plain and evenly lit, with no vignette, no frame and no border. No text, no letters, no numbers, no signature, no watermark."
   }

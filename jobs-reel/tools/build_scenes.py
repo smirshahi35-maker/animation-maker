@@ -375,7 +375,7 @@ def s10():
         line(sid, [W('مسیر', 'L16:0'), W('این', 'L16:1'), W('شرکت', 'L16:2'), W('رو', 'L16:3')], 104, 'gr'),
         line(sid, [UL(W('تغییر', 'L16:4', 'acc'), W('بده...', 'L16:5', 'acc'), at=cue('L16:5', sid) + 0.3)], 148),
     ], 'b')
-    css = '#s10-glow { position: absolute; left: 140px; top: 640px; width: 800px; height: 800px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 246, 226, 0.55), rgba(255, 246, 226, 0)); opacity: 0; }'
+    css = '#s10-cam img { top: -4px; }\n        #s10-glow { position: absolute; left: 140px; top: 560px; width: 800px; height: 800px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 246, 226, 0.55), rgba(255, 246, 226, 0)); opacity: 0; }'
     js = f'''
           sketch(ID, 0.2, {{ d: 1.2, sd: 1.3 }});
           {cam(sid, 1.0, 1.12, y1=20)}
@@ -397,24 +397,25 @@ def s11():
           {cam(sid, 1.03, 1.0)}
           // ...then it is erased: the story no longer matters
           tl.to(["#s11-lines", "#s11-shade"], {{ "--m": "100%", opacity: 0, duration: 0.9, ease: "power2.in" }}, {round(t_erase, 3)});'''
-    scene_html(sid, body, js)
+    scene_html(sid, body, js, '#s11-cam img { top: 90px; }')
 
 
 def s12():
     sid = 's12'
-    body = art(sid, cam_origin='50% 70%') + block(sid, 200, [
+    body = art(sid, cam_origin='50% 45%') + block(sid, 200, [
         line(sid, [W('مهم', 'L18:0'), W('اینه', 'L18:1'), W('که', 'L18:2'), W('تو', 'L18:3'), W('الان', 'L18:4')], 88, 'gr'),
         line(sid, [W('بیشتر', 'L18:5'), W('از', 'L18:6'), UL(W('یک', 'L18:7', 'acc'), W('دقیقه', 'L18:8', 'acc'), at=cue('L18:8', sid) + 0.3)], 126),
         line(sid, [W('موندی', 'L18:9'), W('و', 'L18:10'), W('این', 'L18:11'), W('داستان', 'L18:12'), W('رو', 'L18:13')], 88, 'gr'),
         line(sid, [W('دنبال', 'L18:14'), W('کردی.', 'L18:15')], 88, 'gr'),
     ]) + '<div id="s12-clock"><span id="s12-time">۰۰:۵۹</span></div>'
     css = '''
-        #s12-clock { position: absolute; left: 0; right: 0; top: 735px; display: flex; justify-content: center; }
+        #s12-cam img { left: 91px; top: 380px; width: 898px; height: 1597px; }
+        #s12-clock { position: absolute; left: 0; right: 0; top: 742px; display: flex; justify-content: center; }
         #s12-time { display: block; direction: ltr; font-family: "Oswald", sans-serif; font-weight: 500; font-size: 64px; line-height: 1; padding: 16px 34px 18px; border: 3px solid #2a231c; border-radius: 60px; color: #2a231c; opacity: 0; }'''
     start = WIN[sid][1]
     js = f'''
           sketch(ID, 0.2, {{ d: 1.1, sd: 1.3 }});
-          {cam(sid, 1.0, 1.06)}
+          {cam(sid, 1.0, 1.04)}
           // The film's own elapsed time: it rolls over to 1:00 as the line begins
           const FA = "۰۱۲۳۴۵۶۷۸۹", fa = (n) => String(n).padStart(2, "0").replace(/\\d/g, (d) => FA[d]);
           const timeEl = document.getElementById("s12-time");
