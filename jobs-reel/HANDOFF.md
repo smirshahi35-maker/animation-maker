@@ -34,7 +34,7 @@ Replacing a drawing: put the new PNG at the `file` path in `tools/image_prompts.
 python3 tools/build_scenes.py && python3 tools/build_root.py   # build_root keeps the carve/fade attributes
 npx hyperframes check                                          # must be 0 errors
 npx hyperframes render -q high -f 30 -o renders/jobs-reel.mp4
-python3 tools/master.py    # two-pass loudnorm to -14 LUFS / -1.5 dBTP, video copied -> ../deliverables/jobs-reel.mp4
+python3 tools/master.py    # loudnorm -14 LUFS / -1.5 dBTP + H.264 CRF 19 (≤7 Mbps) -> ../deliverables/jobs-reel.mp4
 ```
 
 If the narration ever changes, re-run the carve for `music-story`, `music-pitch`, `music-pitch-end`
