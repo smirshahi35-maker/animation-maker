@@ -82,8 +82,8 @@
           });
 
           tl.fromTo("#s07-panel", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power1.out" }, 0.1);
-          tl.fromTo("#s07-frame rect", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.0, ease: "power2.inOut" }, 0.1);
-          tl.fromTo("#s07-cut", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 1.0, ease: "power3.out" }, 0.25);
+          tl.fromTo("#s07-frame rect", { strokeDashoffset: 1 }, { strokeDashoffset: 0, autoRound: false, duration: 0.75, ease: "power2.inOut" }, 0);
+          tl.fromTo("#s07-cut", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 1.0, ease: "power2.out" }, 0.3);
           tl.fromTo("#s07-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "power2.inOut" }, 3.17);
           tl.fromTo("#s07-cam", { scale: 1.0 }, { scale: 1.045, duration: 5.25, ease: "sine.inOut" }, 0);
           window.__timelines[ID] = tl;

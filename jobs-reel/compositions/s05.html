@@ -30,10 +30,11 @@
         .frame { position: absolute; overflow: visible; }
         .frame rect { fill: none; stroke: #2a231c; stroke-width: 3; }
 #s05-cam img { top: 46px; }
+        #s05-scene .ul { bottom: -0.08em; }
       </style>
       <div id="root" data-composition-id="s05" data-width="1080" data-height="1920">
         <div class="scene" id="s05-scene">
-<div class="cam" id="s05-cam" style="transform-origin:52% 58%"><img class="lines" id="s05-lines" src="assets/ai/s05-lines.webp" alt="" /><img class="shade" id="s05-shade" src="assets/ai/s05.webp" alt="" /></div><div class="txt fa ph " style="top:215px"><div class="ln gr" style="font-size:90px;;position:relative;left:1px"><span class="w " data-t="0.23">از</span> <span class="w " data-t="0.39">شرکتی</span> <span class="w " data-t="0.85">که</span> <span class="w " data-t="1.01">ساخته</span> <span class="w " data-t="1.37">بود</span></div><div class="ln " style="font-size:156px;"><span class="ulw"><span class="w acc" data-t="1.85">اخراج</span> <span class="w acc" data-t="2.31">شد.</span><i class="ul" data-t="2.61"></i></span></div></div>
+<div class="cam" id="s05-cam" style="transform-origin:52% 58%"><img class="lines" id="s05-lines" src="assets/ai/s05-lines.webp" alt="" /><img class="shade" id="s05-shade" src="assets/ai/s05.webp" alt="" /></div><div class="txt fa ph " style="top:195px"><div class="ln gr" style="font-size:90px;;position:relative;left:1px"><span class="w " data-t="0.23">از</span> <span class="w " data-t="0.39">شرکتی</span> <span class="w " data-t="0.85">که</span> <span class="w " data-t="1.01">ساخته</span> <span class="w " data-t="1.37">بود</span></div><div class="ln " style="font-size:156px;"><span class="ulw"><span class="w acc" data-t="1.85">اخراج</span> <span class="w acc" data-t="2.31">شد.</span><i class="ul" data-t="2.61"></i></span></div></div>
         </div>
       </div>
       <script>
@@ -68,7 +69,7 @@
           sketch(ID, 0.15, { d: 1.0, sd: 1.1, lag: 0.4 });
           tl.fromTo("#s05-cam", { scale: 1.0, y: 0 }, { scale: 1.035, y: 0, duration: 2.39, ease: "sine.inOut" }, 0);
           tl.to("#s05-cam", { keyframes: [{ scale: 1.07, y: 10, duration: 0.08, ease: "power2.out" }, { scale: 1.06, y: 4, duration: 0.25, ease: "power2.out" }] }, 2.39);
-          tl.to("#s05-cam", { scale: 1.12, y: -40, duration: 2.03, ease: "sine.inOut" }, 2.72);
+          tl.to("#s05-cam", { scale: 1.10, y: 20, duration: 2.03, ease: "sine.inOut" }, 2.72);
           window.__timelines[ID] = tl;
         })();
       </script>

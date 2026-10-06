@@ -252,8 +252,10 @@ def s03():
     t_year = cue('L03:1', sid) + LEAD
     js = f'''
           tl.fromTo("#s03-panel", {{ opacity: 0 }}, {{ opacity: 1, duration: 0.6, ease: "power1.out" }}, 0.05);
-          tl.fromTo("#s03-frame rect", {{ strokeDashoffset: 1 }}, {{ strokeDashoffset: 0, duration: 0.9, ease: "power2.inOut" }}, 0.05);
-          tl.fromTo("#s03-cut", {{ opacity: 0, y: 70 }}, {{ opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }}, 0.1);
+          // autoRound off: with pathLength=1 a rounded px dash offset jumps 1 -> 0 instead of drawing.
+          // The stroke draws first; the portrait fades in under it, so no edge shows unframed.
+          tl.fromTo("#s03-frame rect", {{ strokeDashoffset: 1 }}, {{ strokeDashoffset: 0, autoRound: false, duration: 0.7, ease: "power2.inOut" }}, 0);
+          tl.fromTo("#s03-cut", {{ opacity: 0, y: 70 }}, {{ opacity: 1, y: 0, duration: 0.9, ease: "power2.out" }}, 0.3);
           tl.fromTo("#s03-year", {{ opacity: 0, scale: 1.35, filter: "blur(14px)" }}, {{ opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.32, ease: "power4.out" }}, {t_year - 0.12});
           tl.fromTo("#s03-cam", {{ x: 0 }}, {{ x: 0, keyframes: [{{ x: -9, duration: 0.05 }}, {{ x: 7, duration: 0.05 }}, {{ x: -4, duration: 0.05 }}, {{ x: 0, duration: 0.07 }}], immediateRender: false }}, {t_year + 0.2});
           tl.fromTo("#s03-cam", {{ scale: 1.0 }}, {{ scale: 1.04, duration: {dur(sid)}, ease: "sine.inOut" }}, 0);
@@ -275,17 +277,19 @@ def s04():
 
 def s05():
     sid = 's05'
-    body = art(sid, cam_origin='52% 58%') + block(sid, 215, [
+    body = art(sid, cam_origin='52% 58%') + block(sid, 195, [
         line(sid, [W('از', 'L05:0'), W('شرکتی', 'L05:1'), W('که', 'L05:2'), W('ساخته', 'L05:3'), W('بود', 'L05:4')], 90, 'gr'),
         line(sid, [UL(W('اخراج', 'L05:5', 'acc'), W('شد.', 'L05:6', 'acc'), at=cue('L05:6', sid) + 0.3)], 156),
     ])
     t_slam = cue('L05:6', sid) + LEAD
-    css = '#s05-cam img { top: 46px; }'
+    # The underline drops below the «ج» bowl; the late push stays gentle so the door's top beam
+    # keeps ~30px clear of it until the text has faded.
+    css = '#s05-cam img { top: 46px; }\n        #s05-scene .ul { bottom: -0.08em; }'
     js = f'''
           sketch(ID, 0.15, {{ d: 1.0, sd: 1.1, lag: 0.4 }});
           tl.fromTo("#s05-cam", {{ scale: 1.0, y: 0 }}, {{ scale: 1.035, y: 0, duration: {round(t_slam, 3)}, ease: "sine.inOut" }}, 0);
           tl.to("#s05-cam", {{ keyframes: [{{ scale: 1.07, y: 10, duration: 0.08, ease: "power2.out" }}, {{ scale: 1.06, y: 4, duration: 0.25, ease: "power2.out" }}] }}, {t_slam});
-          tl.to("#s05-cam", {{ scale: 1.12, y: -40, duration: {round(dur(sid) - t_slam - 0.33, 3)}, ease: "sine.inOut" }}, {round(t_slam + 0.33, 3)});'''
+          tl.to("#s05-cam", {{ scale: 1.10, y: 20, duration: {round(dur(sid) - t_slam - 0.33, 3)}, ease: "sine.inOut" }}, {round(t_slam + 0.33, 3)});'''
     scene_html(sid, body, js, css)
 
 
@@ -336,8 +340,8 @@ def s07():
         #s07-rule { display: block; width: 220px; height: 4px; margin: 26px 0 30px auto; background: #2a231c; transform-origin: 100% 50%; }'''
     js = f'''
           tl.fromTo("#s07-panel", {{ opacity: 0 }}, {{ opacity: 1, duration: 0.6, ease: "power1.out" }}, 0.1);
-          tl.fromTo("#s07-frame rect", {{ strokeDashoffset: 1 }}, {{ strokeDashoffset: 0, duration: 1.0, ease: "power2.inOut" }}, 0.1);
-          tl.fromTo("#s07-cut", {{ opacity: 0, y: 60 }}, {{ opacity: 1, y: 0, duration: 1.0, ease: "power3.out" }}, 0.25);
+          tl.fromTo("#s07-frame rect", {{ strokeDashoffset: 1 }}, {{ strokeDashoffset: 0, autoRound: false, duration: 0.75, ease: "power2.inOut" }}, 0);
+          tl.fromTo("#s07-cut", {{ opacity: 0, y: 60 }}, {{ opacity: 1, y: 0, duration: 1.0, ease: "power2.out" }}, 0.3);
           tl.fromTo("#s07-rule", {{ scaleX: 0 }}, {{ scaleX: 1, duration: 0.45, ease: "power2.inOut" }}, {cue('L11:1', sid) + 0.35});
           tl.fromTo("#s07-cam", {{ scale: 1.0 }}, {{ scale: 1.045, duration: {dur(sid)}, ease: "sine.inOut" }}, 0);'''
     scene_html(sid, body, js, css)
@@ -521,11 +525,13 @@ def s15():
     js = f'''
           sketch(ID, 0.2, {{ d: 1.2, sd: 1.4 }});
           tl.fromTo("#s15-cam", {{ scale: 1.0, y: 0 }}, {{ scale: 1.03, y: 0, duration: {round(t_card, 3)}, ease: "sine.inOut" }}, 0);
-          tl.to("#s15-cam", {{ scale: 0.88, y: -215, duration: 0.9, ease: "power3.inOut" }}, {round(t_card, 3)});
-          tl.to("#s15-cam", {{ scale: 0.9, y: -215, duration: {round(dur(sid) - t_card - 0.9, 3)}, ease: "sine.inOut" }}, {round(t_card + 0.9, 3)});
+          // With the card in, the bulb (unscaled y 604-1450) fits between the headline and the card.
+          tl.to("#s15-cam", {{ scale: 0.655, y: -105, duration: 0.9, ease: "power3.inOut" }}, {round(t_card, 3)});
+          tl.to("#s15-cam", {{ scale: 0.67, y: -105, duration: {round(dur(sid) - t_card - 0.9, 3)}, ease: "sine.inOut" }}, {round(t_card + 0.9, 3)});
           // The bulb lights on «تصویر»
           tl.fromTo("#s15-glow", {{ opacity: 0, scale: 0.7, y: 0 }}, {{ opacity: 1, scale: 1, y: 0, duration: 0.6, ease: "power2.out" }}, {round(t_on, 3)});
-          tl.to("#s15-glow", {{ y: -205, scale: 0.88, duration: 0.9, ease: "power3.inOut" }}, {round(t_card, 3)});
+          tl.to("#s15-glow", {{ y: -69, scale: 0.655, duration: 0.9, ease: "power3.inOut" }}, {round(t_card, 3)});
+          tl.to("#s15-glow", {{ y: -71, scale: 0.67, duration: {round(dur(sid) - t_card - 0.9, 3)}, ease: "sine.inOut" }}, {round(t_card + 0.9, 3)});
           tl.to("#s15-glow", {{ opacity: 0.8, duration: 1.2, ease: "sine.inOut", yoyo: true, repeat: 7 }}, {round(t_on + 0.6, 3)});
           tl.fromTo("#s15-card", {{ opacity: 0, y: 70 }}, {{ opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }}, {round(t_card + 0.2, 3)});'''
     scene_html(sid, body, js, css)

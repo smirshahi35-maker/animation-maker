@@ -76,8 +76,10 @@
           });
 
           tl.fromTo("#s03-panel", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power1.out" }, 0.05);
-          tl.fromTo("#s03-frame rect", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.9, ease: "power2.inOut" }, 0.05);
-          tl.fromTo("#s03-cut", { opacity: 0, y: 70 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.1);
+          // autoRound off: with pathLength=1 a rounded px dash offset jumps 1 -> 0 instead of drawing.
+          // The stroke draws first; the portrait fades in under it, so no edge shows unframed.
+          tl.fromTo("#s03-frame rect", { strokeDashoffset: 1 }, { strokeDashoffset: 0, autoRound: false, duration: 0.7, ease: "power2.inOut" }, 0);
+          tl.fromTo("#s03-cut", { opacity: 0, y: 70 }, { opacity: 1, y: 0, duration: 0.9, ease: "power2.out" }, 0.3);
           tl.fromTo("#s03-year", { opacity: 0, scale: 1.35, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.32, ease: "power4.out" }, 0.6699999999999999);
           tl.fromTo("#s03-cam", { x: 0 }, { x: 0, keyframes: [{ x: -9, duration: 0.05 }, { x: 7, duration: 0.05 }, { x: -4, duration: 0.05 }, { x: 0, duration: 0.07 }], immediateRender: false }, 0.99);
           tl.fromTo("#s03-cam", { scale: 1.0 }, { scale: 1.04, duration: 3.55, ease: "sine.inOut" }, 0);

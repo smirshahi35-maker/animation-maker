@@ -70,11 +70,13 @@
 
           sketch(ID, 0.2, { d: 1.2, sd: 1.4 });
           tl.fromTo("#s15-cam", { scale: 1.0, y: 0 }, { scale: 1.03, y: 0, duration: 4.35, ease: "sine.inOut" }, 0);
-          tl.to("#s15-cam", { scale: 0.88, y: -215, duration: 0.9, ease: "power3.inOut" }, 4.35);
-          tl.to("#s15-cam", { scale: 0.9, y: -215, duration: 10.25, ease: "sine.inOut" }, 5.25);
+          // With the card in, the bulb (unscaled y 604-1450) fits between the headline and the card.
+          tl.to("#s15-cam", { scale: 0.655, y: -105, duration: 0.9, ease: "power3.inOut" }, 4.35);
+          tl.to("#s15-cam", { scale: 0.67, y: -105, duration: 10.25, ease: "sine.inOut" }, 5.25);
           // The bulb lights on «تصویر»
           tl.fromTo("#s15-glow", { opacity: 0, scale: 0.7, y: 0 }, { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: "power2.out" }, 3.04);
-          tl.to("#s15-glow", { y: -205, scale: 0.88, duration: 0.9, ease: "power3.inOut" }, 4.35);
+          tl.to("#s15-glow", { y: -69, scale: 0.655, duration: 0.9, ease: "power3.inOut" }, 4.35);
+          tl.to("#s15-glow", { y: -71, scale: 0.67, duration: 10.25, ease: "sine.inOut" }, 5.25);
           tl.to("#s15-glow", { opacity: 0.8, duration: 1.2, ease: "sine.inOut", yoyo: true, repeat: 7 }, 3.64);
           tl.fromTo("#s15-card", { opacity: 0, y: 70 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 4.55);
           window.__timelines[ID] = tl;
