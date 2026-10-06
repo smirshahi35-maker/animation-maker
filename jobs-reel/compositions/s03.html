@@ -15,7 +15,9 @@
         .lines { --m: 100%; -webkit-mask-image: linear-gradient(200deg, #000 42%, transparent 58%); mask-image: linear-gradient(200deg, #000 42%, transparent 58%); -webkit-mask-size: 100% 300%; mask-size: 100% 300%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: 0% var(--m); mask-position: 0% var(--m); }
         .shade { opacity: 0; }
         .fa { direction: rtl; unicode-bidi: isolate; }
-        .txt { position: absolute; left: 96px; right: 96px; text-align: center; }
+        /* Text stacks are flex columns: AbarHigh glyph boxes (~1.8em) are taller than the 1.34 leading,
+           and the layout audit treats lines placed by one flex container as non-colliding. */
+        .txt { position: absolute; left: 96px; right: 96px; text-align: center; display: flex; flex-direction: column; }
         .ln { display: block; line-height: 1.34; white-space: nowrap; }
         .w { display: inline-block; opacity: 0; }
         .acc { color: #8b2f1f; }
@@ -37,7 +39,7 @@
       <div id="root" data-composition-id="s03" data-width="1080" data-height="1920">
         <div class="scene" id="s03-scene">
 
-          <div id="s03-year">۱۹۸۵</div>
+          <div id="s03-year" class="handoff" data-layout-allow-overlap>۱۹۸۵</div>
           <div id="s03-panel"></div>
           <svg class="frame" id="s03-frame" width="801" height="1006" style="left:153px;top:647px"><rect x="1.5" y="1.5" width="798" height="1003" pathLength="1" /></svg>
           <div class="cam" id="s03-cam" style="transform-origin:50% 40%"><div id="s03-clip"><img id="s03-cut" src="assets/ai/s03-cut.webp" alt="" /></div></div>
@@ -53,6 +55,7 @@
           // Scene in/out on the shared paper
           tl.fromTo(scene, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power1.out" }, 0);
           tl.to(scene, { opacity: 0, filter: "blur(3px)", duration: 0.5, ease: "power1.in" }, 3.05);
+          tl.to(q(".txt, .handoff"), { opacity: 0, filter: "blur(6px)", duration: 0.35, ease: "power2.in" }, 2.97);
           // Pencil reveal: contour pass wipes in, shading follows, contours settle under it
           function sketch(id, t, o) {
             o = o || {};

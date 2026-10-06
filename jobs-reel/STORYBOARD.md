@@ -3,7 +3,8 @@
 Source: the user's 15-slide storyboard (`references/panels/NN.jpg`) and script, built in the style
 of `references/style-reference.jpg` (see `frame.md`). Times are composition seconds; word cues come
 from `assets/audio/vo/narration.lines.json`. Scenes overlap by 0.5s and cross-fade on the shared
-paper, except the hard cut into the twist (s10 → s11). Generator: `tools/build_scenes.py`.
+paper, except the hard cut into the twist (s10 → s11); each scene's text clears just before the
+next scene's first word, so two lines never ghost over each other. Generator: `tools/build_scenes.py`.
 
 Narration pacing: dramatic pauses were added between sentences (`narration.retime.json`) so the
 line «بیشتر از یک دقیقه موندی» is spoken at 1:01 — the claim is true when the viewer hears it.
@@ -58,11 +59,11 @@ status: built · src: compositions/s12.html · rules: counting-dynamic-scale (el
 
 ## Frame 13 — s13 · 65.75–73.40
 status: built · src: compositions/s13.html
-«چرا؟» (heartbeat) → the eye is drawn; «چون من تونستم / یک اتفاق ساده رو / تبدیل کنم به یک تصویر / توی ذهن تو.»
+«چرا؟» (heartbeat) → the eye is drawn; «چون من تونستم / یک اتفاق ساده رو / تبدیل کنم به یک تصویر / توی ذهن تو.» — on «تصویر» the story's own sketches (1985, the door, NeXT, the keynote) flicker in the pupil.
 
 ## Frame 14 — s14 · 73.40–78.80
 status: built · src: compositions/s14.html
-«و این دقیقاً کاریه که یک / ادیتور و موشن دیزاینر / انجام میده...» — the editor's monitor plays this film's own sketches under a moving playhead.
+«و این دقیقاً کاریه که یک / ادیتور و موشن دیزاینر / انجام میده...» — an editor at the timeline; the monitor's preview (a lone figure on a summit, slide 2) glows and flickers.
 
 ## Frame 15 — s15 · 78.80–94.30
 status: built · src: compositions/s15.html · rules: ambient-glow-bloom (bulb)

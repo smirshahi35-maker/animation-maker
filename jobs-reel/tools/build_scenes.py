@@ -6,7 +6,7 @@ next by OVERLAP seconds and cross-fades on the shared paper (except hard cuts).
 
 Run: python3 tools/build_scenes.py
 """
-import json, os
+import json, os, re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LINES = {l['id']: l for l in json.load(open(os.path.join(ROOT, 'assets/audio/vo/narration.lines.json')))['lines']}
@@ -32,6 +32,7 @@ SCENES = [
     ('s15', 78.80, 94.30, {'last': True}),
 ]
 WIN = {s[0]: s for s in SCENES}
+FIRST_WORD = {}  # comp time of each scene's first word, filled by a first build pass
 
 
 def cue(ref, sid):
@@ -106,7 +107,9 @@ HEAD = '''<!doctype html>
         .lines { --m: 100%; -webkit-mask-image: linear-gradient(200deg, #000 42%, transparent 58%); mask-image: linear-gradient(200deg, #000 42%, transparent 58%); -webkit-mask-size: 100% 300%; mask-size: 100% 300%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: 0% var(--m); mask-position: 0% var(--m); }
         .shade { opacity: 0; }
         .fa { direction: rtl; unicode-bidi: isolate; }
-        .txt { position: absolute; left: 96px; right: 96px; text-align: center; }
+        /* Text stacks are flex columns: AbarHigh glyph boxes (~1.8em) are taller than the 1.34 leading,
+           and the layout audit treats lines placed by one flex container as non-colliding. */
+        .txt { position: absolute; left: 96px; right: 96px; text-align: center; display: flex; flex-direction: column; }
         .ln { display: block; line-height: 1.34; white-space: nowrap; }
         .w { display: inline-block; opacity: 0; }
         .acc { color: #8b2f1f; }
@@ -169,6 +172,11 @@ def inout(sid):
         out.append(f'tl.fromTo(scene, {{ opacity: 0 }}, {{ opacity: 1, duration: {OVERLAP}, ease: "power1.out" }}, 0);')
     if not f.get('cut_out') and not f.get('last'):
         out.append(f'tl.to(scene, {{ opacity: 0, filter: "blur(3px)", duration: {OVERLAP}, ease: "power1.in" }}, {round(d - OVERLAP, 3)});')
+        # Clear this scene's text before the next scene's first word lands in the cross-fade.
+        nxt = SCENES[[s[0] for s in SCENES].index(sid) + 1][0]
+        t_next = FIRST_WORD.get(nxt, 1e9) - WIN[sid][1]
+        if t_next < d:
+            out.append(f'tl.to(q(".txt, .handoff"), {{ opacity: 0, filter: "blur(6px)", duration: 0.35, ease: "power2.in" }}, {round(t_next - 0.42, 3)});')
     return '\n          '.join(out) or '// hard cut'
 
 
@@ -179,6 +187,7 @@ def cam(sid, s0, s1, x0=0, x1=0, y0=0, y1=0, t=0, d=None, ease='sine.inOut'):
 
 
 def scene_html(sid, body, js, css=''):
+    FIRST_WORD[sid] = WIN[sid][1] + min(float(t) for t in re.findall(r'class="w[^"]*" data-t="([\d.]+)"', body))
     html = HEAD.replace('__ID__', sid).replace('__DUR__', str(dur(sid)))
     html = html.replace('__CSS__', css).replace('__BODY__', body).replace('__INOUT__', inout(sid)).replace('__JS__', js)
     open(os.path.join(ROOT, 'compositions', f'{sid}.html'), 'w').write(html)
@@ -191,7 +200,7 @@ def s01():
         line(sid, [W('هیچکس', 'L01:0')], 98),
         line(sid, [W('این', 'L01:1'), W('رو', 'L01:1'), W('بهت', 'L01:2')], 140),
         line(sid, [W('نمی‌گه...', 'L01:3')], 98),
-    ]) + '<div id="s01-q" class="acc">؟</div>'
+    ]) + '<div id="s01-q" class="acc" data-layout-allow-overlap>؟</div>'
     css = '#s01-q { position: absolute; right: 96px; top: 650px; font-size: 520px; line-height: 1; opacity: 0; }\n        #s01-cam img { top: 170px; }'
     js = f'''
           sketch(ID, 0, {{ from: 45, d: 0.7, lag: 0, sd: 0.7, shade0: 0.55 }});
@@ -219,7 +228,7 @@ def s03():
     sid = 's03'
     # Year card after the style reference: year behind the head, head breaking out of the frame.
     body = '''
-          <div id="s03-year">۱۹۸۵</div>
+          <div id="s03-year" class="handoff" data-layout-allow-overlap>۱۹۸۵</div>
           <div id="s03-panel"></div>
           <svg class="frame" id="s03-frame" width="801" height="1006" style="left:153px;top:647px"><rect x="1.5" y="1.5" width="798" height="1003" pathLength="1" /></svg>
           <div class="cam" id="s03-cam" style="transform-origin:50% 40%"><div id="s03-clip"><img id="s03-cut" src="assets/ai/s03-cut.webp" alt="" /></div></div>
@@ -312,7 +321,7 @@ def s07():
         #s07-frame rect { stroke-dasharray: 1; stroke-dashoffset: 1; }
         #s07-clip { position: absolute; inset: 0; clip-path: polygon(0 0, 100% 0, 100% 610px, 951px 610px, 951px 1650px, 156px 1650px, 156px 610px, 0 610px); }
         #s07-cut { position: absolute; left: 34px; top: 232px; width: 806px; height: 1433px; opacity: 0; -webkit-mask-image: linear-gradient(90deg, #000 78%, transparent 99%); mask-image: linear-gradient(90deg, #000 78%, transparent 99%); }
-        #s07-name { position: absolute; right: 140px; top: 820px; text-align: right; }
+        #s07-name { position: absolute; right: 140px; top: 820px; text-align: right; display: flex; flex-direction: column; }
         #s07-name .ln { line-height: 1.12; }
         #s07-rule { display: block; width: 220px; height: 4px; margin: 26px 0 30px auto; background: #2a231c; transform-origin: 100% 50%; }'''
     js = f'''
@@ -431,50 +440,53 @@ def s12():
 def s13():
     sid = 's13'
     t_shift = cue('L20:0', sid) - 0.15
-    body = art(sid, cam_origin='50% 47%') + '<div id="s13-why" class="acc fa">چرا؟</div>' + block(sid, 1125, [
-        line(sid, [W('چون', 'L20:0'), W('من', 'L20:1'), W('تونستم', 'L20:2')], 80, 'gr'),
-        line(sid, [W('یک', 'L20:3'), W('اتفاق', 'L20:4'), W('ساده', 'L20:5'), W('رو', 'L20:6')], 80, 'gr'),
-        line(sid, [W('تبدیل', 'L20:7'), W('کنم', 'L20:8'), W('به', 'L20:9'), W('یک', 'L20:10'), W('تصویر', 'L20:11')], 96),
-        line(sid, [W('توی', 'L21:0'), W('ذهن', 'L21:1'), W('تو.', 'L21:2')], 96),
-    ])
-    css = '#s13-why { position: absolute; left: 0; right: 0; top: 150px; text-align: center; font-size: 300px; line-height: 1.2; opacity: 0; transform-origin: 50% 0%; }'
+    # Pupil of the generated eye, in comp px with the drawing dropped 60px (source 569,1027)
+    ix, iy, ir = 533, 1023, 92
+    refl = ''.join(f'<img src="assets/ai/{t}.webp" alt="" />' for t in ('s03', 's05', 's09', 's10'))
+    iris = f'<div id="s13-iris" style="left:{ix - ir}px;top:{iy - ir}px;width:{2 * ir}px;height:{2 * ir}px">{refl}</div>'
+    body = art(sid, cam_origin='50% 47%').replace('</div>', iris + '</div>', 1) + \
+        '<div id="s13-why" class="acc fa handoff">چرا؟</div>' + block(sid, 1125, [
+            line(sid, [W('چون', 'L20:0'), W('من', 'L20:1'), W('تونستم', 'L20:2')], 80, 'gr'),
+            line(sid, [W('یک', 'L20:3'), W('اتفاق', 'L20:4'), W('ساده', 'L20:5'), W('رو', 'L20:6')], 80, 'gr'),
+            line(sid, [W('تبدیل', 'L20:7'), W('کنم', 'L20:8'), W('به', 'L20:9'), W('یک', 'L20:10'), W('تصویر', 'L20:11')], 96),
+            line(sid, [W('توی', 'L21:0'), W('ذهن', 'L21:1'), W('تو.', 'L21:2')], 96),
+        ])
+    css = '''#s13-why { position: absolute; left: 0; right: 0; top: 150px; text-align: center; font-size: 300px; line-height: 1.2; opacity: 0; transform-origin: 50% 0%; }
+        #s13-cam img { top: -4px; }
+        #s13-iris { position: absolute; border-radius: 50%; overflow: hidden; }
+        #s13-iris img { position: absolute; left: -40%; top: -10%; width: 180%; height: auto; opacity: 0; }'''
+    t_img = cue('L20:11', sid)
     js = f'''
           tl.fromTo("#s13-why", {{ opacity: 0, scale: 1.6, filter: "blur(16px)" }}, {{ opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.35, ease: "power4.out" }}, {cue('L19:0', sid)});
           sketch(ID, 0.75, {{ d: 1.1, sd: 1.2 }});
           tl.fromTo("#s13-cam", {{ scale: 1.0, y: 0 }}, {{ scale: 1.02, y: 0, duration: {round(t_shift, 3)}, ease: "sine.inOut" }}, 0);
-          tl.to("#s13-cam", {{ scale: 0.92, y: -150, duration: 0.8, ease: "power3.inOut" }}, {round(t_shift, 3)});
-          tl.to("#s13-cam", {{ scale: 0.97, y: -140, duration: {round(dur(sid) - t_shift - 0.8, 3)}, ease: "sine.inOut" }}, {round(t_shift + 0.8, 3)});
-          tl.to("#s13-why", {{ scale: 0.55, y: -40, duration: 0.8, ease: "power3.inOut" }}, {round(t_shift, 3)});'''
+          tl.to("#s13-cam", {{ scale: 0.8, y: -200, duration: 0.8, ease: "power3.inOut" }}, {round(t_shift, 3)});
+          tl.to("#s13-cam", {{ scale: 0.84, y: -205, duration: {round(dur(sid) - t_shift - 0.8, 3)}, ease: "sine.inOut" }}, {round(t_shift + 0.8, 3)});
+          tl.to("#s13-why", {{ scale: 0.55, y: -40, duration: 0.8, ease: "power3.inOut" }}, {round(t_shift, 3)});
+          // «یک تصویر توی ذهن تو»: the story's own sketches flicker in the pupil
+          q("#s13-iris img").forEach((el, i) => {{
+            const t = {round(t_img - 0.6, 3)} + i * 0.55;
+            tl.fromTo(el, {{ opacity: 0, scale: 1.15 }}, {{ opacity: 0.62, scale: 1, duration: 0.3, ease: "power2.out" }}, t);
+            if (i < 3) tl.to(el, {{ opacity: 0, duration: 0.25, ease: "power1.in" }}, t + 0.45);
+          }});'''
     scene_html(sid, body, js, css)
 
 
 def s14():
     sid = 's14'
-    # Monitor screen rect in comp px (tuned to the generated image; stand-in values until then)
-    scr = {'left': 92, 'top': 690, 'width': 896, 'height': 330}
-    thumbs = ['s03', 's05', 's06', 's10', 's09', 's13']
-    imgs = ''.join(f'<img class="th" src="assets/ai/{t}.webp" alt="" />' for t in thumbs)
-    body = art(sid, cam_origin='50% 55%') + f'<div id="s14-screen" style="left:{scr["left"]}px;top:{scr["top"]}px;width:{scr["width"]}px;height:{scr["height"]}px">{imgs}<i id="s14-head"></i></div>' + block(sid, 200, [
+    body = art(sid, cam_origin='50% 52%') + '<div id="s14-glow"></div>' + block(sid, 200, [
         line(sid, [W('و', 'L22:0'), W('این', 'L22:1'), W('دقیقاً', 'L22:2'), W('کاریه', 'L22:3'), W('که', 'L22:4'), W('یک', 'L22:5')], 82, 'gr'),
         line(sid, [W('ادیتور', 'L22:6'), W('و', 'L22:7'), UL(W('موشن', 'L22:8', 'acc'), W('دیزاینر', 'L22:9', 'acc'), at=cue('L22:9', sid) + 0.3)], 114),
         line(sid, [W('انجام', 'L22:10'), W('میده...', 'L22:11')], 82, 'gr'),
     ])
-    css = '''
-        #s14-screen { position: absolute; overflow: hidden; background: #e9e1d3; opacity: 0; }
-        #s14-screen .th { position: absolute; left: 50%; top: 50%; width: 46%; height: auto; transform-origin: 50% 50%; opacity: 0; }
-        #s14-head { position: absolute; top: 0; bottom: 0; left: 0; width: 3px; background: #8b2f1f; }'''
+    # Monitor centre in the drawing: source (573,1035) -> comp (537,971). Its preview already shows a
+    # lone figure on a summit (our own slide 2), so the screen stays as drawn and only glows.
+    css = '#s14-glow { position: absolute; left: 87px; top: 711px; width: 900px; height: 520px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 244, 222, 0.5), rgba(255, 244, 222, 0)); opacity: 0; }'
     js = f'''
           sketch(ID, 0.2, {{ d: 1.1, sd: 1.2 }});
           {cam(sid, 1.0, 1.08, y1=-10)}
-          // The editor's monitor plays this very film: our sketches cut on the playhead
-          tl.fromTo("#s14-screen", {{ opacity: 0 }}, {{ opacity: 1, duration: 0.5, ease: "power1.out" }}, 1.2);
-          const th = q(".th");
-          th.forEach((el, i) => {{
-            const t = 1.3 + i * 0.68;
-            tl.fromTo(el, {{ opacity: 0, xPercent: -50, yPercent: -38, scale: 1.0 }}, {{ opacity: 1, xPercent: -50, yPercent: -38, scale: 1.06, duration: 0.7, ease: "none" }}, t);
-            if (i < th.length - 1) tl.set(el, {{ opacity: 0 }}, t + 0.68);
-          }});
-          tl.fromTo("#s14-head", {{ x: 0 }}, {{ x: {scr['width'] - 3}, duration: {round(dur(sid) - 1.3, 3)}, ease: "none" }}, 1.3);'''
+          tl.fromTo("#s14-glow", {{ opacity: 0 }}, {{ opacity: 1, duration: 0.8, ease: "power1.out" }}, 1.3);
+          tl.to("#s14-glow", {{ opacity: 0.55, duration: 0.18, ease: "steps(2)", yoyo: true, repeat: 9 }}, 2.2);'''
     scene_html(sid, body, js, css)
 
 
@@ -489,27 +501,30 @@ def s15():
     ]) + '<div id="s15-card" class="fa">' + line(sid, [W('و', 'L24:0'), W('وقتی', 'L24:1'), W('بتونی', 'L24:2'), W('ایده‌هات', 'L24:3'), W('رو', 'L24:4'), W('تصویری', 'L24:5'), W('کنی،', 'L24:6')], 58) + \
         line(sid, [W('داری', 'L25:0'), W('یک', 'L25:1', 'gold'), W('قدم', 'L25:2', 'gold'), W('بزرگ', 'L25:3', 'gold'), W('برای', 'L25:4'), W('رشد', 'L25:5')], 58) + \
         line(sid, [W('برند', 'L25:6'), W('و', 'L25:7'), W('کسب‌وکارت', 'L25:8'), W('برمی‌داری.', 'L25:9')], 58) + '</div>'
+    # Bulb glass centre: source (576,880) -> comp (540,856) with the drawing dropped 40px
     css = '''
-        #s15-glow { position: absolute; left: 190px; top: 560px; width: 700px; height: 760px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 238, 196, 0.9), rgba(255, 232, 180, 0.35) 55%, rgba(255, 232, 180, 0)); opacity: 0; }
-        #s15-card { position: absolute; left: 84px; right: 84px; top: 1215px; padding: 36px 40px 40px; border-radius: 30px; background: #2a231c; color: #efe6d6; text-align: center; opacity: 0; }
-        #s15-card .ln { line-height: 1.42; }
+        #s15-cam img { top: -24px; }
+        #s15-glow { position: absolute; left: 190px; top: 476px; width: 700px; height: 760px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 238, 196, 0.9), rgba(255, 232, 180, 0.35) 55%, rgba(255, 232, 180, 0)); opacity: 0; }
+        #s15-card { position: absolute; display: flex; flex-direction: column; left: 84px; right: 84px; top: 1200px; padding: 30px 40px 34px; border-radius: 30px; background: #2a231c; color: #efe6d6; text-align: center; opacity: 0; }
+        #s15-card .ln { line-height: 1.3; }
         #s15-card .gold { color: #e3b67c; }'''
     js = f'''
           sketch(ID, 0.2, {{ d: 1.2, sd: 1.4 }});
-          tl.fromTo("#s15-cam", {{ scale: 1.0, y: 0 }}, {{ scale: 1.04, y: 0, duration: {round(t_card, 3)}, ease: "sine.inOut" }}, 0);
-          tl.to("#s15-cam", {{ scale: 0.9, y: -150, duration: 0.9, ease: "power3.inOut" }}, {round(t_card, 3)});
-          tl.to("#s15-cam", {{ scale: 0.93, y: -150, duration: {round(dur(sid) - t_card - 0.9, 3)}, ease: "sine.inOut" }}, {round(t_card + 0.9, 3)});
-          tl.to("#s15-glow", {{ y: -140, scale: 0.9, duration: 0.9, ease: "power3.inOut" }}, {round(t_card, 3)});
+          tl.fromTo("#s15-cam", {{ scale: 1.0, y: 0 }}, {{ scale: 1.03, y: 0, duration: {round(t_card, 3)}, ease: "sine.inOut" }}, 0);
+          tl.to("#s15-cam", {{ scale: 0.88, y: -215, duration: 0.9, ease: "power3.inOut" }}, {round(t_card, 3)});
+          tl.to("#s15-cam", {{ scale: 0.9, y: -215, duration: {round(dur(sid) - t_card - 0.9, 3)}, ease: "sine.inOut" }}, {round(t_card + 0.9, 3)});
           // The bulb lights on «تصویر»
-          tl.fromTo("#s15-glow", {{ opacity: 0, scale: 0.7 }}, {{ opacity: 1, scale: 1, duration: 0.6, ease: "power2.out" }}, {round(t_on, 3)});
+          tl.fromTo("#s15-glow", {{ opacity: 0, scale: 0.7, y: 0 }}, {{ opacity: 1, scale: 1, y: 0, duration: 0.6, ease: "power2.out" }}, {round(t_on, 3)});
+          tl.to("#s15-glow", {{ y: -205, scale: 0.88, duration: 0.9, ease: "power3.inOut" }}, {round(t_card, 3)});
           tl.to("#s15-glow", {{ opacity: 0.8, duration: 1.2, ease: "sine.inOut", yoyo: true, repeat: 7 }}, {round(t_on + 0.6, 3)});
           tl.fromTo("#s15-card", {{ opacity: 0, y: 70 }}, {{ opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }}, {round(t_card + 0.2, 3)});'''
     scene_html(sid, body, js, css)
 
 
 if __name__ == '__main__':
-    for fn in (s01, s02, s03, s04, s05, s06, s07, s08, s09, s10, s11, s12, s13, s14, s15):
-        fn()
+    for _ in range(2):  # pass 1 collects FIRST_WORD for the text hand-off in inout()
+        for fn in (s01, s02, s03, s04, s05, s06, s07, s08, s09, s10, s11, s12, s13, s14, s15):
+            fn()
     json.dump([{'id': s, 'start': a, 'end': b, 'duration': dur(s)} for s, a, b, _ in SCENES],
               open(os.path.join(ROOT, 'compositions', 'scenes.json'), 'w'), indent=1)
     print('wrote', len(SCENES), 'scenes')

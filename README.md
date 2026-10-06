@@ -74,8 +74,8 @@ ffmpeg -i renders/argon-webinar-reel.mp4 -c:v copy -af loudnorm=I=-14:TP=-1.5:LR
 
 پروژهٔ `jobs-reel/` (حدود ۹۴ ثانیه، ۳۰ فریم بر ثانیه): سناریو، متن و استوری‌بورد از کاربر، به سبک
 طراحی مدادی رفرنس (`jobs-reel/references/`). ۱۵ صحنه را `jobs-reel/tools/build_scenes.py` می‌سازد؛
-طراحی در `jobs-reel/frame.md`، برنامهٔ صحنه‌ها در `jobs-reel/STORYBOARD.md`، و قدم‌های باقی‌مانده در
-`jobs-reel/HANDOFF.md`.
+طراحی در `jobs-reel/frame.md`، برنامهٔ صحنه‌ها در `jobs-reel/STORYBOARD.md`، و روش رندر دوباره در
+`jobs-reel/HANDOFF.md`. خروجی نهایی: `deliverables/jobs-reel.mp4`.
 
 - فونت لاتین «Steve Jobs» و «NeXT»: Oswald (مجوز OFL، داخل گیت). فونت فارسی همان Abar High است.
 - عکس‌ها با `tools/prep_images.py` کاغذشان حذف می‌شود تا همه روی یک کاغذ مشترک بنشینند.

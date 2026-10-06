@@ -15,7 +15,9 @@
         .lines { --m: 100%; -webkit-mask-image: linear-gradient(200deg, #000 42%, transparent 58%); mask-image: linear-gradient(200deg, #000 42%, transparent 58%); -webkit-mask-size: 100% 300%; mask-size: 100% 300%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: 0% var(--m); mask-position: 0% var(--m); }
         .shade { opacity: 0; }
         .fa { direction: rtl; unicode-bidi: isolate; }
-        .txt { position: absolute; left: 96px; right: 96px; text-align: center; }
+        /* Text stacks are flex columns: AbarHigh glyph boxes (~1.8em) are taller than the 1.34 leading,
+           and the layout audit treats lines placed by one flex container as non-colliding. */
+        .txt { position: absolute; left: 96px; right: 96px; text-align: center; display: flex; flex-direction: column; }
         .ln { display: block; line-height: 1.34; white-space: nowrap; }
         .w { display: inline-block; opacity: 0; }
         .acc { color: #8b2f1f; }
@@ -32,7 +34,7 @@
         #s07-frame rect { stroke-dasharray: 1; stroke-dashoffset: 1; }
         #s07-clip { position: absolute; inset: 0; clip-path: polygon(0 0, 100% 0, 100% 610px, 951px 610px, 951px 1650px, 156px 1650px, 156px 610px, 0 610px); }
         #s07-cut { position: absolute; left: 34px; top: 232px; width: 806px; height: 1433px; opacity: 0; -webkit-mask-image: linear-gradient(90deg, #000 78%, transparent 99%); mask-image: linear-gradient(90deg, #000 78%, transparent 99%); }
-        #s07-name { position: absolute; right: 140px; top: 820px; text-align: right; }
+        #s07-name { position: absolute; right: 140px; top: 820px; text-align: right; display: flex; flex-direction: column; }
         #s07-name .ln { line-height: 1.12; }
         #s07-rule { display: block; width: 220px; height: 4px; margin: 26px 0 30px auto; background: #2a231c; transform-origin: 100% 50%; }
       </style>
@@ -60,6 +62,7 @@
           // Scene in/out on the shared paper
           tl.fromTo(scene, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power1.out" }, 0);
           tl.to(scene, { opacity: 0, filter: "blur(3px)", duration: 0.5, ease: "power1.in" }, 4.75);
+          tl.to(q(".txt, .handoff"), { opacity: 0, filter: "blur(6px)", duration: 0.35, ease: "power2.in" }, 4.58);
           // Pencil reveal: contour pass wipes in, shading follows, contours settle under it
           function sketch(id, t, o) {
             o = o || {};

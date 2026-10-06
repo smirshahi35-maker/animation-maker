@@ -15,7 +15,9 @@
         .lines { --m: 100%; -webkit-mask-image: linear-gradient(200deg, #000 42%, transparent 58%); mask-image: linear-gradient(200deg, #000 42%, transparent 58%); -webkit-mask-size: 100% 300%; mask-size: 100% 300%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: 0% var(--m); mask-position: 0% var(--m); }
         .shade { opacity: 0; }
         .fa { direction: rtl; unicode-bidi: isolate; }
-        .txt { position: absolute; left: 96px; right: 96px; text-align: center; }
+        /* Text stacks are flex columns: AbarHigh glyph boxes (~1.8em) are taller than the 1.34 leading,
+           and the layout audit treats lines placed by one flex container as non-colliding. */
+        .txt { position: absolute; left: 96px; right: 96px; text-align: center; display: flex; flex-direction: column; }
         .ln { display: block; line-height: 1.34; white-space: nowrap; }
         .w { display: inline-block; opacity: 0; }
         .acc { color: #8b2f1f; }
@@ -32,7 +34,7 @@
       </style>
       <div id="root" data-composition-id="s01" data-width="1080" data-height="1920">
         <div class="scene" id="s01-scene">
-<div class="cam" id="s01-cam" style="transform-origin:45% 60%"><img class="lines" id="s01-lines" src="assets/ai/s01-lines.webp" alt="" /><img class="shade" id="s01-shade" src="assets/ai/s01.webp" alt="" /></div><div class="txt fa ph " style="top:250px"><div class="ln " style="font-size:98px;"><span class="w " data-t="0.35">هیچکس</span></div><div class="ln " style="font-size:140px;"><span class="w " data-t="0.81">این</span> <span class="w " data-t="0.81">رو</span> <span class="w " data-t="1.03">بهت</span></div><div class="ln " style="font-size:98px;"><span class="w " data-t="1.33">نمی‌گه...</span></div></div><div id="s01-q" class="acc">؟</div>
+<div class="cam" id="s01-cam" style="transform-origin:45% 60%"><img class="lines" id="s01-lines" src="assets/ai/s01-lines.webp" alt="" /><img class="shade" id="s01-shade" src="assets/ai/s01.webp" alt="" /></div><div class="txt fa ph " style="top:250px"><div class="ln " style="font-size:98px;"><span class="w " data-t="0.35">هیچکس</span></div><div class="ln " style="font-size:140px;"><span class="w " data-t="0.81">این</span> <span class="w " data-t="0.81">رو</span> <span class="w " data-t="1.03">بهت</span></div><div class="ln " style="font-size:98px;"><span class="w " data-t="1.33">نمی‌گه...</span></div></div><div id="s01-q" class="acc" data-layout-allow-overlap>؟</div>
         </div>
       </div>
       <script>
@@ -43,6 +45,7 @@
           const q = (s) => scene.querySelectorAll(s);
           // Scene in/out on the shared paper
           tl.to(scene, { opacity: 0, filter: "blur(3px)", duration: 0.5, ease: "power1.in" }, 2.2);
+          tl.to(q(".txt, .handoff"), { opacity: 0, filter: "blur(6px)", duration: 0.35, ease: "power2.in" }, 1.94);
           // Pencil reveal: contour pass wipes in, shading follows, contours settle under it
           function sketch(id, t, o) {
             o = o || {};

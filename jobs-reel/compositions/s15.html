@@ -15,7 +15,9 @@
         .lines { --m: 100%; -webkit-mask-image: linear-gradient(200deg, #000 42%, transparent 58%); mask-image: linear-gradient(200deg, #000 42%, transparent 58%); -webkit-mask-size: 100% 300%; mask-size: 100% 300%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: 0% var(--m); mask-position: 0% var(--m); }
         .shade { opacity: 0; }
         .fa { direction: rtl; unicode-bidi: isolate; }
-        .txt { position: absolute; left: 96px; right: 96px; text-align: center; }
+        /* Text stacks are flex columns: AbarHigh glyph boxes (~1.8em) are taller than the 1.34 leading,
+           and the layout audit treats lines placed by one flex container as non-colliding. */
+        .txt { position: absolute; left: 96px; right: 96px; text-align: center; display: flex; flex-direction: column; }
         .ln { display: block; line-height: 1.34; white-space: nowrap; }
         .w { display: inline-block; opacity: 0; }
         .acc { color: #8b2f1f; }
@@ -28,9 +30,10 @@
         .frame { position: absolute; overflow: visible; }
         .frame rect { fill: none; stroke: #2a231c; stroke-width: 3; }
 
-        #s15-glow { position: absolute; left: 190px; top: 560px; width: 700px; height: 760px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 238, 196, 0.9), rgba(255, 232, 180, 0.35) 55%, rgba(255, 232, 180, 0)); opacity: 0; }
-        #s15-card { position: absolute; left: 84px; right: 84px; top: 1215px; padding: 36px 40px 40px; border-radius: 30px; background: #2a231c; color: #efe6d6; text-align: center; opacity: 0; }
-        #s15-card .ln { line-height: 1.42; }
+        #s15-cam img { top: -24px; }
+        #s15-glow { position: absolute; left: 190px; top: 476px; width: 700px; height: 760px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 238, 196, 0.9), rgba(255, 232, 180, 0.35) 55%, rgba(255, 232, 180, 0)); opacity: 0; }
+        #s15-card { position: absolute; display: flex; flex-direction: column; left: 84px; right: 84px; top: 1200px; padding: 30px 40px 34px; border-radius: 30px; background: #2a231c; color: #efe6d6; text-align: center; opacity: 0; }
+        #s15-card .ln { line-height: 1.3; }
         #s15-card .gold { color: #e3b67c; }
       </style>
       <div id="root" data-composition-id="s15" data-width="1080" data-height="1920">
@@ -66,12 +69,12 @@
           });
 
           sketch(ID, 0.2, { d: 1.2, sd: 1.4 });
-          tl.fromTo("#s15-cam", { scale: 1.0, y: 0 }, { scale: 1.04, y: 0, duration: 4.35, ease: "sine.inOut" }, 0);
-          tl.to("#s15-cam", { scale: 0.9, y: -150, duration: 0.9, ease: "power3.inOut" }, 4.35);
-          tl.to("#s15-cam", { scale: 0.93, y: -150, duration: 10.25, ease: "sine.inOut" }, 5.25);
-          tl.to("#s15-glow", { y: -140, scale: 0.9, duration: 0.9, ease: "power3.inOut" }, 4.35);
+          tl.fromTo("#s15-cam", { scale: 1.0, y: 0 }, { scale: 1.03, y: 0, duration: 4.35, ease: "sine.inOut" }, 0);
+          tl.to("#s15-cam", { scale: 0.88, y: -215, duration: 0.9, ease: "power3.inOut" }, 4.35);
+          tl.to("#s15-cam", { scale: 0.9, y: -215, duration: 10.25, ease: "sine.inOut" }, 5.25);
           // The bulb lights on «تصویر»
-          tl.fromTo("#s15-glow", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.6, ease: "power2.out" }, 3.04);
+          tl.fromTo("#s15-glow", { opacity: 0, scale: 0.7, y: 0 }, { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: "power2.out" }, 3.04);
+          tl.to("#s15-glow", { y: -205, scale: 0.88, duration: 0.9, ease: "power3.inOut" }, 4.35);
           tl.to("#s15-glow", { opacity: 0.8, duration: 1.2, ease: "sine.inOut", yoyo: true, repeat: 7 }, 3.64);
           tl.fromTo("#s15-card", { opacity: 0, y: 70 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 4.55);
           window.__timelines[ID] = tl;

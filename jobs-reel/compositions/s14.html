@@ -15,7 +15,9 @@
         .lines { --m: 100%; -webkit-mask-image: linear-gradient(200deg, #000 42%, transparent 58%); mask-image: linear-gradient(200deg, #000 42%, transparent 58%); -webkit-mask-size: 100% 300%; mask-size: 100% 300%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: 0% var(--m); mask-position: 0% var(--m); }
         .shade { opacity: 0; }
         .fa { direction: rtl; unicode-bidi: isolate; }
-        .txt { position: absolute; left: 96px; right: 96px; text-align: center; }
+        /* Text stacks are flex columns: AbarHigh glyph boxes (~1.8em) are taller than the 1.34 leading,
+           and the layout audit treats lines placed by one flex container as non-colliding. */
+        .txt { position: absolute; left: 96px; right: 96px; text-align: center; display: flex; flex-direction: column; }
         .ln { display: block; line-height: 1.34; white-space: nowrap; }
         .w { display: inline-block; opacity: 0; }
         .acc { color: #8b2f1f; }
@@ -27,14 +29,11 @@
               transform-origin: 100% 50%; }
         .frame { position: absolute; overflow: visible; }
         .frame rect { fill: none; stroke: #2a231c; stroke-width: 3; }
-
-        #s14-screen { position: absolute; overflow: hidden; background: #e9e1d3; opacity: 0; }
-        #s14-screen .th { position: absolute; left: 50%; top: 50%; width: 46%; height: auto; transform-origin: 50% 50%; opacity: 0; }
-        #s14-head { position: absolute; top: 0; bottom: 0; left: 0; width: 3px; background: #8b2f1f; }
+#s14-glow { position: absolute; left: 87px; top: 711px; width: 900px; height: 520px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 244, 222, 0.5), rgba(255, 244, 222, 0)); opacity: 0; }
       </style>
       <div id="root" data-composition-id="s14" data-width="1080" data-height="1920">
         <div class="scene" id="s14-scene">
-<div class="cam" id="s14-cam" style="transform-origin:50% 55%"><img class="lines" id="s14-lines" src="assets/ai/s14-lines.webp" alt="" /><img class="shade" id="s14-shade" src="assets/ai/s14.webp" alt="" /></div><div id="s14-screen" style="left:92px;top:690px;width:896px;height:330px"><img class="th" src="assets/ai/s03.webp" alt="" /><img class="th" src="assets/ai/s05.webp" alt="" /><img class="th" src="assets/ai/s06.webp" alt="" /><img class="th" src="assets/ai/s10.webp" alt="" /><img class="th" src="assets/ai/s09.webp" alt="" /><img class="th" src="assets/ai/s13.webp" alt="" /><i id="s14-head"></i></div><div class="txt fa ph " style="top:200px"><div class="ln gr" style="font-size:82px;"><span class="w " data-t="0.29">و</span> <span class="w " data-t="0.43">این</span> <span class="w " data-t="0.59">دقیقاً</span> <span class="w " data-t="1.19">کاریه</span> <span class="w " data-t="1.63">که</span> <span class="w " data-t="2.05">یک</span></div><div class="ln " style="font-size:114px;"><span class="w " data-t="2.29">ادیتور</span> <span class="w " data-t="2.71">و</span> <span class="ulw"><span class="w acc" data-t="2.85">موشن</span> <span class="w acc" data-t="3.17">دیزاینر</span><i class="ul" data-t="3.47"></i></span></div><div class="ln gr" style="font-size:82px;"><span class="w " data-t="3.97">انجام</span> <span class="w " data-t="4.33">میده...</span></div></div>
+<div class="cam" id="s14-cam" style="transform-origin:50% 52%"><img class="lines" id="s14-lines" src="assets/ai/s14-lines.webp" alt="" /><img class="shade" id="s14-shade" src="assets/ai/s14.webp" alt="" /></div><div id="s14-glow"></div><div class="txt fa ph " style="top:200px"><div class="ln gr" style="font-size:82px;"><span class="w " data-t="0.29">و</span> <span class="w " data-t="0.43">این</span> <span class="w " data-t="0.59">دقیقاً</span> <span class="w " data-t="1.19">کاریه</span> <span class="w " data-t="1.63">که</span> <span class="w " data-t="2.05">یک</span></div><div class="ln " style="font-size:114px;"><span class="w " data-t="2.29">ادیتور</span> <span class="w " data-t="2.71">و</span> <span class="ulw"><span class="w acc" data-t="2.85">موشن</span> <span class="w acc" data-t="3.17">دیزاینر</span><i class="ul" data-t="3.47"></i></span></div><div class="ln gr" style="font-size:82px;"><span class="w " data-t="3.97">انجام</span> <span class="w " data-t="4.33">میده...</span></div></div>
         </div>
       </div>
       <script>
@@ -46,6 +45,7 @@
           // Scene in/out on the shared paper
           tl.fromTo(scene, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power1.out" }, 0);
           tl.to(scene, { opacity: 0, filter: "blur(3px)", duration: 0.5, ease: "power1.in" }, 5.4);
+          tl.to(q(".txt, .handoff"), { opacity: 0, filter: "blur(6px)", duration: 0.35, ease: "power2.in" }, 5.2);
           // Pencil reveal: contour pass wipes in, shading follows, contours settle under it
           function sketch(id, t, o) {
             o = o || {};
@@ -67,15 +67,8 @@
 
           sketch(ID, 0.2, { d: 1.1, sd: 1.2 });
           tl.fromTo("#s14-cam", { scale: 1.0, x: 0, y: 0 }, { scale: 1.08, x: 0, y: -10, duration: 5.9, ease: "sine.inOut" }, 0);
-          // The editor's monitor plays this very film: our sketches cut on the playhead
-          tl.fromTo("#s14-screen", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power1.out" }, 1.2);
-          const th = q(".th");
-          th.forEach((el, i) => {
-            const t = 1.3 + i * 0.68;
-            tl.fromTo(el, { opacity: 0, xPercent: -50, yPercent: -38, scale: 1.0 }, { opacity: 1, xPercent: -50, yPercent: -38, scale: 1.06, duration: 0.7, ease: "none" }, t);
-            if (i < th.length - 1) tl.set(el, { opacity: 0 }, t + 0.68);
-          });
-          tl.fromTo("#s14-head", { x: 0 }, { x: 893, duration: 4.6, ease: "none" }, 1.3);
+          tl.fromTo("#s14-glow", { opacity: 0 }, { opacity: 1, duration: 0.8, ease: "power1.out" }, 1.3);
+          tl.to("#s14-glow", { opacity: 0.55, duration: 0.18, ease: "steps(2)", yoyo: true, repeat: 9 }, 2.2);
           window.__timelines[ID] = tl;
         })();
       </script>

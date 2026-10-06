@@ -42,9 +42,8 @@ TTS spelling only: the year is written out in words and NeXT as «نِکست»; 
 ## Assets
 
 - `assets/ai/src/sNN-*.png` — GPT Image 2.5 Sunburst, 2K 9:16, style reference wired in.
-  `tools/prep_images.py` makes `sNN.jpg` (paper → white, multiplied onto the shared paper),
-  `sNN-lines.jpg` (pencil contour pass) and `sNN-cut.png` (portrait cutouts for s03/s07).
-  A slide without a generated image falls back to its storyboard panel (`sNN.placeholder` marks it).
+  `tools/prep_images.py` makes `sNN.webp` (graphite on transparent, laid on the shared paper),
+  `sNN-lines.webp` (pencil contour pass) and `sNN-cut.webp` (portrait cutouts for s03/s07).
 - `assets/audio/vo/narration.wav` — Roya, eleven_v3, retimed with dramatic pauses
   (`narration.retime.json`, word times in `narration.lines.json`, verified with Scribe).
 - `assets/audio/music/story.mp3` (story bed) and `pitch.mp3` (pitch bed, 88 BPM) — ElevenLabs Music.
@@ -54,11 +53,11 @@ TTS spelling only: the year is written out in words and NeXT as «نِکست»; 
 ## Customizations
 
 - No CTA/handle was given, so none is invented: the film ends on the user's last line.
-- ElevenLabs free plan has a daily image cap; slides without images use storyboard stand-ins
-  until the cap allows (or the plan is upgraded).
 
 ## Notes
 
 - 2026-10-06: drawings for slides 1–6 done (GPT Image 2.5, style reference wired in). Slides 7–15
   blocked by the old ElevenLabs account's free-plan image cap; the user is connecting a paid account.
   Next steps: `HANDOFF.md`.
+- 2026-10-06: all 15 drawings generated (slides 7–15 on the user's other connected accounts) and
+  fitted; check passes; rendered at 30 fps and mastered to −14 LUFS → `deliverables/jobs-reel.mp4`.
