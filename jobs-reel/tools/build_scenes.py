@@ -301,20 +301,20 @@ def s07():
           <svg class="frame" id="s07-frame" width="801" height="1046" style="left:153px;top:607px"><rect x="1.5" y="1.5" width="798" height="1043" pathLength="1" /></svg>
           <div class="cam" id="s07-cam" style="transform-origin:45% 40%"><div id="s07-clip"><img id="s07-cut" src="assets/ai/s07-cut.webp" alt="" /></div></div>
           <div id="s07-name" class="fa">
-            ''' + line(sid, [W('استیو', 'L11:0')], 128) + line(sid, [W('جابز', 'L11:1', 'acc')], 128) + '''
+            ''' + line(sid, [W('استیو', 'L11:0')], 112) + line(sid, [W('جابز', 'L11:1', 'acc')], 112) + '''
             <i id="s07-rule"></i>
-            <div class="ln lat" style="font-size:104px;line-height:1.02"><span class="w" data-t="''' + str(cue('L11:2', sid)) + '''">Steve</span></div>
-            <div class="ln lat" style="font-size:104px;line-height:1.02"><span class="w" data-t="''' + str(cue('L11:2', sid) + 0.12) + '''">Jobs</span></div>
+            <div class="ln lat" style="font-size:92px;line-height:1.02"><span class="w" data-t="''' + str(cue('L11:2', sid)) + '''">Steve</span></div>
+            <div class="ln lat" style="font-size:92px;line-height:1.02"><span class="w" data-t="''' + str(cue('L11:2', sid) + 0.12) + '''">Jobs</span></div>
           </div>
           ''' + block(sid, 190, [line(sid, [W('اسم', 'L10:0'), W('اون', 'L10:1'), W('آدم...', 'L10:2')], 92, 'gr')])
     css = '''
         #s07-panel { position: absolute; left: 156px; top: 610px; width: 795px; height: 1040px; background: rgba(233, 225, 211, 0.45); opacity: 0; }
         #s07-frame rect { stroke-dasharray: 1; stroke-dashoffset: 1; }
         #s07-clip { position: absolute; inset: 0; clip-path: polygon(0 0, 100% 0, 100% 610px, 951px 610px, 951px 1650px, 156px 1650px, 156px 610px, 0 610px); }
-        #s07-cut { position: absolute; left: -10px; top: 40px; width: 922px; height: 1638px; opacity: 0; }
-        #s07-name { position: absolute; right: 168px; top: 760px; text-align: right; }
+        #s07-cut { position: absolute; left: 34px; top: 232px; width: 806px; height: 1433px; opacity: 0; -webkit-mask-image: linear-gradient(90deg, #000 78%, transparent 99%); mask-image: linear-gradient(90deg, #000 78%, transparent 99%); }
+        #s07-name { position: absolute; right: 140px; top: 820px; text-align: right; }
         #s07-name .ln { line-height: 1.12; }
-        #s07-rule { display: block; width: 250px; height: 4px; margin: 26px 0 30px auto; background: #2a231c; transform-origin: 100% 50%; }'''
+        #s07-rule { display: block; width: 220px; height: 4px; margin: 26px 0 30px auto; background: #2a231c; transform-origin: 100% 50%; }'''
     js = f'''
           tl.fromTo("#s07-panel", {{ opacity: 0 }}, {{ opacity: 1, duration: 0.6, ease: "power1.out" }}, 0.1);
           tl.fromTo("#s07-frame rect", {{ strokeDashoffset: 1 }}, {{ strokeDashoffset: 0, duration: 1.0, ease: "power2.inOut" }}, 0.1);
@@ -332,8 +332,8 @@ def s08():
     ])
     css = '''
         .fog { position: absolute; width: 1100px; height: 420px; border-radius: 50%; background: radial-gradient(closest-side, rgba(226, 218, 204, 0.75), rgba(226, 218, 204, 0)); }
-        #s08-fog1 { left: -300px; top: 980px; }
-        #s08-fog2 { left: 300px; top: 1180px; }'''
+        #s08-fog1 { left: -320px; top: 700px; height: 340px; }
+        #s08-fog2 { left: 280px; top: 860px; height: 300px; }'''
     js = f'''
           sketch(ID, 0.15, {{ d: 1.1, sd: 1.3 }});
           {cam(sid, 1.08, 1.0, y0=-20)}
@@ -355,7 +355,7 @@ def s09():
         line(sid, [W('به', 'L14:10'), W('اسم', 'L14:11'), W('NeXT', 'L14:12', 'acc lat next'), W('رو', 'L14:13')], 92, extra='line-height:1.25'),
         line(sid, [W('راه‌اندازی', 'L14:14'), W('کنه...', 'L14:15')], 92),
     ], 'b')
-    css = '.next { font-size: 150px; vertical-align: -0.12em; margin: 0 0.12em; }'
+    css = '.next { font-size: 150px; vertical-align: -0.12em; margin: 0 0.12em; }\n        #s09-cam img { top: 150px; }'
     js = f'''
           sketch(ID, {round(a_out + 0.1, 3)}, {{ d: 1.2, sd: 1.3 }});
           tl.fromTo("#s09-cam", {{ scale: 1.0 }}, {{ scale: 1.05, duration: {round(t_next, 3)}, ease: "sine.inOut" }}, 0);
