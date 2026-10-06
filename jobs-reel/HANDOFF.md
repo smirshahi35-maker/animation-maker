@@ -21,6 +21,13 @@ Snapshot the scene (`npx hyperframes snapshot --at <t> --no-end`), then adjust i
 - Text blocks (`.txt`) are flex columns so the layout audit does not read AbarHigh's tall glyph boxes
   as line collisions; decorative glyphs behind other text (`#s03-year`, `#s01-q`) carry
   `data-layout-allow-overlap`.
+- Text lines: at most 840px of ink (the column is 96–984), centred by INK, not by layout box —
+  AbarHigh's periods have wide side-bearings, and a too-wide `nowrap` line overflows to the left in
+  RTL. After any text change run `node tools/measure_lines.cjs --fit` (writes per-line offsets to
+  `tools/line_fit.json`), `python3 tools/build_scenes.py`, then `node tools/measure_lines.cjs` must
+  print "all … lines inside their column and centred by ink". Shrink a line that is too wide.
+- s03/s07 portrait frames: the clip (`#sNN-clip`) sits OUTSIDE the zooming `.cam`, so only the head
+  breaks out at the top and the sides/bottom stay inside the frame at any zoom.
 - `inout()` fades each scene's `.txt` and `.handoff` elements just before the next scene's first
   word (the build runs twice to learn those times). Give any other large text that sits where the
   next scene's text lands the `handoff` class.
@@ -33,6 +40,7 @@ Replacing a drawing: put the new PNG at the `file` path in `tools/image_prompts.
 ```bash
 python3 tools/build_scenes.py && python3 tools/build_root.py   # build_root keeps the carve/fade attributes
 npx hyperframes check                                          # must be 0 errors
+node tools/measure_lines.cjs                                   # every line inside its column, ink-centred
 npx hyperframes render -q high -f 30 -o renders/jobs-reel.mp4
 python3 tools/master.py    # loudnorm -14 LUFS / -1.5 dBTP + H.264 CRF 19 (≤7 Mbps) -> ../deliverables/jobs-reel.mp4
 ```

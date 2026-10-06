@@ -12,6 +12,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LINES = {l['id']: l for l in json.load(open(os.path.join(ROOT, 'assets/audio/vo/narration.lines.json')))['lines']}
 OVERLAP = 0.5
 LEAD = 0.08  # words appear just before they are spoken
+# Optical (ink) centring per line, written by `node tools/measure_lines.cjs --fit`: {"sid|text": dx px}
+FIT_PATH = os.path.join(ROOT, 'tools', 'line_fit.json')
+FIT = json.load(open(FIT_PATH)) if os.path.exists(FIT_PATH) else {}
 
 # id, start, end (boundary with the next scene), flags
 SCENES = [
@@ -60,7 +63,11 @@ def UL(*words, at=None):
 
 
 def line(sid, items, size, cls='', extra=''):
+    # Centred lines must measure <= 840px (24px clear of the 888px column) or they overflow to the
+    # left in RTL and sit off-centre. Lines are then centred by their ink, not their advance box
+    # (AbarHigh's periods carry wide side-bearings), via FIT. Check with: node tools/measure_lines.cjs
     out = []
+    text = ' '.join(w[1] for it in items for w in ([it] if it[0] == 'w' else it[1]))
     for it in items:
         if it[0] == 'w':
             out.append(word(sid, it))
@@ -68,6 +75,9 @@ def line(sid, items, size, cls='', extra=''):
             inner = ' '.join(word(sid, w) for w in it[1])
             out.append(f'<span class="ulw">{inner}<i class="ul" data-t="{cue(it[2], sid)}"></i></span>')
     style = f'font-size:{size}px;{extra}'
+    dx = FIT.get(f'{sid}|{text}', 0)
+    if dx:
+        style += f';position:relative;left:{dx}px'
     return f'<div class="ln {cls}" style="{style}">' + ' '.join(out) + '</div>'
 
 
@@ -214,7 +224,7 @@ def s02():
     sid = 's02'
     body = art(sid, cam_origin='50% 45%') + block(sid, 205, [
         line(sid, [W('ولی', 'L02:0'), W('گاهی', 'L02:1')], 86, 'gr'),
-        line(sid, [W('بزرگ‌ترین', 'L02:2'), W('موفقیت‌ها', 'L02:3')], 116),
+        line(sid, [W('بزرگ‌ترین', 'L02:2'), W('موفقیت‌ها', 'L02:3')], 112),
         line(sid, [W('از', 'L02:4'), UL(W('بدترین', 'L02:5', 'acc'), W('شکست‌ها', 'L02:6', 'acc'), at=cue('L02:6', sid) + 0.35)], 104),
         line(sid, [W('شروع', 'L02:7'), W('میشن...', 'L02:8')], 86, 'gr'),
     ])
@@ -231,7 +241,7 @@ def s03():
           <div id="s03-year" class="handoff" data-layout-allow-overlap>۱۹۸۵</div>
           <div id="s03-panel"></div>
           <svg class="frame" id="s03-frame" width="801" height="1006" style="left:153px;top:647px"><rect x="1.5" y="1.5" width="798" height="1003" pathLength="1" /></svg>
-          <div class="cam" id="s03-cam" style="transform-origin:50% 40%"><div id="s03-clip"><img id="s03-cut" src="assets/ai/s03-cut.webp" alt="" /></div></div>
+          <div id="s03-clip"><div class="cam" id="s03-cam" style="transform-origin:50% 40%"><img id="s03-cut" src="assets/ai/s03-cut.webp" alt="" /></div></div>
           ''' + block(sid, 92, [line(sid, [W('سال', 'L03:0', 'gr')], 84)])
     css = '''
         #s03-year { position: absolute; left: 0; right: 0; top: 236px; text-align: center; direction: ltr; font-size: 470px; line-height: 1; color: #33291f; opacity: 0; letter-spacing: -0.02em; }
@@ -255,7 +265,7 @@ def s04():
     sid = 's04'
     body = art(sid, cam_origin='70% 62%') + block(sid, 230, [
         line(sid, [W('مردی', 'L04:0'), W('که', 'L04:1'), W('خودش', 'L04:2')], 94, 'gr'),
-        line(sid, [W('اپل', 'L04:3'), W('رو', 'L04:4'), W('ساخته', 'L04:5'), W('بود...', 'L04:6')], 124),
+        line(sid, [W('اپل', 'L04:3'), W('رو', 'L04:4'), W('ساخته', 'L04:5'), W('بود...', 'L04:6')], 118),
     ])
     js = f'''
           sketch(ID, 0.15, {{ d: 0.9, sd: 1.0, lag: 0.35 }});
@@ -285,8 +295,8 @@ def s06():
     b_out = cue('L09:0', sid) - 0.45
     body = art(sid, cam_origin='50% 47%') + block(sid, 215, [
         line(sid, [W('تصور', 'L06:0'), W('کن...', 'L06:1')], 132),
-        line(sid, [W('تو', 'L07:0'), W('یک', 'L07:1'), W('شرکت', 'L07:2'), W('تأسیس', 'L07:3'), W('می‌کنی،', 'L07:4')], 82, 'gr'),
-        line(sid, [W('رشدش', 'L07:5'), W('میدی،', 'L07:6')], 82, 'gr'),
+        line(sid, [W('تو', 'L07:0'), W('یک', 'L07:1'), W('شرکت', 'L07:2'), W('تأسیس', 'L07:3'), W('می‌کنی،', 'L07:4')], 76, 'gr'),
+        line(sid, [W('رشدش', 'L07:5'), W('میدی،', 'L07:6')], 76, 'gr'),
     ], 'a', out=a_out) + block(sid, 215, [
         line(sid, [W('بعد', 'L08:0'), W('یک', 'L08:1'), W('روز', 'L08:2')], 90, 'gr'),
         line(sid, [W('هیئت', 'L08:3'), W('مدیره', 'L08:4')], 126),
@@ -308,12 +318,12 @@ def s07():
     body = '''
           <div id="s07-panel"></div>
           <svg class="frame" id="s07-frame" width="801" height="1046" style="left:153px;top:607px"><rect x="1.5" y="1.5" width="798" height="1043" pathLength="1" /></svg>
-          <div class="cam" id="s07-cam" style="transform-origin:45% 40%"><div id="s07-clip"><img id="s07-cut" src="assets/ai/s07-cut.webp" alt="" /></div></div>
+          <div id="s07-clip"><div class="cam" id="s07-cam" style="transform-origin:45% 40%"><img id="s07-cut" src="assets/ai/s07-cut.webp" alt="" /></div></div>
           <div id="s07-name" class="fa">
             ''' + line(sid, [W('استیو', 'L11:0')], 112) + line(sid, [W('جابز', 'L11:1', 'acc')], 112) + '''
             <i id="s07-rule"></i>
-            <div class="ln lat" style="font-size:92px;line-height:1.02"><span class="w" data-t="''' + str(cue('L11:2', sid)) + '''">Steve</span></div>
-            <div class="ln lat" style="font-size:92px;line-height:1.02"><span class="w" data-t="''' + str(cue('L11:2', sid) + 0.12) + '''">Jobs</span></div>
+            ''' + line(sid, [W('Steve', cue('L11:2', sid))], 92, 'lat', 'line-height:1.02') + \
+              line(sid, [W('Jobs', cue('L11:2', sid) + 0.12)], 92, 'lat', 'line-height:1.02') + '''
           </div>
           ''' + block(sid, 190, [line(sid, [W('اسم', 'L10:0'), W('اون', 'L10:1'), W('آدم...', 'L10:2')], 92, 'gr')])
     css = '''
@@ -337,7 +347,7 @@ def s08():
     sid = 's08'
     body = art(sid, cam_origin='50% 60%') + '<div class="fog" id="s08-fog1"></div><div class="fog" id="s08-fog2"></div>' + block(sid, 235, [
         line(sid, [W('خیلی‌ها', 'L12:0'), W('فکر', 'L12:1'), W('می‌کردن', 'L12:2')], 94, 'gr'),
-        line(sid, [W('دورانش', 'L12:3'), W('تموم', 'L12:4'), W('شده...', 'L12:5')], 124),
+        line(sid, [W('دورانش', 'L12:3'), W('تموم', 'L12:4'), W('شده...', 'L12:5')], 110),
     ])
     css = '''
         .fog { position: absolute; width: 1100px; height: 420px; border-radius: 50%; background: radial-gradient(closest-side, rgba(226, 218, 204, 0.75), rgba(226, 218, 204, 0)); }
@@ -357,10 +367,10 @@ def s09():
     t_next = cue('L14:12', sid)
     body = art(sid, cam_origin='50% 66%') + block(sid, 330, [
         line(sid, [W('اما', 'L13:0'), W('چیزی', 'L13:1'), W('که', 'L13:2')], 98, 'gr'),
-        line(sid, [W('هیچکس', 'L13:3'), W('نمی‌دید...', 'L13:4')], 132),
+        line(sid, [W('هیچکس', 'L13:3'), W('نمی‌دید...', 'L13:4')], 112),
     ], 'a', out=a_out) + block(sid, 205, [
-        line(sid, [W('این', 'L14:0'), W('بود', 'L14:1'), W('که', 'L14:2'), W('همین', 'L14:3'), W('شکست', 'L14:4')], 84, 'gr'),
-        line(sid, [W('باعث', 'L14:5'), W('شد', 'L14:6'), W('جابز', 'L14:7'), W('شرکت', 'L14:8'), W('جدیدی', 'L14:9')], 84, 'gr'),
+        line(sid, [W('این', 'L14:0'), W('بود', 'L14:1'), W('که', 'L14:2'), W('همین', 'L14:3'), W('شکست', 'L14:4')], 78, 'gr'),
+        line(sid, [W('باعث', 'L14:5'), W('شد', 'L14:6'), W('جابز', 'L14:7'), W('شرکت', 'L14:8'), W('جدیدی', 'L14:9')], 78, 'gr'),
         line(sid, [W('به', 'L14:10'), W('اسم', 'L14:11'), W('NeXT', 'L14:12', 'acc lat next'), W('رو', 'L14:13')], 92, extra='line-height:1.25'),
         line(sid, [W('راه‌اندازی', 'L14:14'), W('کنه...', 'L14:15')], 92),
     ], 'b')
@@ -398,7 +408,7 @@ def s11():
     t_erase = cue('L17:6', sid) + 0.5
     body = art(sid, cam_origin='40% 60%') + block(sid, 230, [
         line(sid, [W('اما', 'L17:0'), W('اصلاً', 'L17:1'), W('مهم', 'L17:2'), W('نیست', 'L17:3')], 100, 'gr'),
-        line(sid, [W('جابز', 'L17:4'), W('چطور', 'L17:5'), W('برگشت...', 'L17:6')], 124),
+        line(sid, [W('جابز', 'L17:4'), W('چطور', 'L17:5'), W('برگشت...', 'L17:6')], 112),
     ])
     js = f'''
           // Hard cut in: the sketch is already half drawn, as if the story froze mid-stroke
@@ -413,14 +423,14 @@ def s12():
     sid = 's12'
     body = art(sid, cam_origin='50% 45%') + block(sid, 200, [
         line(sid, [W('مهم', 'L18:0'), W('اینه', 'L18:1'), W('که', 'L18:2'), W('تو', 'L18:3'), W('الان', 'L18:4')], 88, 'gr'),
-        line(sid, [W('بیشتر', 'L18:5'), W('از', 'L18:6'), UL(W('یک', 'L18:7', 'acc'), W('دقیقه', 'L18:8', 'acc'), at=cue('L18:8', sid) + 0.3)], 126),
+        line(sid, [W('بیشتر', 'L18:5'), W('از', 'L18:6'), UL(W('یک', 'L18:7', 'acc'), W('دقیقه', 'L18:8', 'acc'), at=cue('L18:8', sid) + 0.3)], 120),
         line(sid, [W('موندی', 'L18:9'), W('و', 'L18:10'), W('این', 'L18:11'), W('داستان', 'L18:12'), W('رو', 'L18:13')], 88, 'gr'),
         line(sid, [W('دنبال', 'L18:14'), W('کردی.', 'L18:15')], 88, 'gr'),
     ]) + '<div id="s12-clock"><span id="s12-time">۰۰:۵۹</span></div>'
     css = '''
         #s12-cam img { left: 91px; top: 380px; width: 898px; height: 1597px; }
         #s12-clock { position: absolute; left: 0; right: 0; top: 742px; display: flex; justify-content: center; }
-        #s12-time { display: block; direction: ltr; font-family: "Oswald", sans-serif; font-weight: 500; font-size: 64px; line-height: 1; padding: 16px 34px 18px; border: 3px solid #2a231c; border-radius: 60px; color: #2a231c; opacity: 0; }'''
+        #s12-time { display: block; direction: ltr; font-family: "Oswald", sans-serif; font-weight: 500; font-size: 64px; line-height: 1; padding: 16px 40px 18px 28px; border: 3px solid #2a231c; border-radius: 60px; color: #2a231c; opacity: 0; }'''
     start = WIN[sid][1]
     js = f'''
           sketch(ID, 0.2, {{ d: 1.1, sd: 1.3 }});
@@ -448,10 +458,10 @@ def s13():
         '<div id="s13-why" class="acc fa handoff">چرا؟</div>' + block(sid, 1125, [
             line(sid, [W('چون', 'L20:0'), W('من', 'L20:1'), W('تونستم', 'L20:2')], 80, 'gr'),
             line(sid, [W('یک', 'L20:3'), W('اتفاق', 'L20:4'), W('ساده', 'L20:5'), W('رو', 'L20:6')], 80, 'gr'),
-            line(sid, [W('تبدیل', 'L20:7'), W('کنم', 'L20:8'), W('به', 'L20:9'), W('یک', 'L20:10'), W('تصویر', 'L20:11')], 96),
-            line(sid, [W('توی', 'L21:0'), W('ذهن', 'L21:1'), W('تو.', 'L21:2')], 96),
+            line(sid, [W('تبدیل', 'L20:7'), W('کنم', 'L20:8'), W('به', 'L20:9'), W('یک', 'L20:10'), W('تصویر', 'L20:11')], 94),
+            line(sid, [W('توی', 'L21:0'), W('ذهن', 'L21:1'), W('تو.', 'L21:2')], 94),
         ])
-    css = '''#s13-why { position: absolute; left: 0; right: 0; top: 150px; text-align: center; font-size: 300px; line-height: 1.2; opacity: 0; transform-origin: 50% 0%; }
+    css = '''#s13-why { position: absolute; left: -4px; right: 4px; top: 150px; text-align: center; font-size: 300px; line-height: 1.2; opacity: 0; transform-origin: 50% 0%; }
         #s13-cam img { top: -4px; }
         #s13-iris { position: absolute; border-radius: 50%; overflow: hidden; }
         #s13-iris img { position: absolute; left: -40%; top: -10%; width: 180%; height: auto; opacity: 0; }'''
@@ -476,7 +486,7 @@ def s14():
     sid = 's14'
     body = art(sid, cam_origin='50% 52%') + '<div id="s14-glow"></div>' + block(sid, 200, [
         line(sid, [W('و', 'L22:0'), W('این', 'L22:1'), W('دقیقاً', 'L22:2'), W('کاریه', 'L22:3'), W('که', 'L22:4'), W('یک', 'L22:5')], 82, 'gr'),
-        line(sid, [W('ادیتور', 'L22:6'), W('و', 'L22:7'), UL(W('موشن', 'L22:8', 'acc'), W('دیزاینر', 'L22:9', 'acc'), at=cue('L22:9', sid) + 0.3)], 114),
+        line(sid, [W('ادیتور', 'L22:6'), W('و', 'L22:7'), UL(W('موشن', 'L22:8', 'acc'), W('دیزاینر', 'L22:9', 'acc'), at=cue('L22:9', sid) + 0.3)], 102),
         line(sid, [W('انجام', 'L22:10'), W('میده...', 'L22:11')], 82, 'gr'),
     ])
     # Monitor centre in the drawing: source (573,1035) -> comp (537,971). Its preview already shows a
@@ -497,7 +507,7 @@ def s15():
     body = art(sid, cam_origin='50% 50%') + '<div id="s15-glow"></div>' + block(sid, 205, [
         line(sid, [W('هر', 'L23:0'), W('چیزی', 'L23:1'), W('که', 'L23:2'), W('تو', 'L23:3'), W('ذهنت', 'L23:4')], 88, 'gr'),
         line(sid, [W('تصور', 'L23:5'), W('می‌کنی،', 'L23:6')], 122),
-        line(sid, [W('میشه', 'L23:7'), W('به', 'L23:8'), UL(W('تصویر', 'L23:9', 'acc'), at=cue('L23:9', sid) + 0.3), W('تبدیل', 'L23:10'), W('کرد.', 'L23:11')], 96),
+        line(sid, [W('میشه', 'L23:7'), W('به', 'L23:8'), UL(W('تصویر', 'L23:9', 'acc'), at=cue('L23:9', sid) + 0.3), W('تبدیل', 'L23:10'), W('کرد.', 'L23:11')], 88),
     ]) + '<div id="s15-card" class="fa">' + line(sid, [W('و', 'L24:0'), W('وقتی', 'L24:1'), W('بتونی', 'L24:2'), W('ایده‌هات', 'L24:3'), W('رو', 'L24:4'), W('تصویری', 'L24:5'), W('کنی،', 'L24:6')], 58) + \
         line(sid, [W('داری', 'L25:0'), W('یک', 'L25:1', 'gold'), W('قدم', 'L25:2', 'gold'), W('بزرگ', 'L25:3', 'gold'), W('برای', 'L25:4'), W('رشد', 'L25:5')], 58) + \
         line(sid, [W('برند', 'L25:6'), W('و', 'L25:7'), W('کسب‌وکارت', 'L25:8'), W('برمی‌داری.', 'L25:9')], 58) + '</div>'
