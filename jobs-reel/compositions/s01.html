@@ -27,7 +27,8 @@
               transform-origin: 100% 50%; }
         .frame { position: absolute; overflow: visible; }
         .frame rect { fill: none; stroke: #2a231c; stroke-width: 3; }
-#s01-q { position: absolute; right: 130px; top: 690px; font-size: 560px; line-height: 1; opacity: 0; }
+#s01-q { position: absolute; right: 96px; top: 650px; font-size: 520px; line-height: 1; opacity: 0; }
+        #s01-cam img { top: 170px; }
       </style>
       <div id="root" data-composition-id="s01" data-width="1080" data-height="1920">
         <div class="scene" id="s01-scene">
@@ -61,7 +62,7 @@
             tl.to(el, { opacity: 0, y: -34, filter: "blur(6px)", duration: 0.4, ease: "power2.in" }, +el.dataset.out);
           });
 
-          sketch(ID, 0, { from: 55, d: 0.7, lag: 0, sd: 0.8, shade0: 0.25 });
+          sketch(ID, 0, { from: 45, d: 0.7, lag: 0, sd: 0.7, shade0: 0.55 });
           tl.fromTo("#s01-cam", { scale: 1.0, x: 0, y: 0 }, { scale: 1.07, x: 0, y: -20, duration: 2.7, ease: "sine.inOut" }, 0);
           tl.fromTo("#s01-q", { opacity: 0, scale: 0.55, rotation: -14 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.55, ease: "back.out(2.2)" }, 1.4500000000000002);
           tl.to("#s01-q", { rotation: 6, duration: 0.9, ease: "sine.inOut" }, 2.0300000000000002);

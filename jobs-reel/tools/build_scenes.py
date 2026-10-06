@@ -192,9 +192,9 @@ def s01():
         line(sid, [W('این', 'L01:1'), W('رو', 'L01:1'), W('بهت', 'L01:2')], 140),
         line(sid, [W('نمی‌گه...', 'L01:3')], 98),
     ]) + '<div id="s01-q" class="acc">؟</div>'
-    css = '#s01-q { position: absolute; right: 130px; top: 690px; font-size: 560px; line-height: 1; opacity: 0; }'
+    css = '#s01-q { position: absolute; right: 96px; top: 650px; font-size: 520px; line-height: 1; opacity: 0; }\n        #s01-cam img { top: 170px; }'
     js = f'''
-          sketch(ID, 0, {{ from: 55, d: 0.7, lag: 0, sd: 0.8, shade0: 0.25 }});
+          sketch(ID, 0, {{ from: 45, d: 0.7, lag: 0, sd: 0.7, shade0: 0.55 }});
           {cam(sid, 1.0, 1.07, y1=-20)}
           tl.fromTo("#s01-q", {{ opacity: 0, scale: 0.55, rotation: -14 }}, {{ opacity: 1, scale: 1, rotation: 0, duration: 0.55, ease: "back.out(2.2)" }}, {cue('L01:3', sid) + 0.12});
           tl.to("#s01-q", {{ rotation: 6, duration: 0.9, ease: "sine.inOut" }}, {cue('L01:3', sid) + 0.7});'''
@@ -250,8 +250,8 @@ def s04():
     ])
     js = f'''
           sketch(ID, 0.15, {{ d: 0.9, sd: 1.0, lag: 0.35 }});
-          {cam(sid, 1.0, 1.07, x1=-24)}'''
-    scene_html(sid, body, js)
+          {cam(sid, 1.0, 1.035, x1=-16)}'''
+    scene_html(sid, body, js, '#s04-cam img { top: 10px; }')
 
 
 def s05():

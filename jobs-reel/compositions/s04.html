@@ -27,7 +27,7 @@
               transform-origin: 100% 50%; }
         .frame { position: absolute; overflow: visible; }
         .frame rect { fill: none; stroke: #2a231c; stroke-width: 3; }
-
+#s04-cam img { top: 10px; }
       </style>
       <div id="root" data-composition-id="s04" data-width="1080" data-height="1920">
         <div class="scene" id="s04-scene">
@@ -63,7 +63,7 @@
           });
 
           sketch(ID, 0.15, { d: 0.9, sd: 1.0, lag: 0.35 });
-          tl.fromTo("#s04-cam", { scale: 1.0, x: 0, y: 0 }, { scale: 1.07, x: -24, y: 0, duration: 3.2, ease: "sine.inOut" }, 0);
+          tl.fromTo("#s04-cam", { scale: 1.0, x: 0, y: 0 }, { scale: 1.035, x: -16, y: 0, duration: 3.2, ease: "sine.inOut" }, 0);
           window.__timelines[ID] = tl;
         })();
       </script>

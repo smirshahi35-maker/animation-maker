@@ -53,7 +53,7 @@ def lines(a):
     return Image.fromarray(np.clip(rgb + (255 - rgb) * 0.0, 0, 255).astype(np.uint8))
 
 def main():
-    for src in sorted(glob.glob(os.path.join(AI, 'src', 's??-*.png'))):
+    for src in sorted(p for p in glob.glob(os.path.join(AI, 'src', 's??-*.png')) if not p.endswith('-cut-raw.png')):
         sid = os.path.basename(src)[:3]
         a = np.asarray(Image.open(src).convert('RGB'), dtype=np.float32) / 255.0
         n, p = normalise(a)
