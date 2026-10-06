@@ -69,3 +69,15 @@ GSAP به‌صورت محلی در `reel/assets/vendor/` قرار دارد، چ�
 npx hyperframes render -q high -f 30 -o renders/argon-webinar-reel.mp4
 ffmpeg -i renders/argon-webinar-reel.mp4 -c:v copy -af loudnorm=I=-14:TP=-1.5:LRA=11 -c:a aac -b:a 192k -movflags +faststart renders/argon-webinar-reel-final.mp4
 ```
+
+## ریل داستان استیو جابز (موشن دیزاین)
+
+پروژهٔ `jobs-reel/` (حدود ۹۴ ثانیه، ۳۰ فریم بر ثانیه): سناریو، متن و استوری‌بورد از کاربر، به سبک
+طراحی مدادی رفرنس (`jobs-reel/references/`). ۱۵ صحنه را `jobs-reel/tools/build_scenes.py` می‌سازد؛
+طراحی در `jobs-reel/frame.md`، برنامهٔ صحنه‌ها در `jobs-reel/STORYBOARD.md`، و قدم‌های باقی‌مانده در
+`jobs-reel/HANDOFF.md`.
+
+- فونت لاتین «Steve Jobs» و «NeXT»: Oswald (مجوز OFL، داخل گیت). فونت فارسی همان Abar High است.
+- عکس‌ها با `tools/prep_images.py` کاغذشان حذف می‌شود تا همه روی یک کاغذ مشترک بنشینند.
+- صدای گوینده با مکث‌های دراماتیک بازچینی شده (`assets/audio/vo/narration.retime.json`) تا جملهٔ
+  «بیشتر از یک دقیقه موندی» بعد از دقیقهٔ یک گفته شود.

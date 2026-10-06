@@ -1,0 +1,118 @@
+{
+ "model_id": "gpt-image-2.5-sunburst",
+ "model_parameters": {
+  "aspect_ratio": "9:16",
+  "resolution": "2K",
+  "quality": "high"
+ },
+ "style_reference": "https://raw.githubusercontent.com/smirshahi35-maker/animation-maker/claude/instagram-reels-motion-graphic-s1p7hu/jobs-reel/references/style-reference.jpg",
+ "note": "Wire the style reference into every node (images port). One take each. Save the PNG as assets/ai/src/<id>-<slug>.png, then run python3 tools/prep_images.py.",
+ "images": [
+  {
+   "id": "s01",
+   "slug": "hoodie",
+   "status": "done",
+   "file": "assets/ai/src/s01-hoodie.png",
+   "prompt": "Vertical 9:16 illustration for a documentary-style Instagram Reel about Steve Jobs.\n\nMatch the drawing technique of the attached reference image exactly (but NOT its person, frame, numbers or text): hand-drawn graphite pencil drawing on plain warm cream drawing paper, fine directional hatching and cross-hatching, soft blended shading, crisp confident contour lines, realistic proportions, monochrome graphite only.\n\nSubject: a young man in a hooded sweatshirt (hood down), seen from behind — the back of his head, his neck and broad shoulders — his head turned slightly to the right as if lost in thought.\n\nFraming: the figure sits in the lower half, slightly left of center; the top of his head is at about 52% of the image height and his shoulders run off the bottom edge. Everything above him and to the right of his head is empty plain paper (space for a large question mark and a headline).\n\nThe background paper is plain and evenly lit, with no vignette, no frame and no border. No text, no letters, no numbers, no signature, no watermark."
+  },
+  {
+   "id": "s02",
+   "slug": "summit",
+   "status": "done",
+   "file": "assets/ai/src/s02-summit.png",
+   "prompt": "Vertical 9:16 illustration for a documentary-style Instagram Reel about Steve Jobs.\n\nMatch the drawing technique of the attached reference image exactly (but NOT its person, frame, numbers or text): hand-drawn graphite pencil drawing on plain warm cream drawing paper, fine directional hatching and cross-hatching, soft blended shading, crisp confident contour lines, realistic proportions, monochrome graphite only.\n\nSubject: a tiny lone human figure standing upright on the sharp summit of a tall rocky mountain peak, a bright sunrise glowing directly behind him, drawn as a pale halo with fine radiating pencil rays; layers of misty mountain ridges and drifting clouds in the valleys below. Mood: hopeful, epic.\n\nFraming: the peak rises from the bottom edge to about 42% of the image height and the figure stands at the very top, centered; the rays fade out completely before the top 30% of the image, which is empty plain paper.\n\nThe background paper is plain and evenly lit, with no vignette, no frame and no border. No text, no letters, no numbers, no signature, no watermark."
+  },
+  {
+   "id": "s03",
+   "slug": "jobs-1985",
+   "status": "done",
+   "file": "assets/ai/src/s03-jobs-1985.png",
+   "prompt": null,
+   "note": "done (portrait, see assets/ai/src/s03-jobs-1985.png)"
+  },
+  {
+   "id": "s04",
+   "slug": "macintosh",
+   "status": "done",
+   "file": "assets/ai/src/s04-macintosh.png",
+   "prompt": "Vertical 9:16 illustration for a documentary-style Instagram Reel about Steve Jobs.\n\nMatch the drawing technique of the attached reference image exactly (but NOT its person, frame, numbers or text): hand-drawn graphite pencil drawing on plain warm cream drawing paper, fine directional hatching and cross-hatching, soft blended shading, crisp confident contour lines, realistic proportions, monochrome graphite only.\n\nSubject: Steve Jobs in 1984, about 29 years old — thick dark tousled hair, clean-shaven, black turtleneck sweater, arms crossed, a slight proud smile — standing half-length on the right side of the frame. On the left, on a desk beside him, the original 1984 Apple Macintosh computer (beige all-in-one with a small CRT screen) with its keyboard, and behind it on the wall a large apple-with-a-bite logo shape (no lettering).\n\nFraming: everything sits in the lower 62% of the image; the top of his head is at about 38% of the image height and his body runs off the bottom edge. The upper part of the image is empty plain paper.\n\nThe background paper is plain and evenly lit, with no vignette, no frame and no border. No text, no letters, no numbers, no signature, no watermark."
+  },
+  {
+   "id": "s05",
+   "slug": "fired-door",
+   "status": "done",
+   "file": "assets/ai/src/s05-fired-door.png",
+   "prompt": "Vertical 9:16 illustration for a documentary-style Instagram Reel about Steve Jobs.\n\nMatch the drawing technique of the attached reference image exactly (but NOT its person, frame, numbers or text): hand-drawn graphite pencil drawing on plain warm cream drawing paper, fine directional hatching and cross-hatching, soft blended shading, crisp confident contour lines, realistic proportions, monochrome graphite only.\n\nSubject: rear view of a young man with thick dark hair in a dark jacket, walking out of an office through a tall half-open door, carrying a cardboard box of personal belongings in his arms (a small potted plant, a desk lamp, folders and a framed photo sticking out). On the open door, on the left, is a large apple-with-a-bite logo shape (no lettering). A dim corridor beyond the doorway. Mood: lonely, quiet, final.\n\nFraming: the door and the figure fill the lower 70% of the image; the top of the door frame is at about 30% of the image height; above it is empty plain paper.\n\nThe background paper is plain and evenly lit, with no vignette, no frame and no border. No text, no letters, no numbers, no signature, no watermark."
+  },
+  {
+   "id": "s06",
+   "slug": "board",
+   "status": "done",
+   "file": "assets/ai/src/s06-board.png",
+   "prompt": "Vertical 9:16 illustration for a documentary-style Instagram Reel about Steve Jobs.\n\nMatch the drawing technique of the attached reference image exactly (but NOT its person, frame, numbers or text): hand-drawn graphite pencil drawing on plain warm cream drawing paper, fine directional hatching and cross-hatching, soft blended shading, crisp confident contour lines, realistic proportions, monochrome graphite only.\n\nSubject: an over-the-shoulder rear view. In the foreground, large and dark, the back of a young man with thick dark hair in a dark sweater (head and shoulders, centered). He faces a long boardroom table; behind it sit four stern older businessmen in suits and ties, unsmiling, papers in front of them, all looking at him. Mood: cold, tense.\n\nFraming: the scene occupies the lower 62% of the image; the businessmen's heads are at about 45% of the image height; the foreground man's head reaches about 42% and his shoulders run off the bottom edge. Above is empty plain paper.\n\nThe background paper is plain and evenly lit, with no vignette, no frame and no border. No text, no letters, no numbers, no signature, no watermark."
+  },
+  {
+   "id": "s07",
+   "slug": "jobs-2007",
+   "status": "todo",
+   "file": "assets/ai/src/s07-jobs-2007.png",
+   "prompt": "Vertical 9:16 illustration for a documentary-style Instagram Reel about Steve Jobs.\n\nMatch the drawing technique of the attached reference image exactly (but NOT its person, frame, numbers or text): hand-drawn graphite pencil drawing on plain warm cream drawing paper, fine directional hatching and cross-hatching, soft blended shading, crisp confident contour lines, realistic proportions, monochrome graphite only.\n\nSubject: Steve Jobs around 2007, about 52 years old — short receding grey-brown hair, short grey stubble beard, rimless round glasses, black mock turtleneck — his right hand raised thoughtfully, thumb and fingers touching his chin, looking at the viewer with a calm, intense expression.\n\nFraming: head-and-shoulders portrait, centered slightly left; the top of his head is at about 30% of the image height; his shoulders and hand run toward the bottom edge. The background around him is empty plain paper with no shading.\n\nThe background paper is plain and evenly lit, with no vignette, no frame and no border. No text, no letters, no numbers, no signature, no watermark."
+  },
+  {
+   "id": "s08",
+   "slug": "fog",
+   "status": "todo",
+   "file": "assets/ai/src/s08-fog.png",
+   "prompt": "Vertical 9:16 illustration for a documentary-style Instagram Reel about Steve Jobs.\n\nMatch the drawing technique of the attached reference image exactly (but NOT its person, frame, numbers or text): hand-drawn graphite pencil drawing on plain warm cream drawing paper, fine directional hatching and cross-hatching, soft blended shading, crisp confident contour lines, realistic proportions, monochrome graphite only.\n\nSubject: rear view of a man with thick dark hair in a dark sweater, seen from the waist up, standing alone with slightly slumped shoulders, facing a vast empty misty landscape — faint distant hills and a low horizon dissolving into fog. Mood: lonely, doubtful.\n\nFraming: the figure stands in the lower center; the top of his head is at about 50% of the image height and his body runs off the bottom edge; the fog and the horizon fill the middle band; the top 35% of the image is empty plain paper.\n\nThe background paper is plain and evenly lit, with no vignette, no frame and no border. No text, no letters, no numbers, no signature, no watermark."
+  },
+  {
+   "id": "s09",
+   "slug": "next-cube",
+   "status": "todo",
+   "file": "assets/ai/src/s09-next-cube.png",
+   "prompt": "Vertical 9:16 illustration for a documentary-style Instagram Reel about Steve Jobs.\n\nMatch the drawing technique of the attached reference image exactly (but NOT its person, frame, numbers or text): hand-drawn graphite pencil drawing on plain warm cream drawing paper, fine directional hatching and cross-hatching, soft blended shading, crisp confident contour lines, realistic proportions, monochrome graphite only.\n\nSubject: the black NeXT logo cube — a solid black cube tilted at about 28 degrees, with the letters 'NeXT' arranged as 'Ne' above 'XT' on its front face — resting at an angle on a desk covered with scattered hand-drawn sketches, blueprints, technical diagrams and pages of handwritten notes (the notes are illegible scribbles).\n\nFraming: the cube is centered at about 68% of the image height; the papers spread across the bottom 45% and run off the bottom edge; the top 48% of the image is empty plain paper. The only lettering anywhere is 'NeXT' on the cube.\n\nThe background paper is plain and evenly lit, with no vignette, no frame and no border. No other text, letters or numbers anywhere, no signature, no watermark."
+  },
+  {
+   "id": "s10",
+   "slug": "keynote",
+   "status": "todo",
+   "file": "assets/ai/src/s10-keynote.png",
+   "prompt": "Vertical 9:16 illustration for a documentary-style Instagram Reel about Steve Jobs.\n\nMatch the drawing technique of the attached reference image exactly (but NOT its person, frame, numbers or text): hand-drawn graphite pencil drawing on plain warm cream drawing paper, fine directional hatching and cross-hatching, soft blended shading, crisp confident contour lines, realistic proportions, monochrome graphite only.\n\nSubject: rear view of Steve Jobs (slim, short hair, black turtleneck, jeans) standing alone on a dark stage, small and centered, facing a giant glowing projection screen that shows a large bright white apple-with-a-bite logo shape (no lettering) radiating light. In the foreground, the dark silhouettes of a packed audience's heads and shoulders fill the bottom. The stage and the area around the screen are dense dark hatching; only the logo is bright.\n\nFraming: the screen spans from about 34% to 78% of the image height; the audience fills the bottom 22%; the top 30% of the image is empty plain paper.\n\nThe background paper is plain and evenly lit, with no vignette, no frame and no border. No text, no letters, no numbers, no signature, no watermark."
+  },
+  {
+   "id": "s11",
+   "slug": "over-shoulder",
+   "status": "todo",
+   "file": "assets/ai/src/s11-over-shoulder.png",
+   "prompt": "Vertical 9:16 illustration for a documentary-style Instagram Reel about Steve Jobs.\n\nMatch the drawing technique of the attached reference image exactly (but NOT its person, frame, numbers or text): hand-drawn graphite pencil drawing on plain warm cream drawing paper, fine directional hatching and cross-hatching, soft blended shading, crisp confident contour lines, realistic proportions, monochrome graphite only.\n\nSubject: Steve Jobs around 2007 (short receding grey hair, rimless round glasses, black mock turtleneck) in a three-quarter rear view over his shoulder — we see the back and side of his head, his ear and the edge of his glasses — looking away to the right, contemplative.\n\nFraming: head and shoulders in the lower 60% of the image, slightly left of center; the top of his head is at about 42% of the image height and his shoulders run off the bottom edge; the upper part of the image is empty plain paper.\n\nThe background paper is plain and evenly lit, with no vignette, no frame and no border. No text, no letters, no numbers, no signature, no watermark."
+  },
+  {
+   "id": "s12",
+   "slug": "hourglass",
+   "status": "todo",
+   "file": "assets/ai/src/s12-hourglass.png",
+   "prompt": "Vertical 9:16 illustration for a documentary-style Instagram Reel about Steve Jobs.\n\nMatch the drawing technique of the attached reference image exactly (but NOT its person, frame, numbers or text): hand-drawn graphite pencil drawing on plain warm cream drawing paper, fine directional hatching and cross-hatching, soft blended shading, crisp confident contour lines, realistic proportions, monochrome graphite only.\n\nSubject: a classic hourglass with turned wooden end caps and three wooden posts; sand flows in a thin stream from the nearly empty upper bulb into a mound in the lower bulb; it stands on a surface with a soft cast shadow.\n\nFraming: the hourglass is centered and spans from about 44% to 94% of the image height; the top 40% of the image is empty plain paper.\n\nThe background paper is plain and evenly lit, with no vignette, no frame and no border. No text, no letters, no numbers, no signature, no watermark."
+  },
+  {
+   "id": "s13",
+   "slug": "eye",
+   "status": "todo",
+   "file": "assets/ai/src/s13-eye.png",
+   "prompt": "Vertical 9:16 illustration for a documentary-style Instagram Reel about Steve Jobs.\n\nMatch the drawing technique of the attached reference image exactly (but NOT its person, frame, numbers or text): hand-drawn graphite pencil drawing on plain warm cream drawing paper, fine directional hatching and cross-hatching, soft blended shading, crisp confident contour lines, realistic proportions, monochrome graphite only.\n\nSubject: an extreme close-up of a single human eye with its eyebrow, looking straight at the viewer — finely detailed iris with radiating texture, a small catch-light, long eyelashes, skin creases — the graphite shading fades softly into the paper at the edges.\n\nFraming: the eye forms a horizontal band, centered horizontally, spanning about 85% of the image width, with the center of the eye at about 47% of the image height. The top 30% and the bottom 35% of the image are empty plain paper.\n\nThe background paper is plain and evenly lit, with no vignette, no frame and no border. No text, no letters, no numbers, no signature, no watermark."
+  },
+  {
+   "id": "s14",
+   "slug": "editor",
+   "status": "todo",
+   "file": "assets/ai/src/s14-editor.png",
+   "prompt": "Vertical 9:16 illustration for a documentary-style Instagram Reel about Steve Jobs.\n\nMatch the drawing technique of the attached reference image exactly (but NOT its person, frame, numbers or text): hand-drawn graphite pencil drawing on plain warm cream drawing paper, fine directional hatching and cross-hatching, soft blended shading, crisp confident contour lines, realistic proportions, monochrome graphite only.\n\nSubject: rear view of a video editor (short dark hair, hooded sweatshirt) sitting at a desk in a dark room in front of a large widescreen computer monitor, lit by its glow. The monitor faces the viewer straight-on and shows video-editing software: a large preview window in the upper half of the screen and a multi-track timeline with clip thumbnails and audio waveforms across the lower half. A keyboard on the desk. The room around is dark hatching.\n\nFraming: the monitor is centered; its screen spans roughly from 36% to 70% of the image height and from 8% to 92% of the image width; the editor's head and shoulders overlap the bottom center of the monitor; the desk runs off the bottom edge; the top 30% of the image is empty plain paper.\n\nThe background paper is plain and evenly lit, with no vignette, no frame and no border. No text, no letters, no numbers, no signature, no watermark."
+  },
+  {
+   "id": "s15",
+   "slug": "bulb",
+   "status": "todo",
+   "file": "assets/ai/src/s15-bulb.png",
+   "prompt": "Vertical 9:16 illustration for a documentary-style Instagram Reel about Steve Jobs.\n\nMatch the drawing technique of the attached reference image exactly (but NOT its person, frame, numbers or text): hand-drawn graphite pencil drawing on plain warm cream drawing paper, fine directional hatching and cross-hatching, soft blended shading, crisp confident contour lines, realistic proportions, monochrome graphite only.\n\nSubject: a single classic incandescent light bulb floating upright on its screw base, glowing — a visible coiled filament inside, fine pencil-drawn radiating light rays and a soft halo around it. Metaphor for an idea.\n\nFraming: the bulb is centered with its middle at about 50% of the image height and is about 30% of the image width; the rays fade out before reaching the top 30% and the bottom 35% of the image, which are empty plain paper.\n\nThe background paper is plain and evenly lit, with no vignette, no frame and no border. No text, no letters, no numbers, no signature, no watermark."
+  }
+ ]
+}

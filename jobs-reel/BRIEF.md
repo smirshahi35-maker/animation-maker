@@ -58,3 +58,7 @@ TTS spelling only: the year is written out in words and NeXT as «نِکست»; 
   until the cap allows (or the plan is upgraded).
 
 ## Notes
+
+- 2026-10-06: drawings for slides 1–6 done (GPT Image 2.5, style reference wired in). Slides 7–15
+  blocked by the old ElevenLabs account's free-plan image cap; the user is connecting a paid account.
+  Next steps: `HANDOFF.md`.
