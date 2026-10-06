@@ -11,3 +11,7 @@ reel/assets/fonts/*
 jobs-reel/renders/
 jobs-reel/assets/fonts/*
 !jobs-reel/assets/fonts/README.md
+!jobs-reel/assets/fonts/Oswald-Variable.ttf
+!jobs-reel/assets/fonts/OFL-Oswald.txt
+jobs-reel/snapshots/
+jobs-reel/.hyperframes/

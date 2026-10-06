@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="fa">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "AbarHigh"; src: url("assets/fonts/AbarHigh-Regular.otf") format("opentype"); font-weight: 400; font-style: normal; font-display: block; }
+        @font-face { font-family: "Oswald"; src: url("assets/fonts/Oswald-Variable.ttf") format("truetype"); font-weight: 200 700; font-style: normal; font-display: block; }
+        #root { position: absolute; inset: 0; overflow: hidden; font-family: "AbarHigh", sans-serif; font-synthesis: none; color: #2a231c; }
+        .scene { position: absolute; inset: 0; }
+        .cam { position: absolute; inset: 0; }
+        .cam img { position: absolute; left: -36px; top: -64px; width: 1152px; height: 2048px; display: block; }
+        .lines { --m: 100%; -webkit-mask-image: linear-gradient(200deg, #000 42%, transparent 58%); mask-image: linear-gradient(200deg, #000 42%, transparent 58%); -webkit-mask-size: 100% 300%; mask-size: 100% 300%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: 0% var(--m); mask-position: 0% var(--m); }
+        .shade { opacity: 0; }
+        .fa { direction: rtl; unicode-bidi: isolate; }
+        .txt { position: absolute; left: 96px; right: 96px; text-align: center; }
+        .ln { display: block; line-height: 1.34; white-space: nowrap; }
+        .w { display: inline-block; opacity: 0; }
+        .acc { color: #8b2f1f; }
+        .gr { color: #5b5044; }
+        .lat { font-family: "Oswald", sans-serif; font-weight: 600; direction: ltr; unicode-bidi: isolate; letter-spacing: 0.01em; }
+        .ulw { position: relative; display: inline-block; }
+        .ul { position: absolute; display: block; left: -4%; right: -4%; bottom: 0.04em; height: 0.16em;
+              background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 20' preserveAspectRatio='none'%3E%3Cpath d='M3 13 C 40 6, 80 15, 120 9 S 180 7, 197 10' fill='none' stroke='%238b2f1f' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M10 16 C 60 11, 120 17, 190 12' fill='none' stroke='%238b2f1f' stroke-width='2.5' stroke-linecap='round' opacity='.7'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+              transform-origin: 100% 50%; }
+        .frame { position: absolute; overflow: visible; }
+        .frame rect { fill: none; stroke: #2a231c; stroke-width: 3; }
+#s01-q { position: absolute; right: 130px; top: 690px; font-size: 560px; line-height: 1; opacity: 0; }
+      </style>
+      <div id="root" data-composition-id="s01" data-width="1080" data-height="1920">
+        <div class="scene" id="s01-scene">
+<div class="cam" id="s01-cam" style="transform-origin:45% 60%"><img class="lines" id="s01-lines" src="assets/ai/s01-lines.webp" alt="" /><img class="shade" id="s01-shade" src="assets/ai/s01.webp" alt="" /></div><div class="txt fa ph " style="top:250px"><div class="ln " style="font-size:98px;"><span class="w " data-t="0.35">هیچکس</span></div><div class="ln " style="font-size:140px;"><span class="w " data-t="0.81">این</span> <span class="w " data-t="0.81">رو</span> <span class="w " data-t="1.03">بهت</span></div><div class="ln " style="font-size:98px;"><span class="w " data-t="1.33">نمی‌گه...</span></div></div><div id="s01-q" class="acc">؟</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          const ID = "s01", D = 2.7;
+          const tl = gsap.timeline({ paused: true });
+          const scene = document.getElementById(ID + "-scene");
+          const q = (s) => scene.querySelectorAll(s);
+          // Scene in/out on the shared paper
+          tl.to(scene, { opacity: 0, filter: "blur(3px)", duration: 0.5, ease: "power1.in" }, 2.2);
+          // Pencil reveal: contour pass wipes in, shading follows, contours settle under it
+          function sketch(id, t, o) {
+            o = o || {};
+            const lines = "#" + id + "-lines", shade = "#" + id + "-shade";
+            tl.fromTo(lines, { "--m": (o.from || 100) + "%" }, { "--m": "0%", duration: o.d || 1.0, ease: "power1.inOut" }, t);
+            tl.fromTo(shade, { opacity: o.shade0 || 0 }, { opacity: 1, duration: o.sd || 1.1, ease: "power1.inOut" }, t + (o.lag == null ? 0.45 : o.lag));
+            tl.to(lines, { opacity: 0.35, duration: 0.6, ease: "none" }, t + (o.lag == null ? 0.45 : o.lag) + (o.sd || 1.1));
+          }
+          // Words: soft blur + rise, timed to the narration
+          q(".w[data-t]").forEach((el) => {
+            tl.fromTo(el, { opacity: 0, y: 26, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.45, ease: "power3.out" }, +el.dataset.t);
+          });
+          q(".ul[data-t]").forEach((el) => {
+            tl.fromTo(el, { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.inOut" }, +el.dataset.t);
+          });
+          q(".ph[data-out]").forEach((el) => {
+            tl.to(el, { opacity: 0, y: -34, filter: "blur(6px)", duration: 0.4, ease: "power2.in" }, +el.dataset.out);
+          });
+
+          sketch(ID, 0, { from: 55, d: 0.7, lag: 0, sd: 0.8, shade0: 0.25 });
+          tl.fromTo("#s01-cam", { scale: 1.0, x: 0, y: 0 }, { scale: 1.07, x: 0, y: -20, duration: 2.7, ease: "sine.inOut" }, 0);
+          tl.fromTo("#s01-q", { opacity: 0, scale: 0.55, rotation: -14 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.55, ease: "back.out(2.2)" }, 1.4500000000000002);
+          tl.to("#s01-q", { rotation: 6, duration: 0.9, ease: "sine.inOut" }, 2.0300000000000002);
+          window.__timelines[ID] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="fa">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          pointer-events: none;
+        }
+        .leak {
+          position: absolute;
+          width: 1500px;
+          height: 520px;
+          left: -210px;
+          background: linear-gradient(90deg, rgba(255, 247, 230, 0) 0%, rgba(255, 247, 230, 0.26) 45%, rgba(255, 247, 230, 0.3) 55%, rgba(255, 247, 230, 0) 100%);
+          filter: blur(36px);
+        }
+        #fx-leak1 {
+          top: 260px;
+        }
+        #fx-leak2 {
+          top: 1180px;
+          height: 380px;
+        }
+        #fx-vignette {
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(ellipse 78% 62% at 50% 46%, rgba(46, 34, 22, 0) 58%, rgba(46, 34, 22, 0.34) 100%);
+        }
+        #fx-grain {
+          position: absolute;
+          inset: 0;
+          background-image: url("assets/paper/grain.png");
+          background-size: 512px 512px;
+          opacity: 0.55;
+        }
+      </style>
+      <div id="root" data-composition-id="fx" data-width="1080" data-height="1920">
+        <div class="leak" id="fx-leak1" data-layout-ignore></div>
+        <div class="leak" id="fx-leak2" data-layout-ignore></div>
+        <div id="fx-vignette" data-layout-ignore></div>
+        <div id="fx-grain" data-layout-ignore></div>
+      </div>
+      <script>
+        (function () {
+          const D = 94.3;
+          const tl = gsap.timeline({ paused: true });
+          // Two diagonal light leaks drift across the sheet (like the reference's window light)
+          tl.fromTo("#fx-leak1", { x: -260, rotation: -32, opacity: 0.75 }, { x: 240, rotation: -27, opacity: 1, duration: D, ease: "sine.inOut" }, 0);
+          tl.fromTo("#fx-leak2", { x: 220, rotation: -34, opacity: 0.55 }, { x: -200, rotation: -30, opacity: 0.85, duration: D, ease: "sine.inOut" }, 0);
+          tl.to(["#fx-leak1", "#fx-leak2"], { opacity: 0.45, duration: 5.2, ease: "sine.inOut", yoyo: true, repeat: Math.max(0, Math.floor(D / 5.2) - 1) }, 0);
+          // Film grain: the tile jumps 12 times a second by co-prime offsets (deterministic)
+          const steps = Math.floor(D * 12);
+          tl.fromTo("#fx-grain", { backgroundPosition: "0px 0px" }, { backgroundPosition: steps * 173 + "px " + steps * 311 + "px", duration: D, ease: "steps(" + steps + ")" }, 0);
+          window.__timelines["fx"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

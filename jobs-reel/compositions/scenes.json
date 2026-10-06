@@ -1,0 +1,92 @@
+[
+ {
+  "id": "s01",
+  "start": 0.0,
+  "end": 2.2,
+  "duration": 2.7
+ },
+ {
+  "id": "s02",
+  "start": 2.2,
+  "end": 8.7,
+  "duration": 7.0
+ },
+ {
+  "id": "s03",
+  "start": 8.7,
+  "end": 11.75,
+  "duration": 3.55
+ },
+ {
+  "id": "s04",
+  "start": 11.75,
+  "end": 14.45,
+  "duration": 3.2
+ },
+ {
+  "id": "s05",
+  "start": 14.45,
+  "end": 18.7,
+  "duration": 4.75
+ },
+ {
+  "id": "s06",
+  "start": 18.7,
+  "end": 28.8,
+  "duration": 10.6
+ },
+ {
+  "id": "s07",
+  "start": 28.8,
+  "end": 33.55,
+  "duration": 5.25
+ },
+ {
+  "id": "s08",
+  "start": 33.55,
+  "end": 37.05,
+  "duration": 4.0
+ },
+ {
+  "id": "s09",
+  "start": 37.05,
+  "end": 46.45,
+  "duration": 9.9
+ },
+ {
+  "id": "s10",
+  "start": 46.45,
+  "end": 55.3,
+  "duration": 8.85
+ },
+ {
+  "id": "s11",
+  "start": 55.3,
+  "end": 59.45,
+  "duration": 4.65
+ },
+ {
+  "id": "s12",
+  "start": 59.45,
+  "end": 65.75,
+  "duration": 6.8
+ },
+ {
+  "id": "s13",
+  "start": 65.75,
+  "end": 73.4,
+  "duration": 8.15
+ },
+ {
+  "id": "s14",
+  "start": 73.4,
+  "end": 78.8,
+  "duration": 5.9
+ },
+ {
+  "id": "s15",
+  "start": 78.8,
+  "end": 94.3,
+  "duration": 15.5
+ }
+]
