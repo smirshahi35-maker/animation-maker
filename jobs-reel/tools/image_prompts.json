@@ -75,21 +75,21 @@
   {
    "id": "s10",
    "slug": "keynote",
-   "status": "todo",
+   "status": "done",
    "file": "assets/ai/src/s10-keynote.png",
    "prompt": "Vertical 9:16 illustration for a documentary-style Instagram Reel about Steve Jobs.\n\nMatch the drawing technique of the attached reference image exactly (but NOT its person, frame, numbers or text): hand-drawn graphite pencil drawing on plain warm cream drawing paper, fine directional hatching and cross-hatching, soft blended shading, crisp confident contour lines, realistic proportions, monochrome graphite only.\n\nSubject: rear view of Steve Jobs (slim, short hair, black turtleneck, jeans) standing alone on a dark stage, small and centered, facing a giant glowing projection screen that shows a large bright white apple-with-a-bite logo shape (no lettering) radiating light. In the foreground, the dark silhouettes of a packed audience's heads and shoulders fill the bottom. The stage and the area around the screen are dense dark hatching; only the logo is bright.\n\nFraming: the screen spans from about 34% to 78% of the image height; the audience fills the bottom 22%; the top 30% of the image is empty plain paper.\n\nThe background paper is plain and evenly lit, with no vignette, no frame and no border. No text, no letters, no numbers, no signature, no watermark."
   },
   {
    "id": "s11",
    "slug": "over-shoulder",
-   "status": "todo",
+   "status": "done",
    "file": "assets/ai/src/s11-over-shoulder.png",
    "prompt": "Vertical 9:16 illustration for a documentary-style Instagram Reel about Steve Jobs.\n\nMatch the drawing technique of the attached reference image exactly (but NOT its person, frame, numbers or text): hand-drawn graphite pencil drawing on plain warm cream drawing paper, fine directional hatching and cross-hatching, soft blended shading, crisp confident contour lines, realistic proportions, monochrome graphite only.\n\nSubject: Steve Jobs around 2007 (short receding grey hair, rimless round glasses, black mock turtleneck) in a three-quarter rear view over his shoulder — we see the back and side of his head, his ear and the edge of his glasses — looking away to the right, contemplative.\n\nFraming: head and shoulders in the lower 60% of the image, slightly left of center; the top of his head is at about 42% of the image height and his shoulders run off the bottom edge; the upper part of the image is empty plain paper.\n\nThe background paper is plain and evenly lit, with no vignette, no frame and no border. No text, no letters, no numbers, no signature, no watermark."
   },
   {
    "id": "s12",
    "slug": "hourglass",
-   "status": "todo",
+   "status": "done",
    "file": "assets/ai/src/s12-hourglass.png",
    "prompt": "Vertical 9:16 illustration for a documentary-style Instagram Reel about Steve Jobs.\n\nMatch the drawing technique of the attached reference image exactly (but NOT its person, frame, numbers or text): hand-drawn graphite pencil drawing on plain warm cream drawing paper, fine directional hatching and cross-hatching, soft blended shading, crisp confident contour lines, realistic proportions, monochrome graphite only.\n\nSubject: a classic hourglass with turned wooden end caps and three wooden posts; sand flows in a thin stream from the nearly empty upper bulb into a mound in the lower bulb; it stands on a surface with a soft cast shadow.\n\nFraming: the hourglass is centered and spans from about 44% to 94% of the image height; the top 40% of the image is empty plain paper.\n\nThe background paper is plain and evenly lit, with no vignette, no frame and no border. No text, no letters, no numbers, no signature, no watermark."
   },
