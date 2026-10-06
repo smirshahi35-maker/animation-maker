@@ -453,7 +453,7 @@ def s12():
 
 def s13():
     sid = 's13'
-    t_shift = cue('L20:0', sid) - 0.15
+    t_shift = cue('L20:0', sid) - 0.55  # camera has settled by the time «چون» fades in
     # Pupil of the generated eye, in comp px with the drawing dropped 60px (source 569,1027)
     ix, iy, ir = 533, 1023, 92
     refl = ''.join(f'<img src="assets/ai/{t}.webp" alt="" />' for t in ('s03', 's05', 's09', 's10'))
@@ -474,8 +474,8 @@ def s13():
           tl.fromTo("#s13-why", {{ opacity: 0, scale: 1.6, filter: "blur(16px)" }}, {{ opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.35, ease: "power4.out" }}, {cue('L19:0', sid)});
           sketch(ID, 0.75, {{ d: 1.1, sd: 1.2 }});
           tl.fromTo("#s13-cam", {{ scale: 1.0, y: 0 }}, {{ scale: 1.02, y: 0, duration: {round(t_shift, 3)}, ease: "sine.inOut" }}, 0);
-          tl.to("#s13-cam", {{ scale: 0.8, y: -200, duration: 0.8, ease: "power3.inOut" }}, {round(t_shift, 3)});
-          tl.to("#s13-cam", {{ scale: 0.84, y: -205, duration: {round(dur(sid) - t_shift - 0.8, 3)}, ease: "sine.inOut" }}, {round(t_shift + 0.8, 3)});
+          tl.to("#s13-cam", {{ scale: 0.8, y: -240, duration: 0.8, ease: "power3.inOut" }}, {round(t_shift, 3)});
+          tl.to("#s13-cam", {{ scale: 0.84, y: -245, duration: {round(dur(sid) - t_shift - 0.8, 3)}, ease: "sine.inOut" }}, {round(t_shift + 0.8, 3)});
           tl.to("#s13-why", {{ scale: 0.55, y: -40, duration: 0.8, ease: "power3.inOut" }}, {round(t_shift, 3)});
           // «یک تصویر توی ذهن تو»: the story's own sketches flicker in the pupil
           q("#s13-iris img").forEach((el, i) => {{
@@ -508,6 +508,7 @@ def s15():
     sid = 's15'
     t_on = cue('L23:9', sid) + LEAD
     t_card = cue('L24:0', sid) - 0.35
+    t_shrink = t_card - 0.5  # the bulb is clear of the card area before the card starts to show
     body = art(sid, cam_origin='50% 50%') + '<div id="s15-glow"></div>' + block(sid, 205, [
         line(sid, [W('هر', 'L23:0'), W('چیزی', 'L23:1'), W('که', 'L23:2'), W('تو', 'L23:3'), W('ذهنت', 'L23:4')], 88, 'gr'),
         line(sid, [W('تصور', 'L23:5'), W('می‌کنی،', 'L23:6')], 122),
@@ -518,20 +519,20 @@ def s15():
     # Bulb glass centre: source (576,880) -> comp (540,856) with the drawing dropped 40px
     css = '''
         #s15-cam img { top: -24px; }
-        #s15-glow { position: absolute; left: 190px; top: 476px; width: 700px; height: 760px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 238, 196, 0.9), rgba(255, 232, 180, 0.35) 55%, rgba(255, 232, 180, 0)); opacity: 0; }
+        #s15-glow { position: absolute; left: 190px; top: 490px; width: 700px; height: 760px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 238, 196, 0.9), rgba(255, 232, 180, 0.35) 55%, rgba(255, 232, 180, 0)); opacity: 0; }
         #s15-card { position: absolute; display: flex; flex-direction: column; left: 84px; right: 84px; top: 1200px; padding: 30px 40px 34px; border-radius: 30px; background: #2a231c; color: #efe6d6; text-align: center; opacity: 0; }
         #s15-card .ln { line-height: 1.3; }
         #s15-card .gold { color: #e3b67c; }'''
     js = f'''
           sketch(ID, 0.2, {{ d: 1.2, sd: 1.4 }});
-          tl.fromTo("#s15-cam", {{ scale: 1.0, y: 0 }}, {{ scale: 1.03, y: 0, duration: {round(t_card, 3)}, ease: "sine.inOut" }}, 0);
+          tl.fromTo("#s15-cam", {{ scale: 1.0, y: 0 }}, {{ scale: 1.03, y: 18, duration: {round(t_shrink, 3)}, ease: "sine.inOut" }}, 0);
           // With the card in, the bulb (unscaled y 604-1450) fits between the headline and the card.
-          tl.to("#s15-cam", {{ scale: 0.655, y: -105, duration: 0.9, ease: "power3.inOut" }}, {round(t_card, 3)});
-          tl.to("#s15-cam", {{ scale: 0.67, y: -105, duration: {round(dur(sid) - t_card - 0.9, 3)}, ease: "sine.inOut" }}, {round(t_card + 0.9, 3)});
+          tl.to("#s15-cam", {{ scale: 0.655, y: -105, duration: 0.9, ease: "power3.inOut" }}, {round(t_shrink, 3)});
+          tl.to("#s15-cam", {{ scale: 0.67, y: -105, duration: {round(dur(sid) - t_shrink - 0.9, 3)}, ease: "sine.inOut" }}, {round(t_shrink + 0.9, 3)});
           // The bulb lights on «تصویر»
           tl.fromTo("#s15-glow", {{ opacity: 0, scale: 0.7, y: 0 }}, {{ opacity: 1, scale: 1, y: 0, duration: 0.6, ease: "power2.out" }}, {round(t_on, 3)});
-          tl.to("#s15-glow", {{ y: -69, scale: 0.655, duration: 0.9, ease: "power3.inOut" }}, {round(t_card, 3)});
-          tl.to("#s15-glow", {{ y: -71, scale: 0.67, duration: {round(dur(sid) - t_card - 0.9, 3)}, ease: "sine.inOut" }}, {round(t_card + 0.9, 3)});
+          tl.to("#s15-glow", {{ y: -83, scale: 0.655, duration: 0.9, ease: "power3.inOut" }}, {round(t_shrink, 3)});
+          tl.to("#s15-glow", {{ y: -85, scale: 0.67, duration: {round(dur(sid) - t_shrink - 0.9, 3)}, ease: "sine.inOut" }}, {round(t_shrink + 0.9, 3)});
           tl.to("#s15-glow", {{ opacity: 0.8, duration: 1.2, ease: "sine.inOut", yoyo: true, repeat: 7 }}, {round(t_on + 0.6, 3)});
           tl.fromTo("#s15-card", {{ opacity: 0, y: 70 }}, {{ opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }}, {round(t_card + 0.2, 3)});'''
     scene_html(sid, body, js, css)

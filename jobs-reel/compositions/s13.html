@@ -70,10 +70,10 @@
 
           tl.fromTo("#s13-why", { opacity: 0, scale: 1.6, filter: "blur(16px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.35, ease: "power4.out" }, 0.19);
           sketch(ID, 0.75, { d: 1.1, sd: 1.2 });
-          tl.fromTo("#s13-cam", { scale: 1.0, y: 0 }, { scale: 1.02, y: 0, duration: 1.36, ease: "sine.inOut" }, 0);
-          tl.to("#s13-cam", { scale: 0.8, y: -200, duration: 0.8, ease: "power3.inOut" }, 1.36);
-          tl.to("#s13-cam", { scale: 0.84, y: -205, duration: 5.99, ease: "sine.inOut" }, 2.16);
-          tl.to("#s13-why", { scale: 0.55, y: -40, duration: 0.8, ease: "power3.inOut" }, 1.36);
+          tl.fromTo("#s13-cam", { scale: 1.0, y: 0 }, { scale: 1.02, y: 0, duration: 0.96, ease: "sine.inOut" }, 0);
+          tl.to("#s13-cam", { scale: 0.8, y: -240, duration: 0.8, ease: "power3.inOut" }, 0.96);
+          tl.to("#s13-cam", { scale: 0.84, y: -245, duration: 6.39, ease: "sine.inOut" }, 1.76);
+          tl.to("#s13-why", { scale: 0.55, y: -40, duration: 0.8, ease: "power3.inOut" }, 0.96);
           // «یک تصویر توی ذهن تو»: the story's own sketches flicker in the pupil
           q("#s13-iris img").forEach((el, i) => {
             const t = 4.53 + i * 0.55;
