@@ -1,0 +1,710 @@
+<title>استوری‌بورد ویو یا اعتماد</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800;900&display=swap">
+<style>
+/* Layout: one reading column. Each shot is a card (9:16 frame mock + notes); the camera move that carries
+   the shot into the next one sits between cards, like the gap between frames on a film strip. */
+:root {
+  --bg: #f5f5f7;
+  --surface: #ffffff;
+  --ink: #1d1d1f;
+  --muted: #6e6e73;
+  --line: #d2d2d7;
+  --chip: #e8e8ed;
+  --accent: #0071e3;
+  --accent-ink: #ffffff;
+  --font: "Vazirmatn", "Vazir", "Segoe UI", Tahoma, system-ui, sans-serif;
+
+  /* Film colours: the frames depict the video, so they stay the same in both page themes. */
+  --v-light: #f5f5f7;
+  --v-white: #ffffff;
+  --v-black: #000000;
+  --v-ink: #1d1d1f;
+  --v-gray: #86868b;
+  --v-gray2: #c7c7cc;
+  --v-panel: #1c1c1e;
+  --v-blue: #2f8cff;
+  --v-blue-d: #0071e3;
+  --v-red: #ff3b30;
+  --v-warm1: #ffb340;
+  --v-warm2: #ff375f;
+  --v-green: #30d158;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #000000; --surface: #161617; --ink: #f5f5f7; --muted: #a1a1a6; --line: #333336;
+    --chip: #2a2a2d; --accent: #2997ff; --accent-ink: #000000; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #000000; --surface: #161617; --ink: #f5f5f7; --muted: #a1a1a6; --line: #333336;
+  --chip: #2a2a2d; --accent: #2997ff; --accent-ink: #000000; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 16px; line-height: 1.75; }
+main { max-width: 1040px; margin-inline: auto; padding-inline: 20px; padding-block: 40px 96px; display: flex; flex-direction: column; gap: 56px; }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+p { margin: 0; }
+
+/* ---------- header ---------- */
+.eyebrow { font-size: 14px; font-weight: 600; color: var(--muted); letter-spacing: .02em; }
+.hero { display: flex; flex-direction: column; gap: 14px; }
+.hero h1 { font-size: clamp(34px, 6vw, 60px); font-weight: 900; line-height: 1.2; letter-spacing: -0.01em; }
+.hero h1 .g { background: linear-gradient(90deg, var(--v-warm1), var(--v-warm2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero h1 .b { color: var(--accent); }
+.hero .lede { font-size: 18px; color: var(--muted); max-width: 62ch; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.facts span { background: var(--surface); border: 1px solid var(--line); border-radius: 99px; padding: 4px 14px; font-size: 14px; font-weight: 500; }
+
+section { display: flex; flex-direction: column; gap: 18px; }
+section > h2 { font-size: clamp(24px, 3.6vw, 34px); font-weight: 800; }
+section > .sub { color: var(--muted); max-width: 66ch; }
+
+/* ---------- timeline ---------- */
+.timeline { background: var(--surface); border-radius: 22px; padding: 22px; display: flex; flex-direction: column; gap: 14px; }
+.tl-bar { display: flex; gap: 4px; direction: rtl; }
+.tl-bar div { border-radius: 10px; padding: 10px 12px; min-width: 0; color: #fff; display: flex; flex-direction: column; gap: 2px; }
+.tl-bar b { font-size: 15px; font-weight: 800; }
+.tl-bar small { font-size: 12px; opacity: .85; font-variant-numeric: tabular-nums; }
+.s-hook { flex: 4; background: #3a3a3c; }
+.s-prob { flex: 4; background: #636366; }
+.s-story { flex: 11; background: #ff6a3d; }
+.s-tip { flex: 13; background: #0071e3; }
+.s-cta { flex: 13; background: #1d1d1f; }
+.tl-light { height: 16px; border-radius: 8px; border: 1px solid var(--line);
+  background: linear-gradient(270deg, #f5f5f7 0%, #f5f5f7 30%, #8e8e93 38%, #000 42%, #000 64%, #f5f5f7 70%, #f5f5f7 100%); }
+.tl-legend { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); gap: 12px; flex-wrap: wrap; }
+@media (max-width: 640px) { .tl-bar small { display: none; } .tl-bar b { font-size: 12px; } .tl-bar div { padding: 8px 6px; } }
+
+/* ---------- voices ---------- */
+.voices { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
+.voice { background: var(--surface); border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 10px; border: 1px solid transparent; }
+.voice.pick { border-color: var(--accent); }
+.voice h3 { font-size: 20px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+.voice h3 .k { width: 34px; height: 34px; border-radius: 50%; background: var(--chip); display: grid; place-items: center; font-size: 17px; }
+.voice p { color: var(--muted); font-size: 14px; min-height: 3.5em; }
+.voice audio { width: 100%; height: 40px; }
+.script-quote { background: var(--surface); border-radius: 18px; padding: 16px 20px; color: var(--muted); font-size: 15px; }
+.script-quote b { color: var(--ink); }
+
+/* ---------- shots ---------- */
+.shots { display: flex; flex-direction: column; gap: 0; }
+.shot { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 28px; align-items: start; background: var(--surface); border-radius: 24px; padding: 22px; }
+.shot-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.shot-head .n { font-size: 15px; font-weight: 800; color: var(--accent); }
+.shot-head h3 { font-size: 22px; font-weight: 800; }
+.shot-head .t { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; margin-inline-start: auto; }
+.notes { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.notes dl { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 8px 16px; margin: 0; }
+.notes dt { font-size: 13px; font-weight: 700; color: var(--muted); padding-top: 3px; }
+.notes dd { margin: 0; font-size: 15.5px; }
+.notes dd.vo { font-weight: 700; font-size: 17px; }
+.notes dd.ost { font-weight: 800; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-size: 12.5px; font-weight: 700; border-radius: 99px; padding: 2px 10px; background: var(--chip); }
+.tag.gpt { background: #10a37f; color: #fff; }
+.tag.veo { background: #8e5cff; color: #fff; }
+.tag.code { background: var(--chip); color: var(--ink); }
+.tag.sfx { background: transparent; border: 1px solid var(--line); color: var(--muted); font-weight: 600; }
+@media (max-width: 680px) {
+  .shot { grid-template-columns: 1fr; padding: 18px; }
+  .frame-wrap { max-width: 230px; width: 100%; margin-inline: auto; }
+  .notes dl { grid-template-columns: 1fr; gap: 2px; }
+  .notes dd { margin-bottom: 8px; }
+}
+
+/* camera move between shots */
+.move { display: flex; align-items: center; gap: 14px; padding: 10px 0 10px; padding-inline-start: 96px; color: var(--muted); }
+.move svg { flex: none; width: 22px; height: 46px; }
+.move svg path { stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; }
+.move svg path.head { fill: var(--accent); stroke: none; }
+.move p { font-size: 14.5px; min-width: 0; }
+.move p b { color: var(--ink); font-weight: 800; }
+@media (max-width: 680px) { .move { padding-inline-start: 12px; } }
+
+/* ---------- frame mocks (everything sized in % of frame width) ---------- */
+.frame { position: relative; width: 100%; aspect-ratio: 9 / 16; border-radius: 16px; overflow: hidden; container-type: inline-size; isolation: isolate;
+  box-shadow: 0 0 0 1px var(--line); font-family: var(--font); direction: rtl; }
+.f-light { background: radial-gradient(120% 70% at 50% 35%, var(--v-white) 0%, var(--v-light) 60%, #e8e8ed 100%); }
+.f-black { background: radial-gradient(100% 60% at 50% 40%, #1a1a1c 0%, var(--v-black) 70%); }
+.badge { position: absolute; top: 3cqw; inset-inline-end: 3cqw; z-index: 20; font: 700 4.4cqw/1 var(--font); background: rgba(0,0,0,.55); color: #fff; border-radius: 99px; padding: 1.4cqw 2.8cqw; }
+.safe { position: absolute; inset-inline: 0; top: 138.9cqw; border-top: 1px dashed rgba(255,59,48,.45); z-index: 19; }
+.vt { position: absolute; inset-inline: 7cqw; text-align: center; font-weight: 800; letter-spacing: -0.01em; line-height: 1.32; color: var(--v-ink); z-index: 5; }
+.vt.on-dark { color: var(--v-white); }
+.vt.s { font-size: 6cqw; font-weight: 700; }
+.vt.m { font-size: 8.4cqw; }
+.vt.l { font-size: 11.5cqw; }
+.vt .dim { color: var(--v-gray); }
+.gw { background: linear-gradient(90deg, var(--v-warm1), var(--v-warm2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.gb { background: linear-gradient(90deg, #6cc4ff, var(--v-blue-d)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.red { color: var(--v-red); }
+
+/* files + invoice */
+.file { position: absolute; width: 27cqw; aspect-ratio: 3 / 4; background: var(--v-white); border-radius: 3cqw; box-shadow: 0 3cqw 7cqw rgba(0,0,0,.14);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.2cqw; color: var(--v-ink); font-weight: 800; font-size: 3.8cqw; }
+.file .play { width: 0; height: 0; border-left: 5.4cqw solid var(--v-blue-d); border-top: 3.3cqw solid transparent; border-bottom: 3.3cqw solid transparent; margin-left: 1.4cqw; }
+.file .ln { display: block; width: 68%; height: 1.1cqw; border-radius: 1cqw; background: #e5e5ea; }
+.file .price { font-size: 2.9cqw; font-weight: 700; color: var(--v-gray); }
+.ball { position: absolute; width: 13cqw; aspect-ratio: 1; border-radius: 46% 54% 50% 50% / 52% 46% 54% 48%;
+  background: radial-gradient(circle at 35% 30%, #ffffff, #dedee3 55%, #b9b9c0); box-shadow: inset -1cqw -1.6cqw 2cqw rgba(0,0,0,.14), 0 2cqw 3cqw rgba(0,0,0,.12); }
+.streak { position: absolute; width: .7cqw; border-radius: 1cqw; background: linear-gradient(transparent, rgba(0,0,0,.18)); }
+.bin { position: absolute; left: 50%; transform: translateX(-50%); }
+.bin .body { width: 40cqw; height: 46cqw; margin-inline: auto; clip-path: polygon(0 0, 100% 0, 89% 100%, 11% 100%);
+  background: repeating-linear-gradient(90deg, rgba(120,120,128,.55) 0 .5cqw, transparent .5cqw 2.3cqw), repeating-linear-gradient(0deg, rgba(120,120,128,.55) 0 .5cqw, transparent .5cqw 2.3cqw), linear-gradient(90deg, #d8d8dd, #f7f7f9 45%, #c9c9ce); }
+.bin .rim { width: 42cqw; height: 7cqw; border-radius: 50%; background: radial-gradient(ellipse at 50% 60%, #050505 55%, #2c2c2e 75%); box-shadow: 0 0 0 1cqw #e3e3e8, 0 0 0 1.3cqw #b0b0b6; margin: 0 auto -3.5cqw; position: relative; z-index: 2; }
+.bin .shadow { width: 46cqw; height: 5cqw; margin: -1cqw auto 0; border-radius: 50%; background: radial-gradient(rgba(0,0,0,.18), transparent 70%); }
+.dive { position: absolute; left: 50%; width: 0; border-left: .6cqw dashed var(--v-blue-d); transform: translateX(-50%); z-index: 6; }
+.dive::after { content: ""; position: absolute; bottom: -1cqw; left: -2.4cqw; border-top: 3.6cqw solid var(--v-blue-d); border-left: 2.1cqw solid transparent; border-right: 2.1cqw solid transparent; }
+
+/* phone */
+.phone { position: absolute; width: 44cqw; aspect-ratio: 9 / 19.5; border-radius: 7.6cqw; background: #2c2c2e; padding: 1.3cqw;
+  box-shadow: 0 0 0 .55cqw #b6b6bb, 0 6cqw 12cqw rgba(0,0,0,.24); z-index: 4; }
+.f-black .phone { box-shadow: 0 0 0 .55cqw #5a5a5e, 0 6cqw 14cqw rgba(0,0,0,.6); }
+.phone .scr { position: relative; width: 100%; height: 100%; border-radius: 6.4cqw; overflow: hidden; background: #000; }
+.phone .island { position: absolute; top: 1.9cqw; left: 50%; transform: translateX(-50%); width: 12cqw; height: 3.4cqw; border-radius: 99px; background: #000; z-index: 9; }
+.reel { position: absolute; inset: 0; background: radial-gradient(120% 70% at 30% 18%, #ffcf8a 0%, #f07a3c 30%, #9b2f52 62%, #24102a 100%); }
+.reel::before { content: ""; position: absolute; left: 22%; top: 30%; width: 50%; height: 48%; border-radius: 45% 45% 10% 10%; background: radial-gradient(circle at 50% 22%, rgba(40,15,20,.85) 0 18%, transparent 19%), linear-gradient(rgba(40,15,20,.75), rgba(40,15,20,.85)); clip-path: polygon(30% 0, 70% 0, 72% 30%, 100% 100%, 0 100%, 28% 30%); opacity: .8; }
+.reel .views { position: absolute; top: 9cqw; left: 3cqw; background: rgba(0,0,0,.45); color: #fff; border-radius: 99px; padding: .6cqw 2.2cqw; font-size: 3.2cqw; font-weight: 800; direction: rtl; }
+.reel .acts { position: absolute; right: 2.6cqw; bottom: 16cqw; display: flex; flex-direction: column; gap: 3.4cqw; align-items: center; color: #fff; font-size: 4.6cqw; line-height: 1; }
+.reel .acts i { font-style: normal; font-size: 2.4cqw; font-weight: 700; display: block; margin-top: .6cqw; }
+.reel .music { position: absolute; left: 3cqw; right: 12cqw; bottom: 5cqw; color: #fff; font-size: 2.8cqw; font-weight: 700; }
+.reel .music span { display: inline-block; background: rgba(255,255,255,.22); border-radius: 99px; padding: .4cqw 2cqw; }
+.inbox { position: absolute; inset: 0; background: var(--v-white); padding: 9cqw 3cqw 0; color: var(--v-ink); }
+.inbox h4 { margin: 0 0 2cqw; font-size: 4.6cqw; font-weight: 900; }
+.inbox .search { height: 4.4cqw; border-radius: 99px; background: #f0f0f3; margin-bottom: 4cqw; }
+.empty { display: flex; flex-direction: column; align-items: center; gap: 2.4cqw; margin-top: 18cqw; color: var(--v-gray); font-size: 3.2cqw; font-weight: 700; }
+.empty .ring { width: 15cqw; height: 15cqw; border-radius: 50%; border: .55cqw solid var(--v-ink); display: grid; place-items: center; }
+.empty svg { width: 7cqw; height: 7cqw; }
+.dm { display: flex; align-items: center; gap: 2cqw; padding: 1.6cqw 0; border-bottom: 1px solid #f0f0f3; }
+.dm .av { flex: none; width: 6.4cqw; height: 6.4cqw; border-radius: 50%; }
+.dm .tx { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.dm b { font-size: 2.7cqw; font-weight: 800; line-height: 1.4; }
+.dm span { font-size: 2.4cqw; color: var(--v-gray); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.4; }
+.dm .dot { flex: none; width: 1.8cqw; height: 1.8cqw; border-radius: 50%; background: var(--v-blue-d); }
+.chip { position: absolute; z-index: 6; border-radius: 99px; font-weight: 800; font-size: 4cqw; padding: 1.2cqw 3.6cqw; }
+
+/* story */
+.stat { position: absolute; inset-inline: 6cqw; text-align: center; z-index: 5; line-height: 1.05; }
+.stat .num { display: block; font-weight: 900; letter-spacing: -0.02em; }
+.stat .lab { display: block; font-size: 7cqw; font-weight: 800; color: var(--v-ink); margin-top: 2cqw; }
+.card { position: absolute; border-radius: 6cqw; overflow: hidden; z-index: 4; box-shadow: 0 5cqw 12cqw rgba(0,0,0,.2); }
+.veo-shot { background: radial-gradient(90% 60% at 60% 30%, #ffd9b0 0%, #c98a5c 35%, #4a2f2a 75%, #1e1513 100%); }
+.person { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); width: 46cqw; height: 56cqw; }
+.person .head { position: absolute; left: 50%; top: 0; transform: translateX(-50%); width: 17cqw; height: 19cqw; border-radius: 50%; background: #3b241c; }
+.person .torso { position: absolute; left: 0; right: 0; bottom: 0; height: 36cqw; border-radius: 22cqw 22cqw 0 0; background: #2a1a15; }
+.person .ph { position: absolute; left: 6cqw; top: 22cqw; width: 9cqw; height: 15cqw; border-radius: 1.8cqw; background: #111; box-shadow: 0 0 4cqw 1cqw rgba(160,200,255,.35); transform: rotate(-14deg); }
+.swipe { position: absolute; left: 10cqw; top: 30cqw; color: #fff; font-size: 7cqw; font-weight: 900; opacity: .85; }
+.src { position: absolute; z-index: 8; top: 3cqw; inset-inline-start: 3cqw; font-size: 3cqw; font-weight: 800; border-radius: 99px; padding: .8cqw 2.4cqw; color: #fff; }
+.src.veo { background: #8e5cff; }
+.src.gpt { background: #10a37f; }
+.ringwrap { position: absolute; left: 50%; transform: translateX(-50%); width: 64cqw; aspect-ratio: 1; z-index: 4; }
+.ringwrap svg { width: 100%; height: 100%; display: block; }
+.ringwrap .c { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--v-white); }
+.ringwrap .c b { font-size: 7.4cqw; font-weight: 900; }
+.ringwrap .c span { font-size: 5cqw; font-weight: 700; color: var(--v-gray); }
+
+/* tip */
+.busy { position: absolute; inset: 0; background: conic-gradient(from 40deg at 40% 40%, #ff2d55, #ffcc00, #34c759, #5ac8fa, #af52de, #ff2d55); filter: saturate(1.25); }
+.busy::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(0,0,0,.12) 0 .4cqw, transparent .4cqw 1.4cqw); }
+.stk { position: absolute; z-index: 2; font-weight: 900; color: #fff; border-radius: 1.6cqw; padding: .4cqw 1.6cqw; }
+.pov { font-size: 6cqw; text-shadow: -.6cqw 0 0 rgba(255,0,80,.9), .6cqw 0 0 rgba(0,220,255,.9); letter-spacing: .02em; direction: ltr; }
+.clean { position: absolute; inset: 0; background: radial-gradient(110% 70% at 50% 35%, #8a6a52 0%, #4a372a 50%, #1c1612 100%); }
+.clean::before { content: ""; position: absolute; left: 25%; top: 34%; width: 50%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, #f3e3cf 0 38%, #b98a62 40% 52%, #f7f1ea 54% 64%, transparent 65%); }
+.clean .cap { position: absolute; left: 0; right: 0; bottom: 14cqw; text-align: center; color: #fff; font-weight: 300; font-size: 3.3cqw; line-height: 1.5; }
+.clean .cap b { font-weight: 800; display: block; font-size: 4.2cqw; }
+.label { position: absolute; z-index: 6; width: 40cqw; text-align: center; font-weight: 900; font-size: 8cqw; line-height: 1.2; }
+.eq { position: absolute; z-index: 6; width: 40cqw; text-align: center; font-weight: 800; font-size: 5.2cqw; color: var(--v-white); }
+.divider { position: absolute; z-index: 6; left: 50%; width: .4cqw; background: rgba(255,255,255,.35); transform: translateX(-50%); }
+.tile { position: absolute; border-radius: 5cqw; overflow: hidden; z-index: 4; }
+.tile .lb { position: absolute; inset-inline: 0; bottom: 0; padding: 7cqw 4cqw 3.4cqw; color: #fff; font-weight: 800; font-size: 5cqw; background: linear-gradient(transparent, rgba(0,0,0,.65)); line-height: 1.3; }
+.tile .lb small { display: block; font-size: 3.2cqw; font-weight: 700; color: var(--v-warm1); letter-spacing: .1em; }
+.t-bts { background: radial-gradient(80% 70% at 70% 30%, #e7c9a5, #8b6a52 45%, #2a211c 100%); }
+.t-bts::before { content: ""; position: absolute; left: 12%; top: 22%; width: 30%; height: 22%; border-radius: 2cqw; background: #151517; box-shadow: 9cqw 3cqw 0 -2cqw #26262a; }
+.t-q { background: radial-gradient(circle at 50% 45%, #f6ead9 0 24%, #b07c52 26% 36%, #efe6db 38% 46%, #6b5444 48%, #2b221d 100%); }
+.t-sat { background: radial-gradient(90% 70% at 50% 30%, #ffe0bd, #d79b74 45%, #5a3a2c 100%); }
+.t-sat::before { content: ""; position: absolute; left: 32%; top: 18%; width: 36%; height: 38%; border-radius: 50% 50% 40% 40%; background: rgba(70,40,30,.55); }
+.wall { position: absolute; inset: -6cqw; display: grid; grid-template-columns: repeat(11, 1fr); gap: 1cqw; transform: rotate(-8deg) scale(1.15); z-index: 1; }
+.wall i { display: block; aspect-ratio: 9 / 16; border-radius: 1.2cqw; }
+.glass { position: absolute; left: 9cqw; right: 9cqw; z-index: 5; border-radius: 7cqw; padding: 7cqw 5cqw; text-align: center;
+  background: rgba(255,255,255,.72); -webkit-backdrop-filter: blur(3cqw) saturate(1.4); backdrop-filter: blur(3cqw) saturate(1.4); box-shadow: 0 4cqw 10cqw rgba(0,0,0,.18); color: var(--v-ink); }
+.glass .nm { font-size: 13cqw; font-weight: 900; line-height: 1.2; }
+.glass .rl { font-size: 5cqw; font-weight: 600; color: #3a3a3c; margin-top: 1.6cqw; }
+.glass .pj { font-size: 7.4cqw; font-weight: 900; margin-top: 4cqw; color: var(--v-blue-d); }
+.prof { position: absolute; left: 10cqw; right: 10cqw; z-index: 5; background: var(--v-white); border-radius: 6cqw; padding: 6cqw 5cqw; box-shadow: 0 4cqw 10cqw rgba(0,0,0,.1); display: flex; flex-direction: column; align-items: center; gap: 3cqw; }
+.prof .av { width: 22cqw; height: 22cqw; border-radius: 50%; background: linear-gradient(135deg, #2f8cff, #0040a8); color: #fff; display: grid; place-items: center; font-size: 10cqw; font-weight: 900; }
+.prof .nm { font-size: 6.4cqw; font-weight: 900; color: var(--v-ink); }
+.prof .rl { font-size: 3.8cqw; color: var(--v-gray); font-weight: 600; margin-top: -2cqw; }
+.btn { position: relative; background: var(--v-blue-d); color: #fff; font-weight: 800; font-size: 5.6cqw; border-radius: 99px; padding: 2cqw 14cqw; }
+.tap { position: absolute; left: 50%; top: 50%; width: 14cqw; height: 14cqw; transform: translate(-50%, -50%); border-radius: 50%; border: .7cqw solid rgba(255,255,255,.85); box-shadow: 0 0 0 3cqw rgba(47,140,255,.25); }
+.composer { position: absolute; left: 7cqw; right: 7cqw; z-index: 5; height: 13cqw; border-radius: 99px; background: var(--v-white); box-shadow: 0 0 0 .4cqw #d2d2d7, 0 3cqw 8cqw rgba(0,0,0,.08);
+  display: flex; align-items: center; justify-content: space-between; padding-inline: 5cqw 2cqw; font-size: 5.4cqw; font-weight: 800; color: var(--v-ink); }
+.composer .caret { display: inline-block; width: .5cqw; height: 6cqw; background: var(--v-blue-d); vertical-align: middle; margin-inline-start: .6cqw; }
+.composer .send { width: 9cqw; height: 9cqw; border-radius: 50%; background: var(--v-blue-d); color: #fff; display: grid; place-items: center; font-size: 5cqw; font-weight: 900; }
+.big-word { position: absolute; inset-inline: 0; text-align: center; z-index: 5; font-weight: 900; font-size: 34cqw; line-height: 1.1; }
+
+/* ---------- plan tables ---------- */
+.plan { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
+.panel { background: var(--surface); border-radius: 22px; padding: 22px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.panel h3 { font-size: 19px; font-weight: 800; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.panel ol, .panel ul { margin: 0; padding-inline-start: 22px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; }
+.panel ol { list-style-type: persian; }
+.panel li b { font-weight: 800; }
+.panel li span { color: var(--muted); }
+.qs { counter-reset: q; display: flex; flex-direction: column; gap: 10px; }
+.q { background: var(--surface); border-radius: 18px; padding: 16px 20px; display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 12px; align-items: start; }
+.q::before { counter-increment: q; content: counter(q, persian); width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-weight: 800; }
+.q b { display: block; font-size: 16.5px; font-weight: 800; }
+.q p { color: var(--muted); font-size: 15px; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+
+<main dir="rtl" lang="fa">
+
+  <header class="hero">
+    <div class="eyebrow">استوری‌بورد · ریلز ۴۵ ثانیه‌ای · ۹:۱۶ · برای تأیید قبل از ساخت</div>
+    <h1>ترند <span class="g">ویو</span> میاره، اعتماد <span class="b">فروش</span></h1>
+    <p class="lede">کل ریلز یک برداشت پیوسته است و هیچ کاتی ندارد. دوربین از هر صحنه با یک حرکت (رفتن داخل یک شیء، عقب کشیدن، پَن یا پایین آمدن) وارد صحنهٔ بعد می‌شود. استایل اپل است: استودیوی روشن و تمیز، اشیای واقعی با نور نرم، تایپوگرافی درشت و حرکت‌های آرام و دقیق.</p>
+    <div class="facts">
+      <span>۴۵ ثانیه</span><span>۱۰۸۰×۱۹۲۰ · ۳۰ فریم</span><span>یک برداشت بدون کات</span><span>۸ عکس GPT Image 2.5</span><span>۲ ویدیو Veo 3.1 Lite</span><span>موزیک و افکت ElevenLabs</span><span>ساخت با HyperFrames</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>مسیر کلی</h2>
+    <div class="timeline">
+      <div class="tl-bar" aria-label="بخش‌های ریلز روی زمان">
+        <div class="s-hook"><b>قلاب</b><small>۰ تا ۴</small></div>
+        <div class="s-prob"><b>مسئله</b><small>۴ تا ۸</small></div>
+        <div class="s-story"><b>داستان</b><small>۸ تا ۱۹</small></div>
+        <div class="s-tip"><b>نکته</b><small>۱۹ تا ۳۲</small></div>
+        <div class="s-cta"><b>معرفی و CTA</b><small>۳۲ تا ۴۵</small></div>
+      </div>
+      <div class="tl-light" role="img" aria-label="رنگ پس‌زمینه در طول ویدیو: روشن، بعد تاریک، بعد دوباره روشن"></div>
+      <div class="tl-legend"><span>استودیوی سفید</span><span>نور کم می‌شود (اعتماد نساخت)</span><span>صحنهٔ تاریک کی‌نوت (نکته)</span><span>دوباره روشن (دایرکت پر شد)</span></div>
+    </div>
+    <p class="sub">رنگ صحنه هم داستان را تعریف می‌کند: شروع در استودیوی سفید، وقتی می‌گوییم «اعتماد نساخت» نور پایین می‌آید و «نکته» روی صحنهٔ سیاه مثل کی‌نوت اپل گفته می‌شود. وقتی دایرکت پر می‌شود دنیا دوباره روشن می‌شود و تا آخر روشن می‌ماند.</p>
+  </section>
+
+  <section id="voice">
+    <h2>صدای گوینده: یکی را انتخاب کن</h2>
+    <p class="sub">در کتابخانهٔ ElevenLabs صدای مرد با لهجهٔ تهرانی نبود، برای همین با طراحی صدا سه صدای جدید ساختم (مرد حدود ۳۰ ساله، فارسی محاوره‌ای با لهجهٔ روان تهرانی، لحن تولیدکنندهٔ محتوا). صدای چهارم یک صدای حرفه‌ای فارسی از کتابخانه است. هر چهار نمونه همین متن را می‌خوانند:</p>
+    <div class="script-quote"><b>متن نمونه:</b> اگه این یه نکته رو نمی‌دونی، هرچی تا الان واسه تولید محتوا خرج کردی رو بریز دور. ویدیوت ویو می‌گیره، ولی دایرکتت خالیه؟ یکی از مشتری‌هام با یه آهنگ ترند هشتاد هزار تا ویو گرفت، ولی حتی یه سفارش هم نداشت.</div>
+    <div class="voices">
+      <div class="voice"><h3><span class="k">A</span>تهرانی ۱</h3><p>صدای طراحی‌شده (Voice Design v3)</p><audio id="va" controls preload="none" src="audio/voice-a.mp3"></audio></div>
+      <div class="voice"><h3><span class="k">B</span>تهرانی ۲</h3><p>صدای طراحی‌شده (Voice Design v3)</p><audio id="vb" controls preload="none" src="audio/voice-b.mp3"></audio></div>
+      <div class="voice"><h3><span class="k">C</span>تهرانی ۳</h3><p>صدای طراحی‌شده (Voice Design v3)</p><audio id="vc" controls preload="none" src="audio/voice-c.mp3"></audio></div>
+      <div class="voice"><h3><span class="k">D</span>شهرام</h3><p>صدای حرفه‌ای کتابخانه، مدل Eleven v3</p><audio id="vd" controls preload="none" src="audio/voice-d.mp3"></audio></div>
+    </div>
+    <p class="sub">اگر هیچ‌کدام به‌اندازهٔ کافی تهرانی نبود بگو؛ یک دور دیگر با توضیح دقیق‌تر می‌سازم. صدای انتخابی ذخیره می‌شود و کل نریشن با همان خوانده می‌شود.</p>
+  </section>
+
+  <section>
+    <h2>صحنه‌به‌صحنه</h2>
+    <p class="sub">زمان‌ها تقریبی است و بعد از ضبط نریشن دقیق روی کلمه‌ها قفل می‌شود. خط‌چین قرمز داخل فریم‌ها مرز رابط کاربری ریلز است؛ هیچ متنی پایین‌تر از آن نمی‌رود.</p>
+
+    <div class="shots">
+
+      <!-- 1 -->
+      <article class="shot">
+        <div class="frame-wrap"><div class="frame f-light">
+          <span class="badge">۱</span><span class="safe"></span>
+          <div class="vt m" style="top:22cqw">اگه این یه نکته رو<br>نمی‌دونی…</div>
+          <div class="file" style="right:18cqw; top:78cqw; transform:rotate(-9deg)"><span class="play"></span>MP4</div>
+          <div class="file" style="left:17cqw; top:92cqw; transform:rotate(7deg)">فاکتور<span class="ln"></span><span class="ln"></span><span class="price">۱۲٬۰۰۰٬۰۰۰ تومان</span></div>
+        </div></div>
+        <div class="notes">
+          <div class="shot-head"><span class="n">قلاب</span><h3>فایل‌ها و فاکتورها</h3><span class="t">۰:۰۰ تا ۰:۰۲</span></div>
+          <dl>
+            <dt>نریشن</dt><dd class="vo">«اگه این یه نکته رو نمی‌دونی،</dd>
+            <dt>متن روی صفحه</dt><dd class="ost">اگه این یه نکته رو نمی‌دونی…</dd>
+            <dt>تصویر</dt><dd>استودیوی سفید. یک فایل ویدیو و یک فاکتور با سایهٔ نرم در هوا معلق‌اند و آرام می‌چرخند. متن کلمه‌به‌کلمه با نریشن ظاهر می‌شود.</dd>
+            <dt>دوربین</dt><dd>Push-in خیلی آرام از همان فریم اول، تا ریلز از ثانیهٔ صفر حرکت داشته باشد.</dd>
+            <dt>منابع</dt><dd><div class="tags"><span class="tag code">آیکون فایل و فاکتور: کد</span><span class="tag sfx">صدای «هوم» بیس کوتاه</span></div></dd>
+          </dl>
+        </div>
+      </article>
+      <div class="move"><svg viewBox="0 0 22 46" aria-hidden="true"><path d="M11 2 V34"/><path class="head" d="M4 32 L11 44 L18 32 Z"/></svg><p><b>بدون کات:</b> فایل و فاکتور جلوی دوربین مچاله می‌شوند و می‌افتند؛ دوربین با یک Tilt-down همراه سقوطشان پایین می‌آید.</p></div>
+
+      <!-- 2 -->
+      <article class="shot">
+        <div class="frame-wrap"><div class="frame f-light">
+          <span class="badge">۲</span><span class="safe"></span>
+          <div class="vt s" style="top:16cqw"><span class="dim">هرچی تا الان واسه تولید محتوا</span></div>
+          <div class="vt l" style="top:25cqw">خرج کردی رو<br>بریز دور.</div>
+          <span class="streak" style="left:40cqw; top:56cqw; height:12cqw"></span><div class="ball" style="left:36cqw; top:68cqw"></div>
+          <span class="streak" style="left:56cqw; top:66cqw; height:10cqw"></span><div class="ball" style="left:52cqw; top:76cqw; width:11cqw"></div>
+          <div class="dive" style="top:92cqw; height:24cqw"></div>
+          <div class="bin" style="top:112cqw"><div class="rim"></div><div class="body"></div><div class="shadow"></div></div>
+        </div></div>
+        <div class="notes">
+          <div class="shot-head"><span class="n">قلاب</span><h3>سطل زباله</h3><span class="t">۰:۰۲ تا ۰:۰۴</span></div>
+          <dl>
+            <dt>نریشن</dt><dd class="vo">هرچی تا الان واسه تولید محتوا خرج کردی رو بریز دور.»</dd>
+            <dt>متن روی صفحه</dt><dd class="ost">خرج کردی رو بریز دور.</dd>
+            <dt>تصویر</dt><dd>گلوله‌های کاغذ مچاله با موشن‌بلور می‌افتند داخل یک سطل توری مینیمال آلومینیومی و با یک ضربهٔ کوتاه می‌نشینند.</dd>
+            <dt>دوربین</dt><dd>همراه سقوط پایین می‌آید و روی دهانهٔ تاریک سطل می‌ایستد.</dd>
+            <dt>منابع</dt><dd><div class="tags"><span class="tag gpt">GPT Image 2.5: کاغذهای مچاله</span><span class="tag gpt">GPT Image 2.5: سطل توری</span><span class="tag sfx">مچاله شدن ×۲</span><span class="tag sfx">افتادن در سطل</span></div></dd>
+          </dl>
+        </div>
+      </article>
+      <div class="move"><svg viewBox="0 0 22 46" aria-hidden="true"><path d="M11 2 V34"/><path class="head" d="M4 32 L11 44 L18 32 Z"/></svg><p><b>Push-through:</b> دوربین می‌رود داخل دهانهٔ سیاه سطل. همان سیاهی صفحهٔ خاموش گوشی است؛ صفحه روشن می‌شود و دوربین عقب می‌کشد تا گوشی دیده شود.</p></div>
+
+      <!-- 3 -->
+      <article class="shot">
+        <div class="frame-wrap"><div class="frame f-light">
+          <span class="badge">۳</span><span class="safe"></span>
+          <div class="vt m" style="top:16cqw">ویدیوت ویو می‌گیره،</div>
+          <div class="phone" style="left:28cqw; top:38cqw; transform:perspective(120cqw) rotateY(-8deg)"><div class="scr"><span class="island"></span>
+            <div class="reel"><span class="views">▶ ۸۰ هزار</span><div class="acts">♥<i>۱۲K</i>●<i>۳۴۰</i>➤</div><div class="music"><span>♪ آهنگ ترند</span></div></div>
+          </div></div>
+        </div></div>
+        <div class="notes">
+          <div class="shot-head"><span class="n">مسئله</span><h3>ریلز پربازدید</h3><span class="t">۰:۰۴ تا ۰:۰۶</span></div>
+          <dl>
+            <dt>نریشن</dt><dd class="vo">«ویدیوت ویو می‌گیره،</dd>
+            <dt>متن روی صفحه</dt><dd class="ost">ویدیوت ویو می‌گیره،</dd>
+            <dt>تصویر</dt><dd>گوشی معلق در استودیو با کمی چرخش سه‌بعدی. روی صفحه یک ریلز ترند پخش می‌شود و عدد بازدید تند بالا می‌رود تا «۸۰ هزار». قلب‌ها بالا می‌روند.</dd>
+            <dt>دوربین</dt><dd>عقب کشیدن نرم از داخل صفحه تا نمای کامل گوشی، بعد زوم آرام روی شمارندهٔ بازدید.</dd>
+            <dt>منابع</dt><dd><div class="tags"><span class="tag gpt">GPT Image 2.5: فریم ریلز ترند (کافه)</span><span class="tag code">گوشی و رابط ریلز: کد</span><span class="tag sfx">روشن شدن صفحه</span><span class="tag sfx">تیک‌تیک شمارنده</span></div></dd>
+          </dl>
+        </div>
+      </article>
+      <div class="move"><svg viewBox="0 0 22 46" aria-hidden="true"><path d="M11 2 V34"/><path class="head" d="M4 32 L11 44 L18 32 Z"/></svg><p><b>به‌جای کات:</b> سناریو گفته «بعد کات به دایرکت خالی». اینجا ریلز داخل خود گوشی با سوایپ کنار می‌رود و صفحهٔ دایرکت می‌آید، و هم‌زمان دوربین روی صفحه جلو می‌رود.</p></div>
+
+      <!-- 4 -->
+      <article class="shot">
+        <div class="frame-wrap"><div class="frame f-light">
+          <span class="badge">۴</span><span class="safe"></span>
+          <div class="vt m" style="top:14cqw">۸۰ هزار ویو…<br><span class="red">۰ مشتری</span></div>
+          <div class="phone" style="left:22cqw; top:46cqw; width:56cqw"><div class="scr"><span class="island"></span>
+            <div class="inbox"><h4>پیام‌ها</h4><div class="search"></div>
+              <div class="empty"><div class="ring"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 L21 3 L14 21 L11 13 Z" fill="none" stroke="#1d1d1f" stroke-width="1.6" stroke-linejoin="round"/></svg></div>هنوز پیامی نداری</div>
+            </div>
+          </div></div>
+        </div></div>
+        <div class="notes">
+          <div class="shot-head"><span class="n">مسئله</span><h3>دایرکت خالی</h3><span class="t">۰:۰۶ تا ۰:۰۸</span></div>
+          <dl>
+            <dt>نریشن</dt><dd class="vo">ولی دایرکتت خالیه؟»</dd>
+            <dt>متن روی صفحه</dt><dd class="ost">۸۰ هزار ویو… ۰ مشتری</dd>
+            <dt>تصویر</dt><dd>صفحهٔ دایرکت سفید و کاملاً خالی، با آیکون کاغذِ پرنده و «هنوز پیامی نداری». عدد «۰ مشتری» قرمز سیستمی اپل است.</dd>
+            <dt>دوربین</dt><dd>Push-in روی صفحهٔ خالی؛ یک مکث کوچک روی «۰».</dd>
+            <dt>منابع</dt><dd><div class="tags"><span class="tag code">رابط دایرکت: کد</span><span class="tag sfx">سوایپ</span><span class="tag sfx">سکوت کوتاه در موزیک</span></div></dd>
+          </dl>
+        </div>
+      </article>
+      <div class="move"><svg viewBox="0 0 22 46" aria-hidden="true"><path d="M11 2 V34"/><path class="head" d="M4 32 L11 44 L18 32 Z"/></svg><p><b>Pull-back و Arc:</b> دوربین از صفحه بیرون می‌آید و دور گوشی می‌چرخد. گوشی کنار می‌رود و عدد بزرگ «۸۰٬۰۰۰» در فضای خالی کنارش ظاهر می‌شود.</p></div>
+
+      <!-- 5 -->
+      <article class="shot">
+        <div class="frame-wrap"><div class="frame f-light">
+          <span class="badge">۵</span><span class="safe"></span>
+          <div class="vt s" style="top:14cqw"><span class="dim">یکی از مشتری‌هام…</span></div>
+          <div class="stat" style="top:26cqw"><span class="num gw" style="font-size:24cqw">۸۰٬۰۰۰</span><span class="lab">ویو</span></div>
+          <span class="chip" style="top:66cqw; left:50%; transform:translateX(-50%); background:#1d1d1f; color:#fff">♪ با یه آهنگ ترند</span>
+          <div class="phone" style="left:30cqw; top:82cqw; width:40cqw; transform:perspective(120cqw) rotateY(18deg) rotateZ(-4deg)"><div class="scr"><span class="island"></span><div class="reel"><span class="views">▶ ۸۰ هزار</span></div></div></div>
+        </div></div>
+        <div class="notes">
+          <div class="shot-head"><span class="n">داستان</span><h3>۸۰ هزار ویو</h3><span class="t">۰:۰۸ تا ۰:۱۱</span></div>
+          <dl>
+            <dt>نریشن</dt><dd class="vo">«یکی از مشتری‌هام با یه آهنگ ترند ۸۰ هزار تا ویو گرفت،</dd>
+            <dt>متن روی صفحه</dt><dd class="ost">۸۰٬۰۰۰ ویو · با یه آهنگ ترند</dd>
+            <dt>تصویر</dt><dd>مثل اسلاید آمار در کی‌نوت اپل: عدد غول‌پیکر با گرادیان گرم که از ۰ تا ۸۰٬۰۰۰ می‌شمارد. برچسب «آهنگ ترند» با نوار اکولایزر کوچک می‌تپد.</dd>
+            <dt>دوربین</dt><dd>ادامهٔ Arc، و یک Dolly-down آرام که آمادهٔ عدد بعدی است.</dd>
+            <dt>منابع</dt><dd><div class="tags"><span class="tag gpt">همان فریم ریلز کافه</span><span class="tag code">شمارنده و تایپوگرافی: کد</span><span class="tag sfx">رایزر کوتاه</span></div></dd>
+          </dl>
+        </div>
+      </article>
+      <div class="move"><svg viewBox="0 0 22 46" aria-hidden="true"><path d="M11 2 V34"/><path class="head" d="M4 32 L11 44 L18 32 Z"/></svg><p><b>Dolly-down:</b> دوربین پایین می‌رود؛ عدد ۸۰٬۰۰۰ بالای کادر می‌ماند و عدد بعدی از پایین وارد می‌شود.</p></div>
+
+      <!-- 6 -->
+      <article class="shot">
+        <div class="frame-wrap"><div class="frame f-light">
+          <span class="badge">۶</span><span class="safe"></span>
+          <div class="stat" style="top:-6cqw; opacity:.25"><span class="num gw" style="font-size:24cqw">۸۰٬۰۰۰</span></div>
+          <div class="stat" style="top:36cqw"><span class="num" style="font-size:52cqw; color:#86868b">۰</span><span class="lab">سفارش</span></div>
+          <div class="vt s" style="top:112cqw"><span class="dim">حتی یه سفارش هم نداشت.</span></div>
+        </div></div>
+        <div class="notes">
+          <div class="shot-head"><span class="n">داستان</span><h3>صفر سفارش</h3><span class="t">۰:۱۱ تا ۰:۱۳</span></div>
+          <dl>
+            <dt>نریشن</dt><dd class="vo">ولی حتی یه سفارش هم نداشت.</dd>
+            <dt>متن روی صفحه</dt><dd class="ost">۰ سفارش</dd>
+            <dt>تصویر</dt><dd>صفر بزرگ و خاکستری، بی‌حرکت. در کنار آن انیمیشن پرانرژی ۸۰٬۰۰۰، همین سکون حرف اصلی را می‌زند.</dd>
+            <dt>دوربین</dt><dd>تقریباً ثابت، فقط کمی Drift؛ موزیک یک لحظه نفسش را نگه می‌دارد.</dd>
+            <dt>منابع</dt><dd><div class="tags"><span class="tag code">تایپوگرافی: کد</span><span class="tag sfx">یک «تِق» خشک و تنها</span></div></dd>
+          </dl>
+        </div>
+      </article>
+      <div class="move"><svg viewBox="0 0 22 46" aria-hidden="true"><path d="M11 2 V34"/><path class="head" d="M4 32 L11 44 L18 32 Z"/></svg><p><b>Parallax:</b> کارت ویدیو از عمق صحنه جلو می‌آید و دوربین روی آن می‌نشیند؛ صفر پشت آن محو می‌شود.</p></div>
+
+      <!-- 7 -->
+      <article class="shot">
+        <div class="frame-wrap"><div class="frame f-light">
+          <span class="badge">۷</span><span class="safe"></span>
+          <div class="vt m" style="top:14cqw">چون ویدیوش<br><span class="gw">سرگرم کرد،</span></div>
+          <div class="card veo-shot" style="left:12cqw; right:12cqw; top:50cqw; height:84cqw">
+            <span class="src veo">Veo 3.1 Lite</span>
+            <div class="person"><div class="head"></div><div class="torso"></div><div class="ph"></div></div>
+            <div class="swipe">⟵</div>
+          </div>
+        </div></div>
+        <div class="notes">
+          <div class="shot-head"><span class="n">داستان</span><h3>سرگرم کرد</h3><span class="t">۰:۱۳ تا ۰:۱۶</span></div>
+          <dl>
+            <dt>نریشن</dt><dd class="vo">چون ویدیوش سرگرم کرد،</dd>
+            <dt>متن روی صفحه</dt><dd class="ost">سرگرم کرد،</dd>
+            <dt>تصویر</dt><dd>یک ویدیوی کوتاه و واقعی داخل کارت گوشه‌گرد: کسی روی مبل به ریلز می‌خندد و بلافاصله با انگشت ردش می‌کند و می‌رود سراغ بعدی. خندید، ولی نماند.</dd>
+            <dt>دوربین</dt><dd>نشستن آرام روی کارت؛ داخل خود ویدیو هم Dolly-in ملایم است.</dd>
+            <dt>منابع</dt><dd><div class="tags"><span class="tag veo">Veo 3.1 Lite: خندیدن و رد کردن ریلز (۶ ثانیه)</span><span class="tag sfx">خندهٔ کوتاه از خود Veo، آرام</span></div></dd>
+          </dl>
+        </div>
+      </article>
+      <div class="move"><svg viewBox="0 0 22 46" aria-hidden="true"><path d="M11 2 V34"/><path class="head" d="M4 32 L11 44 L18 32 Z"/></svg><p><b>Dim:</b> کارت عقب می‌رود و نور استودیو آرام خاموش می‌شود تا صحنه سیاه شود. حلقهٔ «اعتماد» وسط تاریکی روشن می‌شود.</p></div>
+
+      <!-- 8 -->
+      <article class="shot">
+        <div class="frame-wrap"><div class="frame f-black">
+          <span class="badge">۸</span><span class="safe"></span>
+          <div class="vt m on-dark" style="top:16cqw">ولی اعتماد<br>نساخت.</div>
+          <div class="ringwrap" style="top:52cqw">
+            <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="40" fill="none" stroke="#2c2c2e" stroke-width="11"/><circle cx="50" cy="50" r="40" fill="none" stroke="#2f8cff" stroke-width="11" stroke-linecap="round" stroke-dasharray="7.5 260" transform="rotate(-90 50 50)"/></svg>
+            <div class="c"><b>اعتماد</b><span>۳٪</span></div>
+          </div>
+        </div></div>
+        <div class="notes">
+          <div class="shot-head"><span class="n">داستان</span><h3>حلقهٔ اعتماد</h3><span class="t">۰:۱۶ تا ۰:۱۹</span></div>
+          <dl>
+            <dt>نریشن</dt><dd class="vo">ولی اعتماد نساخت.»</dd>
+            <dt>متن روی صفحه</dt><dd class="ost">ولی اعتماد نساخت.</dd>
+            <dt>تصویر</dt><dd>حلقه‌ای به سبک Activity Rings اپل. سعی می‌کند پر شود، ولی فقط تا ۳٪ می‌رود و می‌ایستد.</dd>
+            <dt>دوربین</dt><dd>Push-in مستقیم به سوراخ وسط حلقه.</dd>
+            <dt>منابع</dt><dd><div class="tags"><span class="tag code">حلقه: کد</span><span class="tag sfx">تیک تکی و افت موزیک</span></div></dd>
+          </dl>
+        </div>
+      </article>
+      <div class="move"><svg viewBox="0 0 22 46" aria-hidden="true"><path d="M11 2 V34"/><path class="head" d="M4 32 L11 44 L18 32 Z"/></svg><p><b>Fly-through:</b> دوربین از وسط حلقه رد می‌شود و وارد صحنهٔ سیاه «نکته» می‌شود. موزیک اینجا ضربهٔ اصلی‌اش را می‌زند.</p></div>
+
+      <!-- 9 -->
+      <article class="shot">
+        <div class="frame-wrap"><div class="frame f-black">
+          <span class="badge">۹</span><span class="safe"></span>
+          <div class="vt s on-dark" style="top:12cqw"><span class="dim">نکته اینه:</span></div>
+          <div class="label gw" style="left:7cqw; top:24cqw">ویو</div>
+          <div class="label gb" style="right:7cqw; top:24cqw">اعتماد</div>
+          <div class="phone" style="left:8cqw; top:38cqw; width:38cqw"><div class="scr"><span class="island"></span>
+            <div class="busy"></div>
+            <span class="stk pov" style="left:4cqw; top:12cqw; font-size:6.4cqw">POV</span>
+            <span class="stk" style="right:3cqw; top:26cqw; background:#ff2d55; transform:rotate(8deg); font-size:3.4cqw">ترند!!</span>
+            <span class="stk" style="left:5cqw; top:44cqw; background:#ffcc00; color:#1d1d1f; transform:rotate(-10deg); font-size:3.4cqw">♪ ♪</span>
+            <span class="stk" style="right:5cqw; top:58cqw; background:#5856d6; transform:rotate(6deg); font-size:3.2cqw">واااای</span>
+          </div></div>
+          <div class="phone" style="right:8cqw; top:38cqw; width:38cqw"><div class="scr"><span class="island"></span>
+            <div class="clean"><div class="cap"><b>کیفیت،</b>از نزدیک</div></div>
+          </div></div>
+          <div class="divider" style="top:122cqw; height:12cqw"></div>
+          <div class="eq" style="left:7cqw; top:124cqw">ترند = <span class="gw">ویو</span></div>
+          <div class="eq" style="right:7cqw; top:124cqw">اعتماد = <span class="gb">فروش</span></div>
+        </div></div>
+        <div class="notes">
+          <div class="shot-head"><span class="n">نکته</span><h3>اسپلیت اسکرین</h3><span class="t">۰:۱۹ تا ۰:۲۴</span></div>
+          <dl>
+            <dt>نریشن</dt><dd class="vo">«نکته اینه: محتوای ویوخور درباره‌ی ترنده، محتوای فروش‌ساز درباره‌ی مشکل مشتریه.</dd>
+            <dt>متن روی صفحه</dt><dd class="ost">ترند = ویو | اعتماد = فروش</dd>
+            <dt>تصویر</dt><dd>دو گوشی کنار هم و هر دو یک فوتیج را پخش می‌کنند (ریختن لاته‌آرت). <b>چپ:</b> ادیت شلوغ و ترندی با زوم‌های تند، لرزش، استیکر و جداشدن رنگ‌ها، با برچسب «ویو». <b>راست:</b> همان فوتیج با گریدینگ تمیز و موشن تایپوگرافی آرام، با برچسب «اعتماد». نیمهٔ هر فرمول زیر گوشی خودش می‌نشیند.</dd>
+            <dt>دوربین</dt><dd>بعد از عبور از حلقه، Pull-back تا هر دو گوشی در کادر بیایند. با هر جمله کمی به سمت همان گوشی Pan می‌کند.</dd>
+            <dt>منابع</dt><dd><div class="tags"><span class="tag veo">Veo 3.1 Lite: ریختن لاته‌آرت اسلوموشن (هر دو طرف)</span><span class="tag code">ادیت شلوغ و ادیت تمیز: کد</span><span class="tag sfx">گلیچ و استاتر سمت چپ</span><span class="tag sfx">«دینگ» تمیز سمت راست</span></div></dd>
+          </dl>
+        </div>
+      </article>
+      <div class="move"><svg viewBox="0 0 22 46" aria-hidden="true"><path d="M11 2 V34"/><path class="head" d="M4 32 L11 44 L18 32 Z"/></svg><p><b>Crane-down:</b> دوربین از روی دو گوشی پایین می‌آید و به ردیف کاشی‌های بنتو می‌رسد.</p></div>
+
+      <!-- 10 -->
+      <article class="shot">
+        <div class="frame-wrap"><div class="frame f-black">
+          <span class="badge">۱۰</span><span class="safe"></span>
+          <div class="vt s on-dark" style="top:12cqw"><span class="dim">به جای ترند، نشون دادیم:</span></div>
+          <div class="tile t-bts" style="left:7cqw; right:7cqw; top:26cqw; height:46cqw"><span class="src gpt">GPT</span><div class="lb">پشت صحنه</div></div>
+          <div class="tile t-q" style="right:7cqw; width:41cqw; top:75cqw; height:58cqw"><span class="src gpt">GPT</span><div class="lb">کیفیت کار</div></div>
+          <div class="tile t-sat" style="left:7cqw; width:41cqw; top:75cqw; height:58cqw"><span class="src gpt">GPT</span><div class="lb"><small>★★★★★</small>رضایت مشتری</div></div>
+        </div></div>
+        <div class="notes">
+          <div class="shot-head"><span class="n">نکته</span><h3>کاشی‌های بنتو</h3><span class="t">۰:۲۴ تا ۰:۲۹</span></div>
+          <dl>
+            <dt>نریشن</dt><dd class="vo">ما به جای ترند، پشت صحنه و کیفیت کار و رضایت مشتری رو نشون دادیم.</dd>
+            <dt>متن روی صفحه</dt><dd class="ost">پشت صحنه · کیفیت کار · رضایت مشتری</dd>
+            <dt>تصویر</dt><dd>گرید بنتو مثل صفحه‌های محصول اپل. هر کاشی دقیقاً وقتی اسمش گفته می‌شود جلو می‌آید و عکسش زنده می‌شود (پارالاکس و زوم آرام). روی کاشی رضایت ستاره‌ها یکی‌یکی روشن می‌شوند.</dd>
+            <dt>دوربین</dt><dd>Pan آرام از راست به چپ، هم‌جهت با خواندن فارسی.</dd>
+            <dt>منابع</dt><dd><div class="tags"><span class="tag gpt">GPT Image 2.5: پشت صحنهٔ فیلمبرداری</span><span class="tag gpt">GPT Image 2.5: ماکرو لاته‌آرت</span><span class="tag gpt">GPT Image 2.5: مشتری راضی</span><span class="tag sfx">پاپ نرم برای هر کاشی</span></div></dd>
+          </dl>
+        </div>
+      </article>
+      <div class="move"><svg viewBox="0 0 22 46" aria-hidden="true"><path d="M11 2 V34"/><path class="head" d="M4 32 L11 44 L18 32 Z"/></svg><p><b>Pan و روشن شدن:</b> دوربین از کاشی «رضایت مشتری» رد می‌شود، دنیا دوباره سفید می‌شود و همان گوشی اول برمی‌گردد.</p></div>
+
+      <!-- 11 -->
+      <article class="shot">
+        <div class="frame-wrap"><div class="frame f-light">
+          <span class="badge">۱۱</span><span class="safe"></span>
+          <div class="vt m" style="top:12cqw"><span class="dim" style="font-size:.8em">ویو کمتر شد،</span><br>ولی دایرکت <span class="gb">پر شد.</span></div>
+          <span class="chip" style="top:44cqw; left:9cqw; background:#e8e8ed; color:#6e6e73; font-size:3.4cqw">ویو ↓ ۲۴ هزار</span>
+          <span class="chip" style="top:44cqw; right:9cqw; background:#0071e3; color:#fff; font-size:3.4cqw">+۴۷ پیام</span>
+          <div class="phone" style="left:22cqw; top:54cqw; width:56cqw"><div class="scr"><span class="island"></span>
+            <div class="inbox"><h4>پیام‌ها</h4><div class="search"></div>
+              <div class="dm"><div class="av" style="background:linear-gradient(135deg,#ff9f0a,#ff375f)"></div><div class="tx"><b>مریم</b><span>سلام، برای سفارش باید چیکار کنم؟</span></div><div class="dot"></div></div>
+              <div class="dm"><div class="av" style="background:linear-gradient(135deg,#30d158,#0a84ff)"></div><div class="tx"><b>علی</b><span>قیمت‌ها رو می‌فرستین؟</span></div><div class="dot"></div></div>
+              <div class="dm"><div class="av" style="background:linear-gradient(135deg,#bf5af2,#5e5ce6)"></div><div class="tx"><b>سارا</b><span>پشت صحنه‌تون رو دیدم، عالی بود</span></div><div class="dot"></div></div>
+              <div class="dm"><div class="av" style="background:linear-gradient(135deg,#64d2ff,#0071e3)"></div><div class="tx"><b>رضا</b><span>برای هفتهٔ بعد وقت دارین؟</span></div><div class="dot"></div></div>
+              <div class="dm"><div class="av" style="background:linear-gradient(135deg,#ffd60a,#ff9f0a)"></div><div class="tx"><b>نگار</b><span>آدرس دقیق کجاست؟</span></div><div class="dot"></div></div>
+            </div>
+          </div></div>
+        </div></div>
+        <div class="notes">
+          <div class="shot-head"><span class="n">نکته</span><h3>دایرکت پر</h3><span class="t">۰:۲۹ تا ۰:۳۲</span></div>
+          <dl>
+            <dt>نریشن</dt><dd class="vo">ویو کمتر شد، ولی دایرکت پر شد.»</dd>
+            <dt>متن روی صفحه</dt><dd class="ost">ویو کمتر شد، ولی دایرکت پر شد.</dd>
+            <dt>تصویر</dt><dd>جواب مستقیم صحنهٔ ۴: همان صفحهٔ دایرکت که خالی بود حالا پشت سر هم پیام می‌گیرد. شمارندهٔ ویو آرام پایین می‌آید و شمارندهٔ پیام بالا می‌رود.</dd>
+            <dt>دوربین</dt><dd>Push-in ملایم روی لیست پیام‌ها که مدام از بالا اضافه می‌شوند.</dd>
+            <dt>منابع</dt><dd><div class="tags"><span class="tag code">رابط دایرکت: کد</span><span class="tag sfx">دینگ‌دینگ پشت سر هم پیام‌ها</span></div></dd>
+          </dl>
+        </div>
+      </article>
+      <div class="move"><svg viewBox="0 0 22 46" aria-hidden="true"><path d="M11 2 V34"/><path class="head" d="M4 32 L11 44 L18 32 Z"/></svg><p><b>Pull-out بزرگ:</b> دوربین آن‌قدر عقب می‌کشد که گوشی کوچک می‌شود و یکی از صدها کاشیِ دیوار پروژه‌ها می‌شود.</p></div>
+
+      <!-- 12 -->
+      <article class="shot">
+        <div class="frame-wrap"><div class="frame f-light">
+          <span class="badge">۱۲</span><span class="safe"></span>
+          <div class="wall" id="wall" aria-hidden="true"></div>
+          <div class="glass" style="top:40cqw"><div class="nm">شاهین</div><div class="rl">ادیتور و موشن دیزاینر</div><div class="pj">+۵۰۰ پروژه</div></div>
+        </div></div>
+        <div class="notes">
+          <div class="shot-head"><span class="n">معرفی</span><h3>دیوار ۵۰۰ پروژه</h3><span class="t">۰:۳۲ تا ۰:۳۶</span></div>
+          <dl>
+            <dt>نریشن</dt><dd class="vo">«من شاهینم، ادیتور و موشن دیزاینر با بیش از ۵۰۰ پروژه.</dd>
+            <dt>متن روی صفحه</dt><dd class="ost">شاهین · ادیتور و موشن دیزاینر · +۵۰۰ پروژه</dd>
+            <dt>تصویر</dt><dd>دیواری از کاشی‌های ریز ۹:۱۶ (فریم پروژه‌های مختلف) که با عقب کشیدن دوربین پر می‌شود. کارت شیشه‌ای مات (Glassmorphism) وسطش می‌نشیند و عدد پروژه‌ها تا ۵۰۰ می‌شمارد.</dd>
+            <dt>دوربین</dt><dd>ادامهٔ Pull-out با کمی چرخش، بعد توقف نرم.</dd>
+            <dt>منابع</dt><dd><div class="tags"><span class="tag gpt">GPT Image 2.5: شیت فریم‌های پروژه</span><span class="tag gpt">GPT Image 2.5: میز ادیت</span><span class="tag sfx">ووش بلند و ساب</span></div></dd>
+          </dl>
+        </div>
+      </article>
+      <div class="move"><svg viewBox="0 0 22 46" aria-hidden="true"><path d="M11 2 V34"/><path class="head" d="M4 32 L11 44 L18 32 Z"/></svg><p><b>Morph:</b> کارت شیشه‌ای کوچک می‌شود و به کارت پروفایل با دکمهٔ فالو تبدیل می‌شود؛ دیوار پشتش محو و سفید می‌شود.</p></div>
+
+      <!-- 13 -->
+      <article class="shot">
+        <div class="frame-wrap"><div class="frame f-light">
+          <span class="badge">۱۳</span><span class="safe"></span>
+          <div class="vt m" style="top:16cqw">اگه صاحب<br>کسب‌وکاری،</div>
+          <div class="prof" style="top:56cqw"><div class="av">ش</div><div class="nm">شاهین</div><div class="rl">ادیتور و موشن دیزاینر</div><div class="btn">فالو<span class="tap"></span></div></div>
+        </div></div>
+        <div class="notes">
+          <div class="shot-head"><span class="n">CTA</span><h3>فالو</h3><span class="t">۰:۳۶ تا ۰:۳۹</span></div>
+          <dl>
+            <dt>نریشن</dt><dd class="vo">اگه صاحب کسب‌وکاری فالو کن.</dd>
+            <dt>متن روی صفحه</dt><dd class="ost">اگه صاحب کسب‌وکاری، فالو کن.</dd>
+            <dt>تصویر</dt><dd>دکمهٔ آبی «فالو» با یک تپ نرم فشرده می‌شود و به «فالو شد ✓» خاکستری تبدیل می‌شود.</dd>
+            <dt>دوربین</dt><dd>Push-in کوتاه روی دکمه، هم‌زمان با تپ.</dd>
+            <dt>منابع</dt><dd><div class="tags"><span class="tag code">کارت پروفایل: کد</span><span class="tag sfx">تپ</span></div></dd>
+          </dl>
+        </div>
+      </article>
+      <div class="move"><svg viewBox="0 0 22 46" aria-hidden="true"><path d="M11 2 V34"/><path class="head" d="M4 32 L11 44 L18 32 Z"/></svg><p><b>Tilt-down:</b> دوربین پایین می‌آید و نوار کامنت از پایین بالا می‌آید.</p></div>
+
+      <!-- 14 -->
+      <article class="shot">
+        <div class="frame-wrap"><div class="frame f-light">
+          <span class="badge">۱۴</span><span class="safe"></span>
+          <div class="vt s" style="top:14cqw"><span class="dim">می‌خوای بدونی چرا پیج خودت<br>مشتری نمیاره؟</span></div>
+          <div class="vt s" style="top:42cqw">کلمهٔ</div>
+          <div class="big-word gb" style="top:46cqw">پیج</div>
+          <div class="vt m" style="top:88cqw">رو کامنت کن.</div>
+          <div class="composer" style="top:112cqw"><span>پیج<span class="caret"></span></span><span class="send">↑</span></div>
+        </div></div>
+        <div class="notes">
+          <div class="shot-head"><span class="n">CTA</span><h3>کامنت «پیج»</h3><span class="t">۰:۳۹ تا ۰:۴۵</span></div>
+          <dl>
+            <dt>نریشن</dt><dd class="vo">اگه هم می‌خوای بدونی چرا پیج خودت مشتری نمیاره، کلمه‌ی «پیج» رو کامنت کن.»</dd>
+            <dt>متن روی صفحه</dt><dd class="ost">کلمهٔ «پیج» رو کامنت کن.</dd>
+            <dt>تصویر</dt><dd>«پیج» داخل باکس کامنت تایپ می‌شود، بعد بزرگ می‌شود و با گرادیان آبی بالای کادر می‌نشیند. دکمهٔ ارسال می‌زند و فریم آخر یک ثانیه ثابت می‌ماند.</dd>
+            <dt>دوربین</dt><dd>تقریباً ثابت؛ آخرین Push-in خیلی آرام تا فریم پایانی.</dd>
+            <dt>منابع</dt><dd><div class="tags"><span class="tag code">نوار کامنت و تایپوگرافی: کد</span><span class="tag sfx">تایپ</span><span class="tag sfx">ارسال</span><span class="tag sfx">نُت پایانی موزیک</span></div></dd>
+          </dl>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>چه چیزی با چه ابزاری ساخته می‌شود</h2>
+    <div class="plan">
+      <div class="panel">
+        <h3><span class="tag gpt">GPT Image 2.5</span>عکس‌ها</h3>
+        <ol>
+          <li><b>کاغذهای مچاله</b> <span>(فاکتور و برگهٔ فایل ویدیو) روی زمینهٔ سفید، بعد حذف پس‌زمینه</span></li>
+          <li><b>سطل توری مینیمال</b> <span>آلومینیومی، نمای روبه‌رو، نور استودیویی</span></li>
+          <li><b>فریم ریلز ترند</b> <span>باریستا در کافه با نور رنگی مهمانی، ۹:۱۶</span></li>
+          <li><b>پشت صحنه</b> <span>فیلمبردار با دوربین سینمایی و سافت‌باکس در همان کافه</span></li>
+          <li><b>ماکرو لاته‌آرت</b> <span>فنجان سرامیکی، نور نرم کناری</span></li>
+          <li><b>مشتری راضی</b> <span>لبخند واقعی با فنجان در دست</span></li>
+          <li><b>شیت فریم‌های پروژه</b> <span>۳×۳ فریم از صنعت‌های مختلف، برش برای دیوار ۵۰۰ پروژه</span></li>
+          <li><b>میز ادیت</b> <span>مانیتور با تایم‌لاین ادیت، مینیمال</span></li>
+        </ol>
+      </div>
+      <div class="panel">
+        <h3><span class="tag veo">Veo 3.1 Lite</span>فقط دو جا</h3>
+        <ol>
+          <li><b>ریختن لاته‌آرت اسلوموشن</b> <span>(۹:۱۶، ۶ ثانیه). اسپلیت اسکرین «همان فوتیج با دو ادیت» می‌خواهد و فوتیج واقعی اینجا بیشترین اثر را دارد.</span></li>
+          <li><b>خندیدن و رد کردن ریلز</b> <span>(۹:۱۶، ۶ ثانیه). «سرگرم کرد ولی نماند» با حرکت واقعی آدم بهتر حس می‌شود تا با عکس ثابت.</span></li>
+        </ol>
+        <h3><span class="tag code">HyperFrames</span>با کد</h3>
+        <ul>
+          <li><span>گوشی، رابط ریلز و دایرکت، شمارنده‌ها، حلقهٔ اعتماد، تایپوگرافی، دکمهٔ فالو و نوار کامنت. این‌ها با کد دقیق‌تر و تمیزتر از عکس درمی‌آیند و متن فارسی‌شان هم بی‌نقص می‌ماند.</span></li>
+          <li><span>دوربین: کل صحنه‌ها در یک «دنیای» بزرگ چیده می‌شوند و یک دوربین در آن حرکت می‌کند (GSAP، بدون کات).</span></li>
+          <li><span>فونت: وزیرمتن (رایگان، چند وزن)، نزدیک‌ترین فونت فارسی به SF Pro اپل.</span></li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3><span class="tag" style="background:#1d1d1f;color:#fff">ElevenLabs</span>صدا</h3>
+        <ul>
+          <li><b>نریشن:</b> <span>صدای انتخابی تو از بالای صفحه، فارسی محاوره‌ای تهرانی؛ اعداد به‌صورت «هشتاد هزار» و «پونصد» نوشته می‌شوند تا درست خوانده شوند.</span></li>
+          <li><b>موزیک (یک ترک ۴۶ ثانیه‌ای، بی‌کلام):</b> <span>سبک ویدیوهای محصول اپل. قلاب با پالس بیس و تیک‌تاک، داستان با پیانوی مینیمال که در «اعتماد نساخت» افت می‌کند، ضربهٔ اصلی وقتی از حلقه رد می‌شویم، و از «دایرکت پر شد» به بعد روشن و مطمئن تا پایان تمیز.</span></li>
+          <li><b>افکت‌ها:</b> <span>مچاله شدن، افتادن در سطل، ووش‌های نرم برای هر حرکت دوربین، سوایپ، تیک شمارنده، گلیچ ادیت شلوغ، پاپ کاشی‌ها، صدای پیام‌ها، تپ فالو، تایپ و ارسال.</span></li>
+          <li><b>میکس:</b> <span>موزیک زیر صدای گوینده جا باز می‌کند و خروجی برای اینستاگرام روی ‎-14 LUFS مستر می‌شود.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>قبل از شروع ساخت، این‌ها را بگو</h2>
+    <div class="qs">
+      <div class="q"><div><b>کدام صدا؟ (A، B، C یا D)</b><p>اگر هیچ‌کدام لهجهٔ تهرانی روانی ندارد، بگو بیشتر شبیه چه کسی یا چه لحنی باشد تا دور بعد را دقیق‌تر بسازم.</p></div></div>
+      <div class="q"><div><b>بخش داستان را نگه دارم یا نمونهٔ واقعی خودت را می‌دهی؟</b><p>داخل سناریو نوشته‌ای «این بخش رو با یه نمونه‌ی واقعی از کارهای خودت عوض کن». فعلاً همان متن «یکی از مشتری‌هام با یه آهنگ ترند…» را گذاشته‌ام. اگر نمونهٔ واقعی داری، متنش (و اگر شد عدد ویو و نوع کسب‌وکار) را بفرست.</p></div></div>
+      <div class="q"><div><b>نوع کسب‌وکار مشتری در تصویرها</b><p>برای عکس‌ها و ویدیوها یک کافه انتخاب کرده‌ام (ریلز ترند باریستا، پشت صحنه، لاته‌آرت، مشتری راضی). اگر کسب‌وکار دیگری بهتر است، بگو.</p></div></div>
+      <div class="q"><div><b>عکس خودت برای کارت معرفی (اختیاری)</b><p>اگر عکس پرتره‌ات را بفرستی، در صحنهٔ ۱۲ و ۱۳ به سبک اپل (پس‌زمینه حذف‌شده، نور نرم) می‌نشیند. اگر نه، کارت معرفی بدون عکس و با حرف «ش» است، همان‌طور که در فریم‌ها می‌بینی.</p></div></div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  // Deterministic tile colours for the "500 projects" wall mock in frame 12.
+  (function () {
+    var wall = document.getElementById('wall');
+    if (!wall) return;
+    var hues = [24, 200, 340, 140, 45, 260, 10, 190, 300, 90, 220, 30];
+    var html = '';
+    for (var i = 0; i < 132; i++) {
+      var h = hues[(i * 7 + (i >> 3)) % hues.length];
+      var l = 40 + ((i * 13) % 35);
+      var s = 35 + ((i * 17) % 45);
+      html += '<i style="background:linear-gradient(160deg,hsl(' + h + ' ' + s + '% ' + (l + 12) + '%),hsl(' + ((h + 30) % 360) + ' ' + s + '% ' + (l - 12) + '%))"></i>';
+    }
+    wall.innerHTML = html;
+  })();
+</script>
