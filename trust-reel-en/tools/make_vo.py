@@ -25,6 +25,7 @@ OUT_JSON = ROOT / "assets/audio/vo/narration.words.json"
 SR = 48000
 WIN = int(0.010 * SR)
 TAIL = 0.6
+TARGET_LUFS = -18.3  # the Persian narration (../trust-reel/assets/audio/vo/narration.wav)
 
 # Extra silence (s) after the word with this index: room for the camera moves between beats.
 EXTRA = {
@@ -100,10 +101,18 @@ def main():
 
     tmp = OUT_WAV.with_suffix(".raw.f32")
     result.astype(np.float32).tofile(tmp)
-    subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "f32le", "-ar", str(SR), "-ac", "1", "-i", str(tmp),
-                    "-af", "alimiter=limit=0.89:attack=1:release=40:level=false", "-c:a", "pcm_s16le", str(OUT_WAV)],
-                   check=True)
+    raw = ["-f", "f32le", "-ar", str(SR), "-ac", "1", "-i", str(tmp)]
+    # Match the Persian narration's loudness: the carve's level-match duck bottoms out at -16.8 dB, so a quieter
+    # voice would leave the music too loud under it. Gain first, then the same -1 dBFS peak limiter.
+    probe = subprocess.run(["ffmpeg", "-hide_banner", "-nostats", *raw, "-af", "ebur128", "-f", "null", "-"],
+                           capture_output=True, text=True).stderr
+    measured = float(probe[probe.rfind("Integrated loudness:"):].split("I:")[1].split("LUFS")[0])
+    gain = TARGET_LUFS - measured
+    subprocess.run(["ffmpeg", "-v", "error", "-y", *raw,
+                    "-af", f"volume={gain:.2f}dB,alimiter=limit=0.89:attack=1:release=40:level=false",
+                    "-c:a", "pcm_s16le", str(OUT_WAV)], check=True)
     tmp.unlink()
+    print(f"loudness {measured:.1f} LUFS -> gain {gain:+.1f} dB (target {TARGET_LUFS})")
     json.dump({"source": TAKE.name, "words": new_words}, open(OUT_JSON, "w"), ensure_ascii=False, indent=1)
     print(f"narration.wav {len(result) / SR:.2f} s, {len(new_words)} words")
 
