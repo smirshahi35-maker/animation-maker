@@ -1,13 +1,14 @@
 <!doctype html>
-<html lang="fa">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
   </head>
   <body>
     <template>
       <style>
-        @font-face { font-family: "Vazirmatn"; src: url("assets/fonts/Vazirmatn-Variable.ttf") format("truetype"); font-weight: 100 900; font-style: normal; font-display: block; }
-        #root { position: absolute; inset: 0; overflow: hidden; font-family: "Vazirmatn", sans-serif; color: #1d1d1f; background: #f5f5f7; }
+        @font-face { font-family: "Superline"; src: url("assets/fonts/Superline-Italic.ttf") format("truetype"); font-weight: normal; font-style: normal; font-display: block; }
+        @font-face { font-family: "Inter"; src: url("assets/fonts/InterVariable.ttf") format("truetype"); font-weight: 100 900; font-style: normal; font-display: block; }
+        #root { position: absolute; inset: 0; overflow: hidden; font-family: "Inter", sans-serif; color: #1d1d1f; background: #f5f5f7; }
         .s2-bg { position: absolute; inset: 0; background: radial-gradient(130% 90% at 50% 45%, #fbfbfc 0%, #f5f5f7 60%, #e6e6eb 100%); }
         .s2-world { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
         .s2-phonewrap { position: absolute; left: 280px; top: 497px; width: 520px; height: 1127px; transform-origin: 50% 50%; }
@@ -18,69 +19,78 @@
         .pane { position: absolute; left: 0; top: 0; width: 488px; height: 1095px; overflow: hidden; }
         .reel img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
         .reel .shade { position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0) 22%, rgba(0,0,0,0) 62%, rgba(0,0,0,0.55)); }
-        .views { position: absolute; top: 84px; right: 26px; display: flex; align-items: center; gap: 10px; direction: rtl;
-                 background: rgba(0,0,0,0.38); color: #fff; border-radius: 40px; padding: 8px 20px 10px; font-size: 30px; font-weight: 800; }
+        .views { position: absolute; top: 84px; right: 26px; display: flex; align-items: center; gap: 10px;
+                 background: rgba(0,0,0,0.38); color: #fff; border-radius: 40px; padding: 8px 20px 9px 16px; font-size: 28px; font-weight: 800; font-variant-numeric: tabular-nums; }
         .views svg { width: 22px; height: 22px; }
         .acts { position: absolute; right: 20px; bottom: 210px; display: flex; flex-direction: column; align-items: center; gap: 26px; color: #fff; }
-        .act { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 22px; font-weight: 700; }
+        .act { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 21px; font-weight: 700; }
         .act svg { width: 46px; height: 46px; }
-        .who { position: absolute; left: 24px; right: 100px; bottom: 120px; display: flex; align-items: center; gap: 14px; direction: rtl; color: #fff; }
+        .who { position: absolute; left: 24px; right: 100px; bottom: 120px; display: flex; align-items: center; gap: 14px; color: #fff; }
         .who i { width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, #ffb340, #ff375f); border: 3px solid #fff; display: block; }
-        .who b { font-size: 26px; font-weight: 800; }
-        .music { position: absolute; left: 24px; right: 100px; bottom: 64px; direction: rtl; color: #fff; font-size: 23px; font-weight: 700; }
-        .music span { display: inline-block; background: rgba(255,255,255,0.22); border-radius: 30px; padding: 4px 16px 6px; }
+        .who b { font-size: 25px; font-weight: 800; }
+        .music { position: absolute; left: 24px; right: 100px; bottom: 64px; color: #fff; font-size: 21px; font-weight: 700; }
+        .music span { display: inline-block; background: rgba(255,255,255,0.22); border-radius: 30px; padding: 5px 16px 6px; }
         .heart { position: absolute; right: 30px; bottom: 470px; width: 54px; height: 54px; opacity: 0; }
-        .dm { background: #ffffff; color: #1d1d1f; direction: rtl; }
+        .dm { background: #ffffff; color: #1d1d1f; }
         .dm .hd { position: absolute; top: 90px; left: 30px; right: 30px; display: flex; justify-content: space-between; align-items: center; }
-        .dm .hd b { font-size: 42px; font-weight: 900; }
-        .dm .hd span { font-size: 26px; font-weight: 700; color: #0071e3; }
+        .dm .hd b { font-size: 40px; font-weight: 800; letter-spacing: -0.01em; }
+        .dm .hd span { font-size: 25px; font-weight: 600; color: #0071e3; }
         .dm .search { position: absolute; top: 170px; left: 30px; right: 30px; height: 58px; border-radius: 18px; background: #efeff4;
-                      color: #8e8e93; font-size: 24px; font-weight: 600; display: flex; align-items: center; padding: 0 22px; }
+                      color: #8e8e93; font-size: 24px; font-weight: 500; display: flex; align-items: center; padding: 0 22px; }
         .dm .empty { position: absolute; left: 30px; right: 30px; top: 400px; display: flex; flex-direction: column; align-items: center; gap: 22px; text-align: center; }
         .dm .ring { width: 150px; height: 150px; border-radius: 50%; border: 5px solid #1d1d1f; display: flex; align-items: center; justify-content: center; }
         .dm .ring svg { width: 70px; height: 70px; }
-        .dm .empty b { font-size: 32px; font-weight: 800; }
-        .dm .empty small { font-size: 23px; font-weight: 500; color: #6e6e73; line-height: 1.5; }
+        .dm .empty b { font-size: 31px; font-weight: 700; letter-spacing: -0.01em; }
+        .dm .empty small { font-size: 22px; font-weight: 400; color: #6e6e73; line-height: 1.45; padding: 0 24px; }
         .scrblack { position: absolute; inset: 0; background: #000; z-index: 25; }
-        .txt { position: absolute; left: 96px; right: 96px; display: flex; flex-direction: column; align-items: center; direction: rtl; text-align: center; }
-        .ln { display: block; white-space: nowrap; line-height: 1.34; }
-        .w { display: inline-block; opacity: 0; }
-        .h1 { font-size: 108px; font-weight: 850; letter-spacing: -0.01em; }
-        .h2 { font-size: 62px; font-weight: 600; color: #6e6e73; }
+        /* Display type: Superline Italic (ultra-condensed caps, one weight, ligatures off) */
+        .sl { font-family: "Superline", "Inter", sans-serif; font-weight: normal; font-style: normal; font-synthesis: none;
+              font-variant-ligatures: none; font-feature-settings: "liga" 0, "clig" 0; letter-spacing: 0.005em; }
+        .txt { position: absolute; left: 96px; right: 96px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .ln { display: block; white-space: nowrap; line-height: 0.98; }
+        .w { display: inline-block; opacity: 0; padding-right: 0.06em; margin-right: -0.06em; }
+        .h1 { font-size: 176px; }
+        .h2 { font-size: 100px; color: #6e6e73; line-height: 1.0; }
         .red { color: #ff3b30; }
         .gw { background: linear-gradient(90deg, #ffb340, #ff375f); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        /* gradient-clipped glyphs must stay inside their own box: the italic lean reaches ~0.14em past the advance */
+        .w.gw { padding-right: 0.16em; margin-right: -0.16em; }
         .on-dark { color: #ffffff; }
-        .num { font-size: 250px; font-weight: 900; letter-spacing: -0.02em; line-height: 1.12; display: block; white-space: nowrap; }
-        .lab { font-size: 92px; font-weight: 850; line-height: 1.3; display: block; }
-        .chip { display: inline-flex; align-items: center; gap: 16px; background: #1d1d1f; color: #fff; border-radius: 60px; padding: 14px 34px 18px;
-                font-size: 42px; font-weight: 800; direction: rtl; }
-        .eq { display: inline-flex; align-items: flex-end; gap: 6px; height: 34px; }
-        .eq i { display: block; width: 7px; height: 34px; border-radius: 4px; background: #ffb340; transform-origin: 50% 100%; }
-        #s2-zero .num, #s2-zero .lab { display: inline-block; vertical-align: baseline; }
+        .num { font-size: 330px; line-height: 0.86; display: block; white-space: nowrap; padding-right: 0.16em; margin-right: -0.16em; }
+        .lab { font-size: 96px; line-height: 0.9; display: block; margin-top: 14px; }
+        .chip { display: inline-flex; align-items: center; gap: 18px; background: #1d1d1f; color: #fff; border-radius: 60px; padding: 14px 36px 14px 30px;
+                font-size: 60px; line-height: 0.9; }
+        .chip .note { font-family: "Inter", sans-serif; font-weight: 700; font-size: 38px; color: #ffb340; line-height: 1; }
+        .chip .ct { display: inline-block; padding-right: 0.06em; margin-right: -0.06em; transform: translateY(2px); }
+        .eq { display: inline-flex; align-items: flex-end; gap: 6px; height: 36px; }
+        .eq i { display: block; width: 7px; height: 36px; border-radius: 4px; background: #ffb340; transform-origin: 50% 100%; }
+        #s2-zero .ln { display: flex; align-items: baseline; justify-content: center; gap: 46px; transform-origin: 50% 60%; }
+        #s2-zero .zn { font-size: 600px; line-height: 0.85; color: #1d1d1f; padding-right: 0.06em; margin-right: -0.06em; }
+        #s2-zero .zl { font-size: 200px; line-height: 0.85; color: #1d1d1f; padding-right: 0.06em; margin-right: -0.06em; }
         .s2-card { position: absolute; z-index: 2; left: 190px; top: 600px; width: 700px; height: 1000px; border-radius: 64px; overflow: hidden; background: #2a1d17;
                    box-shadow: 0 50px 110px rgba(0, 0, 0, 0.28); opacity: 0; }
         .s2-card video { position: absolute; left: 0; top: 0; width: 700px; height: 1244px; object-fit: cover; display: block; transform: translateY(-110px); }
         .s2-dim { position: absolute; inset: 0; background: radial-gradient(100% 60% at 50% 55%, #161617 0%, #000 70%); opacity: 0; }
         .s2-ring { position: absolute; left: 240px; top: 810px; width: 600px; height: 600px; opacity: 0; }
         .s2-ring svg { position: absolute; inset: 0; width: 600px; height: 600px; overflow: visible; }
-        .s2-ring .c { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; direction: rtl; }
-        .s2-ring .c b { font-size: 84px; font-weight: 900; line-height: 1.25; }
-        .s2-ring .c span { font-size: 58px; font-weight: 700; color: #86868b; line-height: 1.2; }
+        .s2-ring .c { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; color: #fff; }
+        .s2-ring .c b { font-size: 132px; line-height: 0.9; padding-right: 0.06em; margin-right: -0.06em; }
+        .s2-ring .c span { font-size: 96px; line-height: 0.9; color: #86868b; padding-right: 0.06em; margin-right: -0.06em; }
       </style>
       <div id="root" data-composition-id="s2" data-width="1080" data-height="1920">
         <div class="s2-bg"></div>
-        <div class="s2-world" id="s2-world">
+        <div class="s2-world" id="s2-world" data-layout-allow-overflow>
           <!-- Story stats (world space, the dolly carries them up) -->
-          <div class="txt" id="s2-cap" style="top:190px"><span class="ln h2"><span class="w" data-t="3.21">یکی</span> <span class="w" data-t="3.44">از</span> <span class="w" data-t="3.59">مشتری‌هام</span></span></div>
-          <div class="txt" id="s2-stat" style="top:290px; opacity:0">
-            <span class="num gw" id="s2-num">۰</span>
-            <span class="lab"><span class="w" data-t="6.98">ویو</span></span>
+          <div class="txt sl" id="s2-cap" style="top:200px"><span class="ln h2"><span class="w" data-t="3.42">ONE</span> <span class="w" data-t="3.52">OF</span> <span class="w" data-t="3.62">MY</span> <span class="w" data-t="3.78">CLIENTS</span></span></div>
+          <div class="txt sl" id="s2-stat" style="top:306px; opacity:0">
+            <span class="num gw" id="s2-num">0</span>
+            <span class="lab"><span class="w" data-t="6.84">VIEWS</span></span>
           </div>
           <div class="txt" id="s2-chipwrap" style="top:760px; opacity:0">
-            <span class="chip"><span class="eq"><i></i><i></i><i></i><i></i></span>با یه آهنگ ترند</span>
+            <span class="chip sl"><span class="eq"><i></i><i></i><i></i><i></i></span><span class="note">♪</span><span class="ct">TRENDING SONG</span></span>
           </div>
-          <div class="txt" id="s2-zero" style="top:2290px">
-            <span class="ln"><span class="num" style="color:#1d1d1f;font-size:440px;vertical-align:-0.17em">۰</span> <span class="lab" style="font-size:140px">سفارش</span></span>
+          <div class="txt sl" id="s2-zero" style="top:2290px">
+            <span class="ln"><span class="zn">0</span><span class="zl">ORDERS</span></span>
           </div>
 
           <div class="s2-phonewrap" id="s2-phonewrap">
@@ -90,25 +100,25 @@
                 <div class="pane reel" id="s2-reel">
                   <img src="assets/ai/web/cafe-trend.jpg" alt="" />
                   <div class="shade"></div>
-                  <div class="views"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z" fill="#fff" /></svg><span id="s2-views">۰</span></div>
+                  <div class="views"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z" fill="#fff" /></svg><span id="s2-views">0</span></div>
                   <svg class="heart" id="s2-h1" viewBox="0 0 24 24"><path fill="#ff375f" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                   <svg class="heart" id="s2-h2" viewBox="0 0 24 24"><path fill="#ff375f" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                   <svg class="heart" id="s2-h3" viewBox="0 0 24 24"><path fill="#ffffff" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                   <div class="acts">
-                    <div class="act"><svg viewBox="0 0 24 24"><path fill="#fff" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><span>۱۲K</span></div>
-                    <div class="act"><svg viewBox="0 0 24 24"><path fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round" d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.6 8.6 0 0 1-3.8-.9L3 20l1.1-4.6A8.5 8.5 0 1 1 21 11.5z"/></svg><span>۳۴۰</span></div>
-                    <div class="act"><svg viewBox="0 0 24 24"><path fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round" d="M22 3 2 11l7 3 3 7 10-18zM9 14l13-11"/></svg><span>۹۸۰</span></div>
+                    <div class="act"><svg viewBox="0 0 24 24"><path fill="#fff" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><span>12K</span></div>
+                    <div class="act"><svg viewBox="0 0 24 24"><path fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round" d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.6 8.6 0 0 1-3.8-.9L3 20l1.1-4.6A8.5 8.5 0 1 1 21 11.5z"/></svg><span>340</span></div>
+                    <div class="act"><svg viewBox="0 0 24 24"><path fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round" d="M22 3 2 11l7 3 3 7 10-18zM9 14l13-11"/></svg><span>980</span></div>
                   </div>
-                  <div class="who"><i></i><b>کافه</b></div>
-                  <div class="music"><span>♪ آهنگ ترند</span></div>
+                  <div class="who"><i></i><b>café</b></div>
+                  <div class="music"><span>♪ Trending sound</span></div>
                 </div>
                 <div class="pane dm" id="s2-dm">
-                  <div class="hd"><b>پیام‌ها</b><span>درخواست‌ها</span></div>
-                  <div class="search">جستجو</div>
+                  <div class="hd"><b>Messages</b><span>Requests</span></div>
+                  <div class="search">Search</div>
                   <div class="empty">
                     <div class="ring"><svg viewBox="0 0 24 24"><path fill="none" stroke="#1d1d1f" stroke-width="1.6" stroke-linejoin="round" d="M22 3 2 11l7 3 3 7 10-18zM9 14l13-11"/></svg></div>
-                    <b>هنوز پیامی نداری</b>
-                    <small>وقتی کسی بهت پیام بده، اینجا می‌بینیش.</small>
+                    <b>No messages yet</b>
+                    <small>When someone messages you, you’ll see it here.</small>
                   </div>
                 </div>
                 <div class="scrblack" id="s2-scrblack"></div>
@@ -118,38 +128,38 @@
         </div>
 
         <!-- Screen-space lines for the problem beat -->
-        <div class="txt" id="s2-t1" style="top:210px">
-          <span class="ln h1"><span class="w" data-t="0.2">ویدیوت</span> <span class="w" data-t="0.53">ویو</span> <span class="w" data-t="0.76">می‌گیره،</span></span>
+        <div class="txt sl" id="s2-t1" style="top:214px">
+          <span class="ln h1" style="font-size:170px"><span class="w" data-t="0.2">YOUR</span> <span class="w" data-t="0.32">VIDEOS</span> <span class="w" data-t="0.68">GET</span> <span class="w" data-t="0.94">VIEWS,</span></span>
         </div>
-        <div class="txt" id="s2-t2" style="top:180px">
-          <span class="ln h1"><span class="w" data-t="1.59">۸۰</span> <span class="w" data-t="1.75">هزار</span> <span class="w" data-t="1.95">ویو…</span></span>
-          <span class="ln h1 red"><span class="w" data-t="2.17">۰</span> <span class="w" data-t="2.3">مشتری</span></span>
+        <div class="txt sl" id="s2-t2" style="top:196px">
+          <span class="ln h1" style="font-size:156px; line-height:0.95"><span class="w" data-t="1.62">80K</span> <span class="w" data-t="1.88">VIEWS…</span></span>
+          <span class="ln h1 red" style="font-size:156px; line-height:0.95"><span class="w" data-t="2.44">0</span> <span class="w" data-t="2.6">CUSTOMERS</span></span>
         </div>
 
         <!-- t4 sits under the card so the card's upward exit wipes over it instead of overprinting -->
-        <div class="txt" id="s2-t4" style="top:200px">
-          <span class="ln h2"><span class="w" data-t="9.86">چون</span> <span class="w" data-t="10.07">ویدیوش</span></span>
-          <span class="ln h1"><span class="w gw" data-t="10.52">سرگرم</span> <span class="w gw" data-t="11.11">کرد،</span></span>
+        <div class="txt sl" id="s2-t4" style="top:206px">
+          <span class="ln h2"><span class="w" data-t="9.28">BECAUSE</span> <span class="w" data-t="9.54">THE</span> <span class="w" data-t="9.66">VIDEO</span></span>
+          <span class="ln h1" style="font-size:190px"><span class="w gw" data-t="10.0">ENTERTAINED,</span></span>
         </div>
         <!-- Veo card: he laughs, then swipes away -->
         <div class="s2-card" id="s2-card">
-          <video id="s2-viewer" src="assets/video/src/viewer-swipe.mp4" muted playsinline data-start="9.5" data-duration="2.9" data-media-start="2.9" data-track-index="5"></video>
+          <video id="s2-viewer" src="assets/video/src/viewer-swipe.mp4" muted playsinline data-start="8.88" data-duration="2.4" data-media-start="2.9" data-hf-media-start-basis="local" data-track-index="5"></video>
         </div>
 
         <!-- Lights down, the trust ring -->
         <div class="s2-dim" id="s2-dim"></div>
-        <div class="s2-ring" id="s2-ring">
+        <div class="s2-ring" id="s2-ring" data-layout-allow-overflow>
           <svg viewBox="0 0 600 600">
             <defs><linearGradient id="s2-rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6cc4ff" /><stop offset="1" stop-color="#0071e3" /></linearGradient></defs>
             <circle cx="300" cy="300" r="245" fill="none" stroke="#2c2c2e" stroke-width="70" />
             <circle id="s2-arc" cx="300" cy="300" r="245" fill="none" stroke="url(#s2-rg)" stroke-width="70" stroke-linecap="round"
                     stroke-dasharray="1539.4" stroke-dashoffset="1539.4" transform="rotate(-90 300 300)" />
           </svg>
-          <div class="c" id="s2-ringlabel"><b>اعتماد</b><span id="s2-pct">۰٪</span></div>
+          <div class="c sl" id="s2-ringlabel"><b>TRUST</b><span id="s2-pct">0%</span></div>
         </div>
-        <div class="txt" id="s2-t5" style="top:470px">
-          <span class="ln h1 on-dark"><span class="w" data-t="11.5">ولی</span> <span class="w" data-t="11.85">اعتماد</span></span>
-          <span class="ln h1 on-dark"><span class="w" data-t="12.4">نساخت.</span></span>
+        <div class="txt sl" id="s2-t5" style="top:400px">
+          <span class="ln h1 on-dark"><span class="w" data-t="11.08">BUT</span> <span class="w" data-t="11.34">IT</span> <span class="w" data-t="11.48">DIDN’T</span></span>
+          <span class="ln h1 on-dark"><span class="w" data-t="11.74">BUILD</span> <span class="w" data-t="12.0">TRUST.</span></span>
         </div>
       </div>
       <script>
@@ -157,10 +167,11 @@
           const tl = gsap.timeline({ paused: true });
           const root = document.querySelector('[data-composition-id="s2"]');
           const q = (s) => root.querySelectorAll(s);
-          const fa = (n) => Math.round(n).toLocaleString("fa-IR");
+          const en = (n) => Math.round(n).toLocaleString("en-US");
 
+          // Word reveals land on the spoken English word (scene-local times from TIMING.md)
           q(".w[data-t]").forEach((el) => {
-            tl.fromTo(el, { opacity: 0, y: 30, filter: "blur(10px)" },
+            tl.fromTo(el, { opacity: 0, y: 28, filter: "blur(10px)" },
               { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: "power3.out" }, +el.dataset.t);
           });
           const out = (sel, t, d) => tl.to(sel, { opacity: 0, y: -44, filter: "blur(12px)", duration: d || 0.34, ease: "power2.in" }, t);
@@ -170,66 +181,67 @@
           tl.to("#s2-scrblack", { opacity: 0, duration: 0.25, ease: "power1.out" }, 0.0);
           const views = { v: 0 };
           tl.fromTo(views, { v: 0 }, { v: 80000, duration: 1.0, ease: "power2.out",
-            onUpdate: () => { document.getElementById("s2-views").textContent = fa(Math.round(views.v / 100) * 100); } }, 0.35);
+            onUpdate: () => { document.getElementById("s2-views").textContent = en(Math.round(views.v / 100) * 100); } }, 0.35);
           ["#s2-h1", "#s2-h2", "#s2-h3"].forEach((h, i) => {
             tl.fromTo(h, { opacity: 0, y: 0, x: 0, scale: 0.6 },
               { keyframes: [{ opacity: 1, scale: 1, duration: 0.15 }, { y: -330, x: -30 * (i + 1), opacity: 0, duration: 0.85, ease: "power1.out" }] }, 0.45 + i * 0.22);
           });
-          out("#s2-t1", 1.32);
+          out("#s2-t1", 1.3); // "views," is up from 0.94; gone as "80K" rises on "but" (1.62)
 
-          // 2) Swipe inside the phone to the empty inbox; camera pushes in
-          tl.to("#s2-reel", { x: -488, duration: 0.45, ease: "power3.inOut" }, 1.36);
-          tl.fromTo("#s2-dm", { x: 488 }, { x: 0, duration: 0.45, ease: "power3.inOut" }, 1.36);
-          tl.to("#s2-phonewrap", { scale: 1.12, y: 70, duration: 1.0, ease: "power2.inOut" }, 1.45);
-          out("#s2-t2", 3.0);
+          // 2) "but your DMs": swipe inside the phone to the empty inbox; camera pushes in
+          tl.to("#s2-reel", { x: -488, duration: 0.45, ease: "power3.inOut" }, 1.4);
+          tl.fromTo("#s2-dm", { x: 488 }, { x: 0, duration: 0.45, ease: "power3.inOut" }, 1.4);
+          tl.to("#s2-phonewrap", { scale: 1.12, y: 100, duration: 1.0, ease: "power2.inOut" }, 1.48);
+          out("#s2-t2", 3.0); // "empty?" ends 2.90, gone before "One" (3.42)
 
           // 3) Pull back + arc: the client's reel, the 80,000 stat
           tl.to("#s2-dm", { x: 488, duration: 0.45, ease: "power3.inOut" }, 3.12);
           tl.to("#s2-reel", { x: 0, duration: 0.45, ease: "power3.inOut" }, 3.12);
-          tl.to("#s2-phonewrap", { scale: 0.62, y: 60, rotationY: -24, rotationZ: -3, transformPerspective: 1600, duration: 1.1, ease: "power3.inOut" }, 3.08);
-          // the reel stays the hero until the chip (4.62) and the counter take the space above it
-          tl.to("#s2-phonewrap", { scale: 0.5, y: 150, duration: 0.45, ease: "power2.inOut" }, 4.2);
-          tl.fromTo("#s2-chipwrap", { opacity: 0, y: 40, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 4.62);
+          tl.to("#s2-phonewrap", { scale: 0.62, y: 60, rotationY: -24, rotationZ: -3, transformPerspective: 1600, duration: 1.06, ease: "power3.inOut" }, 3.06);
+          // the reel stays the hero until the chip ("trending", 4.56) and the counter take the space above it
+          tl.to("#s2-phonewrap", { scale: 0.5, y: 150, duration: 0.44, ease: "power2.inOut" }, 4.12);
+          tl.fromTo("#s2-chipwrap", { opacity: 0, y: 40, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 4.56);
           q(".eq i").forEach((b, i) => {
-            tl.fromTo(b, { scaleY: 0.3 }, { scaleY: 1, duration: 0.18 + i * 0.03, ease: "sine.inOut", yoyo: true, repeat: 15 }, 4.7 + i * 0.05);
+            tl.fromTo(b, { scaleY: 0.3 }, { scaleY: 1, duration: 0.18 + i * 0.03, ease: "sine.inOut", yoyo: true, repeat: 15 }, 4.64 + i * 0.05);
           });
-          tl.fromTo("#s2-stat", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 5.5);
-          tl.fromTo("#s2-num", { scale: 0.9, filter: "blur(10px)" }, { scale: 1, filter: "blur(0px)", duration: 0.5, ease: "power3.out" }, 5.5);
+          // "eighty thousand": the counter runs from "eighty" (5.92) and is settled by the end of "thousand" (6.74)
+          tl.fromTo("#s2-stat", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 5.86);
+          tl.fromTo("#s2-num", { scale: 0.9, filter: "blur(10px)" }, { scale: 1, filter: "blur(0px)", duration: 0.5, ease: "power3.out" }, 5.86);
           const stat = { v: 0 };
           tl.fromTo(stat, { v: 0 }, { v: 80000, duration: 1.0, ease: "power3.out", immediateRender: false,
-            onUpdate: () => { document.getElementById("s2-num").textContent = fa(Math.round(stat.v / 100) * 100); } }, 5.55);
+            onUpdate: () => { document.getElementById("s2-num").textContent = en(Math.round(stat.v / 100) * 100); } }, 5.9);
 
-          // 4) Dolly down: views leave the top, the lonely zero rises
+          // 4) "but not": dolly down, views leave the top, the lonely zero rises (readable by "single order.")
           tl.to("#s2-world", { y: -1500, duration: 0.95, ease: "power3.inOut" }, 7.55);
           // Phone rides the dolly with the stack (no extra upward parallax: from y:150 it would overprint the chip); fade only its last sliver
           tl.to("#s2-phonewrap", { opacity: 0, duration: 0.3, ease: "power1.in" }, 8.2);
           tl.fromTo("#s2-zero", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, 7.75);
-          tl.fromTo("#s2-zero .ln", { scale: 0.88 }, { scale: 1.03, duration: 1.6, ease: "power2.out" }, 7.9); // still moving when the 9.5 tilt takes over
+          tl.fromTo("#s2-zero .ln", { scale: 0.88 }, { scale: 1.03, duration: 1.1, ease: "power2.out" }, 7.9); // still moving when the 8.88 tilt takes over
 
-          // 5) One camera tilt: the zero and the Veo card travel together (never semi-transparent over each other)
+          // 5) "Because": one camera tilt, the zero and the Veo card travel together (never semi-transparent over each other)
           // 1400 = card parked fully below frame (top 600+1400 = 2000, shadow ~1940) and the zero fully above it at the end
-          tl.to("#s2-zero", { y: -1400, duration: 0.7, ease: "power3.inOut" }, 9.5);
-          tl.set("#s2-card", { opacity: 1 }, 9.5);
-          tl.fromTo("#s2-card", { y: 1400, scale: 1 }, { y: 0, duration: 0.7, ease: "power3.inOut" }, 9.5);
-          tl.fromTo("#s2-card video", { scale: 1 }, { scale: 1.06, duration: 2.4, ease: "none" }, 9.6);
+          tl.to("#s2-zero", { y: -1400, duration: 0.66, ease: "power3.inOut" }, 8.88); // clears the t4 band before "BECAUSE" fades in (9.28)
+          tl.set("#s2-card", { opacity: 1 }, 8.88);
+          tl.fromTo("#s2-card", { y: 1400, scale: 1 }, { y: 0, duration: 0.66, ease: "power3.inOut" }, 8.88);
+          tl.fromTo("#s2-card video", { scale: 1 }, { scale: 1.06, duration: 2.0, ease: "none" }, 8.98);
 
-          // 6) Lights down; the trust ring barely moves
-          out("#s2-t4", 11.3, 0.2); // the thrown card wipes over it, gone by 11.5 ("ولی")
-          tl.to("#s2-card", { y: -1650, scale: 0.92, rotation: -2, filter: "blur(6px)", duration: 0.32, ease: "power3.in" }, 11.12); // off the top by 11.44, before "ولی"
-          tl.set("#s2-card", { autoAlpha: 0 }, 11.45);
-          tl.to("#s2-dim", { opacity: 1, duration: 0.35, ease: "power1.in" }, 11.15); // fully dark by 11.5, when white "ولی" lands
-          tl.fromTo("#s2-ring", { opacity: 0, scale: 0.82 }, { opacity: 1, scale: 1, duration: 0.7, ease: "expo.out" }, 11.85);
+          // 6) Lights down before "but" (11.08) so the white words land on dark; the trust ring barely moves
+          tl.to("#s2-card", { y: -1650, scale: 0.92, rotation: -2, filter: "blur(6px)", duration: 0.32, ease: "power3.in" }, 10.74); // off the top by 11.06
+          out("#s2-t4", 10.88, 0.2); // the thrown card wipes over it, gone by 11.08 ("but")
+          tl.set("#s2-card", { autoAlpha: 0 }, 11.07);
+          tl.to("#s2-dim", { opacity: 1, duration: 0.35, ease: "power1.in" }, 10.72); // fully dark by 11.07, when white "BUT" lands
+          tl.fromTo("#s2-ring", { opacity: 0, scale: 0.82 }, { opacity: 1, scale: 1, duration: 0.7, ease: "expo.out" }, 12.0); // on "trust."
           const arcLen = 1539.4, pct = { v: 0 };
-          tl.fromTo(pct, { v: 0 }, { immediateRender: false, keyframes: [{ v: 3, duration: 0.5, ease: "power2.out" }, { v: 5, duration: 0.2, ease: "sine.out" }, { v: 3, duration: 0.35, ease: "sine.inOut" }],
+          tl.fromTo(pct, { v: 0 }, { immediateRender: false, keyframes: [{ v: 3, duration: 0.42, ease: "power2.out" }, { v: 5, duration: 0.14, ease: "sine.out" }, { v: 3, duration: 0.18, ease: "sine.inOut" }],
             onUpdate: () => {
               document.getElementById("s2-arc").setAttribute("stroke-dashoffset", (arcLen * (1 - pct.v / 100)).toFixed(1));
-              document.getElementById("s2-pct").textContent = fa(Math.round(pct.v)) + "٪";
-            } }, 12.0);
+              document.getElementById("s2-pct").textContent = en(Math.round(pct.v)) + "%";
+            } }, 12.04); // settles on 3% at 12.78, just before the fly-through
 
-          // 7) Fly through the centre of the ring into black
-          tl.to("#s2-t5", { opacity: 0, filter: "blur(10px)", duration: 0.25, ease: "power2.in" }, 12.8);
-          tl.to("#s2-ringlabel", { opacity: 0, scale: 1.4, duration: 0.22, ease: "power2.in" }, 12.8);
-          tl.to("#s2-ring", { scale: 16, duration: 0.45, ease: "power3.in" }, 12.8);
+          // 7) Fly through the centre of the ring into black (s3 "HERE’S THE TIP:" emerges from the dark at 13.14)
+          tl.to("#s2-t5", { opacity: 0, filter: "blur(10px)", duration: 0.25, ease: "power2.in" }, 12.79);
+          tl.to("#s2-ringlabel", { opacity: 0, scale: 1.4, duration: 0.22, ease: "power2.in" }, 12.79);
+          tl.to("#s2-ring", { scale: 16, duration: 0.45, ease: "power3.in" }, 12.79);
 
           window.__timelines["s2"] = tl;
         })();
