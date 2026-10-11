@@ -28,7 +28,7 @@
         .hd b { font-size: 40px; font-weight: 800; letter-spacing: -0.02em; }
         .hd span { font-size: 25px; font-weight: 600; color: #0071e3; }
         .search { position: absolute; top: 170px; left: 30px; right: 30px; height: 58px; border-radius: 18px; background: #efeff4;
-                  color: #8e8e93; font-size: 24px; font-weight: 500; display: flex; align-items: center; padding: 0 22px; }
+                  color: #86868b; font-size: 24px; font-weight: 500; display: flex; align-items: center; padding: 0 22px; }
         .empty { position: absolute; left: 30px; right: 30px; top: 400px; display: flex; flex-direction: column; align-items: center; gap: 22px; text-align: center; }
         .empty .ring { width: 150px; height: 150px; border-radius: 50%; border: 5px solid #1d1d1f; display: flex; align-items: center; justify-content: center; }
         .empty .ring svg { width: 70px; height: 70px; }
@@ -38,7 +38,7 @@
         .av { flex: none; width: 76px; height: 76px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 32px; font-weight: 700; }
         .tx { flex: 1; min-width: 0; display: flex; flex-direction: column; }
         .tx b { font-size: 27px; font-weight: 700; line-height: 1.3; letter-spacing: -0.01em; }
-        .tx span { font-size: 23px; font-weight: 500; color: #6e6e73; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.4; }
+        .tx span { font-size: 22px; font-weight: 500; letter-spacing: -0.01em; color: #6e6e73; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.4; }
         .dot { flex: none; width: 18px; height: 18px; border-radius: 50%; background: #0071e3; }
         .badge { position: absolute; display: flex; align-items: center; gap: 0.2em; border-radius: 60px; padding: 18px 34px 14px 32px; line-height: 1; opacity: 0;
                  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12); }
@@ -87,8 +87,10 @@
         .caret { display: block; width: 5px; height: 58px; background: #0071e3; border-radius: 3px; }
         .send { flex: none; width: 92px; height: 92px; border-radius: 50%; background: #0071e3; display: flex; align-items: center; justify-content: center; }
         .send svg { width: 46px; height: 46px; }
-        .big { position: absolute; left: 0; right: 0; top: 456px; display: flex; justify-content: center; opacity: 0; }
-        .big span { display: block; font-size: 720px; line-height: 1; }
+        /* top 484: equal gaps between the headline ink, the keyword ink and the composer; left -0.072em cancels the italic lean
+           so the ink (not the advance box) is centred, and the 1.08 pulse under the 1.05 drift stays inside x 96-984 */
+        .big { position: absolute; left: 0; right: 0; top: 484px; display: flex; justify-content: center; opacity: 0; }
+        .big span { display: block; position: relative; left: -0.072em; font-size: 660px; line-height: 1; }
       </style>
       <div id="root" data-composition-id="s4" data-width="1080" data-height="1920">
         <div class="s4-bg"></div>
@@ -108,14 +110,14 @@
                     <b>No messages yet</b>
                   </div>
                   <div class="rows">
-                    <div class="row"><div class="av" style="background:linear-gradient(135deg,#ff9f0a,#ff375f)">M</div><div class="tx"><b>Maya</b><span>Hi! How do I place an order?</span></div><div class="dot"></div></div>
-                    <div class="row"><div class="av" style="background:linear-gradient(135deg,#30d158,#0a84ff)">A</div><div class="tx"><b>Alex</b><span>Can you send me your prices?</span></div><div class="dot"></div></div>
-                    <div class="row"><div class="av" style="background:linear-gradient(135deg,#bf5af2,#5e5ce6)">S</div><div class="tx"><b>Sara</b><span>Saw your behind-the-scenes, loved it!</span></div><div class="dot"></div></div>
-                    <div class="row"><div class="av" style="background:linear-gradient(135deg,#64d2ff,#0071e3)">R</div><div class="tx"><b>Ryan</b><span>Do you have time next week?</span></div><div class="dot"></div></div>
-                    <div class="row"><div class="av" style="background:linear-gradient(135deg,#ffd60a,#ff9f0a)">N</div><div class="tx"><b>Nina</b><span>What’s your exact address?</span></div><div class="dot"></div></div>
-                    <div class="row"><div class="av" style="background:linear-gradient(135deg,#ff6482,#bf5af2)">O</div><div class="tx"><b>Omar</b><span>Can you book one for me too?</span></div><div class="dot"></div></div>
-                    <div class="row"><div class="av" style="background:linear-gradient(135deg,#66d4cf,#30b0c7)">L</div><div class="tx"><b>Lily</b><span>The quality is unreal</span></div><div class="dot"></div></div>
-                    <div class="row"><div class="av" style="background:linear-gradient(135deg,#a2845e,#7d5d3b)">K</div><div class="tx"><b>Kevin</b><span>Do you take bulk orders?</span></div><div class="dot"></div></div>
+                    <div class="row"><div class="av" style="background:linear-gradient(135deg,#ec6210,#e5294f)">M</div><div class="tx"><b>Maya</b><span>Hi! How do I place an order?</span></div><div class="dot"></div></div>
+                    <div class="row"><div class="av" style="background:linear-gradient(135deg,#1f9e45,#0a6fd6)">A</div><div class="tx"><b>Alex</b><span>Can you send me your prices?</span></div><div class="dot"></div></div>
+                    <div class="row"><div class="av" style="background:linear-gradient(135deg,#a245d6,#5856d6)">S</div><div class="tx"><b>Sara</b><span>Saw your behind-the-scenes, loved it!</span></div><div class="dot"></div></div>
+                    <div class="row"><div class="av" style="background:linear-gradient(135deg,#2f8fd8,#0062c4)">R</div><div class="tx"><b>Ryan</b><span>Do you have time next week?</span></div><div class="dot"></div></div>
+                    <div class="row"><div class="av" style="background:linear-gradient(135deg,#b87600,#b46000)">N</div><div class="tx"><b>Nina</b><span>What’s your exact address?</span></div><div class="dot"></div></div>
+                    <div class="row"><div class="av" style="background:linear-gradient(135deg,#e0436b,#a33fd6)">O</div><div class="tx"><b>Omar</b><span>Can you book one for me too?</span></div><div class="dot"></div></div>
+                    <div class="row"><div class="av" style="background:linear-gradient(135deg,#1f9c97,#1a7f99)">L</div><div class="tx"><b>Lily</b><span>The quality is unreal</span></div><div class="dot"></div></div>
+                    <div class="row"><div class="av" style="background:linear-gradient(135deg,#94744f,#6e5034)">K</div><div class="tx"><b>Kevin</b><span>Do you take bulk orders?</span></div><div class="dot"></div></div>
                   </div>
                   </div>
                 </div>
@@ -161,7 +163,7 @@
           </div>
 
           <!-- Phase D: comment the word -->
-          <div class="txt sl" id="s4-tD" style="top:190px">
+          <div class="txt sl" id="s4-tD" style="top:200px">
             <span class="ln h2" style="font-size:110px"><span class="w" data-t="9.97">WANT</span> <span class="w" data-t="10.07">TO</span> <span class="w" data-t="10.17">KNOW</span> <span class="w" data-t="10.41">WHY</span></span>
             <span class="ln h1" style="font-size:165px"><span class="w" data-t="10.63">YOUR</span> <span class="w" data-t="10.81">PAGE</span> <span class="w" data-t="11.17">ISN’T</span></span>
             <span class="ln h1" style="font-size:165px"><span class="w" data-t="11.41">BRINGING</span> <span class="w" data-t="11.69">IN</span> <span class="w" data-t="11.83">CUSTOMERS?</span></span>
@@ -229,8 +231,10 @@
           // rack focus: the body of work softens behind the hero card
           tl.fromTo("#s4-wall", { filter: "blur(0px) saturate(1) brightness(1)" }, { filter: "blur(5px) saturate(0.8) brightness(1.05)", duration: 0.8, ease: "power2.out", immediateRender: false }, 4.15);
           const pn = { v: 0 };
-          tl.fromTo(pn, { v: 0 }, { v: 500, duration: 0.75, ease: "power2.out", immediateRender: false,
-            onUpdate: () => { document.getElementById("s4-pn").textContent = en(pn.v); } }, 6.18); // "five hundred"
+          // "five hundred": 0.95 s as in the Persian cut, so the number is still climbing under the counter-ticks sfx
+          // and settles at 500 (7.13) 0.15 s before the push-through (7.28), the same relation as the Persian film
+          tl.fromTo(pn, { v: 0 }, { v: 500, duration: 0.95, ease: "power2.out", immediateRender: false,
+            onUpdate: () => { document.getElementById("s4-pn").textContent = en(pn.v); } }, 6.18);
 
           // C) Follow
           // Push-through right after "projects." (ends 7.24): the camera flies forward through the wall; the profile card arrives out of the depth (no overlap)

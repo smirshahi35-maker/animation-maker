@@ -160,7 +160,7 @@
 
           // "HERE’S THE TIP:" emerges from the ring's darkness, then rises after "tip." to become the header
           tl.fromTo("#s3-hero", { scale: 1.35 }, { scale: 1, duration: 0.68, ease: "expo.out" }, 0.05);
-          tl.to("#s3-hero", { y: -666, scale: 0.34, opacity: 0.65, duration: 0.6, ease: "power3.out" }, 0.82);
+          tl.to("#s3-hero", { y: -660, scale: 0.34, opacity: 0.65, duration: 0.6, ease: "power3.out" }, 0.82);
 
           // Two phones rise in on "Content"; camera leans toward the side being described
           tl.fromTo(["#s3-pL", "#s3-pR"], { y: 360, opacity: 0, filter: "blur(12px)" },
@@ -191,7 +191,8 @@
           });
 
           // RIGHT: same footage, clean grade + calm motion type; the light moves from left to right on the second "Content"
-          tl.fromTo("#s3-pR", { opacity: 1 }, { opacity: 0.5, duration: 0.4, immediateRender: false }, 1.85);
+          // (starts when the right phone's rise has finished at 2.00, so the two opacity tweens never overlap)
+          tl.fromTo("#s3-pR", { opacity: 1 }, { opacity: 0.5, duration: 0.4, immediateRender: false }, 2.0);
           tl.to("#s3-pR", { opacity: 1, duration: 0.5, ease: "power2.out" }, 3.76);
           tl.to("#s3-pL", { opacity: 0.5, duration: 0.5, ease: "power2.out" }, 3.76);
           tl.fromTo("#s3-cleanfx", { scale: 1 }, { scale: 1.07, duration: 6, ease: "none" }, 0.82);

@@ -45,7 +45,7 @@ SFX = [  # (file, volume[, max duration]) in the order of TIMING.md (k = index);
     ("whoosh-soft", 0.15), ("tile-pop-hot", 0.3), ("tile-pop-hot", 0.25),
     ("tile-pop-hot", 0.3), ("ding-clean", 0.09), ("whoosh-deep", 0.3), ("whoosh-soft", 0.12),
 ] + [("dm-ping", round(0.07 - i * 0.01, 2)) for i in range(6)] + [
-    ("whoosh-deep", 0.25), ("whoosh-soft", 0.15), ("counter-ticks", 0.18),
+    ("whoosh-deep", 0.25), ("whoosh-soft", 0.15), ("counter-ticks", 0.18, 1.1),
     ("whoosh-soft", 0.3), ("tap-hot", 0.5), ("whoosh-soft", 0.13),
     ("typing", 0.12, 0.56), ("send", 0.5), ("ding-clean", 0.35),
 ]
