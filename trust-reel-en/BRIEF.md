@@ -45,3 +45,6 @@ On-screen copy: `frame.md` (copy deck). Timing: `TIMING.md`.
    sub-labels, roomier intro card, Sara's DM copy, 0.65 s dead pause before "Views" removed (film now 48.65 s),
    hook music dip, counter ticks trimmed, two whooshes lowered. Rejected: re-wording "80K VIEWS… / 0 CUSTOMERS"
    (the client's on-screen text, kept as in the Persian film).
+5. Draft 3 verified (fixed beats + seams, audio, fresh eyes): all draft-2 fixes hold, no cuts, music 15-20 dB under the
+   voice without SFX. Last polish: tiles wait until the payoff line is gone, intro card content centred, DM rows 100 px
+   (Kevin no longer cropped), first counter's ticks trimmed, hook headline clears before the bin's black opening.

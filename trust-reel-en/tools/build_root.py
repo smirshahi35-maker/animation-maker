@@ -37,7 +37,7 @@ def auto(points):
 SFX = [  # (file, volume[, max duration]) in the order of TIMING.md (k = index); levels as in the Persian mix
     ("paper-crumple-hot", 0.2), ("paper-crumple-hot", 0.14), ("whoosh-soft", 0.06),
     ("bin-drop", 0.45), ("bin-drop", 0.35), ("whoosh-deep", 0.35), ("whoosh-soft", 0.12),
-    ("screen-on-hot", 0.1), ("counter-ticks", 0.15), ("swipe", 0.35), ("lonely-tick", 0.35),
+    ("screen-on-hot", 0.1), ("counter-ticks", 0.15, 0.95), ("swipe", 0.35), ("lonely-tick", 0.35),
     ("swipe", 0.3), ("whoosh-soft", 0.12), ("counter-ticks", 0.18, 0.95), ("whoosh-soft", 0.06),
     ("lonely-tick", 0.3), ("whoosh-soft", 0.12), ("swipe", 0.25), ("lonely-tick", 0.22),
     ("whoosh-deep", 0.3), ("whoosh-soft", 0.12),
