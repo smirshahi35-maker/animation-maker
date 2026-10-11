@@ -8,7 +8,7 @@
       <style>
         @font-face { font-family: "Vazirmatn"; src: url("assets/fonts/Vazirmatn-Variable.ttf") format("truetype"); font-weight: 100 900; font-style: normal; font-display: block; }
         #root { position: absolute; inset: 0; overflow: hidden; font-family: "Vazirmatn", sans-serif; color: #ffffff; }
-        .s3-bg { position: absolute; inset: 0; background: radial-gradient(110% 70% at 50% 45%, #1a1a1c 0%, #000 72%); }
+        .s3-bg { position: absolute; top: -140px; right: -140px; bottom: -140px; left: 0; background: radial-gradient(1188px 1344px at 540px 1004px, #1a1a1c 0%, #000 72%); }
         .s3-stage { position: absolute; inset: 0; }
         .s3-layer { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
         .txt { position: absolute; left: 96px; right: 96px; display: flex; flex-direction: column; align-items: center; direction: rtl; text-align: center; }
@@ -20,7 +20,7 @@
         .col { position: absolute; width: 400px; display: flex; flex-direction: column; align-items: center; direction: rtl; text-align: center; }
         .lab { font-size: 100px; font-weight: 900; line-height: 1.25; display: block; white-space: nowrap; }
         .sub { font-size: 40px; font-weight: 600; color: #86868b; line-height: 1.4; display: block; white-space: nowrap; }
-        .eqn { font-size: 54px; font-weight: 850; line-height: 1.3; display: block; white-space: nowrap; }
+        .eqn { font-size: 60px; font-weight: 850; line-height: 1.3; display: block; white-space: nowrap; }
         .phone { position: absolute; width: 380px; height: 823px; border-radius: 66px; background: #1d1d1f; padding: 12px;
                  box-shadow: inset 0 0 0 3px #3a3a3c, 0 0 0 4px #5b5b60, 0 40px 90px rgba(0, 0, 0, 0.6); }
         .scr { position: relative; width: 100%; height: 100%; border-radius: 55px; overflow: hidden; background: #111; }
@@ -45,15 +45,13 @@
         .tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
         .tile .scrim { position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,0) 50%, rgba(0,0,0,0.7)); }
         .tile .lb { position: absolute; right: 40px; left: 40px; bottom: 34px; display: flex; flex-direction: column; align-items: flex-start; direction: rtl; }
-        .tile .lb b { font-size: 64px; font-weight: 900; line-height: 1.3; display: block; opacity: 0; }
+        .tile .lb b { font-size: 56px; font-weight: 900; line-height: 1.3; display: block; white-space: nowrap; opacity: 0; }
         .stars { display: flex; gap: 8px; direction: ltr; }
         .stars svg { width: 46px; height: 46px; opacity: 0; }
-        .s3-fade { position: absolute; inset: 0; }
       </style>
       <div id="root" data-composition-id="s3" data-width="1080" data-height="1920">
-        <div class="s3-fade" id="s3-fade">
-          <div class="s3-bg"></div>
-          <div class="s3-stage" id="s3-stage">
+        <div class="s3-stage" id="s3-stage">
+            <div class="s3-bg"></div>
 
             <!-- Phase A: the tip + split screen -->
             <div class="s3-layer" id="s3-split">
@@ -99,13 +97,13 @@
                 </div>
                 <div class="divider" id="s3-div" style="top:1372px; height:110px"></div>
                 <div class="col" style="left:90px; top:1378px"><span class="eqn w" data-t="2.86">ترند = <span class="gw">ویو</span></span></div>
-                <div class="col" style="left:590px; top:1378px"><span class="eqn w" data-t="6.09">اعتماد = <span class="gb">فروش</span></span></div>
+                <div class="col" style="left:590px; top:1378px"><span class="eqn w" data-t="5.63">اعتماد = <span class="gb">فروش</span></span></div>
               </div>
             </div>
 
             <!-- Phase B: what we showed instead -->
             <div class="s3-layer" id="s3-bento" style="top:1700px">
-              <div class="txt" style="top:160px">
+              <div class="txt" style="top:200px">
                 <span class="ln" style="font-size:62px; font-weight:600; color:#86868b"><span class="w" data-t="7.01">به</span> <span class="w" data-t="7.30">جای</span> <span class="w" data-t="7.58">ترند،</span> <span class="w" data-t="7.95">نشون</span> <span class="w" data-t="8.05">دادیم:</span></span>
               </div>
               <div class="tile" id="s3-tB" style="left:96px; top:300px; width:888px; height:500px">
@@ -131,7 +129,6 @@
               </div>
             </div>
 
-          </div>
         </div>
       </div>
       <script>
@@ -147,11 +144,11 @@
 
           // "نکته اینه:" emerges from the ring's darkness, then rises to become the header
           tl.fromTo("#s3-hero", { scale: 1.35 }, { scale: 1, duration: 0.68, ease: "expo.out" }, 0.05);
-          tl.to("#s3-hero", { y: -640, scale: 0.42, opacity: 0.6, duration: 0.75, ease: "power3.inOut" }, 0.75);
+          tl.to("#s3-hero", { y: -640, scale: 0.42, opacity: 0.6, duration: 0.6, ease: "power3.out" }, 0.75);
 
           // Two phones rise in; camera leans toward the side being described
           tl.fromTo(["#s3-pL", "#s3-pR"], { y: 360, opacity: 0, filter: "blur(12px)" },
-            { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.9, ease: "expo.out", stagger: 0.08 }, 0.8);
+            { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.9, ease: "expo.out", stagger: 0.08 }, 0.95);
           tl.fromTo("#s3-div", { scaleY: 0 }, { scaleY: 1, duration: 0.5, ease: "power2.out" }, 2.8);
           tl.fromTo("#s3-cols", { x: 0, scale: 1 }, { x: 46, scale: 1.02, duration: 2.6, ease: "sine.inOut" }, 1.0);
           tl.to("#s3-cols", { x: -46, duration: 2.8, ease: "sine.inOut" }, 3.6);
@@ -197,11 +194,10 @@
           q("#s3-tS .stars svg").forEach((st, i) => {
             tl.fromTo(st, { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(3)" }, 11.05 + i * 0.1);
           });
-          tl.fromTo("#s3-bento", { scale: 1 }, { scale: 1.035, transformOrigin: "540px 860px", duration: 5.2, ease: "sine.inOut", immediateRender: false }, 7.6);
+          tl.fromTo("#s3-bento", { scale: 1 }, { scale: 1.035, transformOrigin: "540px 200px", duration: 5.2, ease: "sine.inOut", immediateRender: false }, 7.6);
 
-          // Whip pan out: the stage streaks right and fades, the white world comes in underneath
+          // Whip pan out: the whole dark world (bg included) streaks off to the right; the white world is underneath
           tl.to("#s3-stage", { x: 1250, scaleX: 1.06, filter: "blur(18px)", duration: 0.55, ease: "power3.in" }, 12.38);
-          tl.to("#s3-fade", { opacity: 0, duration: 0.3, ease: "power1.in" }, 12.62);
 
           window.__timelines["s3"] = tl;
         })();

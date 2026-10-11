@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Prepare the GPT Image 2.5 picks for the composition.
 
-- crumpled cutout (birefnet) -> two separate balls (left = invoice, right = video file)
+- crumpled cutout (birefnet) -> the video-file ball (right half); the invoice ball comes from a second
+  GPT Image 2.5 pick with no legible print (src/ball2/ball-c-cut.png, birefnet), since the first one
+  showed Latin prices next to the Persian invoice card
 - bin cutout -> cropped to the object, opening geometry printed for s1's dive
 - photos -> resized JPEGs at the size they are shown
 - contact sheet -> nine tiles for the 500-project wall
@@ -38,13 +40,21 @@ def balls():
     im = Image.open(SRC / "crumpled-cut.png").convert("RGBA")
     a = np.array(im)[:, :, 3]
     w = im.width
-    for name, (x0, x1) in {"ball-invoice": (0, w // 2), "ball-video": (w // 2, w)}.items():
+    for name, (x0, x1) in {"ball-video": (w // 2, w)}.items():
         half = np.zeros_like(a)
         half[:, x0:x1] = a[:, x0:x1]
         l, t, r, b = bbox(half)
         pad = 12
         crop = im.crop((max(0, l - pad), max(0, t - pad), min(w, r + pad), min(im.height, b + pad)))
         geo[name] = {"size": save_cut(crop, name, 560)}
+
+
+def ball_invoice():
+    im = Image.open(SRC / "ball2/ball-c-cut.png").convert("RGBA")
+    l, t, r, b = bbox(np.array(im)[:, :, 3])
+    pad = 12
+    crop = im.crop((max(0, l - pad), max(0, t - pad), min(im.width, r + pad), min(im.height, b + pad)))
+    geo["ball-invoice"] = {"size": save_cut(crop, "ball-invoice", 560)}
 
 
 def bin_():
@@ -129,6 +139,7 @@ if __name__ == "__main__":
     which = sys.argv[1:] or ["balls", "bin", "photos", "sheet"]
     if "balls" in which:
         balls()
+        ball_invoice()
     if "bin" in which:
         bin_()
     if "photos" in which:

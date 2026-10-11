@@ -2,7 +2,7 @@
 """Build compositions/s4.html from tools/s4.src.html: insert the 500-project wall tiles.
 
 The centre of the wall is the phone itself (scaled 0.165 in .slot), so tiles skip (0, 0).
-Tile sources cycle deterministically through the GPT Image 2.5 stills.
+Tile sources cycle deterministically through the GPT Image 2.5 stills (no identical neighbours).
 """
 from pathlib import Path
 
@@ -19,7 +19,10 @@ for i in range(-6, 7):
             continue
         x = CX + j * (TW + G) - TW / 2
         y = CY + i * (TH + G) - TH / 2
-        src = srcs[(i * 7 + j * 3 + 100) % len(srcs)]
+        # 5 and 3 (and 5±3 = 8, 2) are all non-zero mod 14, so no tile repeats an image of any of its
+        # 8 neighbours (incl. diagonals). +102 puts tile-5 (srcs[4], the phone's own screen image) at
+        # the phone's (0, 0) cell, so the phone never sits next to a tile-5 either.
+        src = srcs[(i * 5 + j * 3 + 102) % len(srcs)]
         d = (i * i * 0.6 + j * j) ** 0.5
         tiles.append(f'<img class="tl" data-d="{d:.2f}" src="{src}" alt="" style="left:{x:.0f}px; top:{y:.0f}px" />')
 src = (ROOT / "tools/s4.src.html").read_text()
