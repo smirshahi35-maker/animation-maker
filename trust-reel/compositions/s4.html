@@ -374,10 +374,10 @@
             <span class="ln h2"><span class="w" data-t="10.61">می‌خوای</span> <span class="w" data-t="10.96">بدونی</span> <span class="w" data-t="11.40">چرا</span></span>
             <span class="ln" style="font-size:84px; font-weight:850"><span class="w" data-t="11.68">پیج</span> <span class="w" data-t="12.02">خودت</span> <span class="w" data-t="12.40">مشتری</span> <span class="w" data-t="12.86">نمیاره؟</span></span>
           </div>
-          <div class="txt" id="s4-tE1" style="top:230px"><span class="ln h2"><span class="w" data-t="13.78">کلمه‌ی</span></span></div>
+          <div class="txt" id="s4-tE1" style="top:230px"><span class="ln h2"><span class="w" data-t="13.68">کلمه‌ی</span></span></div>
           <div class="big gb" id="s4-big">پیج</div>
           <div class="txt" id="s4-tE2" style="top:960px">
-            <span class="ln h1"><span class="w" data-t="14.74">رو</span> <span class="w" data-t="15.04">کامنت</span> <span class="w" data-t="15.46">کن.</span></span>
+            <span class="ln h1"><span class="w" data-t="14.54">رو</span> <span class="w" data-t="14.67">کامنت</span> <span class="w" data-t="15.10">کن.</span></span>
           </div>
           <div class="composer" id="s4-comp">
             <div class="me"></div>
@@ -455,28 +455,30 @@
           tl.fromTo("#s4-comp", { opacity: 1, y: 700 }, { y: 0, duration: 0.7, ease: "power3.inOut" }, 10.12);
           // One continuous camera drift across the whole CTA (only #s4-all scale tween in the comp)
           tl.fromTo("#s4-all", { scale: 1 }, { scale: 1.04, transformOrigin: "540px 900px", duration: 7.2, ease: "sine.inOut", immediateRender: false }, 10.45);
-          out("#s4-tD", 13.55);
-          tl.to("#s4-prof", { opacity: 0, y: "-=60", filter: "blur(10px)", duration: 0.34, ease: "power2.in" }, 13.55);
-          tl.to("#s4-ph", { opacity: 0, duration: 0.12 }, 13.9);
+          out("#s4-tD", 13.45, 0.22); // fully gone by 13.67, before "کلمه‌ی" (13.68) lands in the same band
+          tl.to("#s4-prof", { opacity: 0, y: "-=60", filter: "blur(10px)", duration: 0.34, ease: "power2.in" }, 13.45);
+          tl.to("#s4-ph", { opacity: 0, duration: 0.12 }, 13.8);
           // Typing: whole-glyph states (پ -> پی -> پیج), caret follows the left (RTL) end of the text
-          tl.set("#s4-typed", { clipPath: "inset(0 0 0 0%)" }, 13.92);
-          tl.set("#s4-k1", { display: "inline" }, 13.92);
-          tl.set("#s4-k1", { display: "none" }, 14.06);
-          tl.set("#s4-k2", { display: "inline" }, 14.06);
-          tl.set("#s4-k2", { display: "none" }, 14.2);
-          tl.set("#s4-k3", { display: "inline" }, 14.2);
-          tl.fromTo("#s4-caret", { opacity: 1 }, { opacity: 0, duration: 0.3, ease: "steps(1)", yoyo: true, repeat: 3, immediateRender: false }, 14.4);
+          tl.set("#s4-typed", { clipPath: "inset(0 0 0 0%)" }, 13.82);
+          tl.set("#s4-k1", { display: "inline" }, 13.82);
+          tl.set("#s4-k1", { display: "none" }, 13.995);
+          tl.set("#s4-k2", { display: "inline" }, 13.995);
+          tl.set("#s4-k2", { display: "none" }, 14.17);
+          tl.set("#s4-k3", { display: "inline" }, 14.17);
+          tl.fromTo("#s4-caret", { opacity: 1 }, { opacity: 0, duration: 0.3, ease: "steps(1)", yoyo: true, repeat: 3, immediateRender: false }, 14.25);
           // Keyword pop: scale on back.out, blur separately on power2.out (a filter must never overshoot)
-          tl.fromTo("#s4-big", { opacity: 0, scale: 0.55 }, { opacity: 1, scale: 1, duration: 0.7, ease: "back.out(1.6)" }, 14.36);
-          tl.fromTo("#s4-big", { filter: "blur(16px)" }, { filter: "blur(0px)", duration: 0.45, ease: "power2.out", immediateRender: false }, 14.36);
+          tl.fromTo("#s4-big", { opacity: 0, scale: 0.55 }, { opacity: 1, scale: 1, duration: 0.7, ease: "back.out(1.6)" }, 14.21);
+          tl.fromTo("#s4-big", { filter: "blur(16px)" }, { filter: "blur(0px)", duration: 0.45, ease: "power2.out", immediateRender: false }, 14.21);
           // Send: the typed word leaves the field and flies up into the big keyword
-          tl.fromTo("#s4-send", { scale: 1 }, { keyframes: [{ scale: 0.86, duration: 0.08 }, { scale: 1, duration: 0.3, ease: "back.out(2)" }] }, 15.7);
-          tl.set("#s4-typed", { clipPath: "none" }, 15.73);
-          tl.to("#s4-word", { x: -340, y: -560, scale: 2.2, duration: 0.5, ease: "power3.out" }, 15.74);
-          tl.to("#s4-word", { opacity: 0, duration: 0.15, ease: "power1.in" }, 16.1);
-          tl.to("#s4-caret", { opacity: 0, duration: 0.1 }, 15.74);
-          tl.to("#s4-ph", { opacity: 1, duration: 0.25 }, 15.95);
-          tl.fromTo("#s4-big", { scale: 1 }, { keyframes: [{ scale: 1.08, duration: 0.14, ease: "power2.out" }, { scale: 1, duration: 0.5, ease: "back.out(2)" }], immediateRender: false }, 16.25);
+          tl.fromTo("#s4-send", { scale: 1 }, { keyframes: [{ scale: 0.86, duration: 0.08 }, { scale: 1, duration: 0.3, ease: "back.out(2)" }] }, 15.35);
+          tl.set("#s4-typed", { clipPath: "none" }, 15.38);
+          // field word centre (822, 1306) -> big keyword ink centre (537, ~715); it takes on the keyword's blue as it lands
+          tl.to("#s4-word", { x: -285, y: -600, scale: 2.2, duration: 0.5, ease: "power3.out" }, 15.39);
+          tl.to("#s4-word", { color: "#2a93f2", duration: 0.3, ease: "power1.inOut" }, 15.45);
+          tl.to("#s4-word", { opacity: 0, duration: 0.15, ease: "power1.in" }, 15.75);
+          tl.to("#s4-caret", { opacity: 0, duration: 0.1 }, 15.39);
+          tl.to("#s4-ph", { opacity: 1, duration: 0.25 }, 15.6);
+          tl.fromTo("#s4-big", { scale: 1 }, { keyframes: [{ scale: 1.08, duration: 0.14, ease: "power2.out" }, { scale: 1, duration: 0.5, ease: "back.out(2)" }], immediateRender: false }, 15.9);
 
           window.__timelines["s4"] = tl;
         })();

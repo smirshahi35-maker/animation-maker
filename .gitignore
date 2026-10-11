@@ -22,7 +22,15 @@ trust-reel/.hyperframes/
 trust-reel/assets/portrait/
 trust-reel/assets/ai/src/
 trust-reel/assets/audio/sfx/src/
-trust-reel/assets/audio/vo/takes/
+trust-reel/assets/audio/vo/takes/*
+!trust-reel/assets/audio/vo/takes/take2.mp3
+!trust-reel/assets/audio/vo/takes/take2.words.json
+!trust-reel/assets/audio/vo/takes/hook/
+trust-reel/assets/audio/vo/takes/hook/*
+!trust-reel/assets/audio/vo/takes/hook/hook2.*
+!trust-reel/assets/audio/vo/takes/cta/
+trust-reel/assets/audio/vo/takes/cta/*
+!trust-reel/assets/audio/vo/takes/cta/cta1.*
 trust-reel/assets/audio/music/takes/
 trust-reel/assets/video/src/*.jpg
 trust-reel/previews/
