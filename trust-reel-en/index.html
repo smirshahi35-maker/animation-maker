@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #000; }
+      #root > div[data-composition-src] { position: absolute; inset: 0; }
+      #s1 { z-index: 1; }
+      #s2 { z-index: 2; }
+      #s4 { z-index: 3; }
+      #s3 { z-index: 4; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="49.30" data-width="1080" data-height="1920">
+      <div id="s1" data-composition-id="s1" data-composition-src="compositions/s1.html" data-start="0" data-duration="6.54" data-track-index="1" data-width="1080" data-height="1920"></div>
+      <div id="s2" data-composition-id="s2" data-composition-src="compositions/s2.html" data-start="6.14" data-duration="13.39" data-track-index="2" data-width="1080" data-height="1920"></div>
+      <div id="s3" data-composition-id="s3" data-composition-src="compositions/s3.html" data-start="19.28" data-duration="13.91" data-track-index="1" data-width="1080" data-height="1920"></div>
+      <div id="s4" data-composition-id="s4" data-composition-src="compositions/s4.html" data-start="32.84" data-duration="16.46" data-track-index="2" data-width="1080" data-height="1920"></div>
+      <!-- AUDIO (tools/build_root.py) -->
+      <audio id="narration" src="assets/audio/vo/narration.wav" data-start="0.2" data-duration="47.83" data-track-index="10" data-volume="1"></audio>
+      <!-- /AUDIO -->
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

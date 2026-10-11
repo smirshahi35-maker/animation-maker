@@ -34,3 +34,14 @@ trust-reel/assets/audio/vo/takes/cta/*
 trust-reel/assets/audio/music/takes/
 trust-reel/assets/video/src/*.jpg
 trust-reel/previews/
+# trust-reel-en: English version. Superline is the user's licensed font (not redistributable); the shared assets
+# are symlinks into trust-reel/. Only the chosen take and its word timings are kept.
+trust-reel-en/assets/fonts/Superline-Italic.ttf
+trust-reel-en/node_modules
+trust-reel-en/renders/
+trust-reel-en/snapshots/
+trust-reel-en/previews/
+trust-reel-en/.hyperframes/
+trust-reel-en/assets/audio/vo/takes/*
+!trust-reel-en/assets/audio/vo/takes/en-take1.mp3
+!trust-reel-en/assets/audio/vo/takes/en-take1.words.json
