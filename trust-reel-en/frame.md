@@ -7,7 +7,7 @@ through the ring, whip pan, pull out).
 
 ## Canvas
 
-- 1080×1920, 30 fps, 49.3 s. Text column x 96–984; keep type between y 200 and y 1460 (Reels UI covers
+- 1080×1920, 30 fps, 48.65 s. Text column x 96–984; keep type between y 200 and y 1460 (Reels UI covers
   the bottom ~420 px and the right-hand icons). Layout is left-to-right; no `direction: rtl` anywhere.
 
 ## Palette (unchanged)

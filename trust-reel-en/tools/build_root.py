@@ -19,8 +19,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 INDEX = ROOT / "index.html"
-END = 49.30
-SCENES = {"s1": 0.0, "s2": 6.14, "s3": 19.28, "s4": 32.84}
+END = 48.65
+SCENES = {"s1": 0.0, "s2": 6.14, "s3": 19.28, "s4": 32.19}
 
 
 def dur(p):
@@ -38,15 +38,15 @@ SFX = [  # (file, volume[, max duration]) in the order of TIMING.md (k = index);
     ("paper-crumple-hot", 0.2), ("paper-crumple-hot", 0.14), ("whoosh-soft", 0.06),
     ("bin-drop", 0.45), ("bin-drop", 0.35), ("whoosh-deep", 0.35), ("whoosh-soft", 0.12),
     ("screen-on-hot", 0.1), ("counter-ticks", 0.15), ("swipe", 0.35), ("lonely-tick", 0.35),
-    ("swipe", 0.3), ("whoosh-soft", 0.12), ("counter-ticks", 0.18), ("whoosh-soft", 0.06),
+    ("swipe", 0.3), ("whoosh-soft", 0.12), ("counter-ticks", 0.18, 0.95), ("whoosh-soft", 0.06),
     ("lonely-tick", 0.3), ("whoosh-soft", 0.12), ("swipe", 0.25), ("lonely-tick", 0.22),
     ("whoosh-deep", 0.3), ("whoosh-soft", 0.12),
     ("impact-sub", 0.2), ("glitch", 0.07), ("glitch", 0.11), ("ding-clean", 0.1),
     ("whoosh-soft", 0.15), ("tile-pop-hot", 0.3), ("tile-pop-hot", 0.25),
-    ("tile-pop-hot", 0.3), ("ding-clean", 0.09), ("whoosh-deep", 0.3), ("whoosh-soft", 0.12),
+    ("tile-pop-hot", 0.3), ("ding-clean", 0.09), ("whoosh-deep", 0.3), ("whoosh-soft", 0.06),
 ] + [("dm-ping", round(0.07 - i * 0.01, 2)) for i in range(6)] + [
     ("whoosh-deep", 0.25), ("whoosh-soft", 0.15), ("counter-ticks", 0.18, 1.1),
-    ("whoosh-soft", 0.3), ("tap-hot", 0.5), ("whoosh-soft", 0.13),
+    ("whoosh-soft", 0.15), ("tap-hot", 0.5), ("whoosh-soft", 0.13),
     ("typing", 0.12, 0.56), ("send", 0.5), ("ding-clean", 0.35),
 ]
 
@@ -57,11 +57,11 @@ html = INDEX.read_text()
 lines = []
 vo = dur("assets/audio/vo/narration.wav")
 lines.append(f'<audio id="narration" src="assets/audio/vo/narration.wav" data-start="0.2" data-duration="{vo:.2f}" data-track-index="10" data-volume="1"></audio>')
-# Story bed: +3 dB shape, a dip under the empty inbox ("DMs are empty?"), fade into the tip bed at the ring fly-through.
+# Story bed: +3 dB shape, an extra dip under the first hook words (the level-match duck only fully engages at ~1.2 s), a dip under the empty inbox ("DMs are empty?"), fade into the tip bed at the ring fly-through.
 s2, s3 = SCENES["s2"], SCENES["s3"]
 st = s3 + 0.25
 lines.append(f'<audio id="music-story" src="assets/audio/music/story.mp3" data-start="0" data-duration="{st:.2f}" data-track-index="11" data-volume="1" '
-             f'{auto([(0, 1.4), (s2 + 2.1, 1.4), (s2 + 2.3, 0.8), (s2 + 2.9, 0.8), (s2 + 3.3, 1.4), (s3 - 0.65, 1.4), (s3 + 0.25, 0)])}></audio>')
+             f'{auto([(0, 1.4), (0.16, 1.4), (0.28, 0.5), (1.0, 0.5), (1.24, 1.4), (s2 + 2.1, 1.4), (s2 + 2.3, 0.8), (s2 + 2.9, 0.8), (s2 + 3.3, 1.4), (s3 - 0.65, 1.4), (s3 + 0.25, 0)])}></audio>')
 tip_start = s3 + 0.07
 lines.append(f'<audio id="music-tip" src="assets/audio/music/tip.mp3" data-start="{tip_start:.2f}" data-duration="{END - tip_start:.2f}" data-track-index="12" data-volume="1" '
              f'{auto([(0, 0.6), (END - tip_start - 0.6, 0.6), (END - tip_start, 0)])}></audio>')

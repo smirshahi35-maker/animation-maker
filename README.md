@@ -91,3 +91,13 @@ ffmpeg -i renders/argon-webinar-reel.mp4 -c:v copy -af loudnorm=I=-14:TP=-1.5:LR
 - بدون کات: هر صحنه با حرکت دوربین به صحنهٔ بعد می‌رود (شیرجه در سطل، عبور از حلقهٔ اعتماد، ویپ‌پن، عقب‌کشیدن به دیوار ۵۰۰ پروژه).
 - عکس‌ها با GPT Image 2.5 و دو ویدیوی کوتاه با Veo 3.1 Lite؛ گوینده: Shahram (ElevenLabs v3) با دو برداشت دوباره برای قلاب و جملهٔ آخر (`tools/tighten_vo.py`).
 - عکس شاهین شخصی است و در گیت نیست (`trust-reel/assets/portrait/`)؛ برای رندر دوباره لازم است.
+
+### نسخهٔ انگلیسی
+
+پروژهٔ `trust-reel-en/` (۴۸٫۶۵ ثانیه): همان فیلم با گویندهٔ انگلیسی (Liam، ElevenLabs v4)، متن انگلیسی، چیدمان چپ‌به‌راست
+و فونت کاربر Superline Italic. متن و تصمیم‌ها در `trust-reel-en/BRIEF.md`، قوانین فونت و متن‌های روی صفحه در
+`trust-reel-en/frame.md`، زمان‌بندی در `trust-reel-en/TIMING.md` و روش رندر دوباره در `trust-reel-en/HANDOFF.md`.
+خروجی نهایی: `deliverables/trust-reel-en.mp4`.
+
+- فونت Superline لایسنس‌دار است و در گیت نیست (`trust-reel-en/assets/fonts/Superline-Italic.ttf`)؛ برای رندر دوباره لازم است.
+- تصاویر، ویدیوها، موسیقی و افکت‌ها با symlink از `trust-reel/assets/` خوانده می‌شوند.

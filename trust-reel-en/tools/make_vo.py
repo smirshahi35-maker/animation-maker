@@ -31,7 +31,7 @@ TARGET_LUFS = -18.3  # the Persian narration (../trust-reel/assets/audio/vo/narr
 EXTRA = {
     18: 0.10,   # "trash."      dive into the bin
     54: 0.35,   # "trust."      trust ring, fly through it
-    89: 0.95,   # "customers."  bento holds, whip pan
+    89: 0.30,   # "customers."  stars land, whip pan (0.95 left a 1.4 s dead pause before "Views")
     97: 0.30,   # "up."         pull-out to the 500-project wall
     115: 0.25,  # "follow."     follow tap, composer rises
     127: 0.30,  # "customers,"  headline clears before "comment the word"

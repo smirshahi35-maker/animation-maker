@@ -39,3 +39,9 @@ On-screen copy: `frame.md` (copy deck). Timing: `TIMING.md`.
 
 1. English narration built (`tools/make_vo.py`, 47.8 s); preview sent to the user.
 2. Scenes s1–s4 adapted by one agent per scene, each followed by an independent critic-fixer.
+3. Draft 1: narration 6 dB quieter than the Persian one -> music too loud; narration normalised to -18.3 LUFS.
+4. Draft 2 reviewed by four lenses (transitions, English text, art direction, audio), each verified. Applied: payoff
+   line "BUT THE DMS FILLED UP." held 0.25 s longer, one-line bento labels below the subjects, symmetric split
+   sub-labels, roomier intro card, Sara's DM copy, 0.65 s dead pause before "Views" removed (film now 48.65 s),
+   hook music dip, counter ticks trimmed, two whooshes lowered. Rejected: re-wording "80K VIEWS… / 0 CUSTOMERS"
+   (the client's on-screen text, kept as in the Persian film).

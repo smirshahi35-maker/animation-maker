@@ -56,12 +56,12 @@
                  background: rgba(255, 255, 255, 0.84); -webkit-backdrop-filter: blur(28px) saturate(1.6); backdrop-filter: blur(28px) saturate(1.6);
                  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.22), inset 0 0 0 2px rgba(255, 255, 255, 0.8);
                  display: flex; flex-direction: column; align-items: center; text-align: center; }
-        .avbig { margin-top: 52px; width: 380px; height: 380px; border-radius: 50%; overflow: hidden; position: relative; flex: none;
+        .avbig { margin-top: 52px; width: 340px; height: 340px; border-radius: 50%; overflow: hidden; position: relative; flex: none;
                  background: radial-gradient(80% 80% at 50% 30%, #ffffff, #e3e8f2); box-shadow: inset 0 0 0 2px rgba(0,0,0,0.04); }
         .avbig img, .avsm img { position: absolute; left: 50%; top: 6%; width: 112%; height: 112%; margin-left: -56%; object-fit: cover; display: block; }
-        .nm { font-size: 270px; line-height: 0.95; margin-top: 20px; white-space: nowrap; }
+        .nm { font-size: 236px; line-height: 0.95; margin-top: 20px; white-space: nowrap; }
         .rl { font-size: 100px; color: #6e6e73; line-height: 1; white-space: nowrap; }
-        .pj { font-size: 150px; line-height: 1; margin-top: 14px; color: #0071e3; display: flex; gap: 0.2em; white-space: nowrap; }
+        .pj { font-size: 132px; line-height: 1; margin-top: 14px; color: #0071e3; display: flex; gap: 0.13em; white-space: nowrap; }
         .pj .num { text-align: center; width: 0.78em; }
         .prof { position: absolute; left: 150px; top: 610px; width: 780px; height: 700px; border-radius: 64px; background: #ffffff; opacity: 0;
                 box-shadow: 0 30px 80px rgba(0, 0, 0, 0.12); display: flex; flex-direction: column; align-items: center; text-align: center; }
@@ -331,7 +331,7 @@
                   <div class="rows">
                     <div class="row"><div class="av" style="background:linear-gradient(135deg,#ec6210,#e5294f)">M</div><div class="tx"><b>Maya</b><span>Hi! How do I place an order?</span></div><div class="dot"></div></div>
                     <div class="row"><div class="av" style="background:linear-gradient(135deg,#1f9e45,#0a6fd6)">A</div><div class="tx"><b>Alex</b><span>Can you send me your prices?</span></div><div class="dot"></div></div>
-                    <div class="row"><div class="av" style="background:linear-gradient(135deg,#a245d6,#5856d6)">S</div><div class="tx"><b>Sara</b><span>Saw your behind-the-scenes, loved it!</span></div><div class="dot"></div></div>
+                    <div class="row"><div class="av" style="background:linear-gradient(135deg,#a245d6,#5856d6)">S</div><div class="tx"><b>Sara</b><span>Loved the behind-the-scenes!</span></div><div class="dot"></div></div>
                     <div class="row"><div class="av" style="background:linear-gradient(135deg,#2f8fd8,#0062c4)">R</div><div class="tx"><b>Ryan</b><span>Do you have time next week?</span></div><div class="dot"></div></div>
                     <div class="row"><div class="av" style="background:linear-gradient(135deg,#b87600,#b46000)">N</div><div class="tx"><b>Nina</b><span>What’s your exact address?</span></div><div class="dot"></div></div>
                     <div class="row"><div class="av" style="background:linear-gradient(135deg,#e0436b,#a33fd6)">O</div><div class="tx"><b>Omar</b><span>Can you book one for me too?</span></div><div class="dot"></div></div>
@@ -419,7 +419,7 @@
           // A) Whip in from the left onto the same inbox: "Views went down, but the DMs filled up."
           tl.fromTo("#s4-wall", { x: -1250, scale: WALL, rotation: 0, filter: "blur(18px)", transformOrigin: "540px 1163px" },
             { x: 0, filter: "blur(0px)", duration: 0.45, ease: "power3.out" }, 0.12);
-          tl.to("#s4-wall", { scale: WALL * 1.05, duration: 1.45, ease: "sine.inOut" }, 1.3);
+          tl.to("#s4-wall", { scale: WALL * 1.05, duration: 1.7, ease: "sine.inOut" }, 1.3);
           tl.fromTo("#s4-bv", { opacity: 0, y: 30, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, 0.18); // "Views"
           const vw = { v: 80000 };
           tl.fromTo(vw, { v: 80000 }, { v: 24000, duration: 0.8, ease: "power2.out",
@@ -432,17 +432,17 @@
           q(".row").forEach((r, i) => {
             tl.fromTo(r, { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.32, ease: "power3.out" }, 1.50 + i * 0.14); // "the DMs filled up." (a dm-ping per row 0-5)
           });
-          out("#s4-tA", 2.80, 0.26); // gone (3.06) before the wall tiles land behind it
-          tl.to(["#s4-bv", "#s4-bd"], { opacity: 0, scale: 0.85, duration: 0.22, ease: "power2.in" }, 2.72);
+          out("#s4-tA", 3.05, 0.26); // the payoff line holds through the pause after "up."; gone (3.31) as the tiles land
+          tl.to(["#s4-bv", "#s4-bd"], { opacity: 0, scale: 0.85, duration: 0.22, ease: "power2.in" }, 2.97);
 
           // B) Pull out: the phone becomes one tile of a 500-project wall (its screen turns into a project frame)
-          tl.to("#s4-ui", { opacity: 0, duration: 0.18, ease: "power1.in" }, 2.70);
-          tl.fromTo("#s4-scrimg", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power1.in" }, 2.82); // the DM list is gone before the project frame shows
-          tl.to("#s4-wall", { scale: 1, rotation: -8, duration: 0.75, ease: "power3.inOut" }, 2.75);
+          tl.to("#s4-ui", { opacity: 0, duration: 0.18, ease: "power1.in" }, 2.95);
+          tl.fromTo("#s4-scrimg", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power1.in" }, 3.07); // the DM list is gone before the project frame shows
+          tl.to("#s4-wall", { scale: 1, rotation: -8, duration: 0.7, ease: "power3.inOut" }, 3.0);
           q(".tl").forEach((t) => {
-            tl.fromTo(t, { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, 2.98 + (+t.dataset.d) * 0.04); // under a clean frame: the headline is gone by 3.06
+            tl.fromTo(t, { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, 3.18 + (+t.dataset.d) * 0.04); // the headline is gone by 3.31
           });
-          tl.to("#s4-wall", { scale: 1.06, rotation: -9.5, duration: 3.75, ease: "sine.inOut" }, 3.5); // slow drift, ends before the push-through (7.28)
+          tl.to("#s4-wall", { scale: 1.06, rotation: -9.5, duration: 3.55, ease: "sine.inOut" }, 3.7); // slow drift, ends before the push-through (7.28)
           // Glass intro card arrives on "I'm" (3.54); SHAHIN lands on "Shaheen," (3.70)
           tl.fromTo("#s4-glass", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 3.42);
           tl.fromTo("#s4-glass", { y: 260, scale: 0.94 }, { y: 0, scale: 1, duration: 0.8, ease: "expo.out", immediateRender: false }, 3.42);

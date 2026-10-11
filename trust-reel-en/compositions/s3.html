@@ -28,8 +28,8 @@
         .hero { font-size: 250px; }
         .col { position: absolute; width: 400px; display: flex; flex-direction: column; align-items: center; text-align: center; }
         .lab { font-size: 132px; line-height: 0.94; display: block; white-space: nowrap; }
-        .sub { font-size: 68px; color: #86868b; line-height: 0.98; display: block; white-space: nowrap; margin-top: 12px; }
-        .sub + .sub { margin-top: 0; }
+        .sub { font-size: 60px; color: #86868b; line-height: 0.98; display: block; white-space: nowrap; margin-top: 12px; }
+        .sub .w { display: inline-block; }
         .eqn { font-size: 88px; line-height: 1; display: block; white-space: nowrap; }
         .eqn .gw, .eqn .gb { display: inline-block; }
         .phone { position: absolute; width: 350px; height: 750px; border-radius: 62px; background: #1d1d1f; padding: 12px;
@@ -56,12 +56,11 @@
         .hd { font-size: 104px; color: #86868b; }
         .tile { position: absolute; border-radius: 48px; overflow: hidden; background: #111; }
         .tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
-        .tile .scrim { position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,0) 45%, rgba(0,0,0,0.72)); }
+        .tile .scrim { position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,0) 55%, rgba(0,0,0,0.78)); }
         .tile .lb { position: absolute; right: 40px; left: 40px; bottom: 36px; display: flex; flex-direction: column; align-items: flex-start; }
-        .tile .lb b { font-size: 88px; font-weight: normal; line-height: 0.98; display: block; white-space: nowrap; opacity: 0; padding-right: 0.06em; }
-        .tile .lb b span { display: block; }
+        .tile .lb b { font-size: 72px; font-weight: normal; line-height: 0.98; display: block; white-space: nowrap; opacity: 0; padding-right: 0.06em; }
         .stars { display: flex; gap: 8px; margin-bottom: 10px; }
-        .stars svg { width: 46px; height: 46px; opacity: 0; }
+        .stars svg { width: 40px; height: 40px; opacity: 0; }
       </style>
       <div id="root" data-composition-id="s3" data-width="1080" data-height="1920">
         <div class="s3-stage" id="s3-stage">
@@ -75,12 +74,11 @@
               <div id="s3-cols">
                 <div class="col sl" id="s3-colL" style="left:90px; top:306px">
                   <span class="lab gw w" data-t="1.97">VIEWS</span>
-                  <span class="sub w" data-t="2.65">ABOUT THE TREND</span>
+                  <span class="sub"><span class="w" data-t="2.65">ABOUT THE TREND</span></span>
                 </div>
                 <div class="col sl" id="s3-colR" style="left:590px; top:306px">
                   <span class="lab gb w" data-t="4.49">SALES</span>
-                  <span class="sub w" data-t="5.19">ABOUT THE</span>
-                  <span class="sub w" data-t="5.51">CUSTOMER’S PROBLEM</span>
+                  <span class="sub"><span class="w" data-t="5.19">ABOUT THE</span> <span class="w" data-t="5.51">CUSTOMER’S PROBLEM</span></span>
                 </div>
                 <div class="phone busy" id="s3-pL" style="left:115px; top:602px">
                   <div class="scr">
@@ -127,7 +125,7 @@
               </div>
               <div class="tile" id="s3-tQ" style="left:96px; top:848px; width:432px; height:560px">
                 <img src="assets/ai/web/latte.jpg" alt="" data-layout-allow-overflow /><div class="scrim"></div>
-                <div class="lb sl"><b><span>QUALITY OF</span><span>THE WORK</span></b></div>
+                <div class="lb sl"><b>QUALITY OF THE WORK</b></div>
               </div>
               <div class="tile" id="s3-tS" style="left:552px; top:848px; width:432px; height:560px">
                 <img src="assets/ai/web/customer.jpg" alt="" data-layout-allow-overflow /><div class="scrim"></div>
@@ -139,7 +137,7 @@
                     <svg viewBox="0 0 24 24"><path fill="#ffd60a" d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></svg>
                     <svg viewBox="0 0 24 24"><path fill="#ffd60a" d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></svg>
                   </div>
-                  <b><span>HAPPY</span><span>CUSTOMERS</span></b>
+                  <b>HAPPY CUSTOMERS</b>
                 </div>
               </div>
             </div>
@@ -215,10 +213,10 @@
           q("#s3-tS .stars svg").forEach((st, i) => {
             tl.fromTo(st, { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(3)" }, 11.9 + i * 0.1);
           });
-          tl.fromTo("#s3-bento", { scale: 1 }, { scale: 1.035, transformOrigin: "540px 200px", duration: 6.25, ease: "sine.inOut", immediateRender: false }, 7.66);
+          tl.fromTo("#s3-bento", { scale: 1 }, { scale: 1.035, transformOrigin: "540px 200px", duration: 5.6, ease: "sine.inOut", immediateRender: false }, 7.66);
 
           // Whip pan out: the whole dark world (bg included) streaks off to the right; the white world is underneath
-          tl.to("#s3-stage", { x: 1250, scaleX: 1.06, filter: "blur(18px)", duration: 0.55, ease: "power3.in" }, 13.34);
+          tl.to("#s3-stage", { x: 1250, scaleX: 1.06, filter: "blur(18px)", duration: 0.55, ease: "power3.in" }, 12.69);
 
           window.__timelines["s3"] = tl;
         })();

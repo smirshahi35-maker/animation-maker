@@ -32,7 +32,7 @@ g = float(np.dot(mix[speech], voice[speech]) / np.dot(voice[speech], voice[speec
 bed = mix - g * voice
 db = lambda x: 20 * np.log10(np.sqrt(np.mean(x ** 2)) + 1e-12)
 print(f"render gain on narration {20*np.log10(g):+.1f} dB")
-for name, a, b in [("hook s1", 0.2, 6.1), ("s2", 6.2, 19.2), ("s3", 19.3, 32.8), ("s4", 32.9, 47.2), ("end", 47.3, 49.3)]:
+for name, a, b in [("hook s1", 0.2, 6.1), ("s2", 6.2, 19.2), ("s3", 19.3, 32.1), ("s4", 32.3, 46.6), ("end", 46.7, 48.6)]:
     sl = slice(int(a * SR), int(b * SR))
     sp, mx, bd = speech[sl], mix[sl], bed[sl]
     gap = ~busy[sl]
