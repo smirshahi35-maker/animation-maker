@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="fa">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Vazirmatn"; src: url("assets/fonts/Vazirmatn-Variable.ttf") format("truetype"); font-weight: 100 900; font-style: normal; font-display: block; }
+        #root { position: absolute; inset: 0; overflow: hidden; font-family: "Vazirmatn", sans-serif; color: #1d1d1f; background: #f5f5f7; }
+        .s4-bg { position: absolute; inset: 0; background: radial-gradient(130% 90% at 50% 45%, #ffffff 0%, #f5f5f7 55%, #e6e6eb 100%); }
+        .s4-all { position: absolute; inset: 0; }
+        .s4-wall { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+        .tl { position: absolute; width: 86px; height: 186px; border-radius: 14px; object-fit: cover; display: block; opacity: 0;
+              box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12); }
+        .slot { position: absolute; left: 280px; top: 599.5px; width: 520px; height: 1127px; transform: scale(0.165); transform-origin: 50% 50%; }
+        .phone { position: absolute; inset: 0; border-radius: 88px; background: #1d1d1f; padding: 16px;
+                 box-shadow: inset 0 0 0 3px #3a3a3c, 0 0 0 5px #b9b9be, 0 0 0 6px #d8d8dc, 0 60px 120px rgba(0, 0, 0, 0.22); }
+        .scr { position: relative; width: 100%; height: 100%; border-radius: 72px; overflow: hidden; background: #fff; direction: rtl; }
+        .island { position: absolute; top: 22px; left: 169px; width: 150px; height: 42px; border-radius: 21px; background: #000; z-index: 30; }
+        .hd { position: absolute; top: 90px; left: 30px; right: 30px; display: flex; justify-content: space-between; align-items: center; }
+        .hd b { font-size: 42px; font-weight: 900; }
+        .hd span { font-size: 26px; font-weight: 700; color: #0071e3; }
+        .search { position: absolute; top: 170px; left: 30px; right: 30px; height: 58px; border-radius: 18px; background: #efeff4;
+                  color: #8e8e93; font-size: 24px; font-weight: 600; display: flex; align-items: center; padding: 0 22px; }
+        .empty { position: absolute; left: 30px; right: 30px; top: 400px; display: flex; flex-direction: column; align-items: center; gap: 22px; text-align: center; }
+        .empty .ring { width: 150px; height: 150px; border-radius: 50%; border: 5px solid #1d1d1f; display: flex; align-items: center; justify-content: center; }
+        .empty .ring svg { width: 70px; height: 70px; }
+        .empty b { font-size: 32px; font-weight: 800; }
+        .rows { position: absolute; top: 258px; left: 26px; right: 26px; display: flex; flex-direction: column; }
+        .row { display: flex; align-items: center; gap: 18px; height: 108px; border-bottom: 1px solid #f0f0f3; opacity: 0; }
+        .av { flex: none; width: 76px; height: 76px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 34px; font-weight: 800; }
+        .tx { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+        .tx b { font-size: 28px; font-weight: 800; line-height: 1.35; }
+        .tx span { font-size: 24px; font-weight: 500; color: #6e6e73; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.4; }
+        .dot { flex: none; width: 18px; height: 18px; border-radius: 50%; background: #0071e3; }
+        .badge { position: absolute; display: flex; align-items: center; gap: 12px; direction: rtl; border-radius: 60px; padding: 14px 28px 18px; font-weight: 800; opacity: 0;
+                 box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12); }
+        .txt { position: absolute; left: 96px; right: 96px; display: flex; flex-direction: column; align-items: center; direction: rtl; text-align: center; }
+        .ln { display: block; white-space: nowrap; line-height: 1.34; }
+        .w { display: inline-block; opacity: 0; }
+        .h1 { font-size: 110px; font-weight: 850; letter-spacing: -0.01em; }
+        .h2 { font-size: 62px; font-weight: 600; color: #6e6e73; }
+        .gb { background: linear-gradient(90deg, #4fb2ff, #0071e3); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .glass { position: absolute; left: 120px; top: 440px; width: 840px; height: 1010px; border-radius: 70px; opacity: 0;
+                 background: rgba(255, 255, 255, 0.84); -webkit-backdrop-filter: blur(28px) saturate(1.6); backdrop-filter: blur(28px) saturate(1.6);
+                 box-shadow: 0 40px 100px rgba(0, 0, 0, 0.22), inset 0 0 0 2px rgba(255, 255, 255, 0.8);
+                 display: flex; flex-direction: column; align-items: center; direction: rtl; text-align: center; }
+        .avbig { margin-top: 56px; width: 420px; height: 420px; border-radius: 50%; overflow: hidden; position: relative;
+                 background: radial-gradient(80% 80% at 50% 30%, #ffffff, #e3e8f2); box-shadow: inset 0 0 0 2px rgba(0,0,0,0.04); }
+        .avbig img, .avsm img { position: absolute; left: 50%; top: 6%; width: 112%; height: 112%; margin-left: -56%; object-fit: cover; display: block; }
+        .nm { font-size: 150px; font-weight: 900; line-height: 1.25; margin-top: 18px; }
+        .rl { font-size: 56px; font-weight: 600; color: #6e6e73; line-height: 1.35; }
+        .pj { font-size: 80px; font-weight: 900; line-height: 1.35; margin-top: 18px; color: #0071e3; display: flex; gap: 22px; direction: rtl; }
+        .prof { position: absolute; left: 150px; top: 610px; width: 780px; height: 700px; border-radius: 64px; background: #ffffff; opacity: 0;
+                box-shadow: 0 30px 80px rgba(0, 0, 0, 0.12); display: flex; flex-direction: column; align-items: center; direction: rtl; text-align: center; }
+        .avsm { margin-top: 60px; width: 250px; height: 250px; border-radius: 50%; overflow: hidden; position: relative;
+                background: radial-gradient(80% 80% at 50% 30%, #ffffff, #e3e8f2); box-shadow: 0 0 0 6px #fff, 0 0 0 9px #0071e3; }
+        .prof .nm2 { font-size: 92px; font-weight: 900; line-height: 1.3; margin-top: 22px; }
+        .prof .rl2 { font-size: 42px; font-weight: 600; color: #6e6e73; line-height: 1.4; }
+        .btn { position: relative; margin-top: 40px; width: 460px; height: 124px; border-radius: 62px; background: #0071e3; color: #fff;
+               display: flex; align-items: center; justify-content: center; font-size: 56px; font-weight: 850; }
+        .btn .b1, .btn .b2 { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 16px; }
+        .btn .b2 { opacity: 0; color: #1d1d1f; }
+        .btn .b2 svg { width: 50px; height: 50px; }
+        .tap { position: absolute; left: 50%; top: 50%; width: 120px; height: 120px; margin: -60px 0 0 -60px; border-radius: 50%;
+               border: 6px solid rgba(255, 255, 255, 0.9); opacity: 0; }
+        .composer { position: absolute; left: 90px; width: 900px; top: 1240px; height: 132px; border-radius: 66px; background: #fff; opacity: 0;
+                    box-shadow: 0 0 0 3px #e3e3e8, 0 24px 60px rgba(0, 0, 0, 0.10); display: flex; align-items: center; gap: 22px; padding: 0 22px 0 26px; direction: rtl; }
+        .composer .me { flex: none; width: 88px; height: 88px; border-radius: 50%; background: linear-gradient(135deg, #d1d1d6, #aeaeb2); }
+        .composer .field { flex: 1; position: relative; height: 90px; }
+        .composer .ph, .composer .typed { position: absolute; right: 0; top: 0; height: 90px; display: flex; align-items: center; font-size: 48px; white-space: nowrap; }
+        .composer .ph { color: #aeaeb2; font-weight: 500; }
+        .composer .typed { font-weight: 850; color: #1d1d1f; gap: 6px; clip-path: inset(0 0 0 100%); }
+        .caret { display: block; width: 5px; height: 58px; background: #0071e3; border-radius: 3px; }
+        .send { flex: none; width: 92px; height: 92px; border-radius: 50%; background: #0071e3; display: flex; align-items: center; justify-content: center; }
+        .send svg { width: 46px; height: 46px; }
+        .big { position: absolute; left: 0; right: 0; top: 420px; text-align: center; font-size: 420px; font-weight: 900; line-height: 1.15; direction: rtl; opacity: 0; }
+      </style>
+      <div id="root" data-composition-id="s4" data-width="1080" data-height="1920">
+        <div class="s4-bg"></div>
+        <div class="s4-all" id="s4-all">
+          <div class="s4-wall" id="s4-wall">
+            <!--WALL-->
+            <div class="slot">
+              <div class="phone">
+                <div class="scr">
+                  <span class="island"></span>
+                  <div class="hd"><b>پیام‌ها</b><span>درخواست‌ها</span></div>
+                  <div class="search">جستجو</div>
+                  <div class="empty" id="s4-empty">
+                    <div class="ring"><svg viewBox="0 0 24 24"><path fill="none" stroke="#1d1d1f" stroke-width="1.6" stroke-linejoin="round" d="M22 3 2 11l7 3 3 7 10-18zM9 14l13-11"/></svg></div>
+                    <b>هنوز پیامی نداری</b>
+                  </div>
+                  <div class="rows">
+                    <div class="row"><div class="av" style="background:linear-gradient(135deg,#ff9f0a,#ff375f)">م</div><div class="tx"><b>مریم</b><span>سلام، برای سفارش باید چیکار کنم؟</span></div><div class="dot"></div></div>
+                    <div class="row"><div class="av" style="background:linear-gradient(135deg,#30d158,#0a84ff)">ع</div><div class="tx"><b>علی</b><span>قیمت‌ها رو می‌فرستین؟</span></div><div class="dot"></div></div>
+                    <div class="row"><div class="av" style="background:linear-gradient(135deg,#bf5af2,#5e5ce6)">س</div><div class="tx"><b>سارا</b><span>پشت صحنه‌تون رو دیدم، عالی بود</span></div><div class="dot"></div></div>
+                    <div class="row"><div class="av" style="background:linear-gradient(135deg,#64d2ff,#0071e3)">ر</div><div class="tx"><b>رضا</b><span>برای هفته‌ی بعد وقت دارین؟</span></div><div class="dot"></div></div>
+                    <div class="row"><div class="av" style="background:linear-gradient(135deg,#ffd60a,#ff9f0a)">ن</div><div class="tx"><b>نگار</b><span>آدرس دقیقتون کجاست؟</span></div><div class="dot"></div></div>
+                    <div class="row"><div class="av" style="background:linear-gradient(135deg,#ff6482,#bf5af2)">ا</div><div class="tx"><b>امید</b><span>می‌شه برای منم ثبت کنید؟</span></div><div class="dot"></div></div>
+                    <div class="row"><div class="av" style="background:linear-gradient(135deg,#66d4cf,#30b0c7)">ل</div><div class="tx"><b>لیلا</b><span>کیفیت کارتون حرف نداره</span></div><div class="dot"></div></div>
+                    <div class="row"><div class="av" style="background:linear-gradient(135deg,#a2845e,#7d5d3b)">ک</div><div class="tx"><b>کاوه</b><span>سفارش عمده هم قبول می‌کنین؟</span></div><div class="dot"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="badge" id="s4-bv" style="left:70px; top:640px; background:#ffffff; color:#6e6e73; font-size:40px">
+            <span>ویو</span><span id="s4-views">۸۰٬۰۰۰</span><svg viewBox="0 0 24 24" style="width:34px;height:34px"><path d="M12 20l-7-8h4V4h6v8h4z" fill="#ff3b30"/></svg>
+          </div>
+          <div class="badge" id="s4-bd" style="right:70px; top:600px; background:#0071e3; color:#ffffff; font-size:44px">
+            <span>پیام</span><span id="s4-msgs">۰</span>
+          </div>
+
+          <!-- Phase A text -->
+          <div class="txt" id="s4-tA" style="top:150px">
+            <span class="ln h2"><span class="w" data-t="0.16">ویو</span> <span class="w" data-t="0.43">کمتر</span> <span class="w" data-t="0.90">شد،</span></span>
+            <span class="ln h1"><span class="w" data-t="1.21">ولی</span> <span class="w" data-t="1.49">دایرکت</span> <span class="w gb" data-t="2.33">پر</span> <span class="w gb" data-t="2.60">شد.</span></span>
+          </div>
+
+          <!-- Phase B: the intro card over the 500-project wall -->
+          <div class="glass" id="s4-glass">
+            <div class="avbig"><img src="assets/portrait/shahin-cutout.png" alt="" /></div>
+            <div class="nm"><span class="w" data-t="3.45">شاهین</span></div>
+            <div class="rl"><span class="w" data-t="4.40">ادیتور</span> <span class="w" data-t="4.89">و</span> <span class="w" data-t="5.06">موشن</span> <span class="w" data-t="5.43">دیزاینر</span></div>
+            <div class="pj"><span class="w" data-t="6.0">بیش</span><span class="w" data-t="6.2">از</span><span class="w" data-t="6.45" id="s4-pn">۰</span><span class="w" data-t="7.14">پروژه</span></div>
+          </div>
+
+          <!-- Phase C: follow -->
+          <div class="txt" id="s4-tC" style="top:180px">
+            <span class="ln h1"><span class="w" data-t="7.93">اگه</span> <span class="w" data-t="8.16">صاحب</span> <span class="w" data-t="8.56">کسب‌وکاری،</span></span>
+            <span class="ln h1"><span class="w gb" data-t="9.41">فالو</span> <span class="w gb" data-t="9.70">کن.</span></span>
+          </div>
+          <div class="prof" id="s4-prof">
+            <div class="avsm"><img src="assets/portrait/shahin-cutout.png" alt="" /></div>
+            <div class="nm2">شاهین</div>
+            <div class="rl2">ادیتور و موشن دیزاینر</div>
+            <div class="btn" id="s4-btn">
+              <div class="b1" id="s4-b1">فالو</div>
+              <div class="b2" id="s4-b2"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#1d1d1f" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>فالو شد</div>
+              <span class="tap" id="s4-tap"></span>
+            </div>
+          </div>
+
+          <!-- Phase D: comment the word -->
+          <div class="txt" id="s4-tD" style="top:190px">
+            <span class="ln h2"><span class="w" data-t="10.61">می‌خوای</span> <span class="w" data-t="10.96">بدونی</span> <span class="w" data-t="11.40">چرا</span></span>
+            <span class="ln" style="font-size:92px; font-weight:850"><span class="w" data-t="11.68">پیج</span> <span class="w" data-t="12.02">خودت</span> <span class="w" data-t="12.40">مشتری</span> <span class="w" data-t="12.86">نمیاره؟</span></span>
+          </div>
+          <div class="txt" id="s4-tE1" style="top:230px"><span class="ln h2"><span class="w" data-t="13.78">کلمه‌ی</span></span></div>
+          <div class="big gb" id="s4-big">پیج</div>
+          <div class="txt" id="s4-tE2" style="top:960px">
+            <span class="ln h1"><span class="w" data-t="14.74">رو</span> <span class="w" data-t="15.04">کامنت</span> <span class="w" data-t="15.46">کن.</span></span>
+          </div>
+          <div class="composer" id="s4-comp">
+            <div class="me"></div>
+            <div class="field">
+              <div class="ph" id="s4-ph">یه کامنت بنویس…</div>
+              <div class="typed" id="s4-typed"><span id="s4-word">پیج</span><span class="caret" id="s4-caret"></span></div>
+            </div>
+            <div class="send" id="s4-send"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          const root = document.querySelector('[data-composition-id="s4"]');
+          const q = (s) => root.querySelectorAll(s);
+          const fa = (n) => Math.round(n).toLocaleString("fa-IR");
+          const WALL = 1 / 0.165;
+
+          q(".w[data-t]").forEach((el) => {
+            tl.fromTo(el, { opacity: 0, y: 30, filter: "blur(10px)" },
+              { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: "power3.out" }, +el.dataset.t);
+          });
+          const out = (sel, t, d) => tl.to(sel, { opacity: 0, y: -44, filter: "blur(12px)", duration: d || 0.34, ease: "power2.in" }, t);
+
+          // A) Whip in from the left onto the same inbox — now it fills up
+          tl.fromTo("#s4-wall", { x: -1250, scale: WALL, rotation: 0, filter: "blur(18px)", transformOrigin: "540px 1163px" },
+            { x: 0, filter: "blur(0px)", duration: 0.55, ease: "power3.out" }, 0);
+          tl.to("#s4-wall", { scale: WALL * 1.05, duration: 1.8, ease: "sine.inOut" }, 1.3);
+          tl.fromTo("#s4-bv", { opacity: 0, y: 30, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, 0.18);
+          const vw = { v: 80000 };
+          tl.fromTo(vw, { v: 80000 }, { v: 24000, duration: 0.9, ease: "power2.out",
+            onUpdate: () => { document.getElementById("s4-views").textContent = fa(Math.round(vw.v / 100) * 100); } }, 0.45);
+          tl.fromTo("#s4-bd", { opacity: 0, y: 30, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, 1.45);
+          const ms = { v: 0 };
+          tl.fromTo(ms, { v: 0 }, { v: 47, duration: 1.4, ease: "power1.out", immediateRender: false,
+            onUpdate: () => { document.getElementById("s4-msgs").textContent = "+" + fa(ms.v); } }, 1.5);
+          tl.to("#s4-empty", { opacity: 0, scale: 0.9, duration: 0.25, ease: "power2.in" }, 1.45);
+          q(".row").forEach((r, i) => {
+            tl.fromTo(r, { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.32, ease: "power3.out" }, 1.55 + i * 0.17);
+          });
+          out("#s4-tA", 3.0);
+          tl.to(["#s4-bv", "#s4-bd"], { opacity: 0, scale: 0.85, duration: 0.3, ease: "power2.in" }, 3.0);
+
+          // B) Pull out: the phone becomes one tile of a 500-project wall
+          tl.to("#s4-wall", { scale: 1, rotation: -8, duration: 1.25, ease: "power3.inOut" }, 3.1);
+          q(".tl").forEach((t) => {
+            tl.fromTo(t, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.5, ease: "power2.out" }, 3.35 + (+t.dataset.d) * 0.07);
+          });
+          tl.to("#s4-wall", { scale: 1.06, rotation: -9.5, duration: 4.0, ease: "sine.inOut" }, 4.35);
+          tl.fromTo("#s4-glass", { opacity: 0, y: 90, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: "expo.out" }, 3.4);
+          tl.fromTo("#s4-glass .avbig img", { scale: 1.12 }, { scale: 1, duration: 3.5, ease: "power2.out" }, 3.4);
+          const pn = { v: 0 };
+          tl.fromTo(pn, { v: 0 }, { v: 500, duration: 0.95, ease: "power2.out", immediateRender: false,
+            onUpdate: () => { document.getElementById("s4-pn").textContent = fa(Math.round(pn.v)); } }, 6.45);
+
+          // C) Morph to a profile card: follow
+          tl.to("#s4-wall", { opacity: 0, duration: 0.6, ease: "power1.inOut" }, 7.6);
+          tl.to("#s4-glass", { opacity: 0, scale: 0.82, y: 80, filter: "blur(10px)", duration: 0.5, ease: "power2.in" }, 7.62);
+          tl.fromTo("#s4-prof", { opacity: 0, scale: 1.12, y: -40 }, { opacity: 1, scale: 1, y: 0, duration: 0.7, ease: "expo.out" }, 7.92);
+          tl.fromTo("#s4-btn", { scale: 1 }, { keyframes: [{ scale: 0.93, duration: 0.09, ease: "power2.out" }, { scale: 1, duration: 0.35, ease: "back.out(2)" }] }, 9.38);
+          tl.fromTo("#s4-tap", { opacity: 0.9, scale: 0.4 }, { opacity: 0, scale: 3.2, duration: 0.6, ease: "power2.out", immediateRender: false }, 9.38);
+          tl.to("#s4-btn", { backgroundColor: "#e8e8ed", duration: 0.2, ease: "none" }, 9.47);
+          tl.to("#s4-b1", { opacity: 0, duration: 0.15 }, 9.47);
+          tl.fromTo("#s4-b2", { opacity: 0 }, { opacity: 1, duration: 0.2, immediateRender: false }, 9.52);
+
+          // D) Comment the word
+          out("#s4-tC", 10.1);
+          tl.to("#s4-prof", { opacity: 0, y: -160, scale: 0.92, filter: "blur(8px)", duration: 0.5, ease: "power2.in" }, 10.12);
+          tl.fromTo("#s4-comp", { opacity: 0, y: 260 }, { opacity: 1, y: 0, duration: 0.7, ease: "expo.out" }, 10.45);
+                    out("#s4-tD", 13.55);
+          tl.to("#s4-ph", { opacity: 0, duration: 0.12 }, 13.9);
+          tl.to("#s4-typed", { clipPath: "inset(0 0 0 0%)", duration: 0.42, ease: "steps(3)" }, 13.92);
+          tl.fromTo("#s4-caret", { opacity: 1 }, { opacity: 0, duration: 0.3, ease: "steps(1)", yoyo: true, repeat: 5, immediateRender: false }, 14.4);
+          tl.fromTo("#s4-big", { opacity: 0, scale: 0.55, filter: "blur(16px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.7, ease: "back.out(1.6)" }, 14.36);
+          tl.fromTo("#s4-send", { scale: 1 }, { keyframes: [{ scale: 0.86, duration: 0.08 }, { scale: 1, duration: 0.3, ease: "back.out(2)" }] }, 15.7);
+          tl.to("#s4-word", { y: -520, scale: 1.6, opacity: 0, duration: 0.55, ease: "power3.in" }, 15.74);
+          tl.to("#s4-caret", { opacity: 0, duration: 0.1 }, 15.74);
+          tl.fromTo("#s4-big", { scale: 1 }, { keyframes: [{ scale: 1.08, duration: 0.14, ease: "power2.out" }, { scale: 1, duration: 0.5, ease: "back.out(2)" }], immediateRender: false }, 16.25);
+          tl.fromTo("#s4-all", { scale: 1 }, { scale: 1.035, transformOrigin: "540px 900px", duration: 2.4, ease: "sine.inOut", immediateRender: false }, 15.25);
+
+          window.__timelines["s4"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

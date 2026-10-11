@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="fa">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Vazirmatn"; src: url("assets/fonts/Vazirmatn-Variable.ttf") format("truetype"); font-weight: 100 900; font-style: normal; font-display: block; }
+        #root { position: absolute; inset: 0; overflow: hidden; font-family: "Vazirmatn", sans-serif; color: #ffffff; }
+        .s3-bg { position: absolute; inset: 0; background: radial-gradient(110% 70% at 50% 45%, #1a1a1c 0%, #000 72%); }
+        .s3-stage { position: absolute; inset: 0; }
+        .s3-layer { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+        .txt { position: absolute; left: 96px; right: 96px; display: flex; flex-direction: column; align-items: center; direction: rtl; text-align: center; }
+        .ln { display: block; white-space: nowrap; line-height: 1.34; }
+        .w { display: inline-block; opacity: 0; }
+        .gw { background: linear-gradient(90deg, #ffb340, #ff375f); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .gb { background: linear-gradient(90deg, #6cc4ff, #2997ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .hero { font-size: 150px; font-weight: 900; letter-spacing: -0.015em; }
+        .col { position: absolute; width: 400px; display: flex; flex-direction: column; align-items: center; direction: rtl; text-align: center; }
+        .lab { font-size: 100px; font-weight: 900; line-height: 1.25; display: block; white-space: nowrap; }
+        .sub { font-size: 40px; font-weight: 600; color: #86868b; line-height: 1.4; display: block; white-space: nowrap; }
+        .eqn { font-size: 54px; font-weight: 850; line-height: 1.3; display: block; white-space: nowrap; }
+        .phone { position: absolute; width: 380px; height: 823px; border-radius: 66px; background: #1d1d1f; padding: 12px;
+                 box-shadow: inset 0 0 0 3px #3a3a3c, 0 0 0 4px #5b5b60, 0 40px 90px rgba(0, 0, 0, 0.6); }
+        .scr { position: relative; width: 100%; height: 100%; border-radius: 55px; overflow: hidden; background: #111; }
+        .island { position: absolute; top: 16px; left: 123px; width: 110px; height: 31px; border-radius: 16px; background: #000; z-index: 30; }
+        .fx { position: absolute; inset: 0; }
+        .fx img, .fx video { position: absolute; left: 0; top: 0; width: 356px; height: 799px; object-fit: cover; display: block; }
+        .busy .fx img, .busy .fx video { filter: saturate(1.75) contrast(1.18); }
+        .scan { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(0,0,0,0.12) 0 3px, transparent 3px 9px); z-index: 4; }
+        .stk { position: absolute; z-index: 6; font-weight: 900; color: #fff; border-radius: 16px; padding: 4px 16px 8px; opacity: 0; white-space: nowrap; direction: rtl; }
+        .pov { font-size: 56px; text-shadow: -4px 0 0 rgba(255, 0, 80, 0.9), 4px 0 0 rgba(0, 220, 255, 0.9); direction: ltr; padding: 0; }
+        .subt { position: absolute; left: 20px; right: 20px; bottom: 120px; z-index: 6; text-align: center; font-size: 40px; font-weight: 900; color: #ffd60a;
+                text-shadow: 0 3px 0 #000, 0 0 12px rgba(0,0,0,0.8); direction: rtl; opacity: 0; }
+        .rec { position: absolute; top: 70px; left: 22px; z-index: 6; display: flex; align-items: center; gap: 8px; font-size: 24px; font-weight: 800; direction: ltr; }
+        .rec i { width: 16px; height: 16px; border-radius: 50%; background: #ff3b30; display: block; }
+        .clean .cap { position: absolute; left: 0; right: 0; bottom: 110px; z-index: 6; display: flex; flex-direction: column; align-items: center; direction: rtl; }
+        .clean .cap b { font-size: 50px; font-weight: 800; line-height: 1.3; opacity: 0; display: block; }
+        .clean .cap span { font-size: 38px; font-weight: 300; line-height: 1.4; opacity: 0; display: block; }
+        .clean .cap i { display: block; width: 120px; height: 3px; border-radius: 2px; background: #fff; margin-top: 14px; transform-origin: 50% 50%; }
+        .clean .vign { position: absolute; inset: 0; z-index: 5; background: linear-gradient(rgba(0,0,0,0) 55%, rgba(0,0,0,0.55)); }
+        .divider { position: absolute; left: 539px; width: 2px; background: rgba(255, 255, 255, 0.28); }
+        .tile { position: absolute; border-radius: 48px; overflow: hidden; background: #111; }
+        .tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+        .tile .scrim { position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,0) 50%, rgba(0,0,0,0.7)); }
+        .tile .lb { position: absolute; right: 40px; left: 40px; bottom: 34px; display: flex; flex-direction: column; align-items: flex-start; direction: rtl; }
+        .tile .lb b { font-size: 64px; font-weight: 900; line-height: 1.3; display: block; opacity: 0; }
+        .stars { display: flex; gap: 8px; direction: ltr; }
+        .stars svg { width: 46px; height: 46px; opacity: 0; }
+        .s3-fade { position: absolute; inset: 0; }
+      </style>
+      <div id="root" data-composition-id="s3" data-width="1080" data-height="1920">
+        <div class="s3-fade" id="s3-fade">
+          <div class="s3-bg"></div>
+          <div class="s3-stage" id="s3-stage">
+
+            <!-- Phase A: the tip + split screen -->
+            <div class="s3-layer" id="s3-split">
+              <div class="txt" id="s3-hero" style="top:790px">
+                <span class="ln hero"><span class="w" data-t="0.09">نکته</span> <span class="w" data-t="0.40">اینه:</span></span>
+              </div>
+              <div id="s3-cols">
+                <div class="col" id="s3-colL" style="left:90px; top:300px">
+                  <span class="lab gw w" data-t="1.68">ویو</span>
+                  <span class="sub w" data-t="2.29">درباره‌ی ترند</span>
+                </div>
+                <div class="col" id="s3-colR" style="left:590px; top:300px">
+                  <span class="lab gb w" data-t="4.26">اعتماد</span>
+                  <span class="sub w" data-t="5.10">درباره‌ی مشکل مشتری</span>
+                </div>
+                <div class="phone busy" id="s3-pL" style="left:100px; top:520px">
+                  <div class="scr">
+                    <span class="island"></span>
+                    <div class="fx" id="s3-busyfx">
+                      <img src="assets/video/latte-end.jpg" alt="" />
+                      <video id="s3-vL" src="assets/video/src/latte-pour.mp4" muted playsinline data-start="0.75" data-duration="6" data-track-index="5"></video>
+                    </div>
+                    <div class="scan"></div>
+                    <div class="rec"><i></i>LIVE</div>
+                    <span class="stk pov" id="s3-k1" style="left:26px; top:150px">POV:</span>
+                    <span class="stk" id="s3-k2" style="right:18px; top:250px; background:#ff2d55; font-size:38px">ترند!!</span>
+                    <span class="stk" id="s3-k3" style="left:24px; top:380px; background:#ffcc00; color:#1d1d1f; font-size:40px">♪ ♪ ♪</span>
+                    <span class="stk" id="s3-k4" style="right:24px; top:500px; background:#5856d6; font-size:38px">واااای</span>
+                    <span class="stk" id="s3-k5" style="left:30px; top:600px; background:#34c759; font-size:34px">#ترند</span>
+                    <div class="subt" id="s3-subt">تا آخر ببین!!</div>
+                  </div>
+                </div>
+                <div class="phone clean" id="s3-pR" style="left:600px; top:520px">
+                  <div class="scr">
+                    <span class="island"></span>
+                    <div class="fx" id="s3-cleanfx">
+                      <img src="assets/video/latte-end-r.jpg" alt="" />
+                      <video id="s3-vR" src="assets/video/src/latte-pour.mp4" muted playsinline data-start="0.76" data-duration="5.98" data-track-index="6"></video>
+                    </div>
+                    <div class="vign"></div>
+                    <div class="cap"><b id="s3-c1">کیفیت،</b><span id="s3-c2">از نزدیک.</span><i id="s3-c3"></i></div>
+                  </div>
+                </div>
+                <div class="divider" id="s3-div" style="top:1372px; height:110px"></div>
+                <div class="col" style="left:90px; top:1378px"><span class="eqn w" data-t="2.86">ترند = <span class="gw">ویو</span></span></div>
+                <div class="col" style="left:590px; top:1378px"><span class="eqn w" data-t="6.09">اعتماد = <span class="gb">فروش</span></span></div>
+              </div>
+            </div>
+
+            <!-- Phase B: what we showed instead -->
+            <div class="s3-layer" id="s3-bento" style="top:1700px">
+              <div class="txt" style="top:160px">
+                <span class="ln" style="font-size:62px; font-weight:600; color:#86868b"><span class="w" data-t="7.01">به</span> <span class="w" data-t="7.30">جای</span> <span class="w" data-t="7.58">ترند،</span> <span class="w" data-t="7.95">نشون</span> <span class="w" data-t="8.05">دادیم:</span></span>
+              </div>
+              <div class="tile" id="s3-tB" style="left:96px; top:300px; width:888px; height:500px">
+                <img src="assets/ai/web/bts.jpg" alt="" /><div class="scrim"></div>
+                <div class="lb"><b>پشت صحنه</b></div>
+              </div>
+              <div class="tile" id="s3-tQ" style="left:552px; top:832px; width:432px; height:560px">
+                <img src="assets/ai/web/latte.jpg" alt="" /><div class="scrim"></div>
+                <div class="lb"><b>کیفیت کار</b></div>
+              </div>
+              <div class="tile" id="s3-tS" style="left:96px; top:832px; width:432px; height:560px">
+                <img src="assets/ai/web/customer.jpg" alt="" /><div class="scrim"></div>
+                <div class="lb">
+                  <div class="stars">
+                    <svg viewBox="0 0 24 24"><path fill="#ffd60a" d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></svg>
+                    <svg viewBox="0 0 24 24"><path fill="#ffd60a" d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></svg>
+                    <svg viewBox="0 0 24 24"><path fill="#ffd60a" d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></svg>
+                    <svg viewBox="0 0 24 24"><path fill="#ffd60a" d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></svg>
+                    <svg viewBox="0 0 24 24"><path fill="#ffd60a" d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></svg>
+                  </div>
+                  <b>رضایت مشتری</b>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          const root = document.querySelector('[data-composition-id="s3"]');
+          const q = (s) => root.querySelectorAll(s);
+
+          q(".w[data-t]").forEach((el) => {
+            tl.fromTo(el, { opacity: 0, y: 30, filter: "blur(10px)" },
+              { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: "power3.out" }, +el.dataset.t);
+          });
+
+          // "نکته اینه:" emerges from the ring's darkness, then rises to become the header
+          tl.fromTo("#s3-hero", { scale: 1.35 }, { scale: 1, duration: 0.68, ease: "expo.out" }, 0.05);
+          tl.to("#s3-hero", { y: -640, scale: 0.42, opacity: 0.6, duration: 0.75, ease: "power3.inOut" }, 0.75);
+
+          // Two phones rise in; camera leans toward the side being described
+          tl.fromTo(["#s3-pL", "#s3-pR"], { y: 360, opacity: 0, filter: "blur(12px)" },
+            { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.9, ease: "expo.out", stagger: 0.08 }, 0.8);
+          tl.fromTo("#s3-div", { scaleY: 0 }, { scaleY: 1, duration: 0.5, ease: "power2.out" }, 2.8);
+          tl.fromTo("#s3-cols", { x: 0, scale: 1 }, { x: 46, scale: 1.02, duration: 2.6, ease: "sine.inOut" }, 1.0);
+          tl.to("#s3-cols", { x: -46, duration: 2.8, ease: "sine.inOut" }, 3.6);
+
+          // LEFT: the busy trend edit — punch-ins on the beat, shake, stickers, glitches
+          const beat = 60 / 112;
+          for (let k = 0; k < 10; k++) {
+            const t = 1.16 + k * beat;
+            tl.fromTo("#s3-busyfx", { scale: 1 },
+              { keyframes: [{ scale: k % 2 ? 1.1 : 1.16, rotation: k % 2 ? -1.2 : 1.2, duration: 0.06, ease: "power2.out" },
+                            { scale: 1, rotation: 0, duration: 0.34, ease: "power2.out" }], immediateRender: k === 0 }, t);
+          }
+          [["#s3-k1", 1.3, -8], ["#s3-k2", 1.85, 8], ["#s3-k3", 2.4, -10], ["#s3-k4", 2.95, 7], ["#s3-k5", 3.4, -6]].forEach(([s, t, r]) => {
+            tl.fromTo(s, { opacity: 0, scale: 0.3, rotation: r * 3 }, { opacity: 1, scale: 1, rotation: r, duration: 0.35, ease: "back.out(3)" }, t);
+          });
+          tl.fromTo("#s3-subt", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(3)" }, 2.0);
+          [1.75, 2.85].forEach((t) => {
+            tl.fromTo("#s3-busyfx", { x: 0, skewX: 0, filter: "hue-rotate(0deg)" },
+              { keyframes: [{ x: 22, skewX: 8, filter: "hue-rotate(90deg)", duration: 0.05 }, { x: -16, skewX: -5, filter: "hue-rotate(200deg)", duration: 0.05 },
+                            { x: 0, skewX: 0, filter: "hue-rotate(0deg)", duration: 0.06 }], immediateRender: false }, t);
+          });
+
+          // RIGHT: same footage, clean grade + calm motion type; the light moves from left to right
+          tl.fromTo("#s3-pR", { opacity: 1 }, { opacity: 0.42, duration: 0.4, immediateRender: false }, 1.6);
+          tl.to("#s3-pR", { opacity: 1, duration: 0.5, ease: "power2.out" }, 3.6);
+          tl.to("#s3-pL", { opacity: 0.42, duration: 0.5, ease: "power2.out" }, 3.6);
+          tl.fromTo("#s3-cleanfx", { scale: 1 }, { scale: 1.07, duration: 6, ease: "none" }, 0.75);
+          tl.fromTo("#s3-c1", { opacity: 0, y: 24, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.7, ease: "power3.out" }, 4.35);
+          tl.fromTo("#s3-c2", { opacity: 0, y: 20, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.7, ease: "power3.out" }, 4.85);
+          tl.fromTo("#s3-c3", { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: "power3.inOut" }, 5.2);
+
+          // Crane down to the bento of what we showed instead
+          tl.to("#s3-split", { y: -1700, duration: 0.95, ease: "power3.inOut" }, 6.82);
+          tl.to("#s3-bento", { y: -1700, duration: 0.95, ease: "power3.inOut" }, 6.82);
+          const tiles = [["#s3-tB", 8.28], ["#s3-tQ", 9.36], ["#s3-tS", 10.62]];
+          tiles.forEach(([s]) => tl.fromTo(s, { opacity: 0.32, scale: 0.94, filter: "brightness(0.55)" },
+            { opacity: 0.32, scale: 0.94, filter: "brightness(0.55)", duration: 0.01 }, 6.8));
+          tiles.forEach(([s, t]) => {
+            tl.to(s, { opacity: 1, scale: 1, filter: "brightness(1)", duration: 0.55, ease: "expo.out" }, t);
+            tl.fromTo(s + " img", { scale: 1.14 }, { scale: 1.0, duration: 2.6, ease: "power2.out" }, t);
+            tl.fromTo(s + " .lb b", { opacity: 0, y: 26, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: "power3.out" }, t + 0.08);
+          });
+          q("#s3-tS .stars svg").forEach((st, i) => {
+            tl.fromTo(st, { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(3)" }, 11.05 + i * 0.1);
+          });
+          tl.fromTo("#s3-bento", { scale: 1 }, { scale: 1.035, transformOrigin: "540px 860px", duration: 5.2, ease: "sine.inOut", immediateRender: false }, 7.6);
+
+          // Whip pan out: the stage streaks right and fades, the white world comes in underneath
+          tl.to("#s3-stage", { x: 1250, scaleX: 1.06, filter: "blur(18px)", duration: 0.55, ease: "power3.in" }, 12.38);
+          tl.to("#s3-fade", { opacity: 0, duration: 0.3, ease: "power1.in" }, 12.62);
+
+          window.__timelines["s3"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -18,3 +18,10 @@ jobs-reel/.hyperframes/
 trust-reel/renders/
 trust-reel/snapshots/
 trust-reel/.hyperframes/
+# trust-reel: the portrait is personal; keep it out of the public repo. Generation variations stay local.
+trust-reel/assets/portrait/
+trust-reel/assets/ai/src/
+trust-reel/assets/audio/sfx/src/
+trust-reel/assets/audio/vo/takes/
+trust-reel/assets/audio/music/takes/
+trust-reel/assets/video/src/*.jpg
