@@ -8,7 +8,7 @@
       <style>
         @font-face { font-family: "Vazirmatn"; src: url("assets/fonts/Vazirmatn-Variable.ttf") format("truetype"); font-weight: 100 900; font-style: normal; font-display: block; }
         #root { position: absolute; inset: 0; overflow: hidden; font-family: "Vazirmatn", sans-serif; color: #1d1d1f; background: #f5f5f7; }
-        .s1-bg { position: absolute; inset: 0; background: radial-gradient(130% 90% at 50% 40%, #ffffff 0%, #f5f5f7 55%, #e6e6eb 100%); }
+        .s1-bg { position: absolute; inset: 0; background: radial-gradient(130% 90% at 50% 40%, #fbfbfc 0%, #f5f5f7 60%, #e6e6eb 100%); }
         .s1-world { position: absolute; left: 0; top: 0; width: 1080px; height: 3400px; }
         .card { position: absolute; width: 300px; height: 400px; border-radius: 38px; background: #ffffff;
                 box-shadow: 0 34px 70px rgba(0, 0, 0, 0.13), 0 3px 8px rgba(0, 0, 0, 0.06); }
@@ -102,7 +102,7 @@
           });
           tl.to("#s1-a", { opacity: 0, y: -40, filter: "blur(10px)", duration: 0.35, ease: "power2.in" }, 1.9);
           tl.to("#s1-b", { opacity: 0.0, y: -30, filter: "blur(8px)", duration: 0.3, ease: "power2.in" }, 4.15);
-          tl.to("#s1-c", { opacity: 0, y: -50, filter: "blur(12px)", duration: 0.26, ease: "power1.inOut" }, 6.26); // gone before the opening swallows it
+          tl.to("#s1-c", { opacity: 0, y: -260, scale: 1.6, transformOrigin: "540px 968px", filter: "blur(14px)", duration: 0.22, ease: "power2.in" }, 6.12); // rushes past the lens with the dive
 
           // Camera: slow push, then tilt down with the falling paper, then dive into the bin
           tl.fromTo("#s1-push", { scale: 1, transformOrigin: "540px 1040px" }, { scale: 1.05, duration: 3.4, ease: "sine.inOut" }, 0);
@@ -119,9 +119,9 @@
 
           // Crumple: card collapses, the GPT paper ball pops in its place
           function crumple(card, ball, t, spin) {
-            tl.to(card, { scale: 0.42, rotation: spin, opacity: 0, filter: "blur(4px)", duration: 0.26, ease: "power3.in" }, t);
-            tl.fromTo(ball, { opacity: 0, scale: 0.35, rotation: -spin },
-              { opacity: 1, scale: 1, rotation: 0, duration: 0.42, ease: "back.out(2.2)" }, t + 0.12);
+            tl.to(card, { scale: 0.32, rotation: spin, opacity: 0, filter: "blur(4px)", duration: 0.2, ease: "power2.out" }, t); // front-loaded: the card squashes into the ball
+            tl.fromTo(ball, { opacity: 0, scale: 0.6, rotation: -spin },
+              { opacity: 1, scale: 1, rotation: 0, duration: 0.4, ease: "back.out(2)" }, t + 0.1);
           }
           crumple("#s1-vcard", "#s1-bv", 2.30, -40);
           crumple("#s1-icard", "#s1-bi", 2.68, 36);

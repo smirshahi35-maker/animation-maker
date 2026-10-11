@@ -40,6 +40,7 @@ TAIL = 0.55
 # Pause targets (seconds, before tempo change).
 SENTENCE, COMMA, PLAIN = 0.40, 0.24, 0.22
 SECTION = 0.50  # before a new section of the script
+HOOK_LIFT_DB = 3.5
 SECTION_STARTS = {"ویدیوت", "یکی", "نکته", "من"}
 
 
@@ -132,6 +133,13 @@ def source():
     parts = [piece(hook_a, hook_w, 0.0, h_end, ref),
              piece(main_a, main_w, m_start, m_end),
              piece(cta_a, cta_w, c_start, c_end, ref)]
+    # the hook take tails off from «محتوا» to «دور!» (~4 dB under the body): lift that stretch
+    seg, ws = parts[0]
+    a, b = int((find(ws, "محتوا")["start"] - 0.02) * SR), len(seg)
+    ramp, g = int(0.015 * SR), np.float32(10 ** (HOOK_LIFT_DB / 20))
+    env = np.full(b - a, g, dtype=np.float32)
+    env[:ramp] = np.linspace(1, g, ramp)
+    seg[a:b] *= env
     out, words, t = [], [], 0.0
     for seg, ws in parts:
         out.append(seg)
@@ -228,7 +236,7 @@ def main():
     )
     subprocess.run(
         ["ffmpeg", "-v", "error", "-y", "-i", str(tmp), "-af",
-         f"rubberband=tempo={TEMPO}:transients=smooth:formant=preserved",
+         f"rubberband=tempo={TEMPO}:transients=smooth:formant=preserved,alimiter=limit=0.89:attack=1:release=40:level=false",
          "-ar", str(SR), "-ac", "1", "-c:a", "pcm_s16le", str(OUT_WAV)],
         check=True,
     )

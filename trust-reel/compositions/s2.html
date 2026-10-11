@@ -8,7 +8,7 @@
       <style>
         @font-face { font-family: "Vazirmatn"; src: url("assets/fonts/Vazirmatn-Variable.ttf") format("truetype"); font-weight: 100 900; font-style: normal; font-display: block; }
         #root { position: absolute; inset: 0; overflow: hidden; font-family: "Vazirmatn", sans-serif; color: #1d1d1f; background: #f5f5f7; }
-        .s2-bg { position: absolute; inset: 0; background: radial-gradient(130% 90% at 50% 45%, #ffffff 0%, #f5f5f7 55%, #e6e6eb 100%); }
+        .s2-bg { position: absolute; inset: 0; background: radial-gradient(130% 90% at 50% 45%, #fbfbfc 0%, #f5f5f7 60%, #e6e6eb 100%); }
         .s2-world { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
         .s2-phonewrap { position: absolute; left: 280px; top: 497px; width: 520px; height: 1127px; transform-origin: 50% 50%; }
         .phone { position: absolute; inset: 0; border-radius: 88px; background: #1d1d1f; padding: 16px;
@@ -80,7 +80,7 @@
             <span class="chip"><span class="eq"><i></i><i></i><i></i><i></i></span>با یه آهنگ ترند</span>
           </div>
           <div class="txt" id="s2-zero" style="top:2290px">
-            <span class="ln"><span class="num" style="color:#1d1d1f;font-size:300px">۰</span> <span class="lab" style="font-size:110px">سفارش</span></span>
+            <span class="ln"><span class="num" style="color:#1d1d1f;font-size:440px;vertical-align:-0.17em">۰</span> <span class="lab" style="font-size:140px">سفارش</span></span>
           </div>
 
           <div class="s2-phonewrap" id="s2-phonewrap">
@@ -186,7 +186,9 @@
           // 3) Pull back + arc: the client's reel, the 80,000 stat
           tl.to("#s2-dm", { x: 488, duration: 0.45, ease: "power3.inOut" }, 3.12);
           tl.to("#s2-reel", { x: 0, duration: 0.45, ease: "power3.inOut" }, 3.12);
-          tl.to("#s2-phonewrap", { scale: 0.5, y: 150, rotationY: -24, rotationZ: -3, transformPerspective: 1600, duration: 1.1, ease: "power3.inOut" }, 3.08);
+          tl.to("#s2-phonewrap", { scale: 0.62, y: 60, rotationY: -24, rotationZ: -3, transformPerspective: 1600, duration: 1.1, ease: "power3.inOut" }, 3.08);
+          // the reel stays the hero until the chip (4.62) and the counter take the space above it
+          tl.to("#s2-phonewrap", { scale: 0.5, y: 150, duration: 0.5, ease: "power2.inOut" }, 4.3);
           tl.fromTo("#s2-chipwrap", { opacity: 0, y: 40, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 4.62);
           q(".eq i").forEach((b, i) => {
             tl.fromTo(b, { scaleY: 0.3 }, { scaleY: 1, duration: 0.18 + i * 0.03, ease: "sine.inOut", yoyo: true, repeat: 15 }, 4.7 + i * 0.05);
@@ -202,7 +204,7 @@
           // Phone rides the dolly with the stack (no extra upward parallax: from y:150 it would overprint the chip); fade only its last sliver
           tl.to("#s2-phonewrap", { opacity: 0, duration: 0.3, ease: "power1.in" }, 8.2);
           tl.fromTo("#s2-zero", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, 7.75);
-          tl.fromTo("#s2-zero .ln", { scale: 0.85 }, { scale: 1, duration: 0.9, ease: "power3.out" }, 7.9);
+          tl.fromTo("#s2-zero .ln", { scale: 0.88 }, { scale: 1.03, duration: 1.6, ease: "power2.out" }, 7.9); // still moving when the 9.5 tilt takes over
 
           // 5) One camera tilt: the zero and the Veo card travel together (never semi-transparent over each other)
           // 1400 = card parked fully below frame (top 600+1400 = 2000, shadow ~1940) and the zero fully above it at the end
@@ -212,10 +214,10 @@
           tl.fromTo("#s2-card video", { scale: 1 }, { scale: 1.06, duration: 2.4, ease: "none" }, 9.6);
 
           // 6) Lights down; the trust ring barely moves
-          out("#s2-t4", 11.5, 0.28);
-          tl.to("#s2-card", { y: -1650, scale: 0.92, rotation: -2, filter: "blur(6px)", duration: 0.45, ease: "power2.in" }, 11.3);
-          tl.set("#s2-card", { autoAlpha: 0 }, 11.76);
-          tl.to("#s2-dim", { opacity: 1, duration: 0.45, ease: "power2.in" }, 11.2);
+          out("#s2-t4", 11.3, 0.2); // the thrown card wipes over it, gone by 11.5 ("ولی")
+          tl.to("#s2-card", { y: -1650, scale: 0.92, rotation: -2, filter: "blur(6px)", duration: 0.32, ease: "power3.in" }, 11.12); // off the top by 11.44, before "ولی"
+          tl.set("#s2-card", { autoAlpha: 0 }, 11.45);
+          tl.to("#s2-dim", { opacity: 1, duration: 0.35, ease: "power1.in" }, 11.15); // fully dark by 11.5, when white "ولی" lands
           tl.fromTo("#s2-ring", { opacity: 0, scale: 0.82 }, { opacity: 1, scale: 1, duration: 0.7, ease: "expo.out" }, 11.85);
           const arcLen = 1539.4, pct = { v: 0 };
           tl.fromTo(pct, { v: 0 }, { immediateRender: false, keyframes: [{ v: 3, duration: 0.5, ease: "power2.out" }, { v: 5, duration: 0.2, ease: "sine.out" }, { v: 3, duration: 0.35, ease: "sine.inOut" }],

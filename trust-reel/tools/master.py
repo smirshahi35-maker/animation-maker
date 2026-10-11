@@ -12,12 +12,14 @@ src = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, 'renders', 'trust
 dst = sys.argv[2] if len(sys.argv) > 2 else os.path.join(ROOT, '..', 'deliverables', 'trust-reel.mp4')
 TARGET = 'I=-14:TP=-1.5:LRA=11'
 
-probe = subprocess.run(['ffmpeg', '-hide_banner', '-i', src, '-af', f'loudnorm={TARGET}:print_format=json', '-f', 'null', '-'],
+# A peak limiter first: the sub-heavy whooshes would otherwise force loudnorm out of linear mode (pumping).
+PRE = 'alimiter=limit=0.5:attack=2:release=50:level=false,'
+probe = subprocess.run(['ffmpeg', '-hide_banner', '-i', src, '-af', f'{PRE}loudnorm={TARGET}:print_format=json', '-f', 'null', '-'],
                        capture_output=True, text=True).stderr
 m = json.loads(re.findall(r'\{[^{}]*"input_i"[^{}]*\}', probe)[-1])
 print('measured', {k: m[k] for k in ('input_i', 'input_tp', 'input_lra', 'input_thresh', 'target_offset')})
 
-af = (f'loudnorm={TARGET}:measured_I={m["input_i"]}:measured_TP={m["input_tp"]}:measured_LRA={m["input_lra"]}'
+af = (f'{PRE}loudnorm={TARGET}:measured_I={m["input_i"]}:measured_TP={m["input_tp"]}:measured_LRA={m["input_lra"]}'
       f':measured_thresh={m["input_thresh"]}:offset={m["target_offset"]}:linear=true:print_format=summary')
 os.makedirs(os.path.dirname(os.path.abspath(dst)), exist_ok=True)
 VIDEO = ['-c:v', 'libx264', '-preset', 'slow', '-crf', '19', '-maxrate', '7M', '-bufsize', '14M',
