@@ -41,3 +41,7 @@ Persian Instagram reel (1080×1920, ~45 s) for Shahin, editor and motion designe
 2. Voice auditions in `storyboard/audio/`: A/B/C are Voice Design v3 previews
    (generated_voice_ids `1Qgli39ppKQo0jT0zYGA`, `HpXdLcZbFPVguA8aCZi2`, `C3FZzR1SrytfHvzB4neG`, not saved yet);
    D is library voice Shahram (`rNb3hdSf0n4ROIbYC8Bl`, eleven_v3).
+3. User decisions: voice D (Shahram); story text kept as written; client business = café; portrait supplied
+   (kept out of git, see HANDOFF.md).
+4. Done: draft 1 reviewed by four lenses (transitions, Persian text, Apple polish, audio), fixes applied; hook and
+   CTA re-recorded; draft 2 reviewed again and fixed. Final: `../deliverables/trust-reel.mp4` (50.0 s, -14 LUFS).

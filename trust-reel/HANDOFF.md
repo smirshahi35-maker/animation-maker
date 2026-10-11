@@ -47,8 +47,13 @@ npx --yes hyperframes@0.8.137 render -q high -f 30 -o renders/trust-reel.mp4
 python3 tools/master.py               # -14 LUFS / -1.5 dBTP, H.264 CRF 19 ≤7 Mbps -> ../deliverables/trust-reel.mp4
 ```
 
-`build_root.py` must run before the carve (carve keeps the volume lane and appends its own lanes; music gain
-lives in that lane, `data-volume` stays 1).
+`build_root.py` must run before the carve (carve keeps each bed's volume lane and appends its own lanes).
+The carve's level-match lane already sets each bed against the voice from the raw file, so the volume lanes
+only shape the beds (dips, fades, story +3 dB); `data-volume` stays 1.
+
+Audio checks after a render (run from `trust-reel/`):
+`python3 tools/mixcheck.py renders/trust-reel.mp4 .` (music should sit ~15-20 dB under the voice) and
+`python3 tools/sfxmask.py` (each SFX against the narration words it lands on, speech band).
 
 ## Images and video
 
