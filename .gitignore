@@ -67,3 +67,4 @@ armenia-investment/audio/vo/takes/*
 !armenia-investment/audio/vo/takes/take1.words.json
 # armenia-investment: the client's logo (original and cut-out) stays out of the public repo
 armenia-investment/assets/
+armenia-investment/cover/cover-*.png

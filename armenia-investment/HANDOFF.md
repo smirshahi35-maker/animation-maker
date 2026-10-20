@@ -40,3 +40,16 @@ Check stills at any time: `node scripts/render.js stills <outdir> 2.5 11.9 27.9`
 Scene starts are tied to the first word of each script line (`FIRST` in `comp/index.html`):
 hook → truth 1 land/cadastre → truth 2 banks → truth 3 residency (10 Aban 1405) → property 5–8% →
 agriculture → production / Meghri FEZ map → tourism 180,000 → "Armenia is an opportunity" + checklist + CTA.
+
+## Reel cover
+
+Same look as the client's other reel covers: dark green gradient, the IRAM CO. logo, a white Abar headline
+(«تو ارمنستان / سرمایه‌گذاری نکن!») and a waving Armenian flag drawn by `scripts/make_flag.py`.
+
+```bash
+python3 -I scripts/make_flag.py cover/flag.png
+NODE_PATH=/opt/node-tools/node_modules node scripts/render_cover.js   # cover-1080x1920.png + cover-grid-1080x1440.png
+```
+
+The 1080×1920 file is the cover to upload; the 1080×1440 file is the centre crop the profile grid shows.
+Outputs: `deliverables/armenia-investment-cover.png`, `deliverables/armenia-investment-cover-grid.png`.
