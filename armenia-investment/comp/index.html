@@ -26,12 +26,16 @@
   #grain { position: absolute; inset: -200px; background: url("../build/grain.png"); opacity: .55; mix-blend-mode: multiply; z-index: 30; pointer-events: none; }
 
   .palm { position: absolute; width: 900px; height: 1600px; z-index: 1; opacity: .62; }
-  #palmTL { top: -760px; left: -360px; transform: rotate(128deg); }
-  #palmBR { bottom: -800px; right: -380px; transform: rotate(-52deg); }
+  #palmTL { top: -760px; right: -380px; transform: rotate(-128deg) scaleX(-1); }
+  #palmBR { bottom: -800px; left: -380px; transform: rotate(52deg) scaleX(-1); }
 
   .prop { position: absolute; z-index: 3; filter: drop-shadow(20px 28px 24px rgba(70, 45, 20, .33)); }
-  #propTR { width: 380px; top: -130px; right: -140px; }
-  #propBL { width: 360px; bottom: -140px; left: -160px; }
+  #propTR { width: 360px; top: -140px; left: -150px; }
+  #propBL { width: 350px; bottom: -150px; right: -150px; }
+  #brand { position: absolute; top: 96px; right: 64px; z-index: 26; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+  #logo { max-width: 250px; max-height: 110px; display: none; filter: drop-shadow(0 6px 14px rgba(60, 40, 20, .18)); }
+  #site { font-family: "AbarMid", sans-serif; font-size: 34px; letter-spacing: 3px; color: var(--ink); direction: ltr;
+          background: rgba(255, 253, 247, .86); border-radius: 999px; padding: 2px 20px 6px; box-shadow: 0 6px 16px rgba(60, 40, 20, .14); }
 
   #vf { position: absolute; inset: 0; z-index: 25; pointer-events: none; opacity: .7; }
   #vf text { font-family: "AbarLow", sans-serif; font-size: 22px; fill: #3a3836; }
@@ -49,7 +53,8 @@
   .low { font-family: "AbarLow", sans-serif; line-height: 1.3; color: var(--ink); }
   .w { display: inline-block; will-change: transform, opacity, filter; }
   .g { background: linear-gradient(270deg, var(--pink) 0%, #ef4f97 48%, var(--orange) 100%);
-       -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; padding: 0 .04em; }
+       -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+       padding: .34em .08em .3em; margin: -.34em -.04em -.3em; }
   .red { color: var(--red); }
   .lowf { font-family: "AbarLow", sans-serif; color: var(--ink); }
   .glow { filter: drop-shadow(0 0 10px #fbf5ea) drop-shadow(0 0 4px #fbf5ea); }
@@ -89,6 +94,8 @@
   <img id="palmBR" class="palm" alt="">
   <img id="propTR" class="prop" src="../styleframes/assets/apricot_pit.png" alt="">
   <img id="propBL" class="prop" src="../styleframes/assets/apricot_half.png" alt="">
+
+  <div id="brand"><img id="logo" src="../assets/logo.png" alt="" onload="this.style.display='block'"><div id="site">IRAMCO.ORG</div></div>
 
   <div id="sticker"><canvas id="cv" width="600" height="760"></canvas></div>
 
@@ -426,8 +433,8 @@ window.renderFrame = async function (t) {
   sticker.style.transform = `translateY(${fy.toFixed(1)}px) rotate(${rot.toFixed(2)}deg) scale(${scale.toFixed(4)})`;
 
   // props float
-  propTR.style.transform = `rotate(${(-18 + 4 * Math.sin(t * 0.5)).toFixed(2)}deg) translateY(${(8 * Math.sin(t * 0.8)).toFixed(1)}px)`;
-  propBL.style.transform = `rotate(${(24 + 4 * Math.sin(t * 0.43 + 1)).toFixed(2)}deg) translateY(${(8 * Math.sin(t * 0.7 + 2)).toFixed(1)}px)`;
+  propTR.style.transform = `rotate(${(16 + 4 * Math.sin(t * 0.5)).toFixed(2)}deg) translateY(${(8 * Math.sin(t * 0.8)).toFixed(1)}px)`;
+  propBL.style.transform = `rotate(${(-24 + 4 * Math.sin(t * 0.43 + 1)).toFixed(2)}deg) translateY(${(8 * Math.sin(t * 0.7 + 2)).toFixed(1)}px)`;
 
   // viewfinder progress
   marker.setAttribute('transform', `translate(0, ${(430 + 416 * (t / DUR)).toFixed(1)})`);
