@@ -45,3 +45,12 @@ trust-reel-en/.hyperframes/
 trust-reel-en/assets/audio/vo/takes/*
 !trust-reel-en/assets/audio/vo/takes/en-take1.mp3
 !trust-reel-en/assets/audio/vo/takes/en-take1.words.json
+# armenia-investment: raw stock footage is re-downloadable (see armenia-investment/FOOTAGE.md);
+# Abar is licensed (FontIran) and must not be committed; stills and frames are generated previews.
+armenia-investment/footage/
+armenia-investment/fonts/*
+!armenia-investment/fonts/README.md
+armenia-investment/stills/
+armenia-investment/styleframes/assets/
+armenia-investment/styleframes/out/
+armenia-investment/renders/
