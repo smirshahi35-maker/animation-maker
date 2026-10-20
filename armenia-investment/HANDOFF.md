@@ -9,6 +9,9 @@ camera viewfinder UI, pixel-mosaic transitions. Fonts: Abar Mid Bold (headlines)
 - `fonts/AbarMid-Bold.ttf`, `fonts/AbarLow-Regular.ttf` — licensed (FontIran); ask the user for them.
 - `footage/` — Pexels clips, listed with ids in `FOOTAGE.md`; `scripts/pexels_get.sh <id> <name>` downloads one.
 - `build/` — generated (frames, palm matte, grain).
+- `assets/logo.png` — the client's logo (IRAM CO.) with the background removed by
+  `scripts/logo_cutout.py assets/src/logo_original.jpg assets/logo.png`; kept out of git. Shown top-right next to
+  the `IRAMCO.ORG` pill for the whole video.
 
 ## Steps
 
@@ -18,10 +21,7 @@ python3 -I scripts/prep_frames.py $PWD                 # footage → 30 fps stic
 python3 -I scripts/fit_vo.py audio/vo/takes/take1.mp3 audio/vo/takes/take1.words.json 48.9
 python3 -c "import json;d=json.load(open('audio/vo/narration.words.json'));open('comp/vo_words.js','w').write('window.VO_WORDS = '+json.dumps([[w['start'],w['end']] for w in d['words']])+';\n')"
 python3 -I scripts/mix_audio.py                        # → audio/mix.wav (-14 LUFS)
-# render in 3 parallel parts, then join with the mix
-for r in "0 500" "500 1000" "1000 1500"; do set -- $r; NODE_PATH=/opt/node-tools/node_modules node scripts/render.js video build/seg/seg_$1.mp4 $1 $2 & done; wait
-printf "file '%s'\n" build/seg/seg_0.mp4 build/seg/seg_500.mp4 build/seg/seg_1000.mp4 > build/seg/list.txt
-ffmpeg -f concat -safe 0 -i build/seg/list.txt -i audio/mix.wav -c:v copy -c:a aac -b:a 192k -shortest -movflags +faststart renders/armenia-investment-reel.mp4
+scripts/render_all.sh                                  # 3 parallel parts (~7 min) + mux → renders/armenia-investment-reel.mp4
 ```
 
 Check stills at any time: `node scripts/render.js stills <outdir> 2.5 11.9 27.9`.
