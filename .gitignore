@@ -54,3 +54,14 @@ armenia-investment/stills/
 armenia-investment/styleframes/assets/
 armenia-investment/styleframes/out/
 armenia-investment/renders/
+armenia-investment/build/
+armenia-investment/audio/mix.wav
+armenia-investment/audio/vo/narration.wav
+armenia-investment/audio/music/takes/*
+!armenia-investment/audio/music/takes/m3.mp3
+armenia-investment/audio/sfx/takes/*
+!armenia-investment/audio/sfx/takes/stamp1.mp3
+!armenia-investment/audio/sfx/takes/whoosh1.mp3
+armenia-investment/audio/vo/takes/*
+!armenia-investment/audio/vo/takes/take1.mp3
+!armenia-investment/audio/vo/takes/take1.words.json

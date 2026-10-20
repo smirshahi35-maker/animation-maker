@@ -101,3 +101,14 @@ ffmpeg -i renders/argon-webinar-reel.mp4 -c:v copy -af loudnorm=I=-14:TP=-1.5:LR
 
 - فونت Superline لایسنس‌دار است و در گیت نیست (`trust-reel-en/assets/fonts/Superline-Italic.ttf`)؛ برای رندر دوباره لازم است.
 - تصاویر، ویدیوها، موسیقی و افکت‌ها با symlink از `trust-reel/assets/` خوانده می‌شوند.
+
+## ریل «سرمایه‌گذاری در ارمنستان»
+
+پروژهٔ `armenia-investment/` (۵۰ ثانیه، ۱۰۸۰×۱۹۲۰، ۳۰ فریم بر ثانیه): سناریوی تأییدشدهٔ کارفرما با هوک «تو ارمنستان
+سرمایه‌گذاری نکن...»، ۳ حقیقت تلخ و ۴ فرصت. سبک بر اساس رفرنس کارفرما: کاغذ کرم، سایهٔ واقعی برگ نخل، زردآلوی بریده در گوشه‌ها،
+فوتیج واقعی (Pexels) داخل استیکر کج، UI منظره‌یاب دوربین و ترنزیشن پیکسلی. فونت: Abar Mid Bold و Abar Low Regular (لایسنس‌دار،
+داخل گیت نیست). روش ساخت دوباره در `armenia-investment/HANDOFF.md` و منابع فوتیج در `armenia-investment/FOOTAGE.md`.
+خروجی نهایی: `deliverables/armenia-investment-reel.mp4`.
+
+- گوینده: Shahram (ElevenLabs v3)؛ خوانش ۶۰٫۵ ثانیه‌ای با کوتاه کردن مکث‌ها و کشش زمانی rubberband (حدود ۱٫۲ برابر، بدون تغییر زیر و بمی) به ۴۸٫۹ ثانیه رسید.
+- رندر: صفحهٔ `comp/index.html` فریم‌به‌فریم با Playwright گرفته می‌شود (`scripts/render.js`)؛ زمان‌بندی همهٔ متن‌ها و زیرنویس‌ها از زمان کلمات گوینده (Scribe) است.

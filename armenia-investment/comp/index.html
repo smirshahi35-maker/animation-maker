@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="fa">
+<head>
+<meta charset="utf-8">
+<title>Armenia investment reel</title>
+<style>
+  @font-face { font-family: "AbarMid"; src: url("../fonts/AbarMid-Bold.ttf") format("truetype"); font-display: block; }
+  @font-face { font-family: "AbarLow"; src: url("../fonts/AbarLow-Regular.ttf") format("truetype"); font-display: block; }
+
+  :root {
+    --ink: #1d1b19;
+    --pink: #e23fd6;
+    --orange: #f5862b;
+    --red: #d2382f;
+    --cream: #fffdf7;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #f3ebde; }
+  body { font-synthesis: none; -webkit-font-smoothing: antialiased; }
+  .fa { direction: rtl; unicode-bidi: isolate; }
+
+  #stage { position: absolute; inset: 0; overflow: hidden; transform-origin: 50% 50%;
+           background: radial-gradient(115% 78% at 50% 46%, #fcf7ee 0%, #f2e9d9 58%, #e2d5bf 100%); }
+  #warm { position: absolute; inset: 0; opacity: 0; pointer-events: none;
+          background: radial-gradient(90% 60% at 50% 40%, rgba(255, 196, 140, .55), rgba(255, 160, 90, 0) 70%); }
+  #grain { position: absolute; inset: -200px; background: url("../build/grain.png"); opacity: .55; mix-blend-mode: multiply; z-index: 30; pointer-events: none; }
+
+  .palm { position: absolute; width: 900px; height: 1600px; z-index: 1; opacity: .62; }
+  #palmTL { top: -760px; left: -360px; transform: rotate(128deg); }
+  #palmBR { bottom: -800px; right: -380px; transform: rotate(-52deg); }
+
+  .prop { position: absolute; z-index: 3; filter: drop-shadow(20px 28px 24px rgba(70, 45, 20, .33)); }
+  #propTR { width: 380px; top: -130px; right: -140px; }
+  #propBL { width: 360px; bottom: -140px; left: -160px; }
+
+  #vf { position: absolute; inset: 0; z-index: 25; pointer-events: none; opacity: .7; }
+  #vf text { font-family: "AbarLow", sans-serif; font-size: 22px; fill: #3a3836; }
+
+  /* footage sticker */
+  #sticker { position: absolute; left: 240px; top: 580px; width: 600px; height: 760px; z-index: 6;
+             border-radius: 40px;
+             box-shadow: 0 0 0 14px var(--cream), 0 46px 70px rgba(60, 40, 20, .28), 0 8px 16px rgba(60, 40, 20, .16);
+             transform-origin: 50% 55%; overflow: hidden; background: #cfc6b8; }
+  #sticker canvas { position: absolute; inset: 0; width: 600px; height: 760px; border-radius: 40px; }
+
+  /* text */
+  .t { position: absolute; white-space: nowrap; direction: rtl; z-index: 10; }
+  .mid { font-family: "AbarMid", sans-serif; line-height: 1.3; }
+  .low { font-family: "AbarLow", sans-serif; line-height: 1.3; color: var(--ink); }
+  .w { display: inline-block; will-change: transform, opacity, filter; }
+  .g { background: linear-gradient(270deg, var(--pink) 0%, #ef4f97 48%, var(--orange) 100%);
+       -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; padding: 0 .04em; }
+  .red { color: var(--red); }
+  .lowf { font-family: "AbarLow", sans-serif; color: var(--ink); }
+  .glow { filter: drop-shadow(0 0 10px #fbf5ea) drop-shadow(0 0 4px #fbf5ea); }
+  .ink { color: var(--ink); }
+
+  .label { position: absolute; left: 0; right: 0; top: 238px; display: flex; justify-content: center; align-items: center; gap: 16px;
+           font-family: "AbarLow"; font-size: 34px; color: #3a3836; direction: rtl; z-index: 10; }
+  .label::before, .label::after { content: ""; width: 70px; height: 3px; background: #3a3836; opacity: .55; }
+
+  .stamp { position: absolute; z-index: 14; font-family: "AbarMid"; color: var(--red); line-height: 1.25;
+           border: 8px solid var(--red); border-radius: 18px; padding: 2px 30px 10px; background: rgba(255, 249, 242, .62);
+           direction: rtl; white-space: nowrap; transform-origin: 50% 50%; }
+
+  .chip { position: absolute; z-index: 14; font-family: "AbarLow"; font-size: 42px; color: var(--ink); direction: rtl; white-space: nowrap;
+          background: var(--cream); border-radius: 999px; padding: 6px 28px 12px; box-shadow: 0 10px 24px rgba(60, 40, 20, .2); }
+  .chip b { font-family: "AbarMid"; font-weight: normal; color: var(--red); }
+  .chip.ok b { color: #2f7d4f; }
+
+  .card { position: absolute; z-index: 14; background: var(--cream); border-radius: 28px; box-shadow: 0 18px 36px rgba(60, 40, 20, .24); direction: rtl; }
+
+  #captions { position: absolute; left: 90px; right: 90px; top: 1418px; z-index: 20; text-align: center; direction: rtl;
+              font-family: "AbarMid"; font-size: 44px; line-height: 1.45; color: var(--ink);
+              text-shadow: 0 0 14px #fbf5ea, 0 0 6px #fbf5ea, 0 0 2px #fbf5ea; }
+  #captions .cw { display: inline-block; margin: 0 .12em; transition: none; }
+
+  #cta { position: absolute; z-index: 16; left: 50%; top: 1262px; transform: translateX(-50%); white-space: nowrap; direction: rtl;
+         font-family: "AbarMid"; font-size: 50px; color: #fff; padding: 12px 44px 20px; border-radius: 999px;
+         background: linear-gradient(270deg, var(--pink), #ef4f97 50%, var(--orange)); box-shadow: 0 18px 40px rgba(226, 63, 214, .3); }
+  #disclaimer { position: absolute; z-index: 20; left: 0; right: 0; top: 1556px; text-align: center; direction: rtl;
+                font-family: "AbarLow"; font-size: 30px; color: #5b5650; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="warm"></div>
+  <img id="palmTL" class="palm" alt="">
+  <img id="palmBR" class="palm" alt="">
+  <img id="propTR" class="prop" src="../styleframes/assets/apricot_pit.png" alt="">
+  <img id="propBL" class="prop" src="../styleframes/assets/apricot_half.png" alt="">
+
+  <div id="sticker"><canvas id="cv" width="600" height="760"></canvas></div>
+
+  <svg id="vf" width="1080" height="1920" viewBox="0 0 1080 1920">
+    <g stroke="#3a3836" stroke-width="3" fill="none" id="vfg">
+      <line x1="34" y1="1060" x2="34" y2="1122"/><circle cx="34" cy="1160" r="22"/><line x1="34" y1="1198" x2="34" y2="1260"/>
+      <circle cx="800" cy="1872" r="22"/><line x1="700" y1="1872" x2="778" y2="1872"/><line x1="822" y1="1872" x2="900" y2="1872"/>
+      <rect x="760" y="1790" width="10" height="40" stroke-width="2"/><line x1="776" y1="1830" x2="832" y2="1830"/><line x1="776" y1="1820" x2="826" y2="1820"/>
+    </g>
+    <polygon id="marker" points="52,0 66,-8 66,8" fill="#d2382f" stroke="none"/>
+    <text x="780" y="1810" style="font-size:26px">1.8</text>
+    <text id="tc" x="300" y="1884" style="font-size:22px; letter-spacing:2px">00:00:00</text>
+  </svg>
+
+  <div id="layers"></div>
+  <div id="captions"></div>
+  <div id="grain"></div>
+</div>
+
+<script src="vo_words.js"></script>
+<script>
+// ---------- timing ----------
+const FPS = 30, DUR = 50.0, VO_OFF = 0.30;
+const W = i => VO_WORDS[i][0] + VO_OFF;          // word start in video time
+const WE = i => VO_WORDS[i][1] + VO_OFF;         // word end
+const FIRST = [0, 13, 32, 46, 58, 73, 83, 102, 113];
+const SCENE_T = FIRST.map((i, k) => k === 0 ? 0 : W(i) - 0.12);
+const ROT = [-3, 2.5, -2, 3, -2.5, 2, -3, 2.5, -1.5];
+
+// clip schedule: [frames dir, frame count, starts at]
+const FR = {s1_cascade:186, s2_grapes:108, s2_signing:150, s3_atm:167, s4_passport:198, s5_city:108, s5_living:126,
+            s6_orchard:84, s6_apricot:90, s7_fruit:120, s7_pack:132, s8_city:132, s9_city:204};
+const CLIPS = [
+  ['s1_cascade', 0],
+  ['s2_grapes', SCENE_T[1]], ['s2_signing', W(22) - 0.05],
+  ['s3_atm', SCENE_T[2]],
+  ['s4_passport', SCENE_T[3]],
+  ['s5_city', SCENE_T[4]], ['s5_living', W(65) - 0.05],
+  ['s6_orchard', SCENE_T[5]], ['s6_apricot', W(77) - 0.05],
+  ['s7_fruit', SCENE_T[6]], ['s7_pack', W(91) - 0.05],
+  ['s8_city', SCENE_T[7]],
+  ['s9_city', SCENE_T[8]],
+];
+const PRE = 0.22, POST = 0.28;                   // pixel-dissolve around each cut
+
+// ---------- easing ----------
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, p) => a + (b - a) * p;
+const eOut = p => 1 - Math.pow(1 - p, 3);
+const eIn = p => p * p * p;
+const eInOut = p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+const eBack = p => { const c1 = 1.7, c3 = c1 + 1; return 1 + c3 * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2); };
+const prog = (t, a, d) => clamp((t - a) / d);
+
+// ---------- text building ----------
+const layers = document.getElementById('layers');
+const ITEMS = [];
+function el(html, cls, style) {
+  const d = document.createElement('div');
+  d.className = cls; d.setAttribute('style', style); d.innerHTML = html;
+  layers.appendChild(d); return d;
+}
+// words: list of [text, extraClass]; in/out in seconds
+function line(words, cls, style, tin, tout, opts = {}) {
+  const html = words.map(([w, c]) => `<span class="w ${c || ''}">${w}</span>`).join(' ');
+  const d = el(html, 't ' + cls, style);
+  ITEMS.push({ kind: 'line', d, ws: [...d.querySelectorAll('.w')], tin, tout, stagger: opts.stagger ?? 0.07, from: opts.from ?? 46 });
+  return d;
+}
+function stamp(text, style, tin, tout, size = 100, rot = -9) {
+  const d = el(text, 'stamp', style + `;font-size:${size}px`);
+  ITEMS.push({ kind: 'stamp', d, tin, tout, rot });
+  return d;
+}
+function pop(html, cls, style, tin, tout, rot = 0) {
+  const d = el(html, cls, style);
+  ITEMS.push({ kind: 'pop', d, tin, tout, rot });
+  return d;
+}
+function label(text, tin, tout) {
+  const d = el(text, 'label', '');
+  ITEMS.push({ kind: 'fade', d, tin, tout });
+  return d;
+}
+
+const S = SCENE_T;
+// S1 hook
+line([['تو'], ['ارمنستان']], 'low', 'top:292px; right:124px; font-size:76px', W(0) - 0.15, S[1] - 0.12);
+line([['سرمایه‌گذاری', 'g']], 'mid', 'top:362px; right:110px; font-size:126px', W(2) - 0.08, S[1] - 0.12, { from: 60 });
+stamp('نکن!', 'top:520px; left:78px', W(4) - 0.06, S[1] - 0.12, 116, -10);
+line([['۳', 'g'], ['حقیقت', 'g']], 'mid glow', 'top:1236px; right:118px; font-size:118px; z-index:12', W(8) - 0.05, S[1] - 0.1);
+line([['که'], ['باید'], ['بدونی']], 'low glow', 'top:1300px; left:120px; font-size:56px; z-index:12', W(11) - 0.05, S[1] - 0.1);
+
+// S2 truth 1
+label('حقیقت ۱ از ۳', S[1] + 0.05, S[2] - 0.1);
+line([['زمین', 'red']], 'mid', 'top:292px; right:124px; font-size:140px', W(14) - 0.08, W(29) - 0.15);
+line([['به'], ['نام'], ['خارجی']], 'low', 'top:450px; right:132px; font-size:66px', W(15) - 0.05, W(29) - 0.15);
+stamp('ممنوع', 'top:780px; left:330px', W(18) - 0.04, W(22) - 0.1, 104, -9);
+pop('<b>✓</b> فقط با ثبت در کاداستر', 'chip ok', 'top:1188px; right:150px', W(24) - 0.05, S[2] - 0.12, 2);
+line([['قولنامه', 'g'], ['یعنی', 'lowf'], ['کلاه!', 'red']], 'mid', 'top:300px; right:124px; font-size:118px', W(29) - 0.05, S[2] - 0.12, { stagger: 0.12 });
+
+// S3 truth 2
+label('حقیقت ۲ از ۳', S[2] + 0.05, S[3] - 0.1);
+line([['بانک‌ها', 'red']], 'mid', 'top:290px; right:124px; font-size:140px', W(33) - 0.08, S[3] - 0.12);
+line([['با'], ['ایرانی‌ها'], ['سخت‌گیرن']], 'low', 'top:450px; right:132px; font-size:66px', W(34) - 0.05, S[3] - 0.12);
+pop('<svg width="140" height="140" viewBox="0 0 140 140"><circle cx="70" cy="70" r="66" fill="#d2382f"/><rect x="61" y="30" width="18" height="54" rx="9" fill="#fff"/><circle cx="70" cy="104" r="10" fill="#fff"/></svg>',
+    'card', 'top:600px; left:214px; width:140px; height:140px; border-radius:50%; background:transparent; box-shadow:0 14px 30px rgba(160,30,20,.35)',
+    W(36) - 0.05, S[3] - 0.12, -6);
+pop('اول تکلیف <b>حساب</b> رو روشن کن', 'chip', 'top:1188px; right:150px', W(41) - 0.05, S[3] - 0.12, -2);
+
+// S4 truth 3
+label('حقیقت ۳ از ۳', S[3] + 0.05, S[4] - 0.1);
+pop('<div style="font-family:AbarMid;font-size:132px;color:#d2382f;line-height:1.1;text-align:center">۱۰</div>' +
+    '<div style="font-family:AbarLow;font-size:46px;text-align:center;margin-top:-6px">آبان ۱۴۰۵</div>',
+    'card', 'top:282px; right:118px; width:250px; height:250px; padding-top:14px; border-top:22px solid #d2382f', W(48) - 0.08, S[4] - 0.12, 4);
+line([['ثبت', 'g'], ['شرکت', 'g']], 'mid', 'top:330px; left:118px; font-size:118px', W(51) - 0.08, S[4] - 0.12);
+stamp('اقامت نمیاره!', 'top:1140px; left:250px', W(56) - 0.04, S[4] - 0.12, 88, -8);
+
+// S5 good news: property
+line([['خبر', 'g'], ['خوب', 'g']], 'mid', 'top:286px; right:124px; font-size:140px', W(59) - 0.08, W(61) - 0.05);
+label('خبر خوب', W(61), S[8] - 0.1);
+line([['ملک', 'g']], 'mid', 'top:292px; right:124px; font-size:140px', W(61) - 0.02, S[5] - 0.12);
+line([['خرید'], ['آزاد'], ['برای'], ['خارجی‌ها']], 'low', 'top:450px; right:132px; font-size:62px', W(62), S[5] - 0.12);
+line([['۵', 'g'], ['تا', 'g'], ['۸٪', 'g']], 'mid glow', 'top:1206px; right:116px; font-size:132px; z-index:12', W(68) - 0.08, S[5] - 0.12, { stagger: 0.1 });
+line([['بازده'], ['اجاره'], ['در'], ['سال']], 'low glow', 'top:1336px; left:84px; font-size:44px; z-index:12', W(71) - 0.05, S[5] - 0.12);
+
+// S6 agriculture
+line([['کشاورزی', 'g']], 'mid', 'top:292px; right:124px; font-size:140px', W(73) - 0.08, S[6] - 0.12);
+line([['با'], ['یارانه‌ی'], ['دولتی']], 'low', 'top:450px; right:132px; font-size:62px', W(75) - 0.05, S[6] - 0.12);
+pop('<b>✓</b> باغ مدرن', 'chip ok', 'top:1120px; right:170px', W(78) - 0.05, S[6] - 0.12, -3);
+pop('<b>✓</b> آبیاری قطره‌ای', 'chip ok', 'top:1216px; right:130px', W(81) - 0.05, S[6] - 0.12, 2);
+
+// S7 production + Meghri map
+line([['تولید', 'g']], 'mid', 'top:292px; right:124px; font-size:140px', W(83) - 0.08, S[7] - 0.12);
+line([['منطقه‌ی'], ['آزاد'], ['مگری']], 'low', 'top:450px; right:132px; font-size:62px', W(85) - 0.05, S[7] - 0.12);
+const mapCard = pop(`
+  <svg width="600" height="190" viewBox="0 0 600 190" style="display:block">
+    <path id="route" d="M520 96 C 440 40, 380 40, 300 96 S 160 150, 80 96" fill="none" stroke="#e23fd6" stroke-width="7" stroke-linecap="round" stroke-dasharray="14 14"/>
+    <g font-family="AbarMid" font-size="34" text-anchor="middle" fill="#1d1b19">
+      <circle id="n1" cx="520" cy="96" r="16" fill="#f5862b"/><text x="520" y="160">ایران</text>
+      <circle id="n2" cx="300" cy="96" r="20" fill="#e23fd6"/><text x="300" y="160">مگری</text>
+      <circle id="n3" cx="80" cy="96" r="16" fill="#f5862b"/><text x="80" y="160">اوراسیا</text>
+    </g>
+  </svg>`, 'card', 'top:1130px; left:240px; width:600px; height:200px; padding:4px 0', W(88) - 0.05, S[7] - 0.12, -1.5);
+pop('<b>۰٪</b> مالیات بر سود', 'chip', 'top:640px; left:120px', W(92) - 0.05, S[7] - 0.12, -4);
+pop('<b>۰٪</b> گمرک', 'chip', 'top:740px; left:150px', W(96) - 0.05, S[7] - 0.12, 3);
+
+// S8 tourism
+line([['گردشگری', 'g']], 'mid', 'top:292px; right:124px; font-size:140px', W(103) - 0.08, S[8] - 0.12);
+const counter = line([['۰', 'g']], 'mid glow', 'top:1206px; right:116px; font-size:132px; z-index:12', W(105) - 0.1, S[8] - 0.12);
+line([['سفر'], ['از'], ['ایران'], ['در'], ['سال']], 'low glow', 'top:1336px; left:80px; font-size:44px; z-index:12', W(110) - 0.05, S[8] - 0.12);
+
+// S9 ending
+line([['ارمنستان']], 'low', 'top:300px; right:124px; font-size:84px', W(113) - 0.08, DUR + 1);
+line([['فرصته', 'g']], 'mid', 'top:350px; left:130px; font-size:150px', W(114) - 0.08, DUR + 1);
+const check = pop(`
+  <div style="font-family:AbarLow;font-size:40px;line-height:1.75;padding:18px 34px 22px">
+    <div class="ck"><b style="font-family:AbarMid;color:#2f7d4f">✓</b> زمین: فقط با سند کاداستر</div>
+    <div class="ck"><b style="font-family:AbarMid;color:#2f7d4f">✓</b> بانک: قبل از انتقال پول</div>
+    <div class="ck"><b style="font-family:AbarMid;color:#2f7d4f">✓</b> اقامت: با شرایط قانون جدید</div>
+  </div>`, 'card', 'top:720px; left:200px; width:680px', W(115) - 0.05, DUR + 1, -2);
+const cta = el('قبل از هر قدم، با ما مشورت کن', '', 'opacity:0'); cta.id = 'cta';
+const disc = el('این ویدیو مشاوره‌ی حقوقی نیست', '', 'opacity:0'); disc.id = 'disclaimer';
+
+// ---------- captions ----------
+const CAP = [
+ [['تو',0],['ارمنستان',1],['سرمایه‌گذاری',2],['نکن...',4]],
+ [['مگه',5],['اینکه',6],['این',7],['سه',8],['تا',9],['حقیقت',10],['رو',11],['بدونی',12]],
+ [['یک:',13],['زمین',14],['به',15],['اسم',16],['خارجی',17],['ثبت',18],['نمی‌شه',19]],
+ [['و',20],['تا',21],['سندت',22],['توی',23],['کاداستر',24],['ثبت',25],['نشه،',26],['مالک',27],['نیستی',28]],
+ [['قولنامه',29],['یعنی',30],['کلاه!',31]],
+ [['دو:',32],['بانک‌ها',33],['با',34],['ایرانی‌ها',35],['سخت‌گیرن',36]],
+ [['قبل',37],['از',38],['انتقال',39],['پول،',40],['تکلیف',41],['حساب',42],['رو',43],['روشن',44],['کن',45]],
+ [['سه:',46],['از',47],['دهم',48],['آبان',49],['۱۴۰۵',50]],
+ [['ثبت',51],['شرکت',52],['به‌تنهایی',53],['دیگه',55],['اقامت',56],['نمیاره',57]],
+ [['حالا',58],['خبر',59],['خوب:',60],['خرید',61],['آپارتمان',62],['آزاده',63]],
+ [['و',64],['اجاره‌ش',65],['سالی',66],['حدود',67],['پنج',68],['تا',69],['هشت',70],['درصد',71],['برمی‌گردونه',72]],
+ [['کشاورزی،',73],['با',74],['یارانه‌ی',75],['دولتی',76]],
+ [['برای',77],['باغ',78],['مدرن',79],['و',80],['آبیاری',81],['قطره‌ای',82]],
+ [['تولید،',83],['در',84],['منطقه‌ی',85],['آزاد',86],['مگری،',87],['کنار',88],['مرز',89],['ایران',90]],
+ [['بدون',91],['مالیات',92],['بر',93],['سود',94],['و',95],['گمرک',96]],
+ [['با',97],['راه',98],['به',99],['بازار',100],['اوراسیا',101]],
+ [['و',102],['گردشگری:',103],['سالی',104],['حدود',105],['صد',106],['و',107],['هشتاد',108],['هزار',109],['سفر',110],['از',111],['ایران',112]],
+ [['ارمنستان',113],['فرصته،',114],['به',115],['شرطی',116],['که',117],['چشم‌بسته',118],['وارد',120],['نشی',121]],
+ [['قبل',122],['از',123],['هر',124],['قدم،',125],['با',126],['ما',127],['مشورت',128],['کن',129]],
+];
+const capEl = document.getElementById('captions');
+const capNodes = CAP.map(ch => {
+  const d = document.createElement('div');
+  d.style.display = 'none';
+  d.innerHTML = ch.map(([w]) => `<span class="cw">${w}</span>`).join(' ');
+  capEl.appendChild(d);
+  return { d, spans: [...d.querySelectorAll('.cw')], t0: W(ch[0][1]) - 0.08, idx: ch.map(c => c[1]) };
+});
+
+// ---------- vf ruler ----------
+(function () {
+  const ns = 'http://www.w3.org/2000/svg', vf = document.getElementById('vf'), g = document.getElementById('vfg');
+  function tick(y, label) {
+    const l = document.createElementNS(ns, 'line');
+    l.setAttribute('x1', 22); l.setAttribute('x2', 46); l.setAttribute('y1', y); l.setAttribute('y2', y); g.appendChild(l);
+    const tx = document.createElementNS(ns, 'text'); tx.setAttribute('x', 26); tx.setAttribute('y', y - 8); tx.textContent = label; vf.appendChild(tx);
+  }
+  [9, 8, 7, 6, 5, 4, 3, 2, 1].forEach((n, i) => tick(430 + i * 52, n));
+  [1, 2, 3, 4, 5, 6].forEach((n, i) => tick(1470 + i * 52, n));
+})();
+
+// ---------- image loading ----------
+const cache = new Map();
+function img(src) {
+  if (cache.has(src)) return cache.get(src);
+  const im = new Image(); im.src = src;
+  const p = im.decode().then(() => im).catch(() => null);
+  cache.set(src, p);
+  if (cache.size > 80) cache.delete(cache.keys().next().value);
+  return p;
+}
+const pad = (n, k = 4) => String(n).padStart(k, '0');
+
+// ---------- sticker drawing ----------
+const cv = document.getElementById('cv'), cx = cv.getContext('2d');
+const small = document.createElement('canvas'), sx = small.getContext('2d');
+function drawPixel(im, block, clipPoly) {
+  const w = Math.max(1, Math.round(600 / block)), h = Math.max(1, Math.round(760 / block));
+  small.width = w; small.height = h;
+  sx.imageSmoothingEnabled = true; sx.drawImage(im, 0, 0, w, h);
+  cx.save();
+  if (clipPoly) { cx.beginPath(); clipPoly.forEach(([x, y], i) => i ? cx.lineTo(x * 600, y * 760) : cx.moveTo(x * 600, y * 760)); cx.closePath(); cx.clip(); }
+  cx.imageSmoothingEnabled = false; cx.drawImage(small, 0, 0, w, h, 0, 0, 600, 760);
+  cx.restore();
+}
+const MOSAIC = [[0, .18], [.18, .18], [.18, .26], [.26, .26], [.26, .44], [.32, .44], [.32, .58], [.22, .58], [.22, .66], [.12, .66], [.12, .74], [0, .74]];
+
+function clipState(t) {
+  let k = 0;
+  for (let i = 0; i < CLIPS.length; i++) if (t >= CLIPS[i][1]) k = i;
+  const next = CLIPS[k + 1], cur = CLIPS[k];
+  let use = k, block = 1;
+  if (next && t >= next[1] - PRE) { block = lerp(1, 44, eIn(prog(t, next[1] - PRE, PRE))); }
+  if (t < cur[1] + POST && k > 0) { block = Math.max(block, lerp(44, 1, eOut(prog(t, cur[1], POST)))); }
+  const [name, start] = CLIPS[use];
+  const local = Math.max(0, t - (start - PRE));
+  const n = Math.min(FR[name], Math.floor(local * FPS) + 1);
+  return { src: `../build/frames/${name}/${pad(n)}.jpg`, block, name };
+}
+
+// ---------- render ----------
+const stage = document.getElementById('stage'), sticker = document.getElementById('sticker');
+const palmTL = document.getElementById('palmTL'), palmBR = document.getElementById('palmBR');
+const propTR = document.getElementById('propTR'), propBL = document.getElementById('propBL');
+const warm = document.getElementById('warm'), grain = document.getElementById('grain');
+const marker = document.getElementById('marker'), tc = document.getElementById('tc');
+const STAMP_HITS = ITEMS.filter(i => i.kind === 'stamp').map(i => i.tin + 0.12);
+
+function sceneIndex(t) { let k = 0; for (let i = 0; i < S.length; i++) if (t >= S[i]) k = i; return k; }
+
+function applyItems(t) {
+  for (const it of ITEMS) {
+    const vis = t >= it.tin - 0.01 && t < it.tout + 0.35;
+    it.d.style.display = vis ? '' : 'none';
+    if (!vis) continue;
+    const out = eIn(prog(t, it.tout, 0.3));
+    if (it.kind === 'line') {
+      it.ws.forEach((w, i) => {
+        const p = eOut(prog(t, it.tin + i * it.stagger, 0.42));
+        w.style.opacity = (p * (1 - out)).toFixed(3);
+        w.style.transform = `translateY(${((1 - p) * it.from - out * 30).toFixed(1)}px)`;
+        w.style.filter = `blur(${((1 - p) * 10 + out * 6).toFixed(1)}px)`;
+      });
+    } else if (it.kind === 'stamp') {
+      const p = prog(t, it.tin, 0.2);
+      const s = lerp(2.3, 1, eOut(p));
+      it.d.style.opacity = (clamp(p * 3) * (1 - out)).toFixed(3);
+      it.d.style.transform = `rotate(${it.rot}deg) scale(${s.toFixed(3)})`;
+    } else if (it.kind === 'pop') {
+      const p = prog(t, it.tin, 0.45);
+      const s = lerp(0.6, 1, eBack(p));
+      it.d.style.opacity = (clamp(p * 2.5) * (1 - out)).toFixed(3);
+      it.d.style.transform = `rotate(${it.rot}deg) scale(${(s * (1 - out * 0.15)).toFixed(3)}) translateY(${(-out * 20).toFixed(1)}px)`;
+    } else if (it.kind === 'fade') {
+      const p = eOut(prog(t, it.tin, 0.35));
+      it.d.style.opacity = (p * (1 - out)).toFixed(3);
+    }
+  }
+}
+
+function applyCaptions(t) {
+  let cur = -1;
+  capNodes.forEach((c, i) => { if (t >= c.t0) cur = i; });
+  const endAll = WE(129) + 0.6;
+  capNodes.forEach((c, i) => {
+    const on = i === cur && t < endAll;
+    c.d.style.display = on ? '' : 'none';
+    if (!on) return;
+    const pin = eOut(prog(t, c.t0, 0.18));
+    c.d.style.opacity = pin.toFixed(3);
+    c.d.style.transform = `translateY(${((1 - pin) * 14).toFixed(1)}px)`;
+    c.spans.forEach((s, j) => {
+      const spoken = t >= W(c.idx[j]) - 0.04;
+      s.style.opacity = spoken ? '1' : '0.32';
+    });
+  });
+}
+
+window.renderFrame = async function (t) {
+  const k = sceneIndex(t);
+
+  // camera: slow breathing + stamp shake
+  let shx = 0, shy = 0;
+  for (const h of STAMP_HITS) {
+    const d = t - h;
+    if (d >= 0 && d < 0.3) { const a = 14 * Math.exp(-d * 14); shx += a * Math.sin(d * 90); shy += a * Math.cos(d * 70); }
+  }
+  const zoom = 1.0 + 0.012 * Math.sin(t * 0.45) + 0.01 * eOut(prog(t, 0, 1.2));
+  stage.style.transform = `translate(${shx.toFixed(1)}px, ${shy.toFixed(1)}px) scale(${zoom.toFixed(4)})`;
+
+  // warm light after the "good news"
+  warm.style.opacity = (0.85 * eInOut(prog(t, S[4] - 0.1, 0.9))).toFixed(3);
+  grain.style.transform = `translate(${(Math.floor(t * 12) * 37) % 200}px, ${(Math.floor(t * 12) * 53) % 200}px)`;
+
+  // sticker transform
+  let rot = ROT[k];
+  let scale = 1;
+  const T = S[k];
+  if (k > 0) {
+    const p = prog(t, T - 0.1, 0.55);
+    rot = lerp(ROT[k - 1], ROT[k], eBack(p));
+    scale = 1 - 0.06 * Math.sin(Math.PI * clamp(p * 1.3));
+  } else {
+    const p = prog(t, 0, 0.6);
+    rot = lerp(-9, ROT[0], eBack(p)); scale = lerp(1.18, 1, eOut(p));
+  }
+  rot += 0.6 * Math.sin(t * 0.7);
+  const fy = 6 * Math.sin(t * 0.9);
+  sticker.style.transform = `translateY(${fy.toFixed(1)}px) rotate(${rot.toFixed(2)}deg) scale(${scale.toFixed(4)})`;
+
+  // props float
+  propTR.style.transform = `rotate(${(-18 + 4 * Math.sin(t * 0.5)).toFixed(2)}deg) translateY(${(8 * Math.sin(t * 0.8)).toFixed(1)}px)`;
+  propBL.style.transform = `rotate(${(24 + 4 * Math.sin(t * 0.43 + 1)).toFixed(2)}deg) translateY(${(8 * Math.sin(t * 0.7 + 2)).toFixed(1)}px)`;
+
+  // viewfinder progress
+  marker.setAttribute('transform', `translate(0, ${(430 + 416 * (t / DUR)).toFixed(1)})`);
+  const sec = Math.floor(t), fr = Math.floor((t - sec) * FPS);
+  tc.textContent = `00:${pad(sec, 2)}:${pad(fr, 2)}`;
+
+  applyItems(t);
+  applyCaptions(t);
+
+  // counter (S8)
+  {
+    const p = eOut(prog(t, W(105), WE(109) - W(105)));
+    const n = Math.round(lerp(0, 180000, p) / 1000) * 1000;
+    counter.querySelector('.w').textContent = n.toLocaleString('fa-IR');
+  }
+  // map route + checklist ticks
+  {
+    const route = mapCard.querySelector('#route');
+    const p = eInOut(prog(t, W(88) + 0.1, 1.4));
+    route.style.strokeDashoffset = (-t * 40).toFixed(1);
+    route.style.opacity = p.toFixed(3);
+    mapCard.querySelector('#n3').setAttribute('r', (16 + 6 * Math.max(0, Math.sin((t - W(101)) * 8)) * (t > W(101) ? Math.exp(-(t - W(101)) * 2) : 0)).toFixed(1));
+    check.querySelectorAll('.ck').forEach((c, i) => { c.style.opacity = eOut(prog(t, W(116) + i * 0.35, 0.3)).toFixed(3); });
+    const pc = prog(t, W(122) - 0.08, 0.45);
+    cta.style.opacity = clamp(pc * 2.5).toFixed(3);
+    cta.style.transform = `translateX(-50%) scale(${(lerp(0.6, 1, eBack(pc)) * (1 + 0.025 * Math.sin(Math.max(0, t - W(122)) * 6))).toFixed(3)})`;
+    disc.style.opacity = eOut(prog(t, W(122), 0.5)).toFixed(3);
+  }
+
+  // images: footage + palm shadows
+  const cs = clipState(t);
+  const pf = Math.floor(t * 15) % 282, pidx = pf < 141 ? pf + 1 : 282 - pf;
+  const pf2 = (pidx + 70) % 141 + 1;
+  const [im, a, b] = await Promise.all([img(cs.src), img(`../build/palm/${pad(pidx)}.png`), img(`../build/palm/${pad(pf2)}.png`)]);
+  if (a) palmTL.src = a.src;
+  if (b) palmBR.src = b.src;
+  if (im) {
+    cx.clearRect(0, 0, 600, 760);
+    if (cs.block > 1.5) drawPixel(im, cs.block);
+    else {
+      cx.drawImage(im, 0, 0, 600, 760);
+      if (k === 0 && t > 0.35) drawPixel(im, 26, MOSAIC);
+    }
+  }
+  if (a) await palmTL.decode().catch(() => {});
+  if (b) await palmBR.decode().catch(() => {});
+  return true;
+};
+window.DURATION = DUR;
+</script>
+</body>
+</html>
