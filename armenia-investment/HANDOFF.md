@@ -62,3 +62,15 @@ The last line is now «ارمنستان فرصته، اگه درست وارد ب
 user's own voice; `comp/vo_words.js` currently holds the Shahram timings for words 0–112 plus provisional timings for
 the 21 new ending tokens (113–133), only for previews. When the recording arrives: Scribe it, align its words to the
 134 script tokens, fit to ≤50 s with `fit_vo.py`, regenerate `vo_words.js`, re-mix and re-render.
+
+## Narration: the user's own voice (current)
+
+- Recording: `audio/vo/takes/user_take1.m4a` (65.9 s, kept out of git). Room noise removed with the ElevenLabs voice
+  isolator → `user_take1.isolated.mp3`; Scribe transcript with word times → `user_take1.words.json` (both out of git).
+- Fit: `python3 -I scripts/fit_vo.py audio/vo/takes/user_take1.isolated.mp3 audio/vo/takes/user_take1.words.json 48.9`
+  keeps at most 0.16 s mid-sentence, 0.30 s after a sentence and 0.55 s after «نکن», then stretches ≈1.15× (pitch and
+  formants kept) to 48.9 s.
+- The user read «حقیقتو» and «هزار و چهارصد و پنج» and «واردش بشی»; `scripts/canon_words.py` maps the 137 spoken tokens
+  onto the 134 script tokens (`audio/vo/narration.canonical.json`, `comp/vo_words.js`) so every cue keeps its index.
+  Captions show what was said («حقیقتو», «واردش»).
+- `mix_audio.py` adds a high-pass and light compression on the voice before the duck and the -14 LUFS master.

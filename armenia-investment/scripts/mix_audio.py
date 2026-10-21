@@ -1,8 +1,8 @@
 # Mix narration, ducked music bed and SFX into audio/mix.wav (50 s, -14 LUFS for Instagram).
 import json, subprocess
 VO_OFF, DUR = 0.30, 50.0
-w = json.load(open("audio/vo/narration.words.json"))["words"]
-W = lambda i: w[i]["start"] + VO_OFF
+w = json.load(open("audio/vo/narration.canonical.json"))        # [start, end] per script token (scripts/canon_words.py)
+W = lambda i: w[i][0] + VO_OFF
 scene_t = [W(i) - 0.12 for i in [13, 32, 46, 58, 73, 83, 102, 113]]
 stamps = [W(4) - 0.06 + 0.12, W(18) - 0.04 + 0.12, W(56) - 0.04 + 0.12]
 whooshes = [t - 0.25 for t in scene_t]
@@ -14,7 +14,8 @@ for t in stamps:
 for t in whooshes:
     inputs += ["-i", "audio/sfx/takes/whoosh1.mp3"]; fx.append(("whoosh", t))
 
-g = [f"[0:a]aresample=48000,adelay={int(VO_OFF*1000)}:all=1,apad=whole_dur={DUR},asplit=2[vo][vosc]",
+g = [f"[0:a]aresample=48000,highpass=f=80,acompressor=threshold=0.12:ratio=3:attack=6:release=90:makeup=1.4,"
+     f"adelay={int(VO_OFF*1000)}:all=1,apad=whole_dur={DUR},asplit=2[vo][vosc]",
      f"[1:a]aresample=48000,atrim=0:{DUR},afade=t=in:d=0.4,afade=t=out:st={DUR-1.6}:d=1.6,volume=0.42[mus]",
      "[mus][vosc]sidechaincompress=threshold=0.035:ratio=5:attack=25:release=350:makeup=1[bed]"]
 labels = []

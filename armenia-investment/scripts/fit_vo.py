@@ -3,7 +3,8 @@
 import json, subprocess, sys
 src, words_json, target = sys.argv[1], sys.argv[2], float(sys.argv[3])
 words = [w for w in json.load(open(words_json))["words"] if w["type"] == "word"]
-CAP, HOOK_CAP, PAD = 0.22, 0.55, 0.06          # max pause kept; the hook's dramatic pause is longer
+CAP, END_CAP, HOOK_CAP, PAD = 0.16, 0.30, 0.55, 0.06   # max pause kept mid-sentence / after a sentence / after the hook
+words_src = sys.argv[4] if len(sys.argv) > 4 else None   # optional: transcript of a different file than the audio
 total = float(subprocess.check_output(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", src]))
 
 # keep-segments: speech runs with gaps capped
@@ -12,7 +13,7 @@ start = max(0.0, words[0]["start"] - PAD)
 cut = 0.0
 for a, b in zip(words, words[1:]):
     gap = b["start"] - a["end"]
-    cap = HOOK_CAP if a["text"].startswith("نکن") else CAP
+    cap = HOOK_CAP if a["text"].startswith("نکن") else (END_CAP if a["text"].endswith((".", "!", "؟")) else CAP)
     if gap > cap:
         end = a["end"] + cap / 2
         keep.append((start, end))
