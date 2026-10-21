@@ -1,8 +1,9 @@
 # Armenia investment reel — how to rebuild
 
 50 s, 1080×1920, 30 fps. Script approved by the client (see the scenario doc). Style follows the client's reference:
-cream paper, real palm-leaf shadow, cut-out apricots in the corners, real footage inside a tilted white "sticker",
-camera viewfinder UI, pixel-mosaic transitions. Fonts: Abar Mid Bold (headlines) and Abar Low Regular (secondary text).
+real palm-leaf shadow, cut-out apricots in the corners, real footage inside a tilted white "sticker", camera viewfinder
+UI, pixel-mosaic transitions. Colour theme follows the client's reel covers and logo: dark green gradient, gold
+headlines, white text (the first cut used cream paper with pink/orange; changed on the client's request). Fonts: Abar Mid Bold (headlines) and Abar Low Regular (secondary text).
 
 ## Inputs that are not in git
 
@@ -53,3 +54,11 @@ NODE_PATH=/opt/node-tools/node_modules node scripts/render_cover.js   # cover-10
 
 The 1080×1920 file is the cover to upload; the 1080×1440 file is the centre crop the profile grid shows.
 Outputs: `deliverables/armenia-investment-cover.png`, `deliverables/armenia-investment-cover-grid.png`.
+
+## Ending (changed after the first cut)
+
+The last line is now «ارمنستان فرصته، اگه درست وارد بشی. برای سرمایه‌گذاری یا کار ملکی، شماره‌ت رو کامنت کن تا
+کارشناس‌هامون باهات تماس بگیرن.» with a gold «شماره‌ت رو کامنت کن» card. The narration will be re-recorded in the
+user's own voice; `comp/vo_words.js` currently holds the Shahram timings for words 0–112 plus provisional timings for
+the 21 new ending tokens (113–133), only for previews. When the recording arrives: Scribe it, align its words to the
+134 script tokens, fit to ≤50 s with `fit_vo.py`, regenerate `vo_words.js`, re-mix and re-render.
