@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="fa">
+<head>
+<meta charset="utf-8">
+<title>Armenia company slides</title>
+<style>
+  /* Lalezar (OFL), the page's own post font; split like fontsource so ZWNJ and Persian digits come from the arabic file */
+  @font-face { font-family: "Lalezar"; src: url("fonts/lalezar-arabic-400-normal.woff2") format("woff2"); font-display: block;
+    unicode-range: U+0600-06FF, U+0750-077F, U+200C-200E, U+2010-2011, U+FB50-FDFF, U+FE70-FEFC; }
+  @font-face { font-family: "Lalezar"; src: url("fonts/lalezar-latin-400-normal.woff2") format("woff2"); font-display: block;
+    unicode-range: U+0000-00FF, U+2013-2014, U+2018-201E, U+2026; }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #111; width: 1080px; }
+
+  .slide {
+    position: relative; width: 1080px; height: 1080px; overflow: hidden;
+    /* sampled from the page's posts: light at the left edge, dark at the right, darker toward the bottom */
+    background:
+      linear-gradient(to bottom, rgba(6, 16, 8, 0) 48%, rgba(6, 16, 8, .34) 100%),
+      linear-gradient(to right, #4b634f 0%, #3f5845 24%, #344b3c 50%, #273e2d 76%, #1d3222 100%);
+  }
+  .tex { position: absolute; inset: 0; pointer-events: none; }
+  .tex.mottle { opacity: .10; mix-blend-mode: soft-light; }
+  .tex.grain { opacity: .07; mix-blend-mode: overlay; }
+
+  .stack {
+    position: absolute; left: 40px; right: 40px; top: 46px; bottom: 170px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    direction: rtl; text-align: center; font-family: "Lalezar", "Noto Color Emoji", sans-serif;
+    color: #fff; font-synthesis: none;
+  }
+  .grp { display: flex; flex-direction: column; align-items: center; }
+  .ln { white-space: nowrap; }
+  .e { font-family: "Noto Color Emoji", sans-serif; text-shadow: none !important; font-size: .82em; display: inline-block;
+       transform: translateY(-.06em); margin: 0 .12em; }
+
+  .label { line-height: 1.5; }
+  .title { line-height: 1.32; }
+  .body { line-height: 1.62; }
+  .close { line-height: 1.36; }
+
+  .logo { position: absolute; right: 40px; bottom: 34px; width: 138px; filter: drop-shadow(0 6px 12px rgba(0, 0, 0, .3)); }
+</style>
+</head>
+<body>
+<div id="deck"></div>
+
+<svg width="0" height="0" style="position:absolute">
+  <filter id="mottle"><feTurbulence type="fractalNoise" baseFrequency=".004 .006" numOctaves="3" seed="7"/></filter>
+  <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/></filter>
+</svg>
+
+<script>
+// Slide copy follows SCENARIO.md (approved text); emojis and line breaks are design only.
+// Group kinds: label (small, blue outline), title (red outline), body (blue outline), close (red outline, the punch line).
+const SLIDES = [
+  [ // 1 cover
+    { k: 'title', size: 74, lines: ['🇦🇲 اگه این ۳ نکته رو درباره‌ی', 'ثبت شرکت تو ارمنستان نمی‌دونی،'] },
+    { k: 'title', size: 118, gap: 4, lines: ['پاتو اونجا نذار! ⛔'] },
+    { k: 'body', size: 52, gap: 46, lines: ['⏳ قبل از اینکه وقت و پولت رو هدر بدی،', 'ورق بزن 👈'] },
+  ],
+  [ // 2 truth 1
+    { k: 'label', lines: ['حقیقت تلخ ۱ از ۳'] },
+    { k: 'title', size: 100, gap: 4, lines: ['🪪 ثبت شرکت = اقامت؟', 'دیگه نه!'] },
+    { k: 'body', size: 50, gap: 30, lines: ['📅 از ۱۰ آبان ۱۴۰۵، با قانون جدید اتباع خارجی ارمنستان،',
+      'برای گرفتن اقامت از طریق شرکت باید حداقل',
+      '۲ میلیون درام (حدود ۵ هزار دلار) 💰',
+      'سرمایه‌ی ثبتی تو شرکتت گذاشته باشی.'] },
+    { k: 'close', size: 66, gap: 30, lines: ['❌ شرکت کاغذی = پرونده‌ی ردشده.'] },
+  ],
+  [ // 3 truth 2
+    { k: 'label', lines: ['حقیقت تلخ ۲ از ۳'] },
+    { k: 'title', size: 100, gap: 4, lines: ['🏦 شرکت ثبت شد...', 'ولی حساب بانکی نه!'] },
+    { k: 'body', size: 50, gap: 30, lines: ['خیلی از بانک‌های ارمنستان با پاسپورت ایرانی سخت‌گیرن. 🛂',
+      'اگه از قبل ندونی کدوم بانک و با چه مدارکی،',
+      'شرکتت ثبت میشه ولی نمی‌تونی',
+      'حتی یه درام هم جابه‌جا کنی.'] },
+    { k: 'close', size: 62, gap: 30, lines: ['✅ تکلیف بانک رو قبل از ثبت شرکت', 'روشن کن، نه بعدش.'] },
+  ],
+  [ // 4 truth 3
+    { k: 'label', lines: ['حقیقت تلخ ۳ از ۳'] },
+    { k: 'title', size: 100, gap: 4, lines: ['🧾 درآمد نداری؟', 'گزارش مالیاتی که داری!'] },
+    { k: 'body', size: 50, gap: 30, lines: ['حتی اگه شرکتت یه درام هم درآمد نداشته باشه،',
+      'باید گزارش‌های مالیاتی‌ش رو سر وقت بدی.',
+      'خیلی‌ها شرکت ثبت می‌کنن و برمی‌گردن ایران؛ ✈️',
+      'چند ماه بعد با جریمه و یه پرونده‌ی خراب',
+      'برای اقامتشون روبه‌رو میشن.'] },
+    { k: 'close', size: 66, gap: 30, lines: ['💣 شرکت بدون حسابدار، بمب ساعتیه.'] },
+  ],
+  [ // 5 good news
+    { k: 'title', size: 100, lines: ['🎉 حالا خبر خوب:'] },
+    { k: 'body', size: 56, gap: 0, lines: ['ارمنستان هنوز یکی از بهترین گزینه‌ها', 'برای ایرانی‌هاست'] },
+    { k: 'body', size: 46, gap: 26, lines: ['✅ ورود بدون ویزا برای ایرانی‌ها (تا ۹۰ روز)',
+      '✅ ثبت شرکت معمولاً تو ۱ تا ۲ روز کاری',
+      '✅ مالکیت ۱۰۰٪ شرکت برای خارجی‌ها',
+      '✅ همسایه‌ی ایران؛ مرز زمینی و یه پرواز کوتاه تا تهران',
+      '✅ اقامت برای تو و خانواده‌ت، با مسیر اقامت دائم',
+      '✅ راه ورود به بازار اوراسیا (روسیه، قزاقستان، بلاروس و...)'] },
+  ],
+  [ // 6 our service
+    { k: 'title', size: 96, lines: ['🤝 از ثبت شرکت تا کارت اقامت،', 'کنارتیم'] },
+    { k: 'body', size: 50, gap: 30, lines: ['1️⃣ مشاوره و انتخاب نوع شرکت و رژیم مالیاتی درست',
+      '2️⃣ ثبت شرکت و آدرس قانونی',
+      '3️⃣ همراهی برای افتتاح حساب بانکی',
+      '4️⃣ حسابداری و گزارش‌های مالیاتی سر وقت',
+      '5️⃣ پرونده‌ی اقامت تو و خانواده‌ت، طبق قانون جدید'] },
+    { k: 'close', size: 68, gap: 30, lines: ['💪 تو فقط تصمیم بگیر؛ بقیه‌ش با ما.'] },
+  ],
+  [ // 7 call to action
+    { k: 'body', size: 56, lines: ['🇦🇲 می‌خوای تو هم تو ارمنستان', 'شرکت ثبت کنی و اقامت بگیری؟'] },
+    { k: 'title', size: 104, gap: 34, lines: ['شماره‌ی واتساپت رو', 'همین الان دایرکت بفرست 📩'] },
+    { k: 'body', size: 54, gap: 26, lines: ['📞 تا کارشناس‌هامون باهات تماس بگیرن.'] },
+    { k: 'body', size: 38, gap: 40, lines: ['این پست رو برای کسی که به مهاجرت فکر می‌کنه بفرست'] },
+  ],
+];
+
+// Outline as rings of text-shadow: round outer corners like the reference (text-stroke gives mitred ones
+// and eats into the white fill). Rings at R, 2R/3 and R/3 so thin stems leave no gap.
+function outline(color, R, drop) {
+  const s = [];
+  for (const r of [R, R * 2 / 3, R / 3]) {
+    const n = Math.max(16, Math.round(2 * Math.PI * r / 1.2));
+    for (let i = 0; i < n; i++) {
+      const a = 2 * Math.PI * i / n;
+      s.push(`${(r * Math.cos(a)).toFixed(2)}px ${(r * Math.sin(a)).toFixed(2)}px 0 ${color}`);
+    }
+  }
+  if (drop) s.push(drop);
+  return s.join(',');
+}
+const RED = '#c42c27', BLUE = '#1d45c2';
+const STYLE = {
+  label: () => outline(BLUE, 4),
+  title: size => outline(RED, size * .1, '0 6px 14px rgba(0,0,0,.35)'),
+  close: size => outline(RED, size * .1, '0 5px 12px rgba(0,0,0,.3)'),
+  body: size => outline(BLUE, Math.max(3.5, size * .085)),
+};
+
+const EMOJI = /(\p{RI}\p{RI}|[0-9#*]️?⃣|\p{Extended_Pictographic}️?(?:‍\p{Extended_Pictographic}️?)*)/u;
+function lineHTML(text) {
+  return text.split(EMOJI).filter(Boolean).map(part =>
+    EMOJI.test(part) && part.match(EMOJI)[0] === part ? `<span class="e">${part}</span>` : part.replace(/</g, '&lt;')).join('');
+}
+
+const deck = document.getElementById('deck');
+SLIDES.forEach((groups, i) => {
+  const s = document.createElement('section');
+  s.className = 'slide'; s.id = 's' + (i + 1);
+  s.innerHTML = `<svg class="tex mottle" width="1080" height="1080"><rect width="100%" height="100%" filter="url(#mottle)"/></svg>
+    <svg class="tex grain" width="1080" height="1080"><rect width="100%" height="100%" filter="url(#grain)"/></svg>
+    <div class="stack"></div><img class="logo" src="assets/logo.png" alt="">`;
+  const stack = s.querySelector('.stack');
+  groups.forEach(g => {
+    const d = document.createElement('div');
+    d.className = 'grp ' + g.k;
+    d.dataset.size = g.size || 46;
+    if (g.gap) d.style.marginTop = g.gap + 'px';
+    d.innerHTML = g.lines.map(t => `<div class="ln">${lineHTML(t)}</div>`).join('');
+    stack.appendChild(d);
+  });
+  deck.appendChild(s);
+});
+
+// Fit: shrink a group until its widest line fits, then shrink the whole slide if the stack overflows.
+const MAX_W = 990;
+function apply(grp, size) {
+  grp.style.fontSize = size + 'px';
+  grp.style.textShadow = STYLE[grp.classList[1]](size);
+}
+function lineWidth(el) { const r = document.createRange(); r.selectNodeContents(el); return r.getBoundingClientRect().width; }
+window.fitAll = () => {
+  const report = [];
+  document.querySelectorAll('.slide').forEach(slide => {
+    const grps = [...slide.querySelectorAll('.grp')];
+    grps.forEach(g => apply(g, +g.dataset.size));
+    grps.forEach(g => {
+      const w = Math.max(...[...g.children].map(lineWidth));
+      if (w > MAX_W) apply(g, Math.floor(+g.dataset.size * MAX_W / w));
+    });
+    const stack = slide.querySelector('.stack');
+    let k = 1;
+    while (stack.scrollHeight > stack.clientHeight && k > .7) {
+      k -= .02;
+      grps.forEach(g => apply(g, Math.floor(parseFloat(g.style.fontSize) * .98)));
+    }
+    report.push({ slide: slide.id, sizes: grps.map(g => parseFloat(g.style.fontSize)), overflow: stack.scrollHeight - stack.clientHeight });
+  });
+  return report;
+};
+</script>
+</body>
+</html>

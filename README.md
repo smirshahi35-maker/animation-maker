@@ -112,3 +112,20 @@ ffmpeg -i renders/argon-webinar-reel.mp4 -c:v copy -af loudnorm=I=-14:TP=-1.5:LR
 
 - گوینده: Shahram (ElevenLabs v3)؛ خوانش ۶۰٫۵ ثانیه‌ای با کوتاه کردن مکث‌ها و کشش زمانی rubberband (حدود ۱٫۲ برابر، بدون تغییر زیر و بمی) به ۴۸٫۹ ثانیه رسید.
 - رندر: صفحهٔ `comp/index.html` فریم‌به‌فریم با Playwright گرفته می‌شود (`scripts/render.js`)؛ زمان‌بندی همهٔ متن‌ها و زیرنویس‌ها از زمان کلمات گوینده (Scribe) است.
+
+## پست اسلایدی «ثبت شرکت در ارمنستان»
+
+پروژهٔ `armenia-company-slides/` (۷ اسلاید ۱۰۸۰×۱۰۸۰): سناریو در `armenia-company-slides/SCENARIO.md`، متن و چیدمان
+اسلایدها در آرایهٔ `SLIDES` داخل `armenia-company-slides/slides.html`. سبک از پست‌های اسلایدی پیج کارفرما: پس‌زمینهٔ
+سبز تیره (روشن از چپ، تیره به راست و پایین)، تیتر سفید با دورخط قرمز ضخیم، متن سفید با دورخط آبی، ایموجی سر خط‌ها و لوگوی
+IRAM CO. پایین راست. فونت: Lalezar (مجوز OFL، داخل گیت). خروجی: `deliverables/armenia-company-slides/`.
+
+- دورخط با حلقه‌های `text-shadow` ساخته می‌شود (گوشه‌های گرد و بدون خوردن پرشدگی سفید)، نه `-webkit-text-stroke`.
+- اگر خطی از ۹۹۰ پیکسل پهن‌تر شود، اندازهٔ همان گروه کوچک می‌شود؛ گزارش اندازه‌ها هنگام رندر چاپ می‌شود.
+- لوگو در گیت نیست؛ از کاور ریل قبلی بریده می‌شود.
+
+```bash
+cd armenia-company-slides
+python3 -I scripts/logo_from_cover.py ../deliverables/armenia-investment-cover.png assets/logo.png
+NODE_PATH=/opt/node-tools/node_modules node scripts/render.js   # renders/slide-1.png … slide-7.png
+```

@@ -68,3 +68,5 @@ armenia-investment/audio/vo/takes/*
 # armenia-investment: the client's logo (original and cut-out) stays out of the public repo
 armenia-investment/assets/
 armenia-investment/cover/cover-*.png
+# armenia-company-slides: the client logo cut-out is rebuilt by scripts/logo_from_cover.py; keep it out of the repo
+armenia-company-slides/assets/
