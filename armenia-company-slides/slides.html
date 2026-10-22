@@ -14,7 +14,7 @@
   body { background: #111; width: 1080px; }
 
   .slide {
-    position: relative; width: 1080px; height: 1080px; overflow: hidden;
+    position: relative; width: 1080px; height: var(--slide-h, 1080px); overflow: hidden;
     /* sampled from the page's posts: light at the left edge, dark at the right, darker toward the bottom */
     background:
       linear-gradient(to bottom, rgba(6, 16, 8, 0) 48%, rgba(6, 16, 8, .34) 100%),
@@ -144,18 +144,23 @@ function lineHTML(text) {
 }
 
 const deck = document.getElementById('deck');
+// ?h=1350 renders the 4:5 feed size: same width, taller canvas, type 10% larger (the fit below still caps line width)
+const H = +new URLSearchParams(location.search).get('h') || 1080;
+const GROW = H > 1080 ? 1.1 : 1;
+document.documentElement.style.setProperty('--slide-h', H + 'px');
+
 SLIDES.forEach((groups, i) => {
   const s = document.createElement('section');
   s.className = 'slide'; s.id = 's' + (i + 1);
-  s.innerHTML = `<svg class="tex mottle" width="1080" height="1080"><rect width="100%" height="100%" filter="url(#mottle)"/></svg>
-    <svg class="tex grain" width="1080" height="1080"><rect width="100%" height="100%" filter="url(#grain)"/></svg>
+  s.innerHTML = `<svg class="tex mottle" width="100%" height="100%"><rect width="100%" height="100%" filter="url(#mottle)"/></svg>
+    <svg class="tex grain" width="100%" height="100%"><rect width="100%" height="100%" filter="url(#grain)"/></svg>
     <div class="stack"></div><img class="logo" src="assets/logo.png" alt="">`;
   const stack = s.querySelector('.stack');
   groups.forEach(g => {
     const d = document.createElement('div');
     d.className = 'grp ' + g.k;
-    d.dataset.size = g.size || 46;
-    if (g.gap) d.style.marginTop = g.gap + 'px';
+    d.dataset.size = Math.round((g.size || 46) * GROW);
+    if (g.gap) d.style.marginTop = Math.round(g.gap * GROW) + 'px';
     d.innerHTML = g.lines.map(t => `<div class="ln">${lineHTML(t)}</div>`).join('');
     stack.appendChild(d);
   });

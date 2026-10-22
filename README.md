@@ -128,7 +128,10 @@ IRAM CO. پایین راست. فونت: Lalezar (مجوز OFL، داخل گیت)
 cd armenia-company-slides
 python3 -I scripts/logo_from_cover.py ../deliverables/armenia-investment-cover.png assets/logo.png
 NODE_PATH=/opt/node-tools/node_modules node scripts/render.js   # renders/slide-1.png … slide-7.png
+NODE_PATH=/opt/node-tools/node_modules node scripts/render.js renders --h 1350 --only 1   # کاور ۱۰۸۰×۱۳۵۰ (۴:۵)
 ```
+
+در اندازهٔ ۴:۵ فقط ارتفاع بوم بیشتر می‌شود و متن‌ها ۱۰٪ بزرگ‌تر؛ خروجی کاور: `deliverables/armenia-company-slides/cover-1080x1350.png`.
 
 سناریو برای کارفرما به‌صورت PDF (A4، ۷ صفحه، فونت Lalezar و Vazirmatn، رنگ‌های سبز و طلایی لوگو) از
 `armenia-company-slides/pdf/scenario.html` ساخته می‌شود؛ پیش‌نمایش اسلایدها در آن JPEG کوچک‌شده‌اند (`pdf/img/`) تا
