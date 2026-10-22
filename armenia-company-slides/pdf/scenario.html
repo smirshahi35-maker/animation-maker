@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>سناریوی پست اسلایدی — ثبت شرکت در ارمنستان</title>
+<style>
+  @font-face { font-family: "Lalezar"; src: url("../fonts/lalezar-arabic-400-normal.woff2") format("woff2");
+    unicode-range: U+0600-06FF, U+0750-077F, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+  @font-face { font-family: "Lalezar"; src: url("../fonts/lalezar-latin-400-normal.woff2") format("woff2");
+    unicode-range: U+0000-00FF, U+2013-2014, U+2018-201E, U+2026; }
+  @font-face { font-family: "Vazirmatn"; font-weight: 400; src: url("../fonts/vazirmatn-arabic-400-normal.woff2") format("woff2");
+    unicode-range: U+0600-06FF, U+0750-077F, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+  @font-face { font-family: "Vazirmatn"; font-weight: 400; src: url("../fonts/vazirmatn-latin-400-normal.woff2") format("woff2");
+    unicode-range: U+0000-00FF, U+2013-2014, U+2018-201E, U+2026; }
+  @font-face { font-family: "Vazirmatn"; font-weight: 500; src: url("../fonts/vazirmatn-arabic-500-normal.woff2") format("woff2");
+    unicode-range: U+0600-06FF, U+0750-077F, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+  @font-face { font-family: "Vazirmatn"; font-weight: 500; src: url("../fonts/vazirmatn-latin-500-normal.woff2") format("woff2");
+    unicode-range: U+0000-00FF, U+2013-2014, U+2018-201E, U+2026; }
+  @font-face { font-family: "Vazirmatn"; font-weight: 700; src: url("../fonts/vazirmatn-arabic-700-normal.woff2") format("woff2");
+    unicode-range: U+0600-06FF, U+0750-077F, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+  @font-face { font-family: "Vazirmatn"; font-weight: 700; src: url("../fonts/vazirmatn-latin-700-normal.woff2") format("woff2");
+    unicode-range: U+0000-00FF, U+2013-2014, U+2018-201E, U+2026; }
+  @font-face { font-family: "Vazirmatn"; font-weight: 800; src: url("../fonts/vazirmatn-arabic-800-normal.woff2") format("woff2");
+    unicode-range: U+0600-06FF, U+0750-077F, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+  @font-face { font-family: "Vazirmatn"; font-weight: 800; src: url("../fonts/vazirmatn-latin-800-normal.woff2") format("woff2");
+    unicode-range: U+0000-00FF, U+2013-2014, U+2018-201E, U+2026; }
+
+  :root {
+    --g900: #10231a; --g800: #17301f; --g700: #23432f; --g600: #2f5a3f; --g100: #e4ece6; --g50: #f1f5f2;
+    --gold: #c19a45; --gold-l: #e2c98a; --gold-50: #faf4e4;
+    --red: #c42c27; --red-50: #fbecea; --blue: #1d45c2;
+    --ink: #17221c; --muted: #66756c; --line: #dfe5e0; --paper: #fbfaf6;
+  }
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #ddd; }
+  body { font-family: "Vazirmatn", "Noto Color Emoji", sans-serif; color: var(--ink); font-size: 10.2pt; line-height: 1.95;
+         -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page { position: relative; width: 210mm; height: 297mm; overflow: hidden; background: var(--paper); page-break-after: always; }
+  .page:last-child { page-break-after: auto; }
+  .display { font-family: "Lalezar", "Noto Color Emoji", sans-serif; font-weight: 400; line-height: 1.35; }
+  .emoji { font-family: "Noto Color Emoji", sans-serif; }
+
+  /* ---------- running header / footer ---------- */
+  .head { position: absolute; top: 0; left: 0; right: 0; height: 19mm; padding: 0 16mm; display: flex; align-items: center;
+          justify-content: space-between; border-bottom: .3mm solid var(--line); }
+  .head .t { font-size: 8.6pt; color: var(--muted); font-weight: 500; }
+  .head .t b { color: var(--g700); font-weight: 700; }
+  .head img { height: 11mm; }
+  .foot { position: absolute; bottom: 0; left: 0; right: 0; height: 13mm; padding: 0 16mm; display: flex; align-items: center;
+          justify-content: space-between; font-size: 8pt; color: var(--muted); }
+  .foot .pn { font-weight: 700; color: var(--g700); }
+  .foot .bar { position: absolute; top: 0; right: 16mm; left: 16mm; height: .3mm; background: linear-gradient(to left, var(--gold), var(--gold-l) 40%, transparent); }
+  .body { position: absolute; top: 19mm; bottom: 13mm; left: 16mm; right: 16mm; padding-top: 8mm; }
+
+  .kicker { font-size: 8.4pt; font-weight: 700; color: var(--gold); letter-spacing: 0; margin-bottom: 1mm; }
+  h2.sec { font-family: "Lalezar", sans-serif; font-weight: 400; font-size: 25pt; color: var(--g800); line-height: 1.3; }
+  .lead { color: var(--muted); font-size: 10pt; margin-top: 1.5mm; max-width: 150mm; }
+
+  /* ---------- cover ---------- */
+  .cover { background:
+      radial-gradient(120mm 90mm at 85% 8%, rgba(193, 154, 69, .20), transparent 70%),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, .28) 100%),
+      linear-gradient(to left, #2f4a37 0%, #22392a 45%, #13261a 100%);
+    color: #fff; }
+  .cover .frame { position: absolute; inset: 9mm; border: .35mm solid rgba(226, 201, 138, .45); border-radius: 4mm; }
+  .cover .logo { position: absolute; top: 22mm; right: 22mm; width: 30mm; filter: drop-shadow(0 2mm 3mm rgba(0, 0, 0, .3)); }
+  .cover .tag { position: absolute; top: 27mm; left: 22mm; font-size: 8.6pt; font-weight: 700; color: var(--g900);
+                background: var(--gold-l); padding: .6mm 3.2mm; border-radius: 10mm; }
+  .cover .titles { position: absolute; right: 22mm; left: 22mm; top: 78mm; }
+  .cover .eyebrow { font-size: 11pt; font-weight: 500; color: var(--gold-l); }
+  .cover h1 { font-family: "Lalezar", sans-serif; font-weight: 400; font-size: 44pt; line-height: 1.22; margin-top: 2mm; }
+  .cover h1 .gold { color: var(--gold-l); }
+  .cover .sub { margin-top: 5mm; font-size: 11pt; color: rgba(255, 255, 255, .82); max-width: 118mm; line-height: 1.9; }
+  .cover .fan { position: absolute; left: 20mm; bottom: 46mm; width: 112mm; height: 92mm; }
+  .cover .fan img { position: absolute; width: 62mm; border-radius: 2.4mm; box-shadow: 0 4mm 9mm rgba(0, 0, 0, .45);
+                    border: .5mm solid rgba(255, 255, 255, .14); }
+  .cover .fan .a { left: 0; top: 22mm; transform: rotate(-9deg); }
+  .cover .fan .b { left: 24mm; top: 8mm; transform: rotate(-2deg); }
+  .cover .fan .c { left: 50mm; top: 0; transform: rotate(6deg); z-index: 2; }
+  .cover .meta { position: absolute; right: 22mm; bottom: 24mm; display: grid; grid-template-columns: auto auto; gap: 1.6mm 8mm;
+                 font-size: 9.4pt; }
+  .cover .meta dt { color: var(--gold-l); font-weight: 500; }
+  .cover .meta dd { color: #fff; font-weight: 700; }
+
+  /* ---------- overview ---------- */
+  .facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4mm; margin-top: 7mm; }
+  .fact { background: #fff; border: .3mm solid var(--line); border-radius: 3mm; padding: 4mm 5mm; }
+  .fact .k { font-size: 8.2pt; font-weight: 700; color: var(--gold); }
+  .fact .v { font-size: 10.4pt; font-weight: 500; color: var(--ink); line-height: 1.8; margin-top: .6mm; }
+  .fact.wide { grid-column: 1 / -1; }
+
+  .arc-title { margin-top: 12mm; font-weight: 800; font-size: 11pt; color: var(--g800); }
+  .arc { position: relative; display: grid; grid-template-columns: repeat(7, 1fr); gap: 2mm; margin-top: 4mm; }
+  .arc::before { content: ""; position: absolute; top: 6.5mm; right: 8mm; left: 8mm; height: .5mm;
+                 background: linear-gradient(to left, var(--red), var(--g600) 30%, var(--g600) 62%, var(--gold)); }
+  .step { position: relative; text-align: center; }
+  .step .dot { width: 13mm; height: 13mm; border-radius: 50%; margin: 0 auto; display: flex; align-items: center; justify-content: center;
+               font-family: "Lalezar", sans-serif; font-size: 15pt; color: #fff; background: var(--g700);
+               box-shadow: 0 0 0 1.4mm var(--paper); }
+  .step.hook .dot { background: var(--red); }
+  .step.good .dot { background: var(--gold); }
+  .step.serve .dot { background: var(--g600); }
+  .step.cta .dot { background: var(--g900); color: var(--gold-l); }
+  .step .n { font-weight: 800; font-size: 8.8pt; margin-top: 2.2mm; color: var(--ink); line-height: 1.5; }
+  .step .d { font-size: 7.6pt; color: var(--muted); line-height: 1.55; margin-top: .6mm; }
+
+  .strip { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2mm; margin-top: 4mm; }
+  .strip figure { text-align: center; }
+  .strip img { width: 100%; border-radius: 1.6mm; box-shadow: 0 1mm 2.5mm rgba(16, 35, 26, .25); display: block; }
+  .strip figcaption { font-size: 7.6pt; color: var(--muted); margin-top: 1.4mm; font-weight: 500; }
+
+  /* ---------- slide cards ---------- */
+  .card { display: grid; grid-template-columns: 1fr 66mm; gap: 7mm; padding: 6mm 0; border-bottom: .3mm solid var(--line); }
+  .card:last-child { border-bottom: 0; }
+  .card .copy { order: 0; }
+  .card .shot { order: 1; }
+  .card .shot img { width: 66mm; height: 66mm; border-radius: 2.6mm; box-shadow: 0 2mm 5mm rgba(16, 35, 26, .28); display: block; }
+  .card .shot .cap { font-size: 7.4pt; color: var(--muted); text-align: center; margin-top: 1.8mm; }
+  .card .top { display: flex; align-items: center; gap: 3mm; }
+  .card .num { font-family: "Lalezar", sans-serif; font-size: 13pt; color: #fff; background: var(--g800); width: 10mm; height: 10mm;
+               border-radius: 2.4mm; display: flex; align-items: center; justify-content: center; line-height: 1; padding-top: .8mm; }
+  .card .role { font-size: 8.4pt; font-weight: 700; color: var(--g700); background: var(--g100); padding: .4mm 3mm; border-radius: 10mm; }
+  .card .role.red { color: var(--red); background: var(--red-50); }
+  .card .role.gold { color: #8a6a22; background: var(--gold-50); }
+  .card h3 { font-family: "Lalezar", "Noto Color Emoji", sans-serif; font-weight: 400; font-size: 18.5pt; color: var(--g900);
+             line-height: 1.4; margin-top: 3mm; }
+  .card .lbl { font-size: 7.8pt; font-weight: 800; color: var(--gold); margin-top: 2.6mm; }
+  .card p, .card li { font-size: 10pt; line-height: 1.9; }
+  .card ul { list-style: none; margin-top: .8mm; }
+  .card ul li { position: relative; padding-right: 5mm; }
+  .card ul li::before { content: ""; position: absolute; right: .6mm; top: 3.1mm; width: 1.8mm; height: 1.8mm; border-radius: 50%; background: var(--gold); }
+  .card ol { list-style: none; counter-reset: s; margin-top: .8mm; }
+  .card ol li { counter-increment: s; position: relative; padding-right: 7mm; }
+  .card ol li::before { content: counter(s, persian); position: absolute; right: 0; top: .9mm; width: 4.8mm; height: 4.8mm; border-radius: 50%;
+                        background: var(--g800); color: #fff; font-size: 7.4pt; font-weight: 700; line-height: 4.9mm; text-align: center; }
+  .punch { margin-top: 3mm; border-right: 1.2mm solid var(--red); background: var(--red-50); padding: 2mm 4mm; border-radius: 1.6mm 0 0 1.6mm;
+           font-weight: 800; color: #8f1f1b; font-size: 10.4pt; }
+  .punch.green { border-color: var(--g700); background: var(--g50); color: var(--g800); }
+  .punch.big { font-size: 13pt; }
+  .alts { margin-top: 3mm; background: #fff; border: .3mm dashed var(--gold); border-radius: 2.4mm; padding: 2.2mm 4mm; }
+  .alts .lbl { margin-top: 0; }
+  .alts li { font-size: 9.6pt; }
+
+  /* ---------- caption / notes ---------- */
+  .caption { margin-top: 6mm; background: #fff; border: .3mm solid var(--line); border-radius: 3mm; padding: 5mm 6mm; }
+  .caption p { font-size: 10.2pt; line-height: 2; margin-bottom: 2mm; }
+  .tags { display: flex; flex-wrap: wrap; gap: 1.6mm; margin-top: 2mm; direction: rtl; }
+  .tags span { font-size: 8.4pt; font-weight: 500; color: var(--g700); background: var(--g50); border: .3mm solid var(--g100);
+               padding: .2mm 2.6mm; border-radius: 10mm; }
+
+  .checks { margin-top: 5mm; display: grid; gap: 2.4mm; }
+  .chk { display: grid; grid-template-columns: 6mm 1fr; gap: 3mm; align-items: start; background: #fff; border: .3mm solid var(--line);
+         border-radius: 2.4mm; padding: 2.6mm 4mm; }
+  .chk .box { width: 5mm; height: 5mm; border: .45mm solid var(--g700); border-radius: 1.2mm; margin-top: 1.6mm; }
+  .chk .tx { font-size: 9.8pt; line-height: 1.85; }
+  .chk .tx b { color: var(--g800); }
+  .chk .tx small { display: block; color: var(--muted); font-size: 8.2pt; }
+
+  .note { margin-top: 5mm; display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; }
+  .note > div { border-radius: 3mm; padding: 4mm 5mm; font-size: 9.6pt; line-height: 1.85; }
+  .note .urgent { background: var(--gold-50); border: .3mm solid var(--gold-l); }
+  .note .tip { background: var(--g50); border: .3mm solid var(--g100); }
+  .note .k { font-weight: 800; font-size: 9pt; color: #8a6a22; margin-bottom: 1mm; }
+  .note .tip .k { color: var(--g700); }
+  .note q { font-weight: 700; color: var(--ink); quotes: "«" "»"; }
+
+  .sources { margin-top: 4mm; font-size: 7.8pt; color: var(--muted); line-height: 1.8; }
+  .sources a { color: var(--g700); text-decoration: none; }
+
+  .approve { position: absolute; left: 0; right: 0; bottom: 6mm; background: var(--g800); color: #fff; border-radius: 3.4mm; padding: 5mm 6mm;
+             display: grid; grid-template-columns: 1.1fr 1fr; gap: 6mm; }
+  .approve h4 { font-family: "Lalezar", sans-serif; font-weight: 400; font-size: 15pt; color: var(--gold-l); line-height: 1.3; }
+  .approve .opts { margin-top: 2mm; display: grid; gap: 1.6mm; font-size: 9.6pt; }
+  .approve .opts span { display: flex; align-items: center; gap: 2.4mm; }
+  .approve .opts i { width: 4.6mm; height: 4.6mm; border: .45mm solid var(--gold-l); border-radius: 1mm; display: inline-block; }
+  .approve .sign { display: grid; gap: 4mm; font-size: 8.8pt; color: rgba(255, 255, 255, .8); align-content: end; }
+  .approve .sign div { border-bottom: .3mm solid rgba(226, 201, 138, .55); padding-bottom: 1mm; }
+</style>
+</head>
+<body>
+
+<!-- ============ 1. COVER ============ -->
+<section class="page cover">
+  <div class="frame"></div>
+  <img class="logo" src="../assets/logo.png" alt="IRAM CO.">
+  <div class="tag">برای تأیید کارفرما</div>
+
+  <div class="titles">
+    <div class="eyebrow">سناریوی پست اسلایدی اینستاگرام</div>
+    <h1>ثبت شرکت<br><span class="gold">در ارمنستان</span></h1>
+    <p class="sub">۷ اسلاید که با یه قلاب منفی شروع میشه، سه حقیقت تلخ رو رک میگه، فرصت رو نشون میده و مخاطب رو به ارسال شماره‌ی واتساپ در دایرکت دعوت می‌کنه.</p>
+  </div>
+
+  <div class="fan">
+    <img class="a" src="img/slide-2.jpg" alt="">
+    <img class="b" src="img/slide-7.jpg" alt="">
+    <img class="c" src="img/slide-1.jpg" alt="">
+  </div>
+
+  <dl class="meta">
+    <dt>پیج</dt><dd>iramco_persian</dd>
+    <dt>قالب</dt><dd>پست اسلایدی، ۷ اسلاید مربعی</dd>
+    <dt>تاریخ</dt><dd>۳۰ مهر ۱۴۰۵</dd>
+  </dl>
+</section>
+
+<!-- ============ 2. OVERVIEW ============ -->
+<section class="page">
+  <header class="head"><img src="../assets/logo.png" alt=""><div class="t"><b>سناریوی پست اسلایدی</b> · ثبت شرکت در ارمنستان</div></header>
+  <div class="body">
+    <div class="kicker">در یک نگاه</div>
+    <h2 class="sec">اول اعتماد، بعد فرصت</h2>
+    <p class="lead">پست با حقیقت‌هایی شروع میشه که بقیه نمیگن؛ همین صداقت باعث میشه مخاطب ایرانی تا آخر ورق بزنه و شماره‌ش رو بفرسته.</p>
+
+    <div class="facts">
+      <div class="fact"><div class="k">قالب</div><div class="v">پست اسلایدی اینستاگرام، ۷ اسلاید</div></div>
+      <div class="fact"><div class="k">لحن</div><div class="v">خودمونی، رک و دلسوز</div></div>
+      <div class="fact wide"><div class="k">مخاطب</div><div class="v">ایرانی‌هایی که به اقامت، مهاجرت یا راه انداختن کسب‌وکار خارج از ایران فکر می‌کنن</div></div>
+      <div class="fact wide"><div class="k">هدف و فراخوان</div><div class="v">ترغیب به اقامت و ثبت شرکت در ارمنستان؛ مخاطب شماره‌ی واتساپش رو دایرکت می‌فرسته تا کارشناس‌ها باهاش تماس بگیرن.</div></div>
+    </div>
+
+    <div class="arc-title">مسیر داستان</div>
+    <div class="arc">
+      <div class="step hook"><div class="dot">۱</div><div class="n">قلاب منفی</div><div class="d">پاتو اونجا نذار!</div></div>
+      <div class="step"><div class="dot">۲</div><div class="n">حقیقت تلخ ۱</div><div class="d">اقامت و قانون جدید</div></div>
+      <div class="step"><div class="dot">۳</div><div class="n">حقیقت تلخ ۲</div><div class="d">حساب بانکی</div></div>
+      <div class="step"><div class="dot">۴</div><div class="n">حقیقت تلخ ۳</div><div class="d">گزارش مالیاتی</div></div>
+      <div class="step good"><div class="dot">۵</div><div class="n">خبر خوب</div><div class="d">چرا هنوز ارمنستان</div></div>
+      <div class="step serve"><div class="dot">۶</div><div class="n">ما کنارتیم</div><div class="d">از ثبت تا اقامت</div></div>
+      <div class="step cta"><div class="dot">۷</div><div class="n">دایرکت</div><div class="d">شماره‌ی واتساپت رو بفرست</div></div>
+    </div>
+
+    <div class="arc-title">پیش‌نمایش طراحی</div>
+    <div class="strip">
+      <figure><img src="img/slide-1.jpg" alt=""><figcaption>کاور</figcaption></figure>
+      <figure><img src="img/slide-2.jpg" alt=""><figcaption>اسلاید ۲</figcaption></figure>
+      <figure><img src="img/slide-3.jpg" alt=""><figcaption>اسلاید ۳</figcaption></figure>
+      <figure><img src="img/slide-4.jpg" alt=""><figcaption>اسلاید ۴</figcaption></figure>
+      <figure><img src="img/slide-5.jpg" alt=""><figcaption>اسلاید ۵</figcaption></figure>
+      <figure><img src="img/slide-6.jpg" alt=""><figcaption>اسلاید ۶</figcaption></figure>
+      <figure><img src="img/slide-7.jpg" alt=""><figcaption>اسلاید ۷</figcaption></figure>
+    </div>
+  </div>
+  <footer class="foot"><div class="bar"></div><span>IRAM CO. · سناریوی پست اسلایدی</span><span class="pn"></span></footer>
+</section>
+
+<!-- ============ 3. SLIDES 1-2 ============ -->
+<section class="page">
+  <header class="head"><img src="../assets/logo.png" alt=""><div class="t"><b>اسلایدها</b> · ۱ و ۲</div></header>
+  <div class="body">
+    <div class="card">
+      <div class="copy">
+        <div class="top"><div class="num">۱</div><div class="role red">کاور · قلاب</div></div>
+        <h3>اگه این ۳ نکته رو درباره‌ی ثبت شرکت تو ارمنستان نمی‌دونی، پاتو اونجا نذار!</h3>
+        <div class="lbl">زیرتیتر</div>
+        <p>قبل از اینکه وقت و پولت رو هدر بدی، ورق بزن ←</p>
+        <div class="alts">
+          <div class="lbl">تیترهای جایگزین برای انتخاب</div>
+          <ul>
+            <li>حقیقت تلخی که هیچ‌کس درباره‌ی ثبت شرکت تو ارمنستان بهت نمیگه...</li>
+            <li>تو ارمنستان شرکت ثبت نکن! ...مگه اینکه این ۳ تا نکته رو بدونی</li>
+          </ul>
+        </div>
+      </div>
+      <div class="shot"><img src="img/slide-1.jpg" alt=""><div class="cap">پیش‌نمایش طراحی</div></div>
+    </div>
+
+    <div class="card">
+      <div class="copy">
+        <div class="top"><div class="num">۲</div><div class="role">حقیقت تلخ ۱ از ۳</div></div>
+        <h3>ثبت شرکت = اقامت؟ دیگه نه!</h3>
+        <div class="lbl">متن</div>
+        <p>از ۱۰ آبان ۱۴۰۵، با قانون جدید اتباع خارجی ارمنستان، برای گرفتن اقامت از طریق شرکت باید حداقل ۲ میلیون درام (حدود ۵ هزار دلار) سرمایه‌ی ثبتی تو شرکتت گذاشته باشی.</p>
+        <div class="punch">شرکت کاغذی = پرونده‌ی ردشده.</div>
+      </div>
+      <div class="shot"><img src="img/slide-2.jpg" alt=""><div class="cap">پیش‌نمایش طراحی</div></div>
+    </div>
+  </div>
+  <footer class="foot"><div class="bar"></div><span>IRAM CO. · سناریوی پست اسلایدی</span><span class="pn"></span></footer>
+</section>
+
+<!-- ============ 4. SLIDES 3-4 ============ -->
+<section class="page">
+  <header class="head"><img src="../assets/logo.png" alt=""><div class="t"><b>اسلایدها</b> · ۳ و ۴</div></header>
+  <div class="body">
+    <div class="card">
+      <div class="copy">
+        <div class="top"><div class="num">۳</div><div class="role">حقیقت تلخ ۲ از ۳</div></div>
+        <h3>شرکت ثبت شد... ولی حساب بانکی نه!</h3>
+        <div class="lbl">متن</div>
+        <p>خیلی از بانک‌های ارمنستان با پاسپورت ایرانی سخت‌گیرن. اگه از قبل ندونی کدوم بانک و با چه مدارکی، شرکتت ثبت میشه ولی نمی‌تونی حتی یه درام هم جابه‌جا کنی.</p>
+        <div class="punch">تکلیف بانک رو قبل از ثبت شرکت روشن کن، نه بعدش.</div>
+      </div>
+      <div class="shot"><img src="img/slide-3.jpg" alt=""><div class="cap">پیش‌نمایش طراحی</div></div>
+    </div>
+
+    <div class="card">
+      <div class="copy">
+        <div class="top"><div class="num">۴</div><div class="role">حقیقت تلخ ۳ از ۳</div></div>
+        <h3>درآمد نداری؟ گزارش مالیاتی که داری!</h3>
+        <div class="lbl">متن</div>
+        <p>حتی اگه شرکتت یه درام هم درآمد نداشته باشه، باید گزارش‌های مالیاتی‌ش رو سر وقت بدی. خیلی‌ها شرکت ثبت می‌کنن و برمی‌گردن ایران؛ چند ماه بعد با جریمه و یه پرونده‌ی خراب برای اقامتشون روبه‌رو میشن.</p>
+        <div class="punch">شرکت بدون حسابدار، بمب ساعتیه.</div>
+      </div>
+      <div class="shot"><img src="img/slide-4.jpg" alt=""><div class="cap">پیش‌نمایش طراحی</div></div>
+    </div>
+  </div>
+  <footer class="foot"><div class="bar"></div><span>IRAM CO. · سناریوی پست اسلایدی</span><span class="pn"></span></footer>
+</section>
+
+<!-- ============ 5. SLIDES 5-6 ============ -->
+<section class="page">
+  <header class="head"><img src="../assets/logo.png" alt=""><div class="t"><b>اسلایدها</b> · ۵ و ۶</div></header>
+  <div class="body">
+    <div class="card">
+      <div class="copy">
+        <div class="top"><div class="num">۵</div><div class="role gold">خبر خوب · چرخش داستان</div></div>
+        <h3>حالا خبر خوب: ارمنستان هنوز یکی از بهترین گزینه‌ها برای ایرانی‌هاست</h3>
+        <ul>
+          <li>ورود بدون ویزا برای ایرانی‌ها (تا ۹۰ روز)</li>
+          <li>ثبت شرکت معمولاً تو ۱ تا ۲ روز کاری</li>
+          <li>مالکیت ۱۰۰٪ شرکت برای خارجی‌ها</li>
+          <li>همسایه‌ی ایران؛ مرز زمینی و یه پرواز کوتاه تا تهران</li>
+          <li>اقامت برای تو و خانواده‌ت، با مسیر اقامت دائم</li>
+          <li>راه ورود به بازار اوراسیا (روسیه، قزاقستان، بلاروس و...)</li>
+        </ul>
+      </div>
+      <div class="shot"><img src="img/slide-5.jpg" alt=""><div class="cap">پیش‌نمایش طراحی</div></div>
+    </div>
+
+    <div class="card">
+      <div class="copy">
+        <div class="top"><div class="num">۶</div><div class="role">ما کنارتیم</div></div>
+        <h3>از ثبت شرکت تا کارت اقامت، کنارتیم</h3>
+        <ol>
+          <li>مشاوره و انتخاب نوع شرکت و رژیم مالیاتی درست</li>
+          <li>ثبت شرکت و آدرس قانونی</li>
+          <li>همراهی برای افتتاح حساب بانکی</li>
+          <li>حسابداری و گزارش‌های مالیاتی سر وقت</li>
+          <li>پرونده‌ی اقامت تو و خانواده‌ت، طبق قانون جدید</li>
+        </ol>
+        <div class="punch green">تو فقط تصمیم بگیر؛ بقیه‌ش با ما.</div>
+      </div>
+      <div class="shot"><img src="img/slide-6.jpg" alt=""><div class="cap">پیش‌نمایش طراحی</div></div>
+    </div>
+  </div>
+  <footer class="foot"><div class="bar"></div><span>IRAM CO. · سناریوی پست اسلایدی</span><span class="pn"></span></footer>
+</section>
+
+<!-- ============ 6. SLIDE 7 + CAPTION ============ -->
+<section class="page">
+  <header class="head"><img src="../assets/logo.png" alt=""><div class="t"><b>اسلاید ۷</b> · و کپشن</div></header>
+  <div class="body">
+    <div class="card">
+      <div class="copy">
+        <div class="top"><div class="num">۷</div><div class="role red">دعوت به اقدام</div></div>
+        <h3>می‌خوای تو هم تو ارمنستان شرکت ثبت کنی و اقامت بگیری؟</h3>
+        <div class="lbl">متن اصلی (بزرگ‌ترین متن اسلاید)</div>
+        <div class="punch big">شماره‌ی واتساپت رو همین الان دایرکت بفرست <span class="emoji">📩</span></div>
+        <div class="lbl">زیرش</div>
+        <p>تا کارشناس‌هامون باهات تماس بگیرن.</p>
+        <div class="lbl">پایین اسلاید (کوچک)</div>
+        <p>این پست رو برای کسی که به مهاجرت فکر می‌کنه بفرست؛ به‌همراه لوگو.</p>
+      </div>
+      <div class="shot"><img src="img/slide-7.jpg" alt=""><div class="cap">پیش‌نمایش طراحی</div></div>
+    </div>
+
+    <div class="kicker" style="margin-top:6mm">کپشن پیشنهادی</div>
+    <h2 class="sec" style="font-size:20pt">متن زیر پست</h2>
+    <div class="caption">
+      <p>ثبت شرکت تو ارمنستان سریع و ساده‌ست؛ ولی همین سادگی باعث میشه خیلی‌ها بی‌اطلاع واردش بشن و وقت و پولشون رو از دست بدن.</p>
+      <p>با قانون جدید اقامت ارمنستان (از ۱۰ آبان ۱۴۰۵)، ثبت شرکت به‌تنهایی دیگه اقامت نمیاره. اگه می‌خوای مسیرت از روز اول درست باشه، شماره‌ی واتساپت رو دایرکت بفرست تا کارشناس‌های ما باهات تماس بگیرن.</p>
+      <div class="tags">
+        <span>#ثبت_شرکت_در_ارمنستان</span><span>#اقامت_ارمنستان</span><span>#مهاجرت_به_ارمنستان</span><span>#ارمنستان</span>
+        <span>#ایروان</span><span>#مهاجرت</span><span>#اقامت_از_طریق_ثبت_شرکت</span><span>#کسب_و_کار_در_ارمنستان</span>
+      </div>
+    </div>
+  </div>
+  <footer class="foot"><div class="bar"></div><span>IRAM CO. · سناریوی پست اسلایدی</span><span class="pn"></span></footer>
+</section>
+
+<!-- ============ 7. NOTES + APPROVAL ============ -->
+<section class="page">
+  <header class="head"><img src="../assets/logo.png" alt=""><div class="t"><b>پیش از انتشار</b> · نکته‌ها و تأیید</div></header>
+  <div class="body">
+    <div class="kicker">نکته‌ها برای تأیید</div>
+    <h2 class="sec">این اعداد رو کارشناس حقوقی چک کنه</h2>
+    <p class="lead">عددها از خلاصه‌ی مؤسسه‌های حقوقی و خبری درباره‌ی قانون جدید برداشته شده، نه از متن خود قانون.</p>
+
+    <div class="checks">
+      <div class="chk"><div class="box"></div><div class="tx"><b>حداقل ۲ میلیون درام سرمایه‌ی ثبتی</b> برای اقامت از طریق شرکت<small>ماده‌ی ۲۹٫۴ قانون اتباع خارجی، اجرا از ۱۰ آبان ۱۴۰۵ (۱ نوامبر ۲۰۲۶)</small></div></div>
+      <div class="chk"><div class="box"></div><div class="tx"><b>ورود بدون ویزا</b> برای ایرانی‌ها تا ۹۰ روز</div></div>
+      <div class="chk"><div class="box"></div><div class="tx"><b>اقامت دائم</b> بعد از ۳ سال اقامت موقت در ۵ سال اخیر</div></div>
+      <div class="chk"><div class="box"></div><div class="tx"><b>اقامت خانواده</b> همراه متقاضی</div></div>
+    </div>
+
+    <div class="note">
+      <div class="urgent"><div class="k">اگه پست قبل از ۱۰ آبان منتشر بشه</div>می‌شه این خط فوریت رو به اسلاید ۷ اضافه کرد: <q>درخواست‌هایی که قبل از ۱۰ آبان ثبت بشن، هنوز با قانون قبلی بررسی میشن؛ وقت رو از دست نده.</q></div>
+      <div class="tip"><div class="k">اگه اسلاید ۵ شلوغ شد</div>مورد آخر (بازار اوراسیا) حذف‌شدنیه و بقیه‌ی پیام سر جاش می‌مونه.</div>
+    </div>
+
+    <div class="sources">منابع:
+      <a href="https://iravaban.net/en/575604.html">Iravaban</a>،
+      <a href="https://www.ey.com/en_am/technical/tax-and-law-alerts/amendments-to-the-ra-law-on-foreigners">EY Armenia</a>،
+      <a href="https://am.andersen.com/article/en/andersen-alert-2026-1-1/">Andersen Armenia</a>،
+      <a href="https://meduza.io/en/feature/2026/10/05/armenia-has-long-been-one-of-the-easiest-places-for-russians-to-relocate-new-residency-rules-are-about-to-make-staying-there-more-complicated">Meduza</a>
+    </div>
+
+    <div class="approve">
+      <div>
+        <h4>تأیید کارفرما</h4>
+        <div class="opts">
+          <span><i></i>تأیید، بدون تغییر</span>
+          <span><i></i>تأیید با اصلاحات (روی همین فایل یادداشت بذارید)</span>
+          <span><i></i>تیتر کاور: اصلی / جایگزین ۱ / جایگزین ۲</span>
+        </div>
+      </div>
+      <div class="sign">
+        <div>نام:</div>
+        <div>تاریخ:</div>
+        <div>امضا:</div>
+      </div>
+    </div>
+  </div>
+  <footer class="foot"><div class="bar"></div><span>IRAM CO. · سناریوی پست اسلایدی</span><span class="pn"></span></footer>
+</section>
+
+<script>
+  const pages = document.querySelectorAll('.page');
+  const fa = n => n.toLocaleString('fa-IR');
+  pages.forEach((p, i) => { const pn = p.querySelector('.pn'); if (pn) pn.textContent = `${fa(i + 1)} / ${fa(pages.length)}`; });
+</script>
+</body>
+</html>
