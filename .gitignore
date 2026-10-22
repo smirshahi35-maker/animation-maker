@@ -70,3 +70,5 @@ armenia-investment/assets/
 armenia-investment/cover/cover-*.png
 # armenia-company-slides: the client logo cut-out is rebuilt by scripts/logo_from_cover.py; keep it out of the repo
 armenia-company-slides/assets/
+# zip of deliverables/armenia-company-slides/*.png for sending; the PNGs themselves are tracked
+deliverables/armenia-company-slides.zip
