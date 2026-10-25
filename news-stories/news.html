@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="fa">
+<head>
+<meta charset="utf-8">
+<title>Armenia News</title>
+<style>
+  @font-face { font-family: "Lalezar"; src: url("fonts/Lalezar-ar.woff2") format("woff2"); unicode-range: U+0600-06FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; font-display: block; }
+  @font-face { font-family: "Lalezar"; src: url("fonts/Lalezar-latin.woff2") format("woff2"); unicode-range: U+0000-00FF; font-display: block; }
+  @font-face { font-family: "Vazirmatn"; src: url("fonts/Vazirmatn-Variable.ttf") format("truetype"); font-weight: 100 900; font-display: block; }
+
+  :root {
+    --green-1: #2f5e49;
+    --green-2: #1b4134;
+    --green-3: #10291f;
+    --ink: #0c2d22;
+    --muted: #5f7d70;
+    --cream: #f8f2e6;
+    --gold-1: #f0d48c;
+    --gold-2: #d9ae4c;
+    --gold-3: #b8862a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; }
+  body {
+    direction: rtl;
+    font-family: "Lalezar", "Vazirmatn", sans-serif;
+    color: #fff;
+    overflow: hidden;
+    position: relative;
+    background:
+      radial-gradient(ellipse 90% 45% at 85% 0%, rgba(80, 140, 108, .55) 0%, transparent 70%),
+      radial-gradient(ellipse 80% 40% at 10% 100%, rgba(0, 0, 0, .35) 0%, transparent 70%),
+      linear-gradient(180deg, var(--green-1) 0%, var(--green-2) 48%, var(--green-3) 100%);
+  }
+  .num { direction: ltr; unicode-bidi: isolate; display: inline-block; }
+
+  header { position: absolute; top: 150px; left: 60px; right: 60px; display: flex; align-items: center; gap: 18px; }
+  .pill {
+    padding: 10px 40px 4px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, var(--gold-1), var(--gold-2));
+    color: var(--ink);
+    font-size: 42px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .25);
+  }
+  .tag { padding: 8px 30px 2px; border-radius: 999px; border: 2px solid rgba(240, 212, 140, .7); color: var(--gold-1); font-size: 36px; }
+  .count { margin-inline-start: auto; font-family: "Vazirmatn"; font-weight: 700; font-size: 30px; color: rgba(248, 242, 230, .6); }
+
+  .visual {
+    position: absolute; top: 270px; left: 60px; right: 60px; height: 560px;
+    background: var(--cream);
+    border: 3px solid var(--gold-2);
+    border-radius: 44px;
+    color: var(--ink);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, .28);
+    overflow: hidden;
+  }
+
+  .text { position: absolute; top: 880px; left: 60px; right: 60px; text-align: center; }
+  h1 { font-weight: 400; font-size: 92px; line-height: 1.28; text-wrap: balance; text-shadow: 0 8px 24px rgba(0, 0, 0, .3); }
+  h1 .gold {
+    background: linear-gradient(180deg, #f7e2a6 0%, var(--gold-2) 60%, var(--gold-3) 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .sub { font-family: "Vazirmatn"; font-weight: 600; font-size: 36px; line-height: 1.5; text-wrap: balance; color: rgba(248, 242, 230, .82); margin-top: 10px; }
+  .rule { width: 240px; height: 4px; margin: 28px auto 0; border-radius: 4px; background: linear-gradient(90deg, transparent, var(--gold-2), transparent); }
+
+  .points {
+    position: absolute; left: 60px; right: 60px;
+    padding: 34px 44px;
+    border-radius: 36px;
+    border: 2px solid rgba(217, 174, 76, .55);
+    background: rgba(0, 0, 0, .18);
+    list-style: none;
+  }
+  .points li { display: flex; gap: 22px; font-family: "Vazirmatn"; font-weight: 600; font-size: 35px; line-height: 1.6; color: var(--cream); }
+  .points li + li { margin-top: 18px; }
+  .points li::before { content: ""; flex: none; width: 18px; height: 18px; margin-top: 21px; transform: rotate(45deg); border-radius: 3px; background: linear-gradient(135deg, var(--gold-1), var(--gold-3)); }
+  .points b { font-weight: 800; color: var(--gold-1); }
+
+  footer { position: absolute; left: 0; right: 0; text-align: center; font-family: "Vazirmatn"; font-weight: 500; font-size: 28px; color: rgba(248, 242, 230, .55); }
+
+  /* ---- visual 1: medal ---- */
+  .v-medal { display: flex; align-items: center; height: 100%; padding: 0 70px; }
+  .v-medal .score { flex: 1; }
+  .v-medal .lbl { font-family: "Vazirmatn"; font-weight: 700; font-size: 32px; color: var(--muted); }
+  .v-medal .big { font-size: 150px; line-height: 1.1; }
+  .v-medal .meta { display: flex; gap: 14px; margin-top: 10px; }
+  .chip { padding: 8px 24px 2px; border-radius: 999px; background: #ece3cf; font-size: 34px; color: var(--ink); }
+  .v-medal svg { width: 400px; height: 520px; flex: none; }
+
+  /* ---- visual 2: route ---- */
+  .v-route svg { display: block; width: 100%; height: 100%; }
+
+  /* ---- visual 3: ring ---- */
+  .v-ring svg { display: block; width: 100%; height: 100%; }
+</style>
+</head>
+<body>
+  <header>
+    <div class="pill">اخبار ارمنستان</div>
+    <div class="tag" id="tag"></div>
+    <div class="count" id="count"></div>
+  </header>
+  <section class="visual" id="visual"></section>
+  <section class="text">
+    <h1 id="headline"></h1>
+    <div class="sub" id="sub"></div>
+    <div class="rule"></div>
+  </section>
+  <ul class="points" id="points"></ul>
+  <footer id="source"></footer>
+
+<script>
+  const fa = s => String(s).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+
+  const armFlagCircle = (cx, cy, r, id) => `
+    <defs><clipPath id="${id}"><circle cx="${cx}" cy="${cy}" r="${r}"/></clipPath></defs>
+    <g clip-path="url(#${id})">
+      <rect x="${cx - r}" y="${cy - r}" width="${2 * r}" height="${2 * r / 3 + 1}" fill="#d90012"/>
+      <rect x="${cx - r}" y="${cy - r / 3}" width="${2 * r}" height="${2 * r / 3 + 1}" fill="#0033a0"/>
+      <rect x="${cx - r}" y="${cy + r / 3}" width="${2 * r}" height="${2 * r / 3}" fill="#f2a800"/>
+    </g>
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#fff" stroke-width="6"/>
+    <circle cx="${cx}" cy="${cy}" r="${r + 5}" fill="none" stroke="#d9ae4c" stroke-width="4"/>`;
+
+  const VISUALS = {
+    medal: () => `
+      <div class="v-medal">
+        <div class="score">
+          <div class="lbl">امتیاز فینال خرک حلقه</div>
+          <div class="big"><span class="num">${fa('15/300')}</span></div>
+          <div class="meta"><span class="chip">مدال طلا</span><span class="chip">روتردام <span class="num">${fa(2026)}</span></span></div>
+        </div>
+        <svg viewBox="0 0 400 520" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="mg" cx=".38" cy=".32" r=".8"><stop offset="0" stop-color="#fff1bf"/><stop offset=".45" stop-color="#eac45f"/><stop offset="1" stop-color="#b8862a"/></radialGradient>
+            <linearGradient id="mr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7e2a6"/><stop offset="1" stop-color="#a87920"/></linearGradient>
+            <filter id="ms" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#0c2d22" flood-opacity=".25"/></filter>
+          </defs>
+          <!-- ribbon in the Armenian tricolour -->
+          <g transform="translate(110 0) skewX(14)">
+            <rect x="0" y="0" width="34" height="250" fill="#d90012"/><rect x="34" y="0" width="34" height="250" fill="#0033a0"/><rect x="68" y="0" width="34" height="250" fill="#f2a800"/>
+          </g>
+          <g transform="translate(188 0) skewX(-14)">
+            <rect x="0" y="0" width="34" height="250" fill="#d90012"/><rect x="34" y="0" width="34" height="250" fill="#0033a0"/><rect x="68" y="0" width="34" height="250" fill="#f2a800"/>
+          </g>
+          <rect x="168" y="228" width="64" height="40" rx="10" fill="url(#mr)"/>
+          <g filter="url(#ms)">
+            <circle cx="200" cy="370" r="132" fill="url(#mr)"/>
+            <circle cx="200" cy="370" r="112" fill="url(#mg)"/>
+            <circle cx="200" cy="370" r="96" fill="none" stroke="#fff3c9" stroke-opacity=".7" stroke-width="3"/>
+          </g>
+          <text x="200" y="420" text-anchor="middle" font-family="Lalezar" font-size="150" fill="#8a6216" fill-opacity=".9">۱</text>
+        </svg>
+      </div>`,
+
+    route: () => `
+      <div class="v-route">
+        <svg viewBox="0 0 954 554" xmlns="http://www.w3.org/2000/svg" font-family="Lalezar">
+          <defs><pattern id="hatch" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="14" height="14" fill="#efe6d2"/><line x1="0" y1="0" x2="0" y2="14" stroke="#e4d8bd" stroke-width="5"/></pattern></defs>
+          <!-- Iran, south of the Aras -->
+          <rect x="0" y="420" width="954" height="134" fill="url(#hatch)"/>
+          <text x="477" y="512" text-anchor="middle" font-size="52" fill="#8b7a55">ایران</text>
+          <!-- Nakhchivan (west) -->
+          <path d="M40 268 Q120 222 230 220 Q320 226 390 292 L382 420 L40 420 Z" fill="#e9dcc0" stroke="#cdbb93" stroke-width="3"/>
+          <text x="200" y="345" text-anchor="middle" font-size="46" fill="#7a6a45">نخجوان</text>
+          <!-- Azerbaijan (east) -->
+          <path d="M520 420 L532 262 Q560 178 640 146 Q720 116 790 66 L914 58 L914 420 Z" fill="#e9dcc0" stroke="#cdbb93" stroke-width="3"/>
+          <text x="730" y="300" text-anchor="middle" font-size="46" fill="#7a6a45">آذربایجان</text>
+          <!-- Armenia, with Syunik as the southern strip -->
+          <path d="M160 70 Q250 34 360 52 Q470 30 580 46 Q690 40 790 66 Q720 116 640 146 Q560 178 532 262 L520 420 L382 420 L390 292 Q320 226 250 176 Q190 130 160 70 Z" fill="#d6e6da" stroke="#8fb39d" stroke-width="3"/>
+          <text x="470" y="140" text-anchor="middle" font-size="58" fill="#2f5e49">ارمنستان</text>
+          <text x="456" y="296" text-anchor="middle" font-size="34" fill="#2f5e49">سیونیک</text>
+          <!-- Aras river -->
+          <path d="M0 420 Q60 408 120 420 T240 420 T360 420 T480 420 T600 420 T720 420 T840 420 T960 420" fill="none" stroke="#6fa8d6" stroke-width="7"/>
+          <!-- the route -->
+          <path d="M150 384 L452 392 L760 384" fill="none" stroke="#b8862a" stroke-width="12" stroke-linecap="round" stroke-dasharray="2 22"/>
+          <circle cx="150" cy="384" r="13" fill="#d9ae4c" stroke="#fff" stroke-width="4"/>
+          <circle cx="760" cy="384" r="13" fill="#d9ae4c" stroke="#fff" stroke-width="4"/>
+          <g transform="translate(452 350)">
+            <rect x="-118" y="-40" width="236" height="56" rx="28" fill="#0c2d22"/>
+            <text x="0" y="0" text-anchor="middle" font-size="34" fill="#f0d48c">مسیر ترامپ</text>
+          </g>
+          <text x="934" y="534" text-anchor="start" font-family="Vazirmatn" font-weight="600" font-size="22" fill="#8b7a55">نقشه‌ی شماتیک</text>
+        </svg>
+      </div>`,
+
+    ring: () => {
+      const members = ['روسیه', 'بلاروس', 'قزاقستان', 'قرقیزستان', 'تاجیکستان'];
+      const cx = 370, cy = 280, R = 200;
+      let s = `<svg viewBox="0 0 954 554" xmlns="http://www.w3.org/2000/svg" font-family="Lalezar">
+        <circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="#cdbb93" stroke-width="4" stroke-dasharray="14 12"/>
+        <text x="${cx}" y="${cy - 8}" text-anchor="middle" font-size="44" fill="#0c2d22">پیمان</text>
+        <text x="${cx}" y="${cy + 46}" text-anchor="middle" font-size="44" fill="#0c2d22">امنیت جمعی</text>`;
+      // five members around the ring, leaving the right side open where Armenia stepped out
+      members.forEach((m, i) => {
+        const a = (110 + i * 50) * Math.PI / 180, x = cx + R * Math.cos(a), y = cy - R * Math.sin(a);
+        s += `<circle cx="${x}" cy="${y}" r="62" fill="#e4dac4" stroke="#cdbb93" stroke-width="3"/>
+              <text x="${x}" y="${y + 10}" text-anchor="middle" font-size="25" fill="#6b5c3c">${m}</text>`;
+      });
+      // the empty seat
+      const ea = 10 * Math.PI / 180, ex = cx + R * Math.cos(ea), ey = cy - R * Math.sin(ea);
+      s += `<circle cx="${ex}" cy="${ey}" r="62" fill="#f8f2e6" stroke="#b8862a" stroke-width="3" stroke-dasharray="8 7"/>`;
+      // Armenia outside the ring, with an arrow out
+      s += `<path d="M${ex + 72} ${ey - 8} Q ${ex + 100} ${ey - 26} ${ex + 118} ${ey - 30}" fill="none" stroke="#b8862a" stroke-width="8" stroke-linecap="round"/>
+            <polygon points="${ex + 140},${ey - 33} ${ex + 112},${ey - 46} ${ex + 116},${ey - 14}" fill="#b8862a"/>`;
+      s += armFlagCircle(810, 220, 82, 'af');
+      s += `<text x="810" y="360" text-anchor="middle" font-size="44" fill="#0c2d22">ارمنستان</text>`;
+      return `<div class="v-ring">${s}</svg></div>`;
+    },
+  };
+
+  const NEWS = [
+    {
+      tag: 'ورزش', visual: 'medal',
+      headline: 'هاملت مانوکیان <span class="gold">قهرمان جهان</span> شد',
+      sub: 'طلای خرک حلقه در مسابقات جهانی ژیمناستیک روتردام',
+      points: [
+        `مانوکیان با امتیاز <b><span class="num">${fa('15/300')}</span></b> در فینال خرک حلقه اول شد؛ فقط <span class="num">${fa('0/067')}</span> امتیاز بالاتر از نماینده‌ی ایتالیا.`,
+        'او نخستین ژیمناست ارمنی است که در خرک حلقه قهرمان جهان می‌شود.',
+        'مامیکون خاچاتریان، دیگر نماینده‌ی ارمنستان، در همین رشته <b>برنز</b> گرفت.',
+      ],
+      source: `۲ آبان ۱۴۰۵   |   منبع: آرمن‌پرس`,
+    },
+    {
+      tag: 'سیاست', visual: 'route',
+      headline: 'توافق <span class="gold">مسیر ترامپ</span> به صحن مجلس ارمنستان می‌رود',
+      sub: 'بررسی در صحن پارلمان، سه‌شنبه ۵ آبان',
+      points: [
+        'کمیسیون روابط خارجی مجلس ۲۹ مهر با <b>۴ رأی موافق و ۱ مخالف</b> آن را تأیید کرد.',
+        'سهم آمریکا در شرکت مجری پروژه <b>۷۴٪</b> و سهم ارمنستان <b>۲۶٪</b> است، برای دوره‌ی اولیه‌ی ۴۹ ساله.',
+        'عراقچی در ایروان: درباره‌ی حضور آمریکا نگرانی داریم، اما <b>به دوستان ارمنی‌مان اعتماد داریم.</b>',
+      ],
+      source: `منابع: آرمن‌پرس، آرمنین میرور اسپکتیتور`,
+    },
+    {
+      tag: 'سیاست', visual: 'ring',
+      headline: 'ارمنستان <span class="gold">عملاً</span> از پیمان امنیت جمعی خارج شده است',
+      sub: 'به گفته‌ی تالاتبک ماسادیکوف، دبیرکل این سازمان',
+      points: [
+        'ارمنستان اسناد سازمان را دریافت می‌کند، اما <b>در بحث‌ها، تصمیم‌ها و رزمایش‌ها</b> شرکت نمی‌کند.',
+        'وضعیت عضویت ارمنستان ممکن است در <b>نشست سران، ۲۰ آبان در مسکو</b>، بررسی شود.',
+        'ارمنستان هنوز به‌طور رسمی از این پیمان خارج نشده است.',
+      ],
+      source: `۱ آبان ۱۴۰۵   |   منابع: تاس، ماسیس‌پست`,
+    },
+  ];
+
+  const i = Math.max(1, Math.min(NEWS.length, +location.hash.slice(1) || 1)) - 1;
+  const n = NEWS[i];
+  document.getElementById('tag').textContent = n.tag;
+  document.getElementById('count').textContent = `خبر ${fa(i + 1)} از ${fa(NEWS.length)}`;
+  document.getElementById('visual').innerHTML = VISUALS[n.visual]();
+  document.getElementById('headline').innerHTML = n.headline;
+  document.getElementById('sub').textContent = n.sub;
+  document.getElementById('points').innerHTML = n.points.map(p => `<li><span>${p}</span></li>`).join('');
+  document.getElementById('source').textContent = n.source;
+
+  // stack the bullet box and source line under the headline, whatever its line count
+  document.fonts.ready.then(() => {
+    const text = document.querySelector('.text').getBoundingClientRect();
+    const pts = document.getElementById('points');
+    pts.style.top = (text.bottom + 34) + 'px';
+    document.getElementById('source').style.top = (pts.getBoundingClientRect().bottom + 26) + 'px';
+    document.body.dataset.ready = '1';
+  });
+</script>
+</body>
+</html>
