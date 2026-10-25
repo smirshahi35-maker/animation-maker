@@ -35,7 +35,7 @@
   }
   .num { direction: ltr; unicode-bidi: isolate; display: inline-block; }
 
-  header { position: absolute; top: 175px; left: 0; right: 0; text-align: center; }
+  header { position: absolute; top: 150px; left: 0; right: 0; text-align: center; }
   .pill {
     display: inline-block;
     padding: 10px 44px 4px;
@@ -45,13 +45,13 @@
     font-size: 44px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, .25);
   }
-  h1 { font-weight: 400; font-size: 160px; line-height: 1.15; margin-top: 18px; text-shadow: 0 10px 30px rgba(0, 0, 0, .3); }
+  h1 { font-weight: 400; font-size: 146px; line-height: 1.15; margin-top: 14px; text-shadow: 0 10px 30px rgba(0, 0, 0, .3); }
   h1 .gold {
     background: linear-gradient(180deg, #f7e2a6 0%, var(--gold-2) 60%, var(--gold-3) 100%);
     -webkit-background-clip: text; background-clip: text; color: transparent;
   }
   .sub { font-family: "Vazirmatn"; font-weight: 600; font-size: 38px; color: rgba(248, 242, 230, .82); margin-top: 6px; }
-  .rule { width: 240px; height: 4px; margin: 34px auto 0; border-radius: 4px; background: linear-gradient(90deg, transparent, var(--gold-2), transparent); }
+  .rule { width: 240px; height: 4px; margin: 26px auto 0; border-radius: 4px; background: linear-gradient(90deg, transparent, var(--gold-2), transparent); }
 
   .card {
     position: absolute; left: 60px; right: 60px;
@@ -62,30 +62,33 @@
     box-shadow: 0 18px 40px rgba(0, 0, 0, .28);
   }
 
-  .hero { top: 680px; height: 330px; display: flex; align-items: center; padding: 0 56px; }
+  .hero { top: 578px; height: 280px; display: flex; align-items: center; padding: 0 56px; }
   .hero .now { display: inline-block; padding: 6px 24px 2px; border-radius: 999px; background: var(--ink); color: var(--gold-1); font-size: 32px; }
-  .hero .cond { font-size: 86px; line-height: 1.2; margin-top: 6px; }
+  .hero .cond { font-size: 78px; line-height: 1.2; margin-top: 6px; }
   .hero .range { display: flex; gap: 18px; margin-top: 12px; }
   .chip { display: flex; align-items: baseline; gap: 12px; padding: 10px 24px 4px; border-radius: 999px; background: #ece3cf; }
   .chip .lbl { font-family: "Vazirmatn"; font-weight: 700; font-size: 26px; color: var(--muted); }
   .chip .val { font-size: 52px; line-height: 1; }
   .chip.hi .val { color: #c4532c; }
   .chip.lo .val { color: var(--rain); }
-  .hero .temp { margin-inline-start: auto; margin-top: 84px; font-size: 230px; line-height: 1; }
-  .hero .icon { position: absolute; left: 22px; top: -112px; width: 236px; height: 236px; filter: drop-shadow(0 10px 14px rgba(0, 0, 0, .22)); }
+  .hero .temp { margin-inline-start: auto; margin-top: 70px; font-size: 200px; line-height: 1; }
+  .hero .icon { position: absolute; left: 22px; top: -104px; width: 216px; height: 216px; filter: drop-shadow(0 10px 14px rgba(0, 0, 0, .22)); }
 
-  .timeline { top: 1050px; height: 440px; display: flex; padding: 36px 14px; }
+  .timeline { top: 890px; padding: 16px 14px 18px; }
+  .row { display: flex; }
+  .row-title { display: flex; align-items: center; gap: 22px; margin: 0 40px 10px; font-size: 36px; color: var(--muted); }
+  .row-title::before, .row-title::after { content: ""; flex: 1; height: 2px; background: rgba(12, 45, 34, .13); }
+  .row + .row-title { margin-top: 10px; }
   .slot { flex: 1; display: flex; flex-direction: column; align-items: center; }
   .slot + .slot { border-right: 2px dashed rgba(12, 45, 34, .13); }
-  .slot .part { font-family: "Vazirmatn"; font-weight: 700; font-size: 25px; color: var(--muted); }
-  .slot .hour { font-size: 52px; line-height: 1.2; }
-  .slot .icon { width: 116px; height: 116px; flex: none; margin: 12px 0 4px; }
-  .slot .temp { font-size: 68px; line-height: 1.1; }
-  .slot .rain { display: flex; align-items: center; gap: 6px; height: 40px; margin-top: 8px; font-family: "Vazirmatn"; font-weight: 800; font-size: 28px; color: var(--rain); }
+  .slot .hour { font-size: 48px; line-height: 1.2; }
+  .slot .icon { width: 100px; height: 100px; flex: none; margin: 6px 0 2px; }
+  .slot .temp { font-size: 62px; line-height: 1.1; }
+  .slot .rain { display: flex; align-items: center; gap: 6px; height: 34px; margin-top: 2px; font-family: "Vazirmatn"; font-weight: 800; font-size: 28px; color: var(--rain); }
   .slot .rain svg { width: 18px; height: 24px; }
 
   .details {
-    position: absolute; top: 1530px; left: 60px; right: 60px; height: 150px;
+    position: absolute; top: 1606px; left: 60px; right: 60px; height: 124px;
     display: flex; align-items: center;
     border-radius: 36px;
     border: 2px solid rgba(217, 174, 76, .55);
@@ -97,7 +100,7 @@
   .detail .lbl { font-family: "Vazirmatn"; font-weight: 600; font-size: 27px; color: rgba(248, 242, 230, .7); }
   .detail .val { font-size: 50px; line-height: 1.15; color: var(--cream); }
 
-  footer { position: absolute; top: 1722px; left: 0; right: 0; text-align: center; font-family: "Vazirmatn"; font-weight: 500; font-size: 30px; color: rgba(248, 242, 230, .6); }
+  footer { position: absolute; top: 1748px; left: 0; right: 0; text-align: center; font-family: "Vazirmatn"; font-weight: 500; font-size: 30px; color: rgba(248, 242, 230, .6); }
 </style>
 </head>
 <body>
@@ -114,11 +117,12 @@
   <footer id="foot"></footer>
 
 <script>
-  // From the iPhone Weather app (Yerevan), Sunday 25 Oct 2026, 09:28.
+  // From the iPhone Weather app (Yerevan), Sunday 25 Oct 2026, 09:28 and 09:31.
   // icon: sun | partly | cloud | drizzle | rain | storm | snow | fog | moon | moon-cloud
   const WEATHER = {
     city: 'ایروان',
-    updated: '9:28',
+    updated: '9:31',
+    sunset: '18:08',
     now: { temp: 12, condition: 'نیمه‌ابری', icon: 'partly' },
     max: 17, min: 9,
     rainToday: 40,
@@ -129,13 +133,18 @@
       { hour: 13, icon: 'drizzle', temp: 16, rain: 10 },
       { hour: 14, icon: 'drizzle', temp: 16, rain: 5 },
       { hour: 15, icon: 'sun', temp: 17, rain: null },
+      { hour: 16, icon: 'sun', temp: 17, rain: null },
+      { hour: 17, icon: 'sun', temp: 17, rain: null },
+      { hour: 18, icon: 'sun', temp: 15, rain: null },
+      { hour: 19, icon: 'moon', temp: 14, rain: null },
+      { hour: 20, icon: 'moon', temp: 13, rain: null },
+      { hour: 21, icon: 'moon', temp: 12, rain: null },
     ],
   };
 
   const fa = n => n.toLocaleString('fa-IR', { useGrouping: false });
   const faDigits = s => s.replace(/\d/g, d => fa(+d));
   const deg = t => `<span class="num">${t < 0 ? '−' : ''}${fa(Math.abs(t))}°</span>`;
-  const partOfDay = h => h < 12 ? 'صبح' : h < 13 ? 'ظهر' : h < 17 ? 'بعدازظهر' : h < 20 ? 'عصر' : 'شب';
 
   // ---- icons (viewBox 0 0 100 100) ----
   let uid = 0;
@@ -153,6 +162,10 @@
     return `<defs><mask id="${id}"><rect width="100" height="100" fill="#fff"/><circle cx="${cx + r * .55}" cy="${cy - r * .45}" r="${r * .9}" fill="#000"/></mask>
       <linearGradient id="${g}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe9a8"/><stop offset="1" stop-color="#d9a23a"/></linearGradient></defs>
       <circle cx="${cx}" cy="${cy}" r="${r}" fill="url(#${g})" mask="url(#${id})"/>`;
+  };
+  const sparkle = (cx, cy, r) => {
+    const q = r * .28;
+    return `<path d="M${cx} ${cy - r}Q${cx + q} ${cy - q} ${cx + r} ${cy}Q${cx + q} ${cy + q} ${cx} ${cy + r}Q${cx - q} ${cy + q} ${cx - r} ${cy}Q${cx - q} ${cy - q} ${cx} ${cy - r}z" fill="#f0c45a"/>`;
   };
   const cloud = (dx, dy, k, dark = false) => {
     const id = 'cg' + uid++;
@@ -177,18 +190,19 @@
     storm: () => cloud(-2, -8, .98, true) + '<polygon points="52,66 40,86 50,86 44,99 62,78 52,78 58,66" fill="#f2c14e" stroke="#c98a1f" stroke-width="1.5" stroke-linejoin="round"/>',
     snow: () => cloud(-2, -6, .98) + [38, 52, 66].map(x => `<circle cx="${x}" cy="88" r="4.5" fill="#fff" stroke="#9fc6e8" stroke-width="2"/>`).join(''),
     fog: () => cloud(-2, -10, .98) + [76, 86].map((y, i) => `<line x1="${22 + i * 8}" y1="${y}" x2="${78 + i * 4}" y2="${y}" stroke="#a9b8bc" stroke-width="6" stroke-linecap="round"/>`).join(''),
-    moon: () => moon(48, 52, 26),
+    moon: () => moon(44, 56, 26) + sparkle(74, 26, 9) + sparkle(84, 48, 5.5),
     'moon-cloud': () => moon(38, 36, 19) + cloud(6, 12, .9),
   };
   const icon = name => `<svg class="icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">${(ICONS[name] || ICONS.cloud)()}</svg>`;
   const DROP = '<svg viewBox="0 0 18 24"><path d="M9 1C9 1 2 10 2 15a7 7 0 0 0 14 0C16 10 9 1 9 1z" fill="currentColor"/></svg>';
   const DETAIL_ICONS = {
     rain: '<svg viewBox="0 0 54 54"><path d="M27 6S12 24 12 34a15 15 0 0 0 30 0C42 24 27 6 27 6z" fill="none" stroke="#e5c470" stroke-width="4"/><path d="M20 35a7 7 0 0 0 7 7" fill="none" stroke="#e5c470" stroke-width="4" stroke-linecap="round"/></svg>',
+    sunset: '<svg viewBox="0 0 54 54" fill="none" stroke="#e5c470" stroke-width="4" stroke-linecap="round"><path d="M15 36a12 12 0 0 1 24 0"/><path d="M6 44h42"/><path d="M27 8v12M21 15l6 6 6-6"/></svg>',
     umbrella: '<svg viewBox="0 0 54 54" fill="none" stroke="#e5c470" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 27a21 21 0 0 1 42 0z"/><path d="M27 27v15a5 5 0 0 1-10 0"/><path d="M27 6v-1"/></svg>',
   };
 
   const W = WEATHER;
-  document.getElementById('sub').textContent = `${W.city}، ساعت به ساعت`;
+  document.getElementById('sub').textContent = `${W.city}، از صبح تا شب`;
 
   document.getElementById('hero').innerHTML = `
     ${icon(W.now.icon)}
@@ -202,18 +216,23 @@
     </div>
     <div class="temp">${deg(W.now.temp)}</div>`;
 
-  document.getElementById('timeline').innerHTML = W.slots.map(s => `
+  const slot = rainRow => s => `
     <div class="slot">
-      <div class="part">${partOfDay(s.hour)}</div>
       <div class="hour"><span class="num">${fa(s.hour)}:۰۰</span></div>
       ${icon(s.icon)}
       <div class="temp">${deg(s.temp)}</div>
-      <div class="rain">${s.rain == null ? '' : `${DROP}<span class="num">${fa(s.rain)}٪</span>`}</div>
-    </div>`).join('');
+      ${rainRow ? `<div class="rain">${s.rain == null ? '' : `${DROP}<span class="num">${fa(s.rain)}٪</span>`}</div>` : ''}
+    </div>`;
+  const day = W.slots.filter(s => s.hour < 16), evening = W.slots.filter(s => s.hour >= 16);
+  // a row with no rain chance at all drops the rain line instead of leaving it blank
+  const row = slots => `<div class="row">${slots.map(slot(slots.some(s => s.rain != null))).join('')}</div>`;
+  document.getElementById('timeline').innerHTML = `
+    <div class="row-title">صبح تا بعدازظهر</div>${row(day)}
+    <div class="row-title">عصر و شب</div>${row(evening)}`;
 
   document.getElementById('details').innerHTML = `
     <div class="detail">${DETAIL_ICONS.rain}<div><div class="lbl">احتمال بارش امروز</div><div class="val"><span class="num">${fa(W.rainToday)}٪</span></div></div></div>
-    <div class="detail">${DETAIL_ICONS.umbrella}<div><div class="lbl">پیشنهاد امروز</div><div class="val">چتر همراه‌تان باشد</div></div></div>`;
+    <div class="detail">${DETAIL_ICONS.sunset}<div><div class="lbl">غروب آفتاب</div><div class="val"><span class="num">${faDigits(W.sunset)}</span></div></div></div>`;
 
   document.getElementById('foot').textContent = `به‌روز شده: ساعت ${faDigits(W.updated)} صبح`;
 </script>
