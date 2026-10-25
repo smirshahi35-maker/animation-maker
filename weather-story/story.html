@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="fa">
+<head>
+<meta charset="utf-8">
+<title>Weather Story</title>
+<style>
+  @font-face { font-family: "Lalezar"; src: url("fonts/Lalezar-ar.woff2") format("woff2"); unicode-range: U+0600-06FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; font-display: block; }
+  @font-face { font-family: "Lalezar"; src: url("fonts/Lalezar-latin.woff2") format("woff2"); unicode-range: U+0000-00FF; font-display: block; }
+  @font-face { font-family: "Vazirmatn"; src: url("fonts/Vazirmatn-Variable.ttf") format("truetype"); font-weight: 100 900; font-display: block; }
+
+  :root {
+    --green-1: #2f5e49;
+    --green-2: #1b4134;
+    --green-3: #10291f;
+    --ink: #0c2d22;
+    --muted: #5f7d70;
+    --cream: #f8f2e6;
+    --gold-1: #f0d48c;
+    --gold-2: #d9ae4c;
+    --gold-3: #b8862a;
+    --rain: #2f7fc1;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; }
+  body {
+    direction: rtl;
+    font-family: "Lalezar", "Vazirmatn", sans-serif;
+    color: #fff;
+    overflow: hidden;
+    position: relative;
+    background:
+      radial-gradient(ellipse 90% 45% at 85% 0%, rgba(80, 140, 108, .55) 0%, transparent 70%),
+      radial-gradient(ellipse 80% 40% at 10% 100%, rgba(0, 0, 0, .35) 0%, transparent 70%),
+      linear-gradient(180deg, var(--green-1) 0%, var(--green-2) 48%, var(--green-3) 100%);
+  }
+  .num { direction: ltr; unicode-bidi: isolate; display: inline-block; }
+
+  header { position: absolute; top: 175px; left: 0; right: 0; text-align: center; }
+  .pill {
+    display: inline-block;
+    padding: 10px 44px 4px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, var(--gold-1), var(--gold-2));
+    color: var(--ink);
+    font-size: 44px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .25);
+  }
+  h1 { font-weight: 400; font-size: 160px; line-height: 1.15; margin-top: 18px; text-shadow: 0 10px 30px rgba(0, 0, 0, .3); }
+  h1 .gold {
+    background: linear-gradient(180deg, #f7e2a6 0%, var(--gold-2) 60%, var(--gold-3) 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .sub { font-family: "Vazirmatn"; font-weight: 600; font-size: 38px; color: rgba(248, 242, 230, .82); margin-top: 6px; }
+  .rule { width: 240px; height: 4px; margin: 34px auto 0; border-radius: 4px; background: linear-gradient(90deg, transparent, var(--gold-2), transparent); }
+
+  .card {
+    position: absolute; left: 60px; right: 60px;
+    background: var(--cream);
+    border: 3px solid var(--gold-2);
+    border-radius: 44px;
+    color: var(--ink);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, .28);
+  }
+
+  .hero { top: 655px; height: 340px; display: flex; align-items: center; padding: 0 56px; }
+  .hero .cond { font-size: 88px; line-height: 1.2; }
+  .hero .range { display: flex; gap: 22px; margin-top: 18px; }
+  .chip { display: flex; align-items: baseline; gap: 12px; padding: 10px 26px 4px; border-radius: 999px; background: #ece3cf; }
+  .chip .lbl { font-family: "Vazirmatn"; font-weight: 700; font-size: 28px; color: var(--muted); }
+  .chip .val { font-size: 58px; line-height: 1; }
+  .chip.hi .val { color: #c4532c; }
+  .chip.lo .val { color: var(--rain); }
+  .hero .icon { margin-inline-start: auto; width: 260px; height: 260px; flex: none; }
+
+  .timeline { top: 1030px; height: 470px; display: flex; padding: 34px 18px; }
+  .slot { flex: 1; display: flex; flex-direction: column; align-items: center; }
+  .slot + .slot { border-right: 2px dashed rgba(12, 45, 34, .13); }
+  .slot .lbl { font-size: 48px; line-height: 1.2; }
+  .slot .time { font-family: "Vazirmatn"; font-weight: 600; font-size: 26px; color: var(--muted); }
+  .slot .icon { width: 120px; height: 120px; margin: 18px 0 10px; }
+  .slot .temp { font-size: 72px; line-height: 1.1; }
+  .slot .rain { display: flex; align-items: center; gap: 6px; margin-top: 10px; font-family: "Vazirmatn"; font-weight: 800; font-size: 28px; color: var(--rain); }
+  .slot .rain svg { width: 18px; height: 24px; }
+
+  .details {
+    position: absolute; top: 1535px; left: 60px; right: 60px; height: 150px;
+    display: flex; align-items: center;
+    border-radius: 36px;
+    border: 2px solid rgba(217, 174, 76, .55);
+    background: rgba(0, 0, 0, .18);
+  }
+  .detail { flex: 1; display: flex; align-items: center; justify-content: center; gap: 18px; }
+  .detail + .detail { border-right: 2px solid rgba(217, 174, 76, .3); }
+  .detail svg { width: 54px; height: 54px; flex: none; }
+  .detail .lbl { font-family: "Vazirmatn"; font-weight: 600; font-size: 26px; color: rgba(248, 242, 230, .7); }
+  .detail .val { font-size: 46px; line-height: 1.15; color: var(--cream); }
+
+  footer { position: absolute; top: 1722px; left: 0; right: 0; text-align: center; font-family: "Vazirmatn"; font-weight: 600; font-size: 32px; color: var(--gold-1); }
+</style>
+</head>
+<body>
+  <header>
+    <div class="pill">ارمنستان</div>
+    <h1>هوای <span class="gold">امروز</span></h1>
+    <div class="sub" id="sub"></div>
+    <div class="rule"></div>
+  </header>
+
+  <section class="card hero" id="hero"></section>
+  <section class="card timeline" id="timeline"></section>
+  <section class="details" id="details"></section>
+  <footer id="tip"></footer>
+
+<script>
+  // Fill these from today's forecast; null renders as "--".
+  // icon: sun | partly | cloud | rain | storm | snow | fog | moon | moon-cloud
+  const WEATHER = {
+    city: 'ایروان',
+    condition: null, icon: 'partly',
+    max: null, min: null,
+    slots: [
+      { label: 'صبح', hour: 9, icon: 'sun', temp: null, rain: null },
+      { label: 'ظهر', hour: 12, icon: 'partly', temp: null, rain: null },
+      { label: 'عصر', hour: 15, icon: 'cloud', temp: null, rain: null },
+      { label: 'غروب', hour: 18, icon: 'rain', temp: null, rain: null },
+      { label: 'شب', hour: 21, icon: 'moon', temp: null, rain: null },
+    ],
+    humidity: null, wind: null, sunset: null,
+    tip: null,
+  };
+
+  const fa = n => n.toLocaleString('fa-IR', { useGrouping: false });
+  const or = (v, f) => v == null ? '--' : f(v);
+  const deg = v => or(v, t => `<span class="num">${t < 0 ? '−' : ''}${fa(Math.abs(t))}°</span>`);
+
+  // ---- icons (viewBox 0 0 100 100) ----
+  let uid = 0;
+  const sun = (cx, cy, r, rays = true) => {
+    const id = 'sg' + uid++;
+    let s = `<defs><radialGradient id="${id}" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#ffe9a8"/><stop offset=".6" stop-color="#f2c14e"/><stop offset="1" stop-color="#d9962b"/></radialGradient></defs>`;
+    if (rays) for (let i = 0; i < 8; i++) {
+      const a = i * Math.PI / 4, r1 = r * 1.38, r2 = r * 1.75;
+      s += `<line x1="${cx + r1 * Math.cos(a)}" y1="${cy + r1 * Math.sin(a)}" x2="${cx + r2 * Math.cos(a)}" y2="${cy + r2 * Math.sin(a)}" stroke="#f0b93e" stroke-width="${r * .26}" stroke-linecap="round"/>`;
+    }
+    return s + `<circle cx="${cx}" cy="${cy}" r="${r}" fill="url(#${id})"/>`;
+  };
+  const moon = (cx, cy, r) => {
+    const id = 'mm' + uid++, g = 'mg' + uid++;
+    return `<defs><mask id="${id}"><rect width="100" height="100" fill="#fff"/><circle cx="${cx + r * .55}" cy="${cy - r * .45}" r="${r * .9}" fill="#000"/></mask>
+      <linearGradient id="${g}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe9a8"/><stop offset="1" stop-color="#d9a23a"/></linearGradient></defs>
+      <circle cx="${cx}" cy="${cy}" r="${r}" fill="url(#${g})" mask="url(#${id})"/>`;
+  };
+  const cloud = (dx, dy, k, dark = false) => {
+    const id = 'cg' + uid++;
+    const parts = `<circle cx="36" cy="60" r="15"/><circle cx="55" cy="49" r="21"/><circle cx="73" cy="61" r="14"/><rect x="21" y="58" width="66" height="17" rx="8.5"/>`;
+    const [c1, c2] = dark ? ['#9fb0b5', '#5f7379'] : ['#ffffff', '#c3d0d4'];
+    return `<defs><linearGradient id="${id}" gradientUnits="userSpaceOnUse" x1="0" y1="28" x2="0" y2="76"><stop offset="0" stop-color="${c1}"/><stop offset="1" stop-color="${c2}"/></linearGradient></defs>
+      <g transform="translate(${dx} ${dy}) scale(${k})">
+        <g fill="none" stroke="rgba(12,45,34,.16)" stroke-width="3">${parts}</g>
+        <g fill="url(#${id})">${parts}</g>
+      </g>`;
+  };
+  const drops = (n, y = 80) => [...Array(n)].map((_, i) => {
+    const x = 36 + i * 15;
+    return `<line x1="${x}" y1="${y}" x2="${x - 4}" y2="${y + 11}" stroke="#4a9be0" stroke-width="5" stroke-linecap="round"/>`;
+  }).join('');
+  const ICONS = {
+    sun: () => sun(50, 50, 22),
+    partly: () => sun(36, 36, 17) + cloud(6, 10, .9),
+    cloud: () => cloud(20, 6, .82, true) + cloud(-2, 12, .95),
+    rain: () => cloud(-2, -6, .98) + drops(3),
+    storm: () => cloud(-2, -8, .98, true) + '<polygon points="52,66 40,86 50,86 44,99 62,78 52,78 58,66" fill="#f2c14e" stroke="#c98a1f" stroke-width="1.5" stroke-linejoin="round"/>',
+    snow: () => cloud(-2, -6, .98) + [38, 52, 66].map(x => `<circle cx="${x}" cy="88" r="4.5" fill="#fff" stroke="#9fc6e8" stroke-width="2"/>`).join(''),
+    fog: () => cloud(-2, -10, .98) + [76, 86].map((y, i) => `<line x1="${22 + i * 8}" y1="${y}" x2="${78 + i * 4}" y2="${y}" stroke="#a9b8bc" stroke-width="6" stroke-linecap="round"/>`).join(''),
+    moon: () => moon(48, 52, 26),
+    'moon-cloud': () => moon(38, 36, 19) + cloud(6, 12, .9),
+  };
+  const icon = name => `<svg class="icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">${(ICONS[name] || ICONS.cloud)()}</svg>`;
+  const DROP = '<svg viewBox="0 0 18 24"><path d="M9 1C9 1 2 10 2 15a7 7 0 0 0 14 0C16 10 9 1 9 1z" fill="currentColor"/></svg>';
+  const DETAIL_ICONS = {
+    humidity: '<svg viewBox="0 0 54 54"><path d="M27 6S12 24 12 34a15 15 0 0 0 30 0C42 24 27 6 27 6z" fill="none" stroke="#e5c470" stroke-width="4"/><path d="M20 35a7 7 0 0 0 7 7" fill="none" stroke="#e5c470" stroke-width="4" stroke-linecap="round"/></svg>',
+    wind: '<svg viewBox="0 0 54 54" fill="none" stroke="#e5c470" stroke-width="4" stroke-linecap="round"><path d="M6 20h28a7 7 0 1 0-7-7"/><path d="M6 30h38a7 7 0 1 1-7 7"/><path d="M6 40h16"/></svg>',
+    sunset: '<svg viewBox="0 0 54 54" fill="none" stroke="#e5c470" stroke-width="4" stroke-linecap="round"><path d="M15 36a12 12 0 0 1 24 0"/><path d="M6 44h42"/><path d="M27 10v8M12 19l5 5M42 19l-5 5"/></svg>',
+  };
+
+  const W = WEATHER;
+  document.getElementById('sub').textContent = `${W.city}، از صبح تا شب`;
+
+  document.getElementById('hero').innerHTML = `
+    <div>
+      <div class="cond">${W.condition ?? '--'}</div>
+      <div class="range">
+        <div class="chip hi"><span class="lbl">بیشینه</span><span class="val">${deg(W.max)}</span></div>
+        <div class="chip lo"><span class="lbl">کمینه</span><span class="val">${deg(W.min)}</span></div>
+      </div>
+    </div>
+    ${icon(W.icon)}`;
+
+  document.getElementById('timeline').innerHTML = W.slots.map(s => `
+    <div class="slot">
+      <div class="lbl">${s.label}</div>
+      <div class="time">ساعت ${fa(s.hour)}</div>
+      ${icon(s.icon)}
+      <div class="temp">${deg(s.temp)}</div>
+      <div class="rain">${DROP}<span class="num">${or(s.rain, r => fa(r) + '٪')}</span></div>
+    </div>`).join('');
+
+  const details = [
+    ['humidity', 'رطوبت', or(W.humidity, h => `<span class="num">${fa(h)}٪</span>`)],
+    ['wind', 'باد', or(W.wind, w => `<span class="num">${fa(w)}</span> <span style="font-size:28px">کیلومتر</span>`)],
+    ['sunset', 'غروب آفتاب', or(W.sunset, t => `<span class="num">${t.replace(/\d/g, d => fa(+d))}</span>`)],
+  ];
+  document.getElementById('details').innerHTML = details.map(([k, l, v]) => `
+    <div class="detail">${DETAIL_ICONS[k]}<div><div class="lbl">${l}</div><div class="val">${v}</div></div></div>`).join('');
+
+  document.getElementById('tip').textContent = W.tip ?? '';
+</script>
+</body>
+</html>
