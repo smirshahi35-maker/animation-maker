@@ -100,7 +100,6 @@
   .detail .lbl { font-family: "Vazirmatn"; font-weight: 600; font-size: 27px; color: rgba(248, 242, 230, .7); }
   .detail .val { font-size: 50px; line-height: 1.15; color: var(--cream); }
 
-  footer { position: absolute; top: 1748px; left: 0; right: 0; text-align: center; font-family: "Vazirmatn"; font-weight: 500; font-size: 30px; color: rgba(248, 242, 230, .6); }
 </style>
 </head>
 <body>
@@ -114,14 +113,12 @@
   <section class="card hero" id="hero"></section>
   <section class="card timeline" id="timeline"></section>
   <section class="details" id="details"></section>
-  <footer id="foot"></footer>
 
 <script>
   // From the iPhone Weather app (Yerevan), Sunday 25 Oct 2026, 09:28 and 09:31.
   // icon: sun | partly | cloud | drizzle | rain | storm | snow | fog | moon | moon-cloud
   const WEATHER = {
     city: 'ایروان',
-    updated: '9:31',
     sunset: '18:08',
     now: { temp: 12, condition: 'نیمه‌ابری', icon: 'partly' },
     max: 17, min: 9,
@@ -234,7 +231,6 @@
     <div class="detail">${DETAIL_ICONS.rain}<div><div class="lbl">احتمال بارش امروز</div><div class="val"><span class="num">${fa(W.rainToday)}٪</span></div></div></div>
     <div class="detail">${DETAIL_ICONS.sunset}<div><div class="lbl">غروب آفتاب</div><div class="val"><span class="num">${faDigits(W.sunset)}</span></div></div></div>`;
 
-  document.getElementById('foot').textContent = `به‌روز شده: ساعت ${faDigits(W.updated)} صبح`;
 </script>
 </body>
 </html>
