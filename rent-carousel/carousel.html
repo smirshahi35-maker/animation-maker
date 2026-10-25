@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="fa">
+<head>
+<meta charset="utf-8">
+<title>Rent Carousel</title>
+<style>
+  @font-face { font-family: "Lalezar"; src: url("fonts/Lalezar-ar.woff2") format("woff2"); unicode-range: U+0600-06FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; font-display: block; }
+  @font-face { font-family: "Lalezar"; src: url("fonts/Lalezar-latin.woff2") format("woff2"); unicode-range: U+0000-00FF; font-display: block; }
+  /* Abar (licensed, git-ignored): drop the file in fonts/ as Abar-Regular.otf or .ttf. Vazirmatn stands in until then. */
+  @font-face { font-family: "Abar"; src: url("fonts/Abar-Regular.otf") format("opentype"), url("fonts/Abar-Regular.ttf") format("truetype"); font-display: block; }
+  @font-face { font-family: "Vazirmatn"; src: url("fonts/Vazirmatn-Variable.ttf") format("truetype"); font-weight: 100 900; font-display: block; }
+
+  :root {
+    --green-1: #2f5e49;
+    --green-2: #1b4134;
+    --green-3: #10291f;
+    --ink: #0c2d22;
+    --muted: #5f7d70;
+    --cream: #f8f2e6;
+    --cream-2: #ece3cf;
+    --gold-1: #f0d48c;
+    --gold-2: #d9ae4c;
+    --gold-3: #b8862a;
+    --red: #c4532c;
+    --body: "Abar", "Vazirmatn", sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 1080px; direction: rtl; font-family: var(--body); font-weight: 500; font-synthesis: none; color: #fff; background: #000; }
+  .num { direction: ltr; unicode-bidi: isolate; display: inline-block; }
+
+  .slide {
+    position: relative; width: 1080px; height: 1350px; overflow: hidden;
+    background:
+      radial-gradient(ellipse 90% 45% at 85% 0%, rgba(80, 140, 108, .55) 0%, transparent 70%),
+      radial-gradient(ellipse 80% 40% at 10% 100%, rgba(0, 0, 0, .35) 0%, transparent 70%),
+      linear-gradient(180deg, var(--green-1) 0%, var(--green-2) 48%, var(--green-3) 100%);
+  }
+  .top { position: absolute; top: 64px; left: 60px; right: 60px; display: flex; align-items: center; }
+  .pill {
+    padding: 8px 34px 2px; border-radius: 999px;
+    background: linear-gradient(180deg, var(--gold-1), var(--gold-2));
+    color: var(--ink); font-family: "Lalezar"; font-size: 36px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .25);
+  }
+  .count { margin-inline-start: auto; font-size: 30px; color: rgba(248, 242, 230, .6); }
+
+  h2 { font-family: "Lalezar"; font-weight: 400; font-size: 84px; line-height: 1.25; text-shadow: 0 8px 24px rgba(0, 0, 0, .3); text-wrap: balance; }
+  .gold {
+    background: linear-gradient(180deg, #f7e2a6 0%, var(--gold-2) 60%, var(--gold-3) 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .head { position: absolute; top: 160px; left: 60px; right: 60px; text-align: center; }
+  .head .sub { font-size: 36px; line-height: 1.5; color: rgba(248, 242, 230, .8); margin-top: 6px; }
+
+  .card {
+    background: var(--cream); color: var(--ink);
+    border: 3px solid var(--gold-2); border-radius: 40px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, .28);
+  }
+  .dark {
+    border-radius: 34px; border: 2px solid rgba(217, 174, 76, .55); background: rgba(0, 0, 0, .18);
+  }
+  .goldbox {
+    border-radius: 34px; color: var(--ink);
+    background: linear-gradient(160deg, var(--gold-1), var(--gold-2) 60%, var(--gold-3));
+    box-shadow: 0 14px 30px rgba(0, 0, 0, .25);
+  }
+  .stack { position: absolute; left: 60px; right: 60px; bottom: 130px; display: flex; flex-direction: column; justify-content: center; gap: 28px; }
+  .swipe {
+    position: absolute; bottom: 54px; left: 60px;
+    display: flex; align-items: center; gap: 14px;
+    font-size: 32px; color: var(--gold-1);
+  }
+  .swipe svg { width: 46px; height: 24px; }
+  .note { position: absolute; bottom: 62px; right: 60px; font-size: 26px; color: rgba(248, 242, 230, .55); }
+
+  /* ---- cover ---- */
+  .cover .t1 { position: absolute; top: 150px; left: 0; right: 0; text-align: center; font-family: "Lalezar"; font-size: 112px; line-height: 1.2; text-shadow: 0 10px 30px rgba(0, 0, 0, .3); }
+  .cover .t2 { position: absolute; top: 272px; left: 0; right: 0; text-align: center; font-family: "Lalezar"; font-size: 158px; line-height: 1.2; filter: drop-shadow(0 10px 22px rgba(0, 0, 0, .3)); }
+  .cover .t3 { position: absolute; top: 480px; left: 0; right: 0; text-align: center; font-size: 44px; color: var(--cream); }
+  .cover .rule { position: absolute; top: 560px; left: 420px; width: 240px; height: 4px; border-radius: 4px; background: linear-gradient(90deg, transparent, var(--gold-2), transparent); }
+  .cover .scene { position: absolute; top: 610px; left: 60px; right: 60px; height: 600px; display: flex; align-items: center; justify-content: center; gap: 30px; padding: 0 40px; }
+  .receipt {
+    width: 500px; padding: 30px 38px 46px; transform: rotate(3deg);
+    background: #fffdf8; color: var(--ink);
+    box-shadow: 0 16px 30px rgba(12, 45, 34, .22);
+    -webkit-mask: radial-gradient(14px at 50% calc(100% + 4px), #0000 98%, #000) 50% / 34px 100%;
+  }
+  .receipt .rh { font-family: "Lalezar"; font-size: 40px; text-align: center; padding-bottom: 14px; border-bottom: 3px dashed #d8ccb2; margin-bottom: 14px; }
+  .receipt .ri { display: flex; align-items: baseline; gap: 10px; font-size: 30px; line-height: 1.6; }
+  .receipt .ri::after { content: ""; order: 1; flex: 1; border-bottom: 3px dotted #cbbd9c; transform: translateY(-8px); }
+  .receipt .ri .q { order: 2; font-family: "Lalezar"; font-size: 36px; color: var(--red); }
+  .receipt .ri.ok .q { color: #3f8a5d; }
+  .cover .house { width: 300px; height: 330px; flex: none; }
+
+  /* ---- prices ---- */
+  .ranges { padding: 40px 48px 30px; }
+  .rg + .rg { margin-top: 34px; }
+  .rg .lbl { font-size: 34px; }
+  .rg .val { font-family: "Lalezar"; font-size: 50px; line-height: 1.3; }
+  .rg .val small { font-family: var(--body); font-size: 28px; color: var(--muted); }
+  .track { position: relative; height: 22px; margin-top: 8px; border-radius: 11px; background: var(--cream-2); direction: ltr; }
+  .track .seg { position: absolute; top: 0; bottom: 0; border-radius: 11px; background: linear-gradient(90deg, var(--gold-1), var(--gold-3)); }
+  .track .seg.open { background: linear-gradient(90deg, var(--gold-1), var(--gold-3) 70%, rgba(184, 134, 42, 0)); }
+  .axis { display: flex; justify-content: space-between; direction: ltr; margin-top: 18px; font-size: 24px; color: var(--muted); }
+  .warn { display: flex; align-items: center; gap: 22px; padding: 26px 36px; font-size: 32px; line-height: 1.5; color: var(--cream); }
+  .warn .ic { flex: none; width: 56px; height: 56px; border-radius: 50%; background: var(--gold-2); color: var(--ink); font-family: "Lalezar"; font-size: 40px; display: flex; align-items: center; justify-content: center; padding-top: 6px; }
+
+  /* ---- move-in ---- */
+  .steps { padding: 14px 44px; }
+  .step { display: flex; gap: 26px; padding: 22px 0; }
+  .step + .step { border-top: 2px dashed rgba(12, 45, 34, .13); }
+  .step .n { flex: none; width: 66px; height: 66px; border-radius: 50%; background: var(--ink); color: var(--gold-1); font-family: "Lalezar"; font-size: 40px; display: flex; align-items: center; justify-content: center; padding-top: 6px; }
+  .step .st { font-family: "Lalezar"; font-size: 46px; line-height: 1.3; }
+  .step .sd { font-size: 30px; line-height: 1.55; color: #3d5a4d; }
+  .example { padding: 22px 40px; text-align: center; }
+  .example .el { font-size: 30px; }
+  .example .ev { font-family: "Lalezar"; font-size: 58px; line-height: 1.35; }
+  .example .parts { display: flex; justify-content: center; align-items: center; gap: 14px; margin: 10px 0 2px; }
+  .example .parts span { padding: 4px 22px 0; border-radius: 999px; background: rgba(12, 45, 34, .12); font-size: 30px; }
+  .example .parts b { font-family: "Lalezar"; font-weight: 400; font-size: 36px; }
+  .example .parts i { font-style: normal; font-family: "Lalezar"; font-size: 40px; }
+
+  /* ---- bills ---- */
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .tile { padding: 20px 28px 18px; }
+  .tile .th { display: flex; align-items: center; gap: 14px; font-family: "Lalezar"; font-size: 42px; }
+  .tile .th svg { width: 46px; height: 46px; flex: none; }
+  .tile .tv { font-family: "Lalezar"; font-size: 50px; line-height: 1.3; margin-top: 2px; }
+  .tile .tv small { display: block; font-family: var(--body); font-size: 24px; line-height: 1.3; color: var(--muted); }
+  .tile .td { font-size: 24px; line-height: 1.45; color: #4f6c5f; margin-top: 8px; }
+
+  /* ---- winter ---- */
+  .stats { display: flex; gap: 22px; }
+  .stat { flex: 1; padding: 30px 30px 26px; }
+  .stat .sv { font-family: "Lalezar"; font-size: 64px; line-height: 1.2; }
+  .stat .su { font-size: 30px; color: var(--muted); }
+  .stat .sd { font-size: 29px; line-height: 1.5; margin-top: 12px; color: #3d5a4d; }
+  .stat.hot .sv { color: var(--red); }
+
+  /* ---- lists ---- */
+  .list { list-style: none; padding: 32px 40px; }
+  .list li { display: flex; gap: 22px; font-size: 34px; line-height: 1.55; color: var(--cream); }
+  .list li + li { margin-top: 20px; }
+  .list li svg { flex: none; width: 44px; height: 44px; margin-top: 4px; }
+  .list .hl { color: var(--gold-1); }
+  .cta { display: flex; align-items: center; gap: 26px; padding: 30px 40px; font-size: 36px; line-height: 1.45; }
+  .cta svg { width: 70px; height: 70px; flex: none; }
+  .sources { position: absolute; bottom: 40px; left: 60px; right: 60px; text-align: center; font-size: 22px; line-height: 1.5; color: rgba(248, 242, 230, .5); }
+</style>
+</head>
+<body>
+
+<!-- 1. cover -->
+<section class="slide cover">
+  <div class="top"><div class="pill">اجاره‌ی خانه در ارمنستان</div><div class="count">۱/۷</div></div>
+  <div class="t1">تو ارمنستان</div>
+  <div class="t2"><span class="gold">خونه اجاره نکن!</span></div>
+  <div class="t3">...مگه اینکه هزینه‌های پنهانش رو بدونی</div>
+  <div class="rule"></div>
+  <div class="scene card">
+    <div class="receipt">
+      <div class="rh">صورت‌حساب واقعی اجاره</div>
+      <div class="ri ok"><span>اجاره‌ی ماه اول</span><span class="q">✓</span></div>
+      <div class="ri"><span>ودیعه</span><span class="q">؟</span></div>
+      <div class="ri"><span>کمیسیون بنگاه</span><span class="q">؟</span></div>
+      <div class="ri"><span>برق، گاز، آب</span><span class="q">؟</span></div>
+      <div class="ri"><span>زباله و شارژ ساختمان</span><span class="q">؟</span></div>
+      <div class="ri"><span>قبض گاز زمستون</span><span class="q">؟؟</span></div>
+    </div>
+    <svg class="house" viewBox="0 0 300 330" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="roof" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f0d48c"/><stop offset="1" stop-color="#b8862a"/></linearGradient>
+        <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f5e49"/><stop offset="1" stop-color="#1b4134"/></linearGradient>
+      </defs>
+      <rect x="196" y="40" width="34" height="70" rx="4" fill="#b8862a"/>
+      <rect x="52" y="130" width="196" height="170" rx="10" fill="url(#wall)"/>
+      <path d="M20 146 L150 30 L280 146" fill="none" stroke="url(#roof)" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="126" y="200" width="54" height="100" rx="8" fill="#f8f2e6"/>
+      <circle cx="168" cy="252" r="5" fill="#b8862a"/>
+      <rect x="76" y="168" width="38" height="38" rx="6" fill="#f0d48c"/>
+      <rect x="194" y="168" width="38" height="38" rx="6" fill="#f0d48c"/>
+      <!-- price tag -->
+      <g transform="translate(232 232) rotate(-14)">
+        <path d="M0 0 h58 a10 10 0 0 1 10 10 v44 a10 10 0 0 1 -10 10 h-58 l-24 -32 z" fill="#c4532c"/>
+        <circle cx="-6" cy="32" r="6" fill="#f8f2e6"/>
+        <text x="30" y="50" text-anchor="middle" font-family="Lalezar" font-size="44" fill="#fff">؟</text>
+      </g>
+      <ellipse cx="150" cy="312" rx="130" ry="10" fill="#0c2d22" opacity=".12"/>
+    </svg>
+  </div>
+  <div class="swipe"><svg viewBox="0 0 46 24"><path d="M44 12H4M14 2 4 12l10 10" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>ورق بزن</div>
+</section>
+
+<!-- 2. prices -->
+<section class="slide">
+  <div class="top"><div class="pill">اجاره‌ی خانه در ارمنستان</div><div class="count">۲/۷</div></div>
+  <div class="head">
+    <h2>اجاره‌ها در ایروان <span class="gold">چقدره؟</span></h2>
+    <div class="sub">قیمت آگهی‌های اجاره‌ی ماهانه، به درام</div>
+  </div>
+  <div class="stack">
+  <div class="card ranges" id="ranges"></div>
+  <div class="dark warn"><div class="ic">!</div><div>خونه‌ی معمولی زیر ۲۰۰ هزار درام رو مبنا نذار؛ به‌سختی پیدا می‌شه.</div></div>
+  </div>
+  <div class="swipe"><svg viewBox="0 0 46 24"><path d="M44 12H4M14 2 4 12l10 10" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>ورق بزن</div>
+  <div class="note">قیمت به محله، متراژ و وضعیت خونه بستگی داره</div>
+</section>
+
+<!-- 3. move-in -->
+<section class="slide">
+  <div class="top"><div class="pill">اجاره‌ی خانه در ارمنستان</div><div class="count">۳/۷</div></div>
+  <div class="head">
+    <h2>روز اول <span class="gold">چقدر پول</span> لازمه؟</h2>
+    <div class="sub">فقط اجاره‌ی ماه اول نیست</div>
+  </div>
+  <div class="stack">
+  <div class="card steps">
+    <div class="step"><div class="n">۱</div><div><div class="st">اجاره‌ی ماه اول</div><div class="sd">موقع امضای قرارداد، جلوتر پرداخت می‌شه.</div></div></div>
+    <div class="step"><div class="n">۲</div><div><div class="st">ودیعه</div><div class="sd">معمولاً یک ماه اجاره؛ خونه‌های نوساز گاهی دو ماه. آخر قرارداد، اگه خسارتی نباشه، برمی‌گرده.</div></div></div>
+    <div class="step"><div class="n">۳</div><div><div class="st">کمیسیون بنگاه</div><div class="sd">معمولاً تا ۵۰٪ اجاره‌ی یک ماه. گاهی نصفش با صاحبخونه‌ست؛ قبل از بازدید کتبی توافق کن.</div></div></div>
+  </div>
+  <div class="goldbox example">
+    <div class="el">مثال برای اجاره‌ی ۳۰۰ هزار درامی</div>
+    <div class="parts"><span>اجاره <b>۳۰۰</b></span><i>+</i><span>ودیعه <b>۳۰۰</b></span><i>+</i><span>کمیسیون تا <b>۱۵۰</b></span></div>
+    <div class="ev">جمع روز اول: ۷۵۰ هزار درام</div>
+  </div>
+  </div>
+  <div class="swipe"><svg viewBox="0 0 46 24"><path d="M44 12H4M14 2 4 12l10 10" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>ورق بزن</div>
+</section>
+
+<!-- 4. bills -->
+<section class="slide">
+  <div class="top"><div class="pill">اجاره‌ی خانه در ارمنستان</div><div class="count">۴/۷</div></div>
+  <div class="head">
+    <h2>قبض‌ها <span class="gold">جدا</span> حساب می‌شن</h2>
+    <div class="sub">تعرفه‌های ۲۰۲۶ که معمولاً با مستأجره؛ امسال گرون نشده</div>
+  </div>
+  <div class="stack"><div class="grid" id="bills"></div></div>
+  <div class="swipe"><svg viewBox="0 0 46 24"><path d="M44 12H4M14 2 4 12l10 10" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>ورق بزن</div>
+</section>
+
+<!-- 5. winter -->
+<section class="slide">
+  <div class="top"><div class="pill">اجاره‌ی خانه در ارمنستان</div><div class="count">۵/۷</div></div>
+  <div class="head">
+    <h2>زمستون، <span class="gold">قبض گاز</span> شوکه‌ات می‌کنه</h2>
+    <div class="sub">گرمایش، بزرگ‌ترین هزینه‌ی پنهان اجاره‌ست</div>
+  </div>
+  <div class="stack">
+  <div class="stats">
+    <div class="card stat hot"><div class="sv">۳۰ تا ۷۰ هزار</div><div class="su">درام در ماه، یا بیشتر</div><div class="sd">قبض گاز یک ماه زمستون برای یک خونه‌ی کوچیک</div></div>
+    <div class="card stat"><div class="sv">۴۳ تا ۴۷ هزار</div><div class="su">درام در ماه</div><div class="sd">میانگین برق، گرمایش، آب و زباله برای خونه‌ی ۸۵ متری</div></div>
+  </div>
+  <ul class="dark list">
+    <li><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="20" fill="#d9ae4c"/><path d="M13 22.5l6 6 12-13" fill="none" stroke="#0c2d22" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>قبض‌های <span class="hl">زمستون پارسال</span> رو از صاحبخونه بخواه.</span></li>
+    <li><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="20" fill="#d9ae4c"/><path d="M13 22.5l6 6 12-13" fill="none" stroke="#0c2d22" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>بپرس گرمایش خونه <span class="hl">پکیج گازیه یا برقی</span>.</span></li>
+    <li><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="20" fill="#d9ae4c"/><path d="M13 22.5l6 6 12-13" fill="none" stroke="#0c2d22" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>پنجره‌ها و درزها رو چک کن؛ خونه‌ی سرد یعنی <span class="hl">قبض گرون‌تر</span>.</span></li>
+  </ul>
+  </div>
+  <div class="swipe"><svg viewBox="0 0 46 24"><path d="M44 12H4M14 2 4 12l10 10" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>ورق بزن</div>
+</section>
+
+<!-- 6. contract -->
+<section class="slide">
+  <div class="top"><div class="pill">اجاره‌ی خانه در ارمنستان</div><div class="count">۶/۷</div></div>
+  <div class="head">
+    <h2>قرارداد رو <span class="gold">این‌طوری</span> ببند</h2>
+    <div class="sub">این‌ها رو حتماً توی قرارداد بنویس</div>
+  </div>
+  <div class="stack"><ul class="dark list" id="contract"></ul></div>
+  <div class="swipe"><svg viewBox="0 0 46 24"><path d="M44 12H4M14 2 4 12l10 10" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>ورق بزن</div>
+</section>
+
+<!-- 7. scams + CTA -->
+<section class="slide">
+  <div class="top"><div class="pill">اجاره‌ی خانه در ارمنستان</div><div class="count">۷/۷</div></div>
+  <div class="head">
+    <h2>این‌ها یعنی <span class="gold">کلاهبرداری</span></h2>
+    <div class="sub">اگه دیدی، پول نده</div>
+  </div>
+  <div class="stack">
+  <ul class="card list" id="scams"></ul>
+  <div class="goldbox cta">
+    <svg viewBox="0 0 70 70"><path d="M18 8h34a4 4 0 0 1 4 4v50l-21-13-21 13V12a4 4 0 0 1 4-4z" fill="#0c2d22"/></svg>
+    <div>این پست رو <b style="font-weight:inherit">ذخیره کن</b> و برای کسی که می‌خواد بیاد ارمنستان بفرست.</div>
+  </div>
+  </div>
+  <div class="sources">منابع: کمیسیون تنظیم خدمات عمومی ارمنستان، شبکه‌ی برق ارمنستان، وئولیا جور، شهرداری ایروان و آگهی‌های اجاره (مهر و آبان ۱۴۰۵)</div>
+</section>
+
+<script>
+  const fa = s => String(s).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+
+  // slide 2: asking-price ranges on one shared scale (thousand AMD)
+  const MAX = 700;
+  const RANGES = [
+    { lbl: 'آپارتمان کوچک، محله‌های ارزان‌تر', lo: 200, hi: 280 },
+    { lbl: 'دو اتاقه در مرکز (کنترون) و خونه‌های بهتر', lo: 300, hi: 500, open: true },
+    { lbl: 'آگهی آژانس‌ها برای یک‌خوابه در مرکز', lo: 500, hi: 660 },
+  ];
+  document.getElementById('ranges').innerHTML = RANGES.map(r => `
+    <div class="rg">
+      <div class="lbl">${r.lbl}</div>
+      <div class="val">${fa(r.lo)} تا ${fa(r.hi)}${r.open ? '+' : ''} <small>هزار درام</small></div>
+      <div class="track"><div class="seg${r.open ? ' open' : ''}" style="left:${r.lo / MAX * 100}%; width:${((r.open ? r.hi + 120 : r.hi) - r.lo) / MAX * 100}%"></div></div>
+    </div>`).join('') + `<div class="axis">${[0, 100, 200, 300, 400, 500, 600, 700].map(v => `<span>${fa(v)}</span>`).join('')}</div>`;
+
+  // slide 4: bills
+  const ICON = {
+    power: '<svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="22" fill="#0c2d22"/><path d="M26 8 14 26h9l-3 12 12-18h-9z" fill="#f0d48c"/></svg>',
+    gas: '<svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="22" fill="#0c2d22"/><path d="M23 9c3 6 9 9 9 17a9 9 0 0 1-18 0c0-4 2-7 4-9 0 4 2 6 4 6-1-5 0-10 1-14z" fill="#f0d48c"/></svg>',
+    water: '<svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="22" fill="#0c2d22"/><path d="M23 9s-9 11-9 17a9 9 0 0 0 18 0c0-6-9-17-9-17z" fill="#8fc3ea"/></svg>',
+    trash: '<svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="22" fill="#0c2d22"/><path d="M14 15h18M19 15v-3h8v3M16 15l2 19h10l2-19" fill="none" stroke="#f0d48c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    net: '<svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="22" fill="#0c2d22"/><path d="M11 20a17 17 0 0 1 24 0M15 25a11 11 0 0 1 16 0M19 30a5 5 0 0 1 8 0" fill="none" stroke="#f0d48c" stroke-width="3" stroke-linecap="round"/><circle cx="23" cy="34" r="2.5" fill="#f0d48c"/></svg>',
+    building: '<svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="22" fill="#0c2d22"/><path d="M15 35V12h16v23M19 17h3M25 17h3M19 22h3M25 22h3M19 27h3M25 27h3M21 35v-4h4v4" fill="none" stroke="#f0d48c" stroke-width="2.6" stroke-linecap="round"/></svg>',
+  };
+  const BILLS = [
+    { ic: 'power', t: 'برق', v: `<span class="num">${fa('46/48')}</span> درام <small>هر کیلووات‌ساعت، روز</small>`, d: `شب ${fa('36/48')}؛ تا ${fa(200)} کیلووات در ماه. مصرف بیشتر، تعرفه‌ی بالاتر.` },
+    { ic: 'gas', t: 'گاز', v: `<span class="num">${fa('143/7')}</span> درام <small>هر متر مکعب</small>`, d: 'گرمایش و آب گرم بیشتر خونه‌ها با گازه.' },
+    { ic: 'water', t: 'آب', v: `<span class="num">${fa('200/42')}</span> درام <small>هر متر مکعب</small>`, d: 'تعرفه‌ی ۲۰۲۶ ایروان.' },
+    { ic: 'trash', t: 'زباله', v: `حدود ${fa(13)} درام <small>هر متر مربع خونه، ماهانه</small>`, d: 'از ۲۰۲۵ بر اساس متراژ خونه حساب می‌شه.' },
+    { ic: 'net', t: 'اینترنت', v: `${fa(7)} تا ${fa(9)} هزار درام <small>در ماه</small>`, d: 'برای سرعت ۶۰ مگ و حجم نامحدود.' },
+    { ic: 'building', t: 'شارژ ساختمان', v: 'متفاوت <small>بسته به ساختمان</small>', d: 'نظافت، آسانسور و نگهبانی؛ قبل از امضا مبلغش رو بپرس.' },
+  ];
+  document.getElementById('bills').innerHTML = BILLS.map(b => `
+    <div class="card tile">
+      <div class="th">${ICON[b.ic]}${b.t}</div>
+      <div class="tv">${b.v}</div>
+      <div class="td">${b.d}</div>
+    </div>`).join('');
+
+  // slides 6 and 7: lists
+  const CHECK = '<svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="20" fill="#d9ae4c"/><path d="M13 22.5l6 6 12-13" fill="none" stroke="#0c2d22" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const CROSS = '<svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="20" fill="#c4532c"/><path d="M15 15l14 14M29 15 15 29" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round"/></svg>';
+  const CONTRACT = [
+    '<span class="hl">مدت قرارداد:</span> معمولاً ۶ یا ۱۲ ماه؛ کمتر از ۶ ماه معمولاً گرون‌تره.',
+    '<span class="hl">ارز اجاره</span> (درام یا دلار) و نرخ تبدیلش رو بنویس.',
+    'مشخص کن <span class="hl">کدوم قبض با کیه</span> و عدد کنتورها روز تحویل چنده.',
+    '<span class="hl">شرایط فسخ</span>، مدت اطلاع قبلی و اینکه اجاره وسط قرارداد زیاد می‌شه یا نه.',
+    'برای ثبت آدرس و گرفتن اقامت، <span class="hl">قرارداد اجاره و رضایت مالک</span> لازمه.',
+  ];
+  document.getElementById('contract').innerHTML = CONTRACT.map(t => `<li>${CHECK}<span>${t}</span></li>`).join('');
+  const SCAMS = [
+    'می‌خوان <b>قبل از دیدن خونه</b> ودیعه بدی.',
+    'حاضر نیستن <b>سند مالکیت</b> رو نشونت بدن.',
+    '«صاحبخونه» خارج از کشوره و می‌گه پول رو <b>به حساب خارجی</b> بریز.',
+  ];
+  document.getElementById('scams').innerHTML = SCAMS.map(t => `<li style="color:var(--ink)">${CROSS}<span>${t}</span></li>`).join('');
+  document.querySelectorAll('#scams b').forEach(b => { b.style.fontWeight = 'inherit'; b.style.color = 'var(--red)'; });
+
+  document.fonts.ready.then(() => {
+    document.querySelectorAll('.slide').forEach(sl => {
+      const head = sl.querySelector('.head'), stack = sl.querySelector('.stack');
+      if (head && stack) stack.style.top = (head.offsetTop + head.offsetHeight + 40) + 'px';
+    });
+    document.body.dataset.ready = '1';
+  });
+</script>
+</body>
+</html>
