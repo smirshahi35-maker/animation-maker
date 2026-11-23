@@ -13,7 +13,7 @@ S_ON = 4.866    # headlights switch on (first lit frame 146)
 S_OFF = 11.90   # headlights off, city lights revealed
 S_END = 13.93   # last source frame
 
-T0 = 1.0        # black lead-in before picture
+T0 = 0.6        # black lead-in before picture
 SLOW_HIT = 0.32 # speed right after the reveal
 TAIL = 0.9      # black tail after picture ends
 

@@ -1,13 +1,12 @@
-"""Cinematic grade + camera + titles. Writes graded 24fps video (no audio)."""
+"""Cinematic grade + camera. Writes graded 24fps video (no audio, no text)."""
 import subprocess, sys, math
 import numpy as np
 import cv2
 from timeline import (SRC, FPS, SRC_FPS, SRC_FRAMES, T0, T_ON, T_OFF, T_END, TOTAL,
                       S_OFF, src_time, _smooth)
 
-TEXT_DIR = sys.argv[1]
-OUT = sys.argv[2]
-ONLY = [float(x) for x in sys.argv[3].split(",")] if len(sys.argv) > 3 else None
+OUT = sys.argv[1]
+ONLY = [float(x) for x in sys.argv[2].split(",")] if len(sys.argv) > 2 else None
 
 SW, SH = 2336, 1080
 W, H = 1920, 1080
@@ -166,6 +165,15 @@ def bloom(x, t):
     halo = np.array([1.0, 0.55, 0.38], np.float32)    # red-orange halation fringe
     amt = 1.0 if t < T_OFF else 2.2
     x = x + amt * (0.55 * b1 * halo + 0.45 * b2)
+    # anamorphic lens streak: only the hottest points, stretched horizontally, cool blue
+    sthr = 0.78 if t < T_OFF else 0.30
+    sm = np.clip((L - sthr) / (1 - sthr), 0, 1) ** 2
+    ss = cv2.resize(sm, (PW // 4, PH // 4), interpolation=cv2.INTER_AREA)
+    streak = cv2.GaussianBlur(ss, (0, 0), sigmaX=55, sigmaY=0.7)
+    streak += 0.6 * cv2.GaussianBlur(ss, (0, 0), sigmaX=14, sigmaY=0.5)
+    streak = cv2.resize(streak, (PW, PH), interpolation=cv2.INTER_LINEAR)
+    s_amt = 3.0 if t < T_OFF else 7.5
+    x = x + s_amt * streak[..., None] * np.array([0.35, 0.62, 1.0], np.float32)
     return x
 
 
@@ -184,69 +192,6 @@ def finish(x, t):
     # fades
     fade = _smooth((t - T0) / 1.7) * (1 - _smooth((t - (T_END - 1.1)) / 1.1))
     return np.clip(x * fade, 0, 1)
-
-
-# ---------------------------------------------------------------- titles
-def load_card(name):
-    im = cv2.imread(f"{TEXT_DIR}/{name}.png", cv2.IMREAD_UNCHANGED).astype(np.float32) / 255.0
-    rgb = cv2.cvtColor(im[..., :3], cv2.COLOR_BGR2RGB)
-    a = im[..., 3:4]
-    ys, xs = np.where(a[..., 0] > 0.004)
-    pad = 60
-    y0, y1 = max(ys.min() - pad, 0), min(ys.max() + pad, H)
-    x0, x1 = max(xs.min() - pad, 0), min(xs.max() + pad, W)
-    return dict(rgb=rgb[y0:y1, x0:x1] * a[y0:y1, x0:x1], a=a[y0:y1, x0:x1], box=(y0, y1, x0, x1))
-
-CARDS = {n: load_card(n) for n in ("opening", "title_fa", "title_en", "end")}
-
-# soft dark scrim behind the title block so thin type reads over the lit road
-_b1, _b2 = CARDS["title_fa"]["box"], CARDS["title_en"]["box"]
-_cy = (min(_b1[0], _b2[0]) + max(_b1[1], _b2[1])) / 2
-_cx = (min(_b1[2], _b2[2]) + max(_b1[3], _b2[3])) / 2
-_ry = (max(_b1[1], _b2[1]) - min(_b1[0], _b2[0])) * 0.62
-_rx = (max(_b1[3], _b2[3]) - min(_b1[2], _b2[2])) * 0.80
-_Y, _X = np.mgrid[0:H, 0:W].astype(np.float32)
-_d = np.sqrt(((_X - _cx) / _rx) ** 2 + ((_Y - _cy) / _ry) ** 2)
-SCRIM = (1 - _smooth((_d - 0.25) / 0.95)).astype(np.float32)[..., None]
-
-
-def scrim(frame, t):
-    a, _, _ = card_state(t, T_ON + 0.15, T_ON + 3.4, 0.6, 0.8)
-    if a > 0.002:
-        frame *= 1 - 0.55 * a * SCRIM
-    return frame
-
-
-def card_state(t, t_in, t_out, fin=0.7, fout=0.6):
-    """opacity, blur sigma, scale"""
-    if t < t_in or t > t_out + fout:
-        return 0, 0, 1
-    a_in = _smooth((t - t_in) / fin)
-    a_out = 1 - _smooth((t - t_out) / fout)
-    a = min(a_in, a_out)
-    blur = 10 * (1 - a_in) + 8 * (1 - a_out)
-    scale = 1.035 - 0.035 * a_in + 0.012 * _smooth((t - t_in) / (t_out + fout - t_in))
-    return a, blur, scale
-
-
-def overlay(frame, name, t, t_in, t_out, fin=0.7, fout=0.6):
-    a, blur, scale = card_state(t, t_in, t_out, fin, fout)
-    if a <= 0.002:
-        return frame
-    c = CARDS[name]
-    y0, y1, x0, x1 = c["box"]
-    rgb, al = c["rgb"], c["a"]
-    h, w = al.shape[:2]
-    if abs(scale - 1) > 1e-3:
-        M = cv2.getRotationMatrix2D((w / 2, h / 2), 0, scale)
-        rgb = cv2.warpAffine(rgb, M, (w, h), flags=cv2.INTER_LINEAR)
-        al = cv2.warpAffine(al, M, (w, h), flags=cv2.INTER_LINEAR)[..., None]
-    if blur > 0.3:
-        rgb = cv2.GaussianBlur(rgb, (0, 0), blur)
-        al = cv2.GaussianBlur(al, (0, 0), blur)[..., None]
-    roi = frame[y0:y1, x0:x1]
-    frame[y0:y1, x0:x1] = roi * (1 - al * a) + rgb * a
-    return frame
 
 
 # ---------------------------------------------------------------- main loop
@@ -271,12 +216,6 @@ for i, t in enumerate(times):
         x = bloom(x, t)
         x = finish(x, t)
         out[BAR:BAR + PH] = x
-    # titles
-    out = scrim(out, t)
-    out = overlay(out, "opening", t, 0.25, 2.05, fin=0.8, fout=0.6)
-    out = overlay(out, "title_fa", t, T_ON + 0.30, T_ON + 3.4, fin=0.75, fout=0.7)
-    out = overlay(out, "title_en", t, T_ON + 0.75, T_ON + 3.4, fin=0.75, fout=0.7)
-    out = overlay(out, "end", t, T_OFF + 1.0, T_END - 0.9, fin=1.0, fout=0.8)
     out[:BAR] = 0
     out[BAR + PH:] = 0
     if ONLY is not None:

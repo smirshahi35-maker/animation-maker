@@ -1,5 +1,5 @@
 """Sound design: car-stereo music (muffled -> open -> muffled), drone in F,
-riser, impacts, whoosh, reverb tail. Writes a float WAV."""
+riser, impacts, reverb tail. Writes a float WAV."""
 import subprocess, sys, wave
 import numpy as np
 from scipy.signal import butter, sosfilt, fftconvolve
@@ -126,15 +126,7 @@ def boom(t_hit, f0, f1, decay, amp, crack=0.5):
 hit_on = boom(T_ON, 85, 36, 1.1, 0.75, crack=0.45)
 hit_off = boom(T_OFF, 70, 32, 0.8, 0.50, crack=0.20)
 
-# whoosh under the title
-w0, wd = T_ON + 0.25, 1.1
-wk = np.clip((t - w0) / wd, 0, 1)
-wenv = np.sin(np.pi * wk) ** 2 * ((t >= w0) & (t < w0 + wd))
-wh = bp(rng.normal(size=N), 500, 3200) * wenv * 0.22
-pan = wk
-whoosh = np.stack([wh * np.cos(pan * np.pi / 2), wh * np.sin(pan * np.pi / 2)], axis=1)
-
-# soft bell when the closing line appears (F5 + octave), lives in the reverb
+# soft bell as the city lights settle (F5 + octave), lives in the reverb
 b0 = T_OFF + 1.0
 btau = np.clip(t - b0, 0, None)
 bell = (np.sin(2 * np.pi * 698.46 * btau) + 0.35 * np.sin(2 * np.pi * 1396.9 * btau)
@@ -143,9 +135,9 @@ bell = st(bell * (1 - np.exp(-btau / 0.01)) * 0.07)
 
 # ------------------------------------------------------------------ mix
 send_music = (0.05 + 0.5 * _smooth((t - T_OFF) / 0.3))[:, None]
-wet = reverb(mus * send_music + hit_on * 0.22 + hit_off * 0.35 + whoosh * 0.6
+wet = reverb(mus * send_music + hit_on * 0.22 + hit_off * 0.35
              + bell * 1.5 + sh * 0.8 + riser * 0.3)
-mix = (mus + drone + sh + riser + hit_on + hit_off + whoosh + bell + 0.45 * wet)
+mix = (mus + drone + sh + riser + hit_on + hit_off + bell + 0.45 * wet)
 mix *= (1 - _smooth((t - (TOTAL - 0.6)) / 0.6))[:, None]
 # gentle glue + soft clip
 peak = np.abs(mix).max()
